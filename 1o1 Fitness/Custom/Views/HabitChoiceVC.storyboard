@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Habit Choice View Controller-->
+        <scene sceneID="JJ4-0n-Ofo">
+            <objects>
+                <viewController storyboardIdentifier="habitChoiceVC" id="Ehs-QV-iwe" customClass="HabitChoiceViewController" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UOn-5f-qLC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" restorationIdentifier="habitChoiceVC" translatesAutoresizingMaskIntoConstraints="NO" id="qbc-Tg-tdp" customClass="CardView" customModule="_o1_Fitness" customModuleProvider="target">
+                                <rect key="frame" x="20" y="109" width="280" height="350"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How often do you consume alcohol ?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6re-hU-S6u">
+                                        <rect key="frame" x="20" y="5" width="240" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="OGs-pm-oBn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How often do you smoke ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoi-pR-PFM">
+                                        <rect key="frame" x="20" y="160" width="240" height="25"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ImX-Bd-Uyy">
+                                        <rect key="frame" x="20" y="40" width="70" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="RFT-8f-3kh"/>
+                                            <constraint firstAttribute="width" constant="70" id="cbi-MV-6Hq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="Every day"/>
+                                        <connections>
+                                            <action selector="everyDayBtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="in9-dy-2wM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqZ-zz-1WX">
+                                        <rect key="frame" x="170" y="40" width="100" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Dqa-lq-YyF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="3-5 times a week"/>
+                                        <connections>
+                                            <action selector="btn3Tapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="lyY-vJ-PGo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ql-vQ-dzP">
+                                        <rect key="frame" x="20" y="80" width="110" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="xiw-Be-7J8"/>
+                                            <constraint firstAttribute="width" constant="110" id="zgs-OX-G9w"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="Only on weekends"/>
+                                        <connections>
+                                            <action selector="weekendsBtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="Sf9-Ry-FEB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baF-JR-rDK">
+                                        <rect key="frame" x="170" y="80" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="UBi-7Q-faE"/>
+                                            <constraint firstAttribute="width" constant="80" id="teA-Pa-mGK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="Occasionally"/>
+                                        <connections>
+                                            <action selector="occasionalBtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="MA6-eJ-HJc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ow-5O-Ekb">
+                                        <rect key="frame" x="20" y="195" width="70" height="30"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="Every day"/>
+                                        <connections>
+                                            <action selector="everyDay2BtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="wvE-sK-L1n"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6T-q4-5oM">
+                                        <rect key="frame" x="170" y="195" width="100" height="30"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="3-5 times a week"/>
+                                        <connections>
+                                            <action selector="btn32Tapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="KXG-Ja-FyT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVI-iF-2Jz">
+                                        <rect key="frame" x="20" y="235" width="110" height="30"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="Only on weekends"/>
+                                        <connections>
+                                            <action selector="weekends2BtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="H1i-3W-COf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fe2-Mb-XR2">
+                                        <rect key="frame" x="170" y="235" width="80" height="30"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="Occasionally"/>
+                                        <connections>
+                                            <action selector="occasional2BtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="SO8-Hg-Qrt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="32P-Bl-ztB">
+                                        <rect key="frame" x="20" y="125" width="120" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="G29-f0-VE9"/>
+                                            <constraint firstAttribute="width" constant="120" id="vw7-TS-48P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="  Never" image="ucheck"/>
+                                        <connections>
+                                            <action selector="neverBtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="J2q-8N-7ik"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXa-4s-f4z">
+                                        <rect key="frame" x="20" y="280" width="120" height="20"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="  Never" image="ucheck"/>
+                                        <connections>
+                                            <action selector="never2BtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="DIR-Bh-Fm0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aum-pw-HQQ">
+                                        <rect key="frame" x="0.0" y="310" width="280" height="40"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <action selector="okBtnTapped:" destination="Ehs-QV-iwe" eventType="touchUpInside" id="qrW-RB-Okp"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdb-Ij-CmC">
+                                        <rect key="frame" x="0.0" y="304" width="280" height="1"/>
+                                        <color key="backgroundColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="GEQ-dy-Ivd"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="d6T-q4-5oM" firstAttribute="width" secondItem="iqZ-zz-1WX" secondAttribute="width" id="01y-IP-d9f"/>
+                                    <constraint firstItem="Aum-pw-HQQ" firstAttribute="top" secondItem="qdb-Ij-CmC" secondAttribute="bottom" constant="5" id="1mG-Ir-Brz"/>
+                                    <constraint firstItem="fe2-Mb-XR2" firstAttribute="leading" secondItem="baF-JR-rDK" secondAttribute="leading" id="1u8-1t-Kvw"/>
+                                    <constraint firstItem="qdb-Ij-CmC" firstAttribute="leading" secondItem="qbc-Tg-tdp" secondAttribute="leading" id="3RD-K0-wO2"/>
+                                    <constraint firstItem="fe2-Mb-XR2" firstAttribute="top" secondItem="vVI-iF-2Jz" secondAttribute="top" id="74v-qv-jgm"/>
+                                    <constraint firstItem="xoi-pR-PFM" firstAttribute="top" secondItem="2Ql-vQ-dzP" secondAttribute="bottom" constant="50" id="7DL-Am-ve1"/>
+                                    <constraint firstItem="qdb-Ij-CmC" firstAttribute="top" secondItem="xXa-4s-f4z" secondAttribute="bottom" constant="1" id="7v2-vP-oYb"/>
+                                    <constraint firstItem="ImX-Bd-Uyy" firstAttribute="leading" secondItem="qbc-Tg-tdp" secondAttribute="leading" constant="20" id="82r-Lo-xBU"/>
+                                    <constraint firstItem="6Ow-5O-Ekb" firstAttribute="top" secondItem="xoi-pR-PFM" secondAttribute="bottom" constant="10" id="8dh-7U-pBn"/>
+                                    <constraint firstItem="xXa-4s-f4z" firstAttribute="width" secondItem="32P-Bl-ztB" secondAttribute="width" id="9wE-LU-cYv"/>
+                                    <constraint firstItem="d6T-q4-5oM" firstAttribute="leading" secondItem="iqZ-zz-1WX" secondAttribute="leading" id="AAt-cL-PYq"/>
+                                    <constraint firstItem="xXa-4s-f4z" firstAttribute="height" secondItem="32P-Bl-ztB" secondAttribute="height" id="Aqp-Hz-DMM"/>
+                                    <constraint firstItem="d6T-q4-5oM" firstAttribute="top" secondItem="6Ow-5O-Ekb" secondAttribute="top" id="D4R-fY-fMm"/>
+                                    <constraint firstItem="32P-Bl-ztB" firstAttribute="leading" secondItem="6re-hU-S6u" secondAttribute="leading" id="DAO-oq-GzL"/>
+                                    <constraint firstItem="xoi-pR-PFM" firstAttribute="leading" secondItem="6re-hU-S6u" secondAttribute="leading" id="IVU-AQ-KTV"/>
+                                    <constraint firstItem="baF-JR-rDK" firstAttribute="top" secondItem="2Ql-vQ-dzP" secondAttribute="top" id="IeG-VS-0QT"/>
+                                    <constraint firstAttribute="trailing" secondItem="6re-hU-S6u" secondAttribute="trailing" constant="20" id="JZg-uA-0Ef"/>
+                                    <constraint firstAttribute="height" constant="350" id="Jx4-rK-zmU"/>
+                                    <constraint firstItem="iqZ-zz-1WX" firstAttribute="leading" secondItem="ImX-Bd-Uyy" secondAttribute="trailing" constant="20" id="KZD-2E-Fgp"/>
+                                    <constraint firstItem="baF-JR-rDK" firstAttribute="leading" secondItem="2Ql-vQ-dzP" secondAttribute="trailing" constant="40" id="LpL-iq-RVm"/>
+                                    <constraint firstItem="fe2-Mb-XR2" firstAttribute="height" secondItem="baF-JR-rDK" secondAttribute="height" id="Ntl-Bm-7FJ"/>
+                                    <constraint firstItem="d6T-q4-5oM" firstAttribute="height" secondItem="iqZ-zz-1WX" secondAttribute="height" id="Q10-FX-Kjq"/>
+                                    <constraint firstItem="6Ow-5O-Ekb" firstAttribute="width" secondItem="ImX-Bd-Uyy" secondAttribute="width" id="QfX-ix-8dr"/>
+                                    <constraint firstItem="iqZ-zz-1WX" firstAttribute="leading" secondItem="baF-JR-rDK" secondAttribute="leading" id="R42-ca-1gC"/>
+                                    <constraint firstItem="6re-hU-S6u" firstAttribute="top" secondItem="qbc-Tg-tdp" secondAttribute="top" constant="5" id="ROr-We-IQB"/>
+                                    <constraint firstAttribute="trailing" secondItem="Aum-pw-HQQ" secondAttribute="trailing" id="Rqf-14-3Lv"/>
+                                    <constraint firstItem="iqZ-zz-1WX" firstAttribute="top" secondItem="ImX-Bd-Uyy" secondAttribute="top" id="S9T-Ov-AZM"/>
+                                    <constraint firstItem="2Ql-vQ-dzP" firstAttribute="leading" secondItem="ImX-Bd-Uyy" secondAttribute="leading" id="SJZ-LD-hD5"/>
+                                    <constraint firstItem="32P-Bl-ztB" firstAttribute="firstBaseline" secondItem="2Ql-vQ-dzP" secondAttribute="baseline" constant="20" id="TqC-aZ-skH"/>
+                                    <constraint firstItem="fe2-Mb-XR2" firstAttribute="width" secondItem="baF-JR-rDK" secondAttribute="width" id="USH-MZ-Dh9"/>
+                                    <constraint firstItem="xXa-4s-f4z" firstAttribute="top" secondItem="vVI-iF-2Jz" secondAttribute="bottom" constant="15" id="UUo-9C-bD9"/>
+                                    <constraint firstItem="vVI-iF-2Jz" firstAttribute="width" secondItem="2Ql-vQ-dzP" secondAttribute="width" id="VH0-lV-UEa"/>
+                                    <constraint firstAttribute="bottom" secondItem="Aum-pw-HQQ" secondAttribute="bottom" id="XWe-Jh-q7F"/>
+                                    <constraint firstItem="6Ow-5O-Ekb" firstAttribute="height" secondItem="ImX-Bd-Uyy" secondAttribute="height" id="Xth-ac-SHI"/>
+                                    <constraint firstAttribute="trailing" secondItem="qdb-Ij-CmC" secondAttribute="trailing" id="YAd-PJ-K45"/>
+                                    <constraint firstItem="Aum-pw-HQQ" firstAttribute="top" secondItem="xXa-4s-f4z" secondAttribute="bottom" constant="10" id="ZxQ-X3-jAE"/>
+                                    <constraint firstItem="xXa-4s-f4z" firstAttribute="leading" secondItem="32P-Bl-ztB" secondAttribute="leading" id="bkb-fy-VsP"/>
+                                    <constraint firstItem="6re-hU-S6u" firstAttribute="leading" secondItem="qbc-Tg-tdp" secondAttribute="leading" constant="20" id="d2P-j8-I5r"/>
+                                    <constraint firstItem="ImX-Bd-Uyy" firstAttribute="top" secondItem="6re-hU-S6u" secondAttribute="bottom" constant="10" id="eFv-4O-K0O"/>
+                                    <constraint firstItem="32P-Bl-ztB" firstAttribute="top" secondItem="2Ql-vQ-dzP" secondAttribute="bottom" constant="15" id="fAO-Vd-Ulc"/>
+                                    <constraint firstItem="xoi-pR-PFM" firstAttribute="height" secondItem="6re-hU-S6u" secondAttribute="height" id="fiS-ng-x5l"/>
+                                    <constraint firstItem="Aum-pw-HQQ" firstAttribute="leading" secondItem="qbc-Tg-tdp" secondAttribute="leading" id="mLY-Dt-0gP"/>
+                                    <constraint firstItem="vVI-iF-2Jz" firstAttribute="leading" secondItem="2Ql-vQ-dzP" secondAttribute="leading" id="rMb-nu-UZo"/>
+                                    <constraint firstItem="6Ow-5O-Ekb" firstAttribute="leading" secondItem="ImX-Bd-Uyy" secondAttribute="leading" id="sXe-SZ-Qs2"/>
+                                    <constraint firstItem="xoi-pR-PFM" firstAttribute="width" secondItem="6re-hU-S6u" secondAttribute="width" id="tgV-zh-faQ"/>
+                                    <constraint firstItem="vVI-iF-2Jz" firstAttribute="height" secondItem="2Ql-vQ-dzP" secondAttribute="height" id="vay-fk-dQP"/>
+                                    <constraint firstItem="iqZ-zz-1WX" firstAttribute="height" secondItem="ImX-Bd-Uyy" secondAttribute="height" id="wOj-5y-l1K"/>
+                                    <constraint firstItem="2Ql-vQ-dzP" firstAttribute="top" secondItem="ImX-Bd-Uyy" secondAttribute="bottom" constant="10" id="wme-O4-ML7"/>
+                                    <constraint firstItem="vVI-iF-2Jz" firstAttribute="top" secondItem="6Ow-5O-Ekb" secondAttribute="bottom" constant="10" id="yjV-UP-cct"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="TqC-aZ-skH"/>
+                                        <exclude reference="KZD-2E-Fgp"/>
+                                        <exclude reference="7v2-vP-oYb"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pAV-G8-xqX"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qbc-Tg-tdp" firstAttribute="centerY" secondItem="pAV-G8-xqX" secondAttribute="centerY" id="Dfv-Qx-m3Y"/>
+                            <constraint firstItem="pAV-G8-xqX" firstAttribute="trailing" secondItem="qbc-Tg-tdp" secondAttribute="trailing" constant="20" id="SHp-DS-LLz"/>
+                            <constraint firstItem="qbc-Tg-tdp" firstAttribute="leading" secondItem="pAV-G8-xqX" secondAttribute="leading" constant="20" id="ft9-yf-Oyc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bgView" destination="qbc-Tg-tdp" id="iOi-wY-AMa"/>
+                        <outlet property="btn3" destination="iqZ-zz-1WX" id="rEA-vZ-8Sj"/>
+                        <outlet property="btn32" destination="d6T-q4-5oM" id="q1n-5B-9kF"/>
+                        <outlet property="everyDay1Btn" destination="ImX-Bd-Uyy" id="X13-TE-C8K"/>
+                        <outlet property="everyday2Btn" destination="6Ow-5O-Ekb" id="Jk9-y2-JhO"/>
+                        <outlet property="never2Btn" destination="xXa-4s-f4z" id="SHK-Xe-Dhu"/>
+                        <outlet property="neverBtn" destination="32P-Bl-ztB" id="iFq-VZ-mkY"/>
+                        <outlet property="occasionalBtn" destination="baF-JR-rDK" id="cH6-wX-cy1"/>
+                        <outlet property="occsional2Btn" destination="fe2-Mb-XR2" id="ef6-gc-6B6"/>
+                        <outlet property="okBtn" destination="Aum-pw-HQQ" id="HAJ-Do-9T2"/>
+                        <outlet property="weekends2Btn" destination="vVI-iF-2Jz" id="aUx-bL-Bxc"/>
+                        <outlet property="weekendsBtn" destination="2Ql-vQ-dzP" id="sMx-KW-Tdo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wFy-ux-r1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-107.24637681159422" y="177.45535714285714"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ucheck" width="12" height="12"/>
+    </resources>
+</document>

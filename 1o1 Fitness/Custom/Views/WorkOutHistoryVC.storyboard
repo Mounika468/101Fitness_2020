@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Work Out HistoryVC-->
+        <scene sceneID="bXh-bA-rOc">
+            <objects>
+                <viewController storyboardIdentifier="wohVC" id="cZe-WI-dz1" customClass="WorkOutHistoryVC" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SKw-Gp-whg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QM8-R1-DIH" customClass="CardView" customModule="_o1_Fitness" customModuleProvider="target">
+                                <rect key="frame" x="40" y="303" width="334" height="300"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56W-LU-CC8">
+                                        <rect key="frame" x="0.0" y="250" width="334" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="e2E-sZ-3dt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <action selector="okBtnTapped:" destination="cZe-WI-dz1" eventType="touchUpInside" id="Hc1-GE-fzp"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-Nc-6f2">
+                                        <rect key="frame" x="20" y="30" width="294" height="200"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccm-zZ-nZJ">
+                                                <rect key="frame" x="10" y="10" width="274" height="190"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="cZe-WI-dz1" id="7Tj-VD-NxW"/>
+                                                </connections>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="ccm-zZ-nZJ" firstAttribute="leading" secondItem="DJr-Nc-6f2" secondAttribute="leading" constant="10" id="BDs-PT-XBH"/>
+                                            <constraint firstItem="ccm-zZ-nZJ" firstAttribute="top" secondItem="DJr-Nc-6f2" secondAttribute="top" constant="10" id="SOt-6o-Km0"/>
+                                            <constraint firstAttribute="trailing" secondItem="ccm-zZ-nZJ" secondAttribute="trailing" constant="10" id="YQg-kv-HXu"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="bbM-2i-er7"/>
+                                            <constraint firstAttribute="bottom" secondItem="ccm-zZ-nZJ" secondAttribute="bottom" id="dbE-55-lBE"/>
+                                            <constraint firstAttribute="height" constant="200" id="lfp-Us-cwU"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="56W-LU-CC8" firstAttribute="leading" secondItem="QM8-R1-DIH" secondAttribute="leading" id="JJP-An-MMX"/>
+                                    <constraint firstItem="DJr-Nc-6f2" firstAttribute="top" secondItem="QM8-R1-DIH" secondAttribute="top" constant="30" id="Xud-PO-aVy"/>
+                                    <constraint firstAttribute="trailing" secondItem="56W-LU-CC8" secondAttribute="trailing" id="hkE-9v-HaR"/>
+                                    <constraint firstAttribute="height" constant="300" id="o0C-Zg-2ZQ"/>
+                                    <constraint firstItem="DJr-Nc-6f2" firstAttribute="leading" secondItem="QM8-R1-DIH" secondAttribute="leading" constant="20" id="sB8-yI-vM1"/>
+                                    <constraint firstAttribute="trailing" secondItem="DJr-Nc-6f2" secondAttribute="trailing" constant="20" id="uKV-A1-JlV"/>
+                                    <constraint firstAttribute="bottom" secondItem="56W-LU-CC8" secondAttribute="bottom" constant="20" id="yd5-qD-CQk"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aeh-EW-LSc"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QM8-R1-DIH" firstAttribute="centerY" secondItem="aeh-EW-LSc" secondAttribute="centerY" id="2iX-B6-TDf"/>
+                            <constraint firstItem="aeh-EW-LSc" firstAttribute="trailing" secondItem="QM8-R1-DIH" secondAttribute="trailing" constant="40" id="8KG-1E-5Ng"/>
+                            <constraint firstItem="QM8-R1-DIH" firstAttribute="leading" secondItem="aeh-EW-LSc" secondAttribute="leading" constant="40" id="zdG-eF-G0X"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bgView" destination="QM8-R1-DIH" id="E2e-4e-zUQ"/>
+                        <outlet property="okBtn" destination="56W-LU-CC8" id="nu7-2Q-uIm"/>
+                        <outlet property="txtBgView" destination="DJr-Nc-6f2" id="MlO-9Q-ySl"/>
+                        <outlet property="txtView" destination="ccm-zZ-nZJ" id="mRK-mv-7nR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bFL-b8-qjC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-133.33333333333334" y="68.973214285714278"/>
+        </scene>
+    </scenes>
+</document>

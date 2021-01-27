@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WOTypeCell" rowHeight="100" id="KGk-i7-Jjw" customClass="WorkOutTypeTableViewCell" customModule="_o1_Fitness" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="368" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="368" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itb-Sx-V0j" customClass="CardView" customModule="_o1_Fitness" customModuleProvider="target">
+                        <rect key="frame" x="10" y="5" width="348" height="90"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IFs-Xf-etF">
+                        <rect key="frame" x="15" y="15" width="100" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="8Jw-IF-UI7"/>
+                            <constraint firstAttribute="width" constant="100" id="8fI-iG-3cT"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oID-ZS-QH4">
+                        <rect key="frame" x="135" y="20" width="153" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ix8-Fs-IsB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                        <color key="textColor" red="0.050980392159999999" green="0.80392156859999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khS-bT-Y5n">
+                        <rect key="frame" x="135" y="42" width="213" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="RoU-n2-SSB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                        <color key="textColor" red="1" green="0.67450980390000004" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uvt-qQ-dYm">
+                        <rect key="frame" x="288" y="37.5" width="60" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="58e-Al-rQl"/>
+                            <constraint firstAttribute="width" constant="60" id="jRM-h8-WMp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <state key="normal" title="Start"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4f-Jp-pNp">
+                        <rect key="frame" x="135" y="42" width="153" height="20"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" red="1" green="0.67450980390000004" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2it-0t-Rje">
+                        <rect key="frame" x="135" y="64" width="153" height="20"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" red="1" green="0.67450980390000004" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6p-Kc-qHy">
+                        <rect key="frame" x="331" y="39" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="Jlr-fo-G28"/>
+                            <constraint firstAttribute="height" constant="22" id="MGl-6U-eIb"/>
+                        </constraints>
+                        <state key="normal" image="arrow"/>
+                        <connections>
+                            <action selector="editBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SiC-OL-ydB"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="2it-0t-Rje" firstAttribute="leading" secondItem="oID-ZS-QH4" secondAttribute="leading" id="5aY-4j-zCc"/>
+                    <constraint firstAttribute="trailing" secondItem="Uvt-qQ-dYm" secondAttribute="trailing" constant="20" id="80T-B1-WDw"/>
+                    <constraint firstItem="o4f-Jp-pNp" firstAttribute="width" secondItem="oID-ZS-QH4" secondAttribute="width" id="BtM-uk-CyW"/>
+                    <constraint firstAttribute="bottom" secondItem="Itb-Sx-V0j" secondAttribute="bottom" constant="5" id="DLn-2W-BgN"/>
+                    <constraint firstItem="oID-ZS-QH4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-20" id="DMq-JG-fXl"/>
+                    <constraint firstAttribute="trailing" secondItem="H6p-Kc-qHy" secondAttribute="trailing" constant="15" id="Dp1-fg-DrL"/>
+                    <constraint firstItem="H6p-Kc-qHy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="DzH-ks-Kjs"/>
+                    <constraint firstItem="2it-0t-Rje" firstAttribute="width" secondItem="oID-ZS-QH4" secondAttribute="width" id="KJN-iU-Mqk"/>
+                    <constraint firstAttribute="trailing" secondItem="khS-bT-Y5n" secondAttribute="trailing" constant="20" id="Lf3-qY-Xqg"/>
+                    <constraint firstItem="o4f-Jp-pNp" firstAttribute="leading" secondItem="oID-ZS-QH4" secondAttribute="leading" id="ZOi-LA-OL3"/>
+                    <constraint firstItem="Itb-Sx-V0j" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="bKR-8L-7e8"/>
+                    <constraint firstAttribute="trailing" secondItem="oID-ZS-QH4" secondAttribute="trailing" constant="80" id="egy-0a-FKD"/>
+                    <constraint firstItem="Uvt-qQ-dYm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g0A-xT-CYB"/>
+                    <constraint firstItem="2it-0t-Rje" firstAttribute="top" secondItem="khS-bT-Y5n" secondAttribute="bottom" constant="2" id="gfs-hu-q4Y"/>
+                    <constraint firstItem="Itb-Sx-V0j" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="hpw-dT-Ym6"/>
+                    <constraint firstItem="2it-0t-Rje" firstAttribute="height" secondItem="oID-ZS-QH4" secondAttribute="height" id="jNv-ug-635"/>
+                    <constraint firstAttribute="trailing" secondItem="Itb-Sx-V0j" secondAttribute="trailing" constant="10" id="jR4-Eg-Bux"/>
+                    <constraint firstItem="IFs-Xf-etF" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jzA-gn-5bt"/>
+                    <constraint firstItem="khS-bT-Y5n" firstAttribute="top" secondItem="oID-ZS-QH4" secondAttribute="bottom" constant="2" id="mJw-yc-c4n"/>
+                    <constraint firstItem="o4f-Jp-pNp" firstAttribute="height" secondItem="oID-ZS-QH4" secondAttribute="height" id="nea-gW-XsL"/>
+                    <constraint firstItem="oID-ZS-QH4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="oEd-Tj-2Lf"/>
+                    <constraint firstItem="khS-bT-Y5n" firstAttribute="leading" secondItem="oID-ZS-QH4" secondAttribute="leading" id="vny-Bl-tvb"/>
+                    <constraint firstItem="o4f-Jp-pNp" firstAttribute="top" secondItem="oID-ZS-QH4" secondAttribute="bottom" constant="2" id="zPJ-7P-MzA"/>
+                    <constraint firstItem="IFs-Xf-etF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="zgk-BL-Abw"/>
+                    <constraint firstItem="oID-ZS-QH4" firstAttribute="leading" secondItem="IFs-Xf-etF" secondAttribute="trailing" constant="20" id="zx4-C2-GXz"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="oEd-Tj-2Lf"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="editBtn" destination="H6p-Kc-qHy" id="rxs-ol-xvk"/>
+                <outlet property="numOfExeLbl" destination="o4f-Jp-pNp" id="5zW-2W-cFk"/>
+                <outlet property="perExerLbl" destination="2it-0t-Rje" id="BMw-jo-uXi"/>
+                <outlet property="perWOLbl" destination="khS-bT-Y5n" id="PzN-jM-dy8"/>
+                <outlet property="startBtn" destination="Uvt-qQ-dYm" id="ESF-8g-40s"/>
+                <outlet property="workOutImgView" destination="IFs-Xf-etF" id="o3j-ij-41b"/>
+                <outlet property="workOutNameLbl" destination="oID-ZS-QH4" id="eg5-WD-zOE"/>
+            </connections>
+            <point key="canvasLocation" x="-84" y="121"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow" width="9" height="16"/>
+    </resources>
+</document>

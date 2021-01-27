@@ -1,0 +1,37 @@
+{
+   "Version":"0.1.0",
+   "UserAgent":"aws-amplify/cli",
+   "IdentityManager":{
+      "Default":{
+
+      }
+   },
+   "CredentialsProvider":{
+      "CognitoIdentity":{
+         "Default":{
+            "PoolId":"us-east-1_gMWu79Y0F",
+            "Region":"us-east-1"
+         }
+      }
+   },
+   "CognitoUserPool":{
+      "Default":{
+         "PoolId":"us-east-1_gMWu79Y0F",
+         "Region":"us-east-1",
+         "AppClientId":"43lgfpjlmp8sg0f2l48lqp7o6b",
+         "AppClientSecret":"arp61r4mb5p8tmgmhavmajb3ar1j4u7vrsdg4tv9perv3ffvdgh"
+      }
+   },
+   "Auth": {
+      "Default": {
+          "OAuth": {
+              "WebDomain": "mobile-staging-domain.auth.us-east-1.amazoncognito.com",
+              "AppClientId": "43lgfpjlmp8sg0f2l48lqp7o6b",
+              "AppClientSecret": "arp61r4mb5p8tmgmhavmajb3ar1j4u7vrsdg4tv9perv3ffvdgh",
+              "SignInRedirectURI": "myapp://",
+              "SignOutRedirectURI": "myapp://",
+              "Scopes": ["openid","email","profile","aws.cognito.signin.user.admin"]
+          }
+      }
+  }
+}

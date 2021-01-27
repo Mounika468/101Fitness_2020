@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressCell" rowHeight="144" id="KGk-i7-Jjw" customClass="AddressTableViewCell" customModule="_o1_Fitness" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="331" height="144"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="331" height="144"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0q-LR-Pdr">
+                        <rect key="frame" x="50" y="10" width="33" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ntw-Wu-aGJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGm-IW-fnx">
+                        <rect key="frame" x="93" y="10" width="60" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="WfT-oy-Bat"/>
+                            <constraint firstAttribute="width" constant="60" id="pOq-r2-fih"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="WfT-oy-Bat"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTt-d8-zrQ">
+                        <rect key="frame" x="50" y="35" width="221" height="20"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UwY-cL-8am">
+                        <rect key="frame" x="50" y="60" width="221" height="20"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PeQ-MK-DfR">
+                        <rect key="frame" x="50" y="85" width="221" height="20"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTH-Of-zJ5">
+                        <rect key="frame" x="20" y="51" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="IWh-ox-TNH"/>
+                            <constraint firstAttribute="width" constant="22" id="m77-ew-hUV"/>
+                        </constraints>
+                        <state key="normal" image="cradio"/>
+                        <connections>
+                            <action selector="btnCheckTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rWg-vc-KLG"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppB-h5-iuh">
+                        <rect key="frame" x="296" y="25" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="Sg7-Co-bdY"/>
+                            <constraint firstAttribute="height" constant="15" id="dfd-ap-BD3"/>
+                        </constraints>
+                        <state key="normal" image="edit"/>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ce5-Ce-gfg">
+                        <rect key="frame" x="295" y="85" width="16" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="A1R-vc-KZb"/>
+                            <constraint firstAttribute="height" constant="20" id="FEQ-cJ-lXN"/>
+                        </constraints>
+                        <state key="normal" image="trash"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="UwY-cL-8am" firstAttribute="top" secondItem="bTt-d8-zrQ" secondAttribute="bottom" constant="5" id="2L6-8f-qhr"/>
+                    <constraint firstItem="bTt-d8-zrQ" firstAttribute="height" secondItem="R0q-LR-Pdr" secondAttribute="height" id="3a0-43-sSb"/>
+                    <constraint firstAttribute="trailing" secondItem="ppB-h5-iuh" secondAttribute="trailing" constant="20" id="5pO-dV-cFp"/>
+                    <constraint firstItem="ce5-Ce-gfg" firstAttribute="trailing" secondItem="ppB-h5-iuh" secondAttribute="trailing" id="6EK-WY-aUZ"/>
+                    <constraint firstItem="ce5-Ce-gfg" firstAttribute="top" secondItem="PeQ-MK-DfR" secondAttribute="top" id="6rP-7Z-VZc"/>
+                    <constraint firstItem="R0q-LR-Pdr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="EmE-C4-9xw"/>
+                    <constraint firstItem="PeQ-MK-DfR" firstAttribute="leading" secondItem="UwY-cL-8am" secondAttribute="leading" id="HDr-86-le2"/>
+                    <constraint firstItem="qGm-IW-fnx" firstAttribute="leading" secondItem="R0q-LR-Pdr" secondAttribute="trailing" constant="10" id="HxL-oS-6Rk"/>
+                    <constraint firstItem="UwY-cL-8am" firstAttribute="width" secondItem="bTt-d8-zrQ" secondAttribute="width" id="K9N-eS-OPC"/>
+                    <constraint firstItem="R0q-LR-Pdr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="KUG-v3-hhs"/>
+                    <constraint firstItem="QTH-Of-zJ5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-10" id="OF1-O5-XkU"/>
+                    <constraint firstItem="qGm-IW-fnx" firstAttribute="top" secondItem="R0q-LR-Pdr" secondAttribute="top" id="UEJ-fp-Zn0"/>
+                    <constraint firstItem="UwY-cL-8am" firstAttribute="leading" secondItem="bTt-d8-zrQ" secondAttribute="leading" id="b0c-wQ-9yL"/>
+                    <constraint firstItem="PeQ-MK-DfR" firstAttribute="top" secondItem="UwY-cL-8am" secondAttribute="bottom" constant="5" id="die-gy-6vS"/>
+                    <constraint firstItem="ppB-h5-iuh" firstAttribute="top" secondItem="bTt-d8-zrQ" secondAttribute="top" constant="-10" id="eNv-0w-04U"/>
+                    <constraint firstItem="qGm-IW-fnx" firstAttribute="height" secondItem="R0q-LR-Pdr" secondAttribute="height" id="ipK-7J-vCV"/>
+                    <constraint firstItem="PeQ-MK-DfR" firstAttribute="width" secondItem="UwY-cL-8am" secondAttribute="width" id="lAL-X9-7aA"/>
+                    <constraint firstAttribute="trailing" secondItem="bTt-d8-zrQ" secondAttribute="trailing" constant="60" id="mhs-XG-JuW"/>
+                    <constraint firstItem="bTt-d8-zrQ" firstAttribute="leading" secondItem="R0q-LR-Pdr" secondAttribute="leading" id="q1O-oD-Vcx"/>
+                    <constraint firstItem="UwY-cL-8am" firstAttribute="height" secondItem="bTt-d8-zrQ" secondAttribute="height" id="qu6-co-H51"/>
+                    <constraint firstItem="bTt-d8-zrQ" firstAttribute="top" secondItem="qGm-IW-fnx" secondAttribute="bottom" constant="5" id="t95-8k-CbS"/>
+                    <constraint firstItem="PeQ-MK-DfR" firstAttribute="height" secondItem="UwY-cL-8am" secondAttribute="height" id="uO8-36-9el"/>
+                    <constraint firstItem="QTH-Of-zJ5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="xxe-EU-2ba"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressTypeLbl" destination="qGm-IW-fnx" id="8pJ-h8-XAU"/>
+                <outlet property="btnCheck" destination="QTH-Of-zJ5" id="IiR-Ci-BxQ"/>
+                <outlet property="cityLbl" destination="UwY-cL-8am" id="lGo-fH-ayr"/>
+                <outlet property="deleteBtn" destination="ce5-Ce-gfg" id="DqS-Fc-LVX"/>
+                <outlet property="editBtn" destination="ppB-h5-iuh" id="e5t-gY-pI7"/>
+                <outlet property="nameLbl" destination="R0q-LR-Pdr" id="4o0-QU-3aV"/>
+                <outlet property="phonrLbl" destination="PeQ-MK-DfR" id="M9U-zj-qkF"/>
+                <outlet property="streetLbl" destination="bTt-d8-zrQ" id="UaC-JV-Tzn"/>
+            </connections>
+            <point key="canvasLocation" x="145.6521739130435" y="186.16071428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cradio" width="14" height="14"/>
+        <image name="edit" width="31" height="29"/>
+        <image name="trash" width="16.5" height="21"/>
+    </resources>
+</document>

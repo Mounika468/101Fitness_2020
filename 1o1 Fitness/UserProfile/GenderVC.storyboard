@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Gender View Controller-->
+        <scene sceneID="Pls-Cu-xdB">
+            <objects>
+                <viewController storyboardIdentifier="genderVC" id="J26-TH-p39" customClass="GenderViewController" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="20F-30-hF6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Your Gender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sv0-Jv-64j">
+                                <rect key="frame" x="87.5" y="140" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="i0Z-04-vTD"/>
+                                    <constraint firstAttribute="width" constant="200" id="vTR-qc-TyW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbN-bz-8Vf" customClass="ProfileHeaderView" customModule="_o1_Fitness" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="qPY-8C-dta"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulK-Lb-ZgD" customClass="ProfileBottomView" customModule="_o1_Fitness" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="587" width="375" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="oak-5f-ur3"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QT7-IA-LmK">
+                                <rect key="frame" x="151.5" y="190" width="72" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="Hw7-Kw-jdB"/>
+                                    <constraint firstAttribute="height" constant="72" id="dU0-by-xIY"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="gfemale"/>
+                                <connections>
+                                    <action selector="femaleBtnTapped:" destination="J26-TH-p39" eventType="touchUpInside" id="vAB-AJ-pz1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vM-WD-xym">
+                                <rect key="frame" x="151.5" y="354" width="72" height="72"/>
+                                <state key="normal" title="Button" image="gmixGen"/>
+                                <connections>
+                                    <action selector="mixBtnTapped:" destination="J26-TH-p39" eventType="touchUpInside" id="9lt-YO-QlW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oal-L9-qQF">
+                                <rect key="frame" x="151.5" y="272" width="72" height="72"/>
+                                <state key="normal" title="Button" image="gmale"/>
+                                <connections>
+                                    <action selector="maleBtnTapped:" destination="J26-TH-p39" eventType="touchUpInside" id="myG-rP-fXk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1vM-WD-xym" firstAttribute="centerX" secondItem="oal-L9-qQF" secondAttribute="centerX" id="5DR-Su-YWO"/>
+                            <constraint firstItem="8nZ-IX-s2i" firstAttribute="bottom" secondItem="ulK-Lb-ZgD" secondAttribute="bottom" constant="20" id="8n8-qw-cpL"/>
+                            <constraint firstItem="8nZ-IX-s2i" firstAttribute="trailing" secondItem="ulK-Lb-ZgD" secondAttribute="trailing" id="A9V-cN-eIg"/>
+                            <constraint firstItem="1vM-WD-xym" firstAttribute="top" secondItem="oal-L9-qQF" secondAttribute="bottom" constant="10" id="D34-Tl-gXD"/>
+                            <constraint firstItem="sv0-Jv-64j" firstAttribute="centerX" secondItem="8nZ-IX-s2i" secondAttribute="centerX" id="Ffn-2D-yTL"/>
+                            <constraint firstItem="QT7-IA-LmK" firstAttribute="top" secondItem="sv0-Jv-64j" secondAttribute="bottom" constant="20" id="NZQ-HP-z2T"/>
+                            <constraint firstItem="8nZ-IX-s2i" firstAttribute="trailing" secondItem="QbN-bz-8Vf" secondAttribute="trailing" id="PMQ-Lv-d1w"/>
+                            <constraint firstItem="oal-L9-qQF" firstAttribute="centerX" secondItem="QT7-IA-LmK" secondAttribute="centerX" id="PdO-YJ-MZ3"/>
+                            <constraint firstItem="1vM-WD-xym" firstAttribute="width" secondItem="oal-L9-qQF" secondAttribute="width" id="VT0-Kp-iYZ"/>
+                            <constraint firstItem="oal-L9-qQF" firstAttribute="top" secondItem="QT7-IA-LmK" secondAttribute="bottom" constant="10" id="WZh-E9-LX0"/>
+                            <constraint firstItem="QbN-bz-8Vf" firstAttribute="top" secondItem="8nZ-IX-s2i" secondAttribute="top" id="Wjf-cF-n4d"/>
+                            <constraint firstItem="ulK-Lb-ZgD" firstAttribute="leading" secondItem="8nZ-IX-s2i" secondAttribute="leading" id="X7z-ML-k9h"/>
+                            <constraint firstItem="1vM-WD-xym" firstAttribute="height" secondItem="oal-L9-qQF" secondAttribute="height" id="a70-pu-A5h"/>
+                            <constraint firstItem="oal-L9-qQF" firstAttribute="height" secondItem="QT7-IA-LmK" secondAttribute="height" id="en4-e7-rCH"/>
+                            <constraint firstItem="QT7-IA-LmK" firstAttribute="centerX" secondItem="8nZ-IX-s2i" secondAttribute="centerX" id="lEZ-Gw-lO5"/>
+                            <constraint firstItem="oal-L9-qQF" firstAttribute="width" secondItem="QT7-IA-LmK" secondAttribute="width" id="m1G-gH-KPO"/>
+                            <constraint firstItem="QbN-bz-8Vf" firstAttribute="leading" secondItem="8nZ-IX-s2i" secondAttribute="leading" id="on8-sd-SdT"/>
+                            <constraint firstItem="sv0-Jv-64j" firstAttribute="top" secondItem="QbN-bz-8Vf" secondAttribute="bottom" constant="20" id="wE9-bv-pXm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8nZ-IX-s2i"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DP7-SD-pvd"/>
+                    <connections>
+                        <outlet property="bottomView" destination="ulK-Lb-ZgD" id="HUY-39-8ii"/>
+                        <outlet property="femaleBtn" destination="QT7-IA-LmK" id="aKB-WQ-2ww"/>
+                        <outlet property="headerView" destination="QbN-bz-8Vf" id="cI8-1E-bfn"/>
+                        <outlet property="maleBtn" destination="oal-L9-qQF" id="hjK-q3-ref"/>
+                        <outlet property="mixBtn" destination="1vM-WD-xym" id="Q5q-m0-ELI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="07x-cW-FDs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3848.8000000000002" y="948.57571214392806"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="gfemale" width="77" height="78"/>
+        <image name="gmale" width="76.5" height="76"/>
+        <image name="gmixGen" width="77" height="78"/>
+    </resources>
+</document>

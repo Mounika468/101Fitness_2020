@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkOutView" customModule="_o1_Fitness" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="fKE-XX-FWK"/>
+                <outlet property="nodataLbl" destination="0si-v3-J8h" id="lhb-GO-1Fh"/>
+                <outlet property="restLbl" destination="Uwe-bH-B8b" id="4h4-r2-LZe"/>
+                <outlet property="restView" destination="Mbq-jg-75S" id="C0H-k1-dnc"/>
+                <outlet property="workOutTableView" destination="N9s-nD-YoB" id="vbo-Pp-TP3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="435" height="328"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N9s-nD-YoB">
+                    <rect key="frame" x="0.0" y="0.0" width="435" height="294"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="separatorColor" red="0.050980392159999999" green="0.80392156859999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="XKP-PB-bDl"/>
+                        <outlet property="delegate" destination="-1" id="JUB-zq-z1G"/>
+                    </connections>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait for 24 hours, your program calendar generation is in-progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0si-v3-J8h">
+                    <rect key="frame" x="30" y="44" width="375" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="Vt9-sc-3va"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbq-jg-75S">
+                    <rect key="frame" x="0.0" y="44" width="435" height="100"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="restIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nha-to-gEm">
+                            <rect key="frame" x="100" y="23" width="54" height="54"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="54" id="srs-T8-bI5"/>
+                                <constraint firstAttribute="height" constant="54" id="yWC-7F-BSl"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwe-bH-B8b">
+                            <rect key="frame" x="174" y="39.5" width="60.5" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="6YV-s4-iCI"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="16"/>
+                            <color key="textColor" systemColor="systemYellowColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.023529411764705882" green="0.023529411764705882" blue="0.023529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="nha-to-gEm" firstAttribute="centerY" secondItem="Mbq-jg-75S" secondAttribute="centerY" id="47I-dK-nye"/>
+                        <constraint firstItem="Uwe-bH-B8b" firstAttribute="centerY" secondItem="nha-to-gEm" secondAttribute="centerY" id="R3C-Ub-8Tz"/>
+                        <constraint firstItem="nha-to-gEm" firstAttribute="leading" secondItem="Mbq-jg-75S" secondAttribute="leading" constant="100" id="ed4-0Z-UR0"/>
+                        <constraint firstItem="Uwe-bH-B8b" firstAttribute="leading" secondItem="nha-to-gEm" secondAttribute="trailing" constant="20" id="sh4-hD-YA6"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="0si-v3-J8h" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="AAY-Li-L23"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="N9s-nD-YoB" secondAttribute="bottom" id="AgS-kZ-CoF"/>
+                <constraint firstItem="0si-v3-J8h" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="JNu-xK-WoK"/>
+                <constraint firstItem="Mbq-jg-75S" firstAttribute="top" secondItem="0si-v3-J8h" secondAttribute="top" id="N91-W8-cLy"/>
+                <constraint firstItem="N9s-nD-YoB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OFA-2G-KwH"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="N9s-nD-YoB" secondAttribute="trailing" id="SMB-go-awS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0si-v3-J8h" secondAttribute="trailing" constant="30" id="TgF-4B-Y5E"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Mbq-jg-75S" secondAttribute="trailing" id="U0j-41-wu7"/>
+                <constraint firstItem="Mbq-jg-75S" firstAttribute="width" secondItem="0si-v3-J8h" secondAttribute="width" id="VX7-xw-YSl"/>
+                <constraint firstItem="Mbq-jg-75S" firstAttribute="leading" secondItem="0si-v3-J8h" secondAttribute="leading" id="cNN-04-VKz"/>
+                <constraint firstItem="Mbq-jg-75S" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="j4B-2I-99H"/>
+                <constraint firstItem="Mbq-jg-75S" firstAttribute="height" secondItem="0si-v3-J8h" secondAttribute="height" id="po2-3e-qv0"/>
+                <constraint firstItem="N9s-nD-YoB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qBY-CP-Tpy"/>
+                <constraint firstItem="0si-v3-J8h" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="rA0-Np-pWD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="VX7-xw-YSl"/>
+                    <exclude reference="cNN-04-VKz"/>
+                    <exclude reference="JNu-xK-WoK"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="-120" y="-60"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="restIcon" width="54" height="54"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

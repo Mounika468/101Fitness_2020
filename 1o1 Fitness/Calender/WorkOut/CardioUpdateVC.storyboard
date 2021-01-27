@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Cardio UpdateVC-->
+        <scene sceneID="4eI-Fg-cvf">
+            <objects>
+                <viewController storyboardIdentifier="cardioUpdateVC" id="21z-Us-CGV" customClass="CardioUpdateVC" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AGa-rw-xRZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommended" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwg-q5-lSG">
+                                <rect key="frame" x="174" y="134" width="100" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="ASt-2a-8zV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                <color key="textColor" red="0.59215686270000001" green="1" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4Q-sO-nk3">
+                                <rect key="frame" x="204" y="164" width="40" height="20"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oak-SQ-hbo">
+                                <rect key="frame" x="294" y="134" width="80" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="FAh-1P-4gg"/>
+                                    <constraint firstAttribute="width" constant="80" id="N3w-rb-0Zi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="6" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="azk-I0-Hmb">
+                                <rect key="frame" x="314" y="164" width="40" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="5cb-hh-iKn"/>
+                                    <constraint firstAttribute="width" constant="40" id="b0R-Cj-d7U"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="21z-Us-CGV" id="JQ8-mA-d32"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytd-Om-Rcs">
+                                <rect key="frame" x="314" y="186" width="40" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="5XV-8J-J6d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQz-ss-8HL">
+                                <rect key="frame" x="70" y="164" width="60" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="mge-BP-e2T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                                <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distance" translatesAutoresizingMaskIntoConstraints="NO" id="1Of-3e-wu5">
+                                <rect key="frame" x="40" y="166.5" width="20" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="JSZ-dM-iyb"/>
+                                    <constraint firstAttribute="height" constant="15" id="Qhj-4G-gZQ"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="azk-I0-Hmb" firstAttribute="centerX" secondItem="oak-SQ-hbo" secondAttribute="centerX" id="0wC-WJ-nVD"/>
+                            <constraint firstItem="gQz-ss-8HL" firstAttribute="height" secondItem="H4Q-sO-nk3" secondAttribute="height" id="2iy-Ag-I6n"/>
+                            <constraint firstItem="Ytd-Om-Rcs" firstAttribute="centerX" secondItem="azk-I0-Hmb" secondAttribute="centerX" id="2zP-D2-fs2"/>
+                            <constraint firstItem="gQz-ss-8HL" firstAttribute="leading" secondItem="1Of-3e-wu5" secondAttribute="trailing" constant="10" id="4BS-nN-9XC"/>
+                            <constraint firstItem="Mwg-q5-lSG" firstAttribute="top" secondItem="oak-SQ-hbo" secondAttribute="top" id="Fii-Oo-0QY"/>
+                            <constraint firstItem="H4Q-sO-nk3" firstAttribute="width" secondItem="azk-I0-Hmb" secondAttribute="width" id="FwQ-Ej-OqG"/>
+                            <constraint firstItem="oak-SQ-hbo" firstAttribute="leading" secondItem="Mwg-q5-lSG" secondAttribute="trailing" constant="20" id="Hwt-7x-Rgk"/>
+                            <constraint firstItem="H4Q-sO-nk3" firstAttribute="height" secondItem="azk-I0-Hmb" secondAttribute="height" id="Mzf-ez-LLZ"/>
+                            <constraint firstItem="H4Q-sO-nk3" firstAttribute="centerX" secondItem="Mwg-q5-lSG" secondAttribute="centerX" id="OnA-Vg-eD4"/>
+                            <constraint firstItem="Ytd-Om-Rcs" firstAttribute="width" secondItem="azk-I0-Hmb" secondAttribute="width" id="QxH-dK-EfV"/>
+                            <constraint firstItem="azk-I0-Hmb" firstAttribute="top" secondItem="oak-SQ-hbo" secondAttribute="bottom" constant="5" id="VIZ-mo-KNS"/>
+                            <constraint firstItem="Ytd-Om-Rcs" firstAttribute="top" secondItem="azk-I0-Hmb" secondAttribute="bottom" constant="2" id="VLd-Wg-aAR"/>
+                            <constraint firstItem="Mwg-q5-lSG" firstAttribute="height" secondItem="oak-SQ-hbo" secondAttribute="height" id="mpK-JQ-ksD"/>
+                            <constraint firstItem="H4Q-sO-nk3" firstAttribute="top" secondItem="azk-I0-Hmb" secondAttribute="top" id="pPe-QS-KgP"/>
+                            <constraint firstItem="YkA-yk-npN" firstAttribute="trailing" secondItem="oak-SQ-hbo" secondAttribute="trailing" constant="40" id="pUO-Nz-mmh"/>
+                            <constraint firstItem="1Of-3e-wu5" firstAttribute="leading" secondItem="YkA-yk-npN" secondAttribute="leading" constant="40" id="toh-JL-ymm"/>
+                            <constraint firstItem="gQz-ss-8HL" firstAttribute="top" secondItem="H4Q-sO-nk3" secondAttribute="top" id="wXS-1q-mdC"/>
+                            <constraint firstItem="1Of-3e-wu5" firstAttribute="centerY" secondItem="gQz-ss-8HL" secondAttribute="centerY" id="xIf-nP-I0F"/>
+                            <constraint firstItem="oak-SQ-hbo" firstAttribute="top" secondItem="YkA-yk-npN" secondAttribute="top" constant="90" id="zWZ-vb-O4u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YkA-yk-npN"/>
+                    </view>
+                    <connections>
+                        <outlet property="compTxtField" destination="azk-I0-Hmb" id="xcy-vo-ZHT"/>
+                        <outlet property="recomLbl" destination="H4Q-sO-nk3" id="U5t-Kx-L1W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="88E-3F-0EY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="167" y="-467"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="distance" width="18.5" height="14.5"/>
+    </resources>
+</document>

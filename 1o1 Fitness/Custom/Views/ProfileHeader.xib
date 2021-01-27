@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileHeaderView" customModule="_o1_Fitness" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="i5R-aP-Qfz"/>
+                <outlet property="countLbl" destination="cjw-If-Q9H" id="D4g-gg-qor"/>
+                <outlet property="logoImgView" destination="Z1f-g2-zPz" id="Wdl-8D-Zn8"/>
+                <outlet property="skipBtn" destination="AAD-UK-C71" id="qs2-Na-AYn"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="436" height="227"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 / 11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjw-If-Q9H">
+                    <rect key="frame" x="20" y="10" width="80" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="W60-mD-j06"/>
+                        <constraint firstAttribute="width" constant="80" id="vvI-G8-VlA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-UK-C71">
+                    <rect key="frame" x="326" y="10" width="100" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="RfR-cu-Mq7"/>
+                        <constraint firstAttribute="height" constant="30" id="uxD-N4-ZSm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                    <state key="normal" title="Skip" backgroundImage="souterline"/>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Z1f-g2-zPz">
+                    <rect key="frame" x="118" y="74" width="200" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="107-cZ-kiS"/>
+                        <constraint firstAttribute="height" constant="100" id="2M7-9q-tfz"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="AAD-UK-C71" firstAttribute="top" secondItem="cjw-If-Q9H" secondAttribute="top" id="6v0-14-jnY"/>
+                <constraint firstItem="Z1f-g2-zPz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="CWh-5c-put"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AAD-UK-C71" secondAttribute="trailing" constant="10" id="Cli-Bz-6Gc"/>
+                <constraint firstItem="cjw-If-Q9H" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="Upg-iy-zTv"/>
+                <constraint firstItem="cjw-If-Q9H" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="WTM-q7-ZN3"/>
+                <constraint firstItem="Z1f-g2-zPz" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="oJq-TC-R9n"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="153.62318840579712" y="-71.316964285714278"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="logo" width="122" height="105"/>
+        <image name="souterline" width="144" height="41"/>
+    </resources>
+</document>

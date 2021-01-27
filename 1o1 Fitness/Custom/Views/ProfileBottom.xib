@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileBottomView" customModule="_o1_Fitness" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="BTH-lS-5Ue"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="434" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DkS-Z6-pgU">
+                    <rect key="frame" x="157" y="25" width="120" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUp-yH-7ZP">
+                            <rect key="frame" x="0.0" y="0.0" width="42" height="40"/>
+                            <state key="normal" image="leftArrow"/>
+                            <connections>
+                                <action selector="leftBtnTapped:" destination="-1" eventType="touchUpInside" id="vQN-Dj-ZKY"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="od4-wg-EwY">
+                            <rect key="frame" x="78" y="0.0" width="42" height="40"/>
+                            <state key="normal" image="rightArrow"/>
+                            <connections>
+                                <action selector="rightBtnTapped:" destination="-1" eventType="touchUpInside" id="aX4-cN-rxD"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="NGz-CD-Z39"/>
+                        <constraint firstAttribute="width" constant="120" id="OZj-TF-3yQ"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="DkS-Z6-pgU" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="iRw-eB-C87"/>
+                <constraint firstItem="DkS-Z6-pgU" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="u8j-um-ap3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="166.66666666666669" y="-120.53571428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="leftArrow" width="42" height="42"/>
+        <image name="rightArrow" width="42" height="42"/>
+    </resources>
+</document>

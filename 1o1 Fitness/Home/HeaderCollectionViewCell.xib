@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="headerCV" id="gTV-IL-0wX" customClass="HeaderCollectionViewCell" customModule="_o1_Fitness" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="158" height="154"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="158" height="154"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xzZ-1Y-8Bb">
+                        <rect key="frame" x="5" y="5" width="148" height="144"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGn-FN-rv7" customClass="PieChart" customModule="PieCharts">
+                        <rect key="frame" x="8" y="8" width="142" height="138"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="outerRadius">
+                                <real key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="innerRadius">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="selectedOffset">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="VGn-FN-rv7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Jsc-qq-4S5"/>
+                <constraint firstItem="VGn-FN-rv7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="L9H-MT-NPv"/>
+                <constraint firstAttribute="bottom" secondItem="VGn-FN-rv7" secondAttribute="bottom" constant="8" id="RYd-2i-ywL"/>
+                <constraint firstAttribute="trailing" secondItem="xzZ-1Y-8Bb" secondAttribute="trailing" constant="5" id="V1k-NN-XZH"/>
+                <constraint firstAttribute="trailing" secondItem="VGn-FN-rv7" secondAttribute="trailing" constant="8" id="dbh-LL-ehl"/>
+                <constraint firstItem="xzZ-1Y-8Bb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="jsX-il-yH5"/>
+                <constraint firstAttribute="bottom" secondItem="xzZ-1Y-8Bb" secondAttribute="bottom" constant="5" id="lDN-nw-40D"/>
+                <constraint firstItem="xzZ-1Y-8Bb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="yeH-Xi-HIE"/>
+            </constraints>
+            <size key="customSize" width="158" height="154"/>
+            <connections>
+                <outlet property="imgView" destination="xzZ-1Y-8Bb" id="NWW-yr-rXl"/>
+                <outlet property="pieChart" destination="VGn-FN-rv7" id="q1e-Mp-hZD"/>
+            </connections>
+            <point key="canvasLocation" x="-168.11594202898553" y="103.79464285714285"/>
+        </collectionViewCell>
+    </objects>
+</document>

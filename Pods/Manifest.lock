@@ -1,0 +1,242 @@
+PODS:
+  - Alamofire (4.9.0)
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
+  - AWSAuthCore (2.9.10):
+    - AWSCore (= 2.9.10)
+  - AWSCognitoIdentityProvider (2.9.10):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.9.10)
+  - AWSCognitoIdentityProviderASF (1.0.1)
+  - AWSCore (2.9.10)
+  - AWSMobileClient (2.9.10):
+    - AWSAuthCore (= 2.9.10)
+    - AWSCognitoIdentityProvider (= 2.9.10)
+  - BarcodeScanner (5.0.0)
+  - Cosmos (20.0.1)
+  - CropViewController (2.5.5)
+  - DynamicBlurView (4.1.0)
+  - Firebase/Auth (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 6.9.2)
+  - Firebase/CoreOnly (6.34.0):
+    - FirebaseCore (= 6.10.4)
+  - Firebase/Messaging (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.7.1)
+  - FirebaseAuth (6.9.2):
+    - FirebaseCore (~> 6.10)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (6.10.4):
+    - FirebaseCoreDiagnostics (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30906.0)
+  - FirebaseInstallations (1.7.0):
+    - FirebaseCore (~> 6.10)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+    - PromisesObjC (~> 1.2)
+  - FirebaseInstanceID (4.8.0):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+  - FirebaseMessaging (4.7.1):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstanceID (~> 4.7)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Reachability (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+    - Protobuf (>= 3.9.2, ~> 3.9)
+  - FSCalendar (2.8.1)
+  - GoogleDataTransport (7.5.1):
+    - nanopb (~> 1.30906.0)
+  - GoogleMaps/Base (3.6.0)
+  - GooglePlaces (3.6.0):
+    - GoogleMaps/Base (= 3.6.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.7.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.7.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (6.7.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.7.2)"
+  - GoogleUtilities/Reachability (6.7.2):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.7.2):
+    - GoogleUtilities/Logger
+  - GTMAppAuth (1.1.0):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher (~> 1.4)
+  - GTMSessionFetcher (1.5.0):
+    - GTMSessionFetcher/Full (= 1.5.0)
+  - GTMSessionFetcher/Core (1.5.0)
+  - GTMSessionFetcher/Full (1.5.0):
+    - GTMSessionFetcher/Core (= 1.5.0)
+  - IQKeyboardManagerSwift (6.5.6)
+  - KeychainAccess (4.2.1)
+  - KYCircularProgress (1.2.1)
+  - MBCircularProgressBar (0.3.5)
+  - nanopb (1.30906.0):
+    - nanopb/decode (= 1.30906.0)
+    - nanopb/encode (= 1.30906.0)
+  - nanopb/decode (1.30906.0)
+  - nanopb/encode (1.30906.0)
+  - Parchment (2.4.0)
+  - PieCharts (0.0.7)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+  - PromisesObjC (1.2.11)
+  - Protobuf (3.14.0)
+  - razorpay-pod (1.1.7)
+  - ReachabilitySwift (5.0.0)
+  - SDWebImage (5.9.4):
+    - SDWebImage/Core (= 5.9.4)
+  - SDWebImage/Core (5.9.4)
+  - Stripe (19.3.0)
+  - SwiftGifOrigin (1.7.0)
+  - TwilioVideo (3.0.1)
+  - youtube-ios-player-helper (1.0.2)
+
+DEPENDENCIES:
+  - Alamofire (= 4.9)
+  - AWSCore (~> 2.9.0)
+  - AWSMobileClient (~> 2.9.0)
+  - BarcodeScanner
+  - Cosmos (~> 20.0)
+  - CropViewController
+  - Firebase/Auth
+  - Firebase/Messaging
+  - FSCalendar
+  - GooglePlaces (~> 3.6.0)
+  - GoogleSignIn
+  - IQKeyboardManagerSwift
+  - KeychainAccess
+  - KYCircularProgress
+  - MBCircularProgressBar
+  - Parchment
+  - PieCharts
+  - PopupDialog (~> 1.1)
+  - razorpay-pod (~> 1.1.5)
+  - ReachabilitySwift
+  - SDWebImage
+  - Stripe (~> 19.3.0)
+  - SwiftGifOrigin
+  - TwilioVideo (~> 3.0.1)
+  - youtube-ios-player-helper
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AppAuth
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSMobileClient
+    - BarcodeScanner
+    - Cosmos
+    - CropViewController
+    - DynamicBlurView
+    - Firebase
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseInstallations
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - FSCalendar
+    - GoogleDataTransport
+    - GoogleMaps
+    - GooglePlaces
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - IQKeyboardManagerSwift
+    - KeychainAccess
+    - KYCircularProgress
+    - MBCircularProgressBar
+    - nanopb
+    - Parchment
+    - PieCharts
+    - PopupDialog
+    - PromisesObjC
+    - Protobuf
+    - razorpay-pod
+    - ReachabilitySwift
+    - SDWebImage
+    - Stripe
+    - SwiftGifOrigin
+    - TwilioVideo
+    - youtube-ios-player-helper
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  AWSAuthCore: d6d222a7eeae403f968afb5b9b3975bd96340d91
+  AWSCognitoIdentityProvider: 5e72467f174a970e9d357fc06666e3f32e6eda70
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
+  AWSCore: 22b6bbc6761ca9981d878155d11bc02edd681a64
+  AWSMobileClient: a0768be5b34a5a2eb39fd3fcd5d4f14125d4ebbb
+  BarcodeScanner: 2f5a53198eae49dc39bf61f2c1f05c04e01ff72d
+  Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
+  CropViewController: bd3ff11eeeaadc1e267bb9c3f3e9ee67a52d3285
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
+  Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
+  FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
+  FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebaseInstanceID: bd3ffc24367f901a43c063b36c640b345a4a5dd1
+  FirebaseMessaging: 5eca4ef173de76253352511aafef774caa1cba2a
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
+  GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
+  GooglePlaces: 1b9d29cf3e164903d873600f511f42acdfe85294
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
+  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
+  KYCircularProgress: caa1a8d1defa2acf05d2f84ea681467fbdb6d353
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
+  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  Parchment: 002785473861582385db5c6725165353c500198e
+  PieCharts: 30e50dfa7dc19e5b84e9878d32089673ef5d0453
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  Protobuf: 0cde852566359049847168e51bd1c690e0f70056
+  razorpay-pod: 6ee0c8c7afad8eead9524d5eb516bc35ac1604ef
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
+  Stripe: dd5bfdd5f1daed4f9ddbfb47e9449ec302f9f708
+  SwiftGifOrigin: fbd6cf37afcfcf97a5c3db996ddc0492e5c5c145
+  TwilioVideo: 569fc99e004ea82614d96e1657969dacd07aa6aa
+  youtube-ios-player-helper: 40b96e52c22445f0fdc43731cefa32c67075ff81
+
+PODFILE CHECKSUM: 0900074cbd13714f00c6110b2b1af8a8f99123c4
+
+COCOAPODS: 1.10.1

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_light.ttf">
+            <string>Lato-Light</string>
+        </array>
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestCell" rowHeight="100" id="KGk-i7-Jjw" customClass="RestTableViewCell" customModule="_o1_Fitness" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="331" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="331" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGi-2d-y69" customClass="CardView" customModule="_o1_Fitness" customModuleProvider="target">
+                        <rect key="frame" x="10" y="5" width="311" height="90"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REST" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdh-VZ-GIT">
+                        <rect key="frame" x="162.5" y="18.5" width="158.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="eAX-49-D04"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="17"/>
+                        <color key="textColor" red="1" green="0.67450980390000004" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rest-1" translatesAutoresizingMaskIntoConstraints="NO" id="pAJ-XP-SV4">
+                        <rect key="frame" x="58.5" y="3" width="94" height="94"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="94" id="PHA-LI-Fkf"/>
+                            <constraint firstAttribute="width" constant="94" id="uCQ-fR-QIF"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkK-2h-eWB">
+                        <rect key="frame" x="162.5" y="41.5" width="158.5" height="21"/>
+                        <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="Sdh-VZ-GIT" firstAttribute="leading" secondItem="pAJ-XP-SV4" secondAttribute="trailing" constant="10" id="6jN-wS-2nj"/>
+                    <constraint firstAttribute="bottom" secondItem="NGi-2d-y69" secondAttribute="bottom" constant="5" id="99o-nb-mNk"/>
+                    <constraint firstItem="NGi-2d-y69" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="A1o-ed-wJB"/>
+                    <constraint firstItem="OkK-2h-eWB" firstAttribute="top" secondItem="Sdh-VZ-GIT" secondAttribute="bottom" constant="2" id="A3s-9A-m0b"/>
+                    <constraint firstItem="NGi-2d-y69" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="J05-Za-gV2"/>
+                    <constraint firstItem="OkK-2h-eWB" firstAttribute="width" secondItem="Sdh-VZ-GIT" secondAttribute="width" id="UXs-JZ-uj8"/>
+                    <constraint firstItem="pAJ-XP-SV4" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-60" id="WMo-gM-14e"/>
+                    <constraint firstItem="OkK-2h-eWB" firstAttribute="leading" secondItem="Sdh-VZ-GIT" secondAttribute="leading" id="YKN-fK-XZi"/>
+                    <constraint firstAttribute="trailing" secondItem="Sdh-VZ-GIT" secondAttribute="trailing" constant="10" id="ceu-6H-lom"/>
+                    <constraint firstItem="pAJ-XP-SV4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dgu-1F-Vox"/>
+                    <constraint firstItem="OkK-2h-eWB" firstAttribute="height" secondItem="Sdh-VZ-GIT" secondAttribute="height" id="diU-uQ-zDg"/>
+                    <constraint firstItem="Sdh-VZ-GIT" firstAttribute="centerY" secondItem="pAJ-XP-SV4" secondAttribute="centerY" constant="-21" id="qOD-dX-ChA"/>
+                    <constraint firstAttribute="trailing" secondItem="NGi-2d-y69" secondAttribute="trailing" constant="10" id="yvr-3X-crU"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="restImgView" destination="pAJ-XP-SV4" id="1jv-MT-dF5"/>
+                <outlet property="restLbl" destination="Sdh-VZ-GIT" id="o1i-LK-EdE"/>
+                <outlet property="restVal" destination="OkK-2h-eWB" id="WRA-dv-dZK"/>
+            </connections>
+            <point key="canvasLocation" x="154.34782608695653" y="139.95535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="rest-1" width="36" height="43"/>
+    </resources>
+</document>

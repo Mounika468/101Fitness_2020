@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="profileCV" id="gTV-IL-0wX" customClass="TrainerCollectionViewCell" customModule="_o1_Fitness" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="416" height="184"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="416" height="184"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4yV-zY-p8Z" customClass="CardView" customModule="_o1_Fitness" customModuleProvider="target">
+                        <rect key="frame" x="10" y="5" width="396" height="174"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nDC-Nt-Xb8">
+                        <rect key="frame" x="168" y="10" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="33r-UK-tmL"/>
+                            <constraint firstAttribute="width" constant="80" id="oc6-hd-VvX"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVV-mV-D4h">
+                        <rect key="frame" x="20" y="92" width="376" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="QV4-5l-jRd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VtM-z2-sBp">
+                        <rect key="frame" x="195.5" y="122" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="eV1-M2-qyf"/>
+                            <constraint firstAttribute="height" constant="25" id="z6e-Xi-Mjj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="9"/>
+                        <state key="normal" title="3.6" backgroundImage="star">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="4yV-zY-p8Z" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="55a-qX-7zu"/>
+                <constraint firstItem="lVV-mV-D4h" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="CE2-0u-EN3"/>
+                <constraint firstItem="lVV-mV-D4h" firstAttribute="top" secondItem="nDC-Nt-Xb8" secondAttribute="bottom" constant="2" id="DgF-pC-72d"/>
+                <constraint firstItem="nDC-Nt-Xb8" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Hew-x5-KgZ"/>
+                <constraint firstItem="VtM-z2-sBp" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="RNe-C9-LyI"/>
+                <constraint firstItem="VtM-z2-sBp" firstAttribute="top" secondItem="lVV-mV-D4h" secondAttribute="bottom" constant="10" id="abr-8y-XHk"/>
+                <constraint firstAttribute="trailing" secondItem="4yV-zY-p8Z" secondAttribute="trailing" constant="10" id="chk-UU-01R"/>
+                <constraint firstItem="4yV-zY-p8Z" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="eUE-gi-WQ6"/>
+                <constraint firstAttribute="trailing" secondItem="lVV-mV-D4h" secondAttribute="trailing" constant="20" id="ium-pH-oc2"/>
+                <constraint firstItem="nDC-Nt-Xb8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="n0L-29-bVI"/>
+                <constraint firstAttribute="bottom" secondItem="4yV-zY-p8Z" secondAttribute="bottom" constant="5" id="sA8-3Y-wFl"/>
+            </constraints>
+            <size key="customSize" width="416" height="184"/>
+            <connections>
+                <outlet property="bgView" destination="4yV-zY-p8Z" id="SE0-MZ-q8X"/>
+                <outlet property="nameLbl" destination="lVV-mV-D4h" id="sPe-Wv-b87"/>
+                <outlet property="profileImgView" destination="nDC-Nt-Xb8" id="iaq-Am-h1b"/>
+                <outlet property="ratingBtn" destination="VtM-z2-sBp" id="4dQ-Yi-YXM"/>
+            </connections>
+            <point key="canvasLocation" x="100.00000000000001" y="76.339285714285708"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="star" width="46" height="43"/>
+    </resources>
+</document>

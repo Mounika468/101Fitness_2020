@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Diet List View Controller-->
+        <scene sceneID="EfS-MW-3Tb">
+            <objects>
+                <viewController storyboardIdentifier="DietListVC" id="gpE-eg-JiO" customClass="DietListViewController" customModule="_O1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aca-cQ-om1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="100" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ph1-5p-s89">
+                                <rect key="frame" x="20" y="44" width="335" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="gpE-eg-JiO" id="6Qh-Pi-0xJ"/>
+                                    <outlet property="delegate" destination="gpE-eg-JiO" id="fwD-07-OhS"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eyb-zR-9Rm" firstAttribute="trailing" secondItem="Ph1-5p-s89" secondAttribute="trailing" constant="20" id="4kk-R0-BJ0"/>
+                            <constraint firstItem="eyb-zR-9Rm" firstAttribute="bottom" secondItem="Ph1-5p-s89" secondAttribute="bottom" constant="20" id="6Vf-rE-SaF"/>
+                            <constraint firstItem="Ph1-5p-s89" firstAttribute="leading" secondItem="eyb-zR-9Rm" secondAttribute="leading" constant="20" id="AUL-b5-9yI"/>
+                            <constraint firstItem="Ph1-5p-s89" firstAttribute="top" secondItem="eyb-zR-9Rm" secondAttribute="top" constant="44" id="wgw-Kn-FOc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eyb-zR-9Rm"/>
+                    </view>
+                    <connections>
+                        <outlet property="dietListTableView" destination="Ph1-5p-s89" id="N4m-GY-7ht"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="teo-eg-KFI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-13" y="173"/>
+        </scene>
+    </scenes>
+</document>

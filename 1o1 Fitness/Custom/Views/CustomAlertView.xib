@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_heavy.ttf">
+            <string>Lato-Heavy</string>
+        </array>
+        <array key="lato_light.ttf">
+            <string>Lato-Light</string>
+        </array>
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomAlertView" customModule="_o1_Fitness" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="D3b-UW-QoQ"/>
+                <outlet property="descLbl" destination="pTT-lX-Mup" id="2yb-Of-TiY"/>
+                <outlet property="headerLbl" destination="Bab-QD-6dc" id="IKW-ob-IPD"/>
+                <outlet property="keepBrowsingBtn" destination="bsu-Rf-Ej0" id="VtP-gg-j9i"/>
+                <outlet property="singupBtn" destination="jbV-Hx-DhX" id="4fU-Gp-iMD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="218"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Members only" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bab-QD-6dc">
+                    <rect key="frame" x="10" y="30" width="355" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="1V8-Uo-BYE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Heavy" family="Lato" pointSize="19"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbV-Hx-DhX">
+                    <rect key="frame" x="0.0" y="158" width="187.5" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <state key="normal" title="Sign up"/>
+                    <connections>
+                        <action selector="singUpBtnTapped:" destination="-1" eventType="touchUpInside" id="Ack-WB-cVB"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsu-Rf-Ej0">
+                    <rect key="frame" x="187.5" y="158" width="187.5" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="2D3-CL-db9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <state key="normal" title="Keep browsing"/>
+                    <connections>
+                        <action selector="keepBrowsingBtnTapped:" destination="-1" eventType="touchUpInside" id="Sdj-Jd-d8k"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up to get a free Subscription" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTT-lX-Mup">
+                    <rect key="frame" x="10" y="85" width="355" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="NlX-Fc-siH"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-VB-ucK">
+                    <rect key="frame" x="0.0" y="156" width="375" height="1"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Dvd-d5-cdM"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RoG-5F-99N">
+                    <rect key="frame" x="0.0" y="206" width="375" height="9"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bsu-Rf-Ej0" secondAttribute="bottom" constant="20" id="2Qe-aY-loh"/>
+                <constraint firstItem="Bab-QD-6dc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="6dY-Jm-kxM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Bab-QD-6dc" secondAttribute="trailing" constant="10" id="Dd8-aj-3YO"/>
+                <constraint firstItem="jbV-Hx-DhX" firstAttribute="height" secondItem="bsu-Rf-Ej0" secondAttribute="height" id="GRP-U9-L01"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="pTT-lX-Mup" secondAttribute="trailing" constant="10" id="S1z-QP-yvV"/>
+                <constraint firstItem="M1c-VB-ucK" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="dLK-IT-uMN"/>
+                <constraint firstItem="jbV-Hx-DhX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="h11-JM-1gq"/>
+                <constraint firstItem="jbV-Hx-DhX" firstAttribute="bottom" secondItem="bsu-Rf-Ej0" secondAttribute="bottom" id="koV-qH-UTq"/>
+                <constraint firstItem="M1c-VB-ucK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="la4-9e-3mF"/>
+                <constraint firstItem="pTT-lX-Mup" firstAttribute="top" secondItem="Bab-QD-6dc" secondAttribute="bottom" constant="30" id="nrn-Gy-4Tf"/>
+                <constraint firstItem="pTT-lX-Mup" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="q5d-UQ-ABS"/>
+                <constraint firstItem="Bab-QD-6dc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="rEr-6z-2IM"/>
+                <constraint firstItem="bsu-Rf-Ej0" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="sie-DJ-J37"/>
+                <constraint firstItem="jbV-Hx-DhX" firstAttribute="width" secondItem="bsu-Rf-Ej0" secondAttribute="width" id="soQ-rL-mRC"/>
+                <constraint firstItem="jbV-Hx-DhX" firstAttribute="top" secondItem="M1c-VB-ucK" secondAttribute="bottom" constant="1" id="vX8-zk-Nkb"/>
+                <constraint firstItem="bsu-Rf-Ej0" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="vvr-nI-etH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="138.40000000000001" y="-49.475262368815599"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

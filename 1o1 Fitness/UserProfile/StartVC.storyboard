@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Start View Controller-->
+        <scene sceneID="ktf-Do-3cD">
+            <objects>
+                <viewController storyboardIdentifier="startVC" id="seh-mf-gfq" customClass="StartViewController" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wPc-Q4-pEO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="2ut-jt-Pc8">
+                                <rect key="frame" x="107" y="144" width="200" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="382-Sq-gbN"/>
+                                    <constraint firstAttribute="height" constant="120" id="zwc-E1-mzB"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PzK-AB-u7L">
+                                <rect key="frame" x="20" y="284" width="374" height="118"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="118" id="Xmf-yV-3JY"/>
+                                </constraints>
+                                <string key="text">We just need to ask you a few quick questions so we can calculate your recommended daily calories and help you achieve your goals</string>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3C-fq-7ua">
+                                <rect key="frame" x="117" y="462" width="180" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="EAd-le-gCF"/>
+                                    <constraint firstAttribute="height" constant="40" id="rmH-IG-6od"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
+                                <state key="normal" title="Start" backgroundImage="loginBtn">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startBtnTapped:" destination="seh-mf-gfq" eventType="touchUpInside" id="NGa-Sb-s3e"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="s1W-NH-POv" firstAttribute="trailing" secondItem="PzK-AB-u7L" secondAttribute="trailing" constant="20" id="1uq-nw-C5t"/>
+                            <constraint firstItem="PzK-AB-u7L" firstAttribute="leading" secondItem="s1W-NH-POv" secondAttribute="leading" constant="20" id="4fk-dh-YM1"/>
+                            <constraint firstItem="PzK-AB-u7L" firstAttribute="top" secondItem="2ut-jt-Pc8" secondAttribute="bottom" constant="20" id="QfE-Jb-A4g"/>
+                            <constraint firstItem="s1W-NH-POv" firstAttribute="bottom" secondItem="N3C-fq-7ua" secondAttribute="bottom" constant="60" id="bqh-zp-JGR"/>
+                            <constraint firstItem="N3C-fq-7ua" firstAttribute="top" secondItem="PzK-AB-u7L" secondAttribute="bottom" constant="60" id="dle-qx-YHt"/>
+                            <constraint firstItem="N3C-fq-7ua" firstAttribute="centerX" secondItem="s1W-NH-POv" secondAttribute="centerX" id="f98-rW-ltS"/>
+                            <constraint firstItem="2ut-jt-Pc8" firstAttribute="centerX" secondItem="s1W-NH-POv" secondAttribute="centerX" id="kWK-ey-d8g"/>
+                            <constraint firstItem="2ut-jt-Pc8" firstAttribute="top" secondItem="s1W-NH-POv" secondAttribute="top" constant="100" id="xXW-Dr-Mwu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="s1W-NH-POv"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bqh-zp-JGR"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="qer-uU-0rX"/>
+                    <connections>
+                        <outlet property="imgView" destination="2ut-jt-Pc8" id="UX1-ce-VIA"/>
+                        <outlet property="startBtn" destination="N3C-fq-7ua" id="YQQ-RY-3Jg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="exV-wy-Fuu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3301" y="950"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="loginBtn" width="236" height="44"/>
+        <image name="logo" width="122" height="105"/>
+    </resources>
+</document>

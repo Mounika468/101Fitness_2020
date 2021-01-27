@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Youtube VideoVC-->
+        <scene sceneID="eAu-6S-c0F">
+            <objects>
+                <viewController storyboardIdentifier="YoutubeVideoVC" id="fE5-r8-62u" customClass="YoutubeVideoVC" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QnP-aD-roJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1H-rf-VF1" customClass="YTPlayerView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PpK-ab-hRZ"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PpK-ab-hRZ" firstAttribute="trailing" secondItem="z1H-rf-VF1" secondAttribute="trailing" id="CXF-oT-OaV"/>
+                            <constraint firstItem="z1H-rf-VF1" firstAttribute="leading" secondItem="PpK-ab-hRZ" secondAttribute="leading" id="J6T-jc-ufn"/>
+                            <constraint firstItem="PpK-ab-hRZ" firstAttribute="bottom" secondItem="z1H-rf-VF1" secondAttribute="bottom" id="PIw-5Q-KmC"/>
+                            <constraint firstItem="z1H-rf-VF1" firstAttribute="top" secondItem="PpK-ab-hRZ" secondAttribute="top" id="zbe-hg-dYv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="z1H-rf-VF1" id="U3y-Y4-GTS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="69U-hc-XlE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="349" y="208"/>
+        </scene>
+    </scenes>
+</document>

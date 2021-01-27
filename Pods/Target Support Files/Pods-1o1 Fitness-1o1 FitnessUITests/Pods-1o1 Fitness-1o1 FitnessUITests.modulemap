@@ -1,0 +1,6 @@
+framework module Pods_1o1_Fitness_1o1_FitnessUITests {
+  umbrella header "Pods-1o1 Fitness-1o1 FitnessUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

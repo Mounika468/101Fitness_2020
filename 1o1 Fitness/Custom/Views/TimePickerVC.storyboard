@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Time PickerVC-->
+        <scene sceneID="f7O-aQ-Ccv">
+            <objects>
+                <viewController storyboardIdentifier="TimePickerVC" id="DRQ-cJ-dVf" customClass="TimePickerVC" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6jG-Nc-8kh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="KWm-8E-jO9">
+                                <rect key="frame" x="0.0" y="381" width="375" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="1KR-4I-jS5"/>
+                                </constraints>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aB8-90-jE1">
+                                <rect key="frame" x="40" y="607" width="50" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelBtnTapped:" destination="DRQ-cJ-dVf" eventType="touchUpInside" id="mFf-vK-gLO"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jc2-2f-kGD">
+                                <rect key="frame" x="187" y="607" width="1" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="o8R-Il-ZPD"/>
+                                    <constraint firstAttribute="width" constant="1" id="xii-YQ-X84"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLa-ZO-xHC">
+                                <rect key="frame" x="285" y="607" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="iCX-AP-fqT"/>
+                                    <constraint firstAttribute="height" constant="30" id="tGY-fz-Jhs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneBtnTapped:" destination="DRQ-cJ-dVf" eventType="touchUpInside" id="hdK-Km-CHe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PyV-jD-4ah" firstAttribute="trailing" secondItem="CLa-ZO-xHC" secondAttribute="trailing" constant="40" id="3El-vc-EFd"/>
+                            <constraint firstItem="Jc2-2f-kGD" firstAttribute="centerX" secondItem="PyV-jD-4ah" secondAttribute="centerX" id="6xH-Gy-b8p"/>
+                            <constraint firstItem="KWm-8E-jO9" firstAttribute="leading" secondItem="PyV-jD-4ah" secondAttribute="leading" id="ABa-xL-SQJ"/>
+                            <constraint firstItem="aB8-90-jE1" firstAttribute="width" secondItem="CLa-ZO-xHC" secondAttribute="width" id="Ads-yf-49m"/>
+                            <constraint firstItem="CLa-ZO-xHC" firstAttribute="top" secondItem="KWm-8E-jO9" secondAttribute="bottom" constant="10" id="DhC-HA-Cpt"/>
+                            <constraint firstItem="aB8-90-jE1" firstAttribute="bottom" secondItem="CLa-ZO-xHC" secondAttribute="bottom" id="FVH-C1-68Y"/>
+                            <constraint firstItem="PyV-jD-4ah" firstAttribute="bottom" secondItem="CLa-ZO-xHC" secondAttribute="bottom" constant="30" id="Tdo-g8-jXM"/>
+                            <constraint firstItem="PyV-jD-4ah" firstAttribute="bottom" secondItem="Jc2-2f-kGD" secondAttribute="bottom" constant="10" id="Yax-A8-jKq"/>
+                            <constraint firstItem="aB8-90-jE1" firstAttribute="leading" secondItem="PyV-jD-4ah" secondAttribute="leading" constant="40" id="b8S-oq-Z5L"/>
+                            <constraint firstItem="aB8-90-jE1" firstAttribute="height" secondItem="CLa-ZO-xHC" secondAttribute="height" id="faz-CH-Ikm"/>
+                            <constraint firstItem="Jc2-2f-kGD" firstAttribute="bottom" secondItem="CLa-ZO-xHC" secondAttribute="bottom" id="iUY-C5-oj6"/>
+                            <constraint firstItem="KWm-8E-jO9" firstAttribute="trailing" secondItem="PyV-jD-4ah" secondAttribute="trailing" id="uxQ-1k-6Hk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PyV-jD-4ah"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Yax-A8-jKq"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="doneBtn" destination="CLa-ZO-xHC" id="KvL-Vl-9pN"/>
+                        <outlet property="timePicker" destination="KWm-8E-jO9" id="kql-GT-BP3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ipd-aC-uDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="85.599999999999994" y="136.28185907046478"/>
+        </scene>
+    </scenes>
+</document>
