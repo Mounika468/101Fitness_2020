@@ -64,11 +64,11 @@ final class TrainerbyLocationAPI: API
                 fcmtoken = ""
             }
         }
-        
+        let timeZone = TimeZone.current.identifier
         let traineeId = UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) ?? ""
         let longitude = parameters["longitude"] as! String
         let latitude = parameters["latitude"] as! String
-        let postBody : [String: Any] = ["longitude": longitude,"latitude":latitude,"details": details,"trainee_id": traineeId,"pagesize": 12,"pagenumber": pageNumber, "registration_token":fcmtoken]
+        let postBody : [String: Any] = ["longitude": longitude,"latitude":latitude,"details": details,"trainee_id": traineeId,"pagesize": 12,"pagenumber": pageNumber, "registration_token":fcmtoken,"trainee_timezone":timeZone]
 
         let urlString = getTrainerByLocation
         guard let url = URL(string: urlString) else {return}

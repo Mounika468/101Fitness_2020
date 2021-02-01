@@ -16,7 +16,7 @@ class ProgramViewController: UIViewController {
         }
     }
     @IBOutlet weak var nodataLbl: UILabel!
-    @IBOutlet weak var tblHeightConstrain: NSLayoutConstraint!
+ //   @IBOutlet weak var tblHeightConstrain: NSLayoutConstraint!
     @IBOutlet weak var prTblView: UITableView!
     var programsArr : [MyPrograms]?
     override func viewDidLoad() {
@@ -50,10 +50,10 @@ class ProgramViewController: UIViewController {
     }
     func reloadPrograms() {
         self.prTblView.reloadData()
-        self.tblHeightConstrain.constant = CGFloat((self.programsArr?.count ?? 0) * 125 + 40)
+//        self.tblHeightConstrain.constant = CGFloat((self.programsArr?.count ?? 0) * 150 + 100)
     }
     func getMyPrograms() {
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
                var authenticatedHeaders: [String: String] {
                    [
@@ -91,7 +91,11 @@ class ProgramViewController: UIViewController {
         }
 
     }
-   
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+//        self.tblHeightConstrain.constant = CGFloat((self.programsArr?.count ?? 0) * 150 + 100)
+    }
 
 }
 extension ProgramViewController: UITableViewDelegate,UITableViewDataSource {
@@ -150,12 +154,15 @@ extension ProgramViewController: UITableViewDelegate,UITableViewDataSource {
         
        
     }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        self.tblHeightConstrain.constant = tableView.contentSize.height + 100
+//    }
     @objc func detailsTapped(sender : UIButton){
         let prName = self.programsArr![sender.tag]
         self.getMyProgramDetails(orderId: prName.order_id!)
     }
     func getMyProgramDetails(orderId : Int) {
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
                var authenticatedHeaders: [String: String] {

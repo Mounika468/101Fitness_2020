@@ -11,7 +11,7 @@ import Alamofire
 
 class NotificationsViewController: UIViewController {
 
-    @IBOutlet weak var tblHeightConstraint: NSLayoutConstraint!
+   // @IBOutlet weak var tblHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var nodataLbl: UILabel!
     @IBOutlet weak var notificationTbleView: UITableView!
     var notificationsArr : [Notifications]?
@@ -48,10 +48,10 @@ class NotificationsViewController: UIViewController {
     }
     func reloadPrograms() {
         self.notificationTbleView.reloadData()
-        self.tblHeightConstraint.constant = CGFloat((self.notificationsArr?.count ?? 0) * 85 + 150)
+//        self.tblHeightConstraint.constant = CGFloat((self.notificationsArr?.count ?? 0) * 85 + 200)
     }
     func getMyNotifications() {
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
                var authenticatedHeaders: [String: String] {
                    [
@@ -136,11 +136,19 @@ class NotificationsViewController: UIViewController {
             }
         }
     }
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//
+////        self.tblHeightConstraint.constant = CGFloat((self.notificationsArr?.count ?? 0) * 85 + 200)
+//    }
+
 
 }
 extension NotificationsViewController: UITableViewDelegate,UITableViewDataSource {
     
-    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        self.tblHeightConstraint.constant = CGFloat((self.notificationsArr?.count ?? 0) * 85 + 200)
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 85

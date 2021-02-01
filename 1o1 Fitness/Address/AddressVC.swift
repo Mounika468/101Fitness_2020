@@ -202,6 +202,18 @@ class AddressVC: UIViewController, UITextFieldDelegate {
         if self.countryCode2Btn.isHidden == false {
             self.countryCode2Btn.isHidden = true
         }
+        var countryCode = "+1"
+        var countryCode2 = "+91"
+        let location = LocationSingleton.sharedInstance.country ?? ""
+        if location.lowercased() == "india" {
+            countryCode = "+91"
+            countryCode2 = "+1"
+        }else if location.lowercased() == "us" || location.lowercased() == "united states" {
+            countryCode = "+1"
+            countryCode2 = "+91"
+        }
+        self.countryCode1Btn.setTitle(countryCode, for: .normal)
+        self.countryCode2Btn.setTitle(countryCode2, for: .normal)
        }
        
        override func viewWillDisappear(_ animated: Bool) {
@@ -284,7 +296,7 @@ class AddressVC: UIViewController, UITextFieldDelegate {
         }
     }
     if textField == nametxtField {
-            let allowedCharacters = CharacterSet(charactersIn:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz").inverted
+            let allowedCharacters = CharacterSet(charactersIn:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz ").inverted
                 let components = string.components(separatedBy: allowedCharacters)
                 let filtered = components.joined(separator: "")
                 

@@ -46,7 +46,7 @@ class FoodSearchVC: UIViewController {
                self.view.addSubview(navigationView)
                self.navigationController?.isNavigationBarHidden = true
        
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+//        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         searchBar.setImage(UIImage(named: "hover"), for: .search, state: .normal)
         self.searchBar.layer.cornerRadius = 15.0
@@ -167,7 +167,7 @@ class FoodSearchVC: UIViewController {
             searchString = self.searchBar.text!
         }
         
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         GetDietByDateAPI.getNutritionixFoodItems(header: authenticatedHeaders, searchString: searchString, successHandler: { (foodDetails) in
            // self.foodArray = foodDetails
             print("fooddetails ae \(foodDetails)")

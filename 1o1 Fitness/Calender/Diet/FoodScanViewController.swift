@@ -97,7 +97,7 @@ class FoodScanViewController: UIViewController {
             self.saturatedTxt.isEnabled = false
             self.fatTxt.isEnabled = false
             self.choleTxt.isEnabled = false
-            self.proteinTxt.isEnabled = true
+            self.proteinTxt.isEnabled = false
             self.sodiumTxt.isEnabled = false
             self.sugarsTxt.isEnabled = false
             self.fibertxt.isEnabled = false
@@ -233,7 +233,7 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
             ]
         }
        DispatchQueue.main.async {
-           LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
        }
            GetDietByDateAPI.getNutritionixFoodItemsByBarcode(header: authenticatedHeaders, searchString: self.selectedUPC, successHandler: { (foodDetails) in
               // self.foodArray = foodDetails
@@ -288,7 +288,7 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
             ]
         }
        DispatchQueue.main.async {
-           LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
        }
            GetDietByDateAPI.getNutritionixFoodItemsByBarcode(header: authenticatedHeaders, searchString: "801541071005", successHandler: { (foodDetails) in
               // self.foodArray = foodDetails
@@ -347,7 +347,7 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
              ]
          }
         DispatchQueue.main.async {
-            LoadingOverlay.shared.showOverlay(view: self.view)
+            LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         }
             GetDietByDateAPI.getNutritionixFoodItemsByBarcode(header: authenticatedHeaders, searchString: barcode, successHandler: { (foodDetails) in
                // self.foodArray = foodDetails
@@ -397,11 +397,13 @@ extension FoodScanViewController: UITextFieldDelegate {
             let newString: NSString =
                 currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
+        }else if (textField == self.foodNameTxt || textField == brandNameTxt ){
+            return true
         }else {
             let allowedCharacters = CharacterSet.decimalDigits
                 let characterSet = CharacterSet(charactersIn: string)
                 return allowedCharacters.isSuperset(of: characterSet)
         }
-        //return true
+        
     }
 }

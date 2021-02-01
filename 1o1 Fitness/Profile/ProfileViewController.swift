@@ -1381,16 +1381,24 @@ extension ProfileViewController: UITextFieldDelegate {
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)
         }else if textField == self.phoneTxtField {
-            let allowedCharacters = CharacterSet(charactersIn:"+0123456789 ")//Here change this characters based on your requirement
-                       let characterSet = CharacterSet(charactersIn: string)
-                       return allowedCharacters.isSuperset(of: characterSet)
-        }else if textField == self.phoneTxtField   {
-            let maxLength = 10
-               let currentString: NSString = textField.text! as NSString
-               let newString: NSString =
-                   currentString.replacingCharacters(in: range, with: string) as NSString
-               return newString.length <= maxLength
-        }else if textField == self.diableTxtField || textField == self.foodATxtField || textField == self.medicalTxtField || textField == self.habbitsTxtField  {
+            let allowedCharacters = CharacterSet(charactersIn:"0123456789").inverted
+                let components = string.components(separatedBy: allowedCharacters)
+                let filtered = components.joined(separator: "")
+                
+                if string == filtered {
+                    
+                   let maxLength = 10
+                    let currentString: NSString = textField.text! as NSString
+                    let newString: NSString =
+                        currentString.replacingCharacters(in: range, with: string) as NSString
+                   
+                    return newString.length <= maxLength
+
+                } else {
+                    
+                    return false
+                }
+            }else if textField == self.diableTxtField || textField == self.foodATxtField || textField == self.medicalTxtField || textField == self.habbitsTxtField  {
             let maxLength = 100
                let currentString: NSString = textField.text! as NSString
                let newString: NSString =
@@ -1408,6 +1416,15 @@ extension ProfileViewController: UITextFieldDelegate {
         textField.text = ""
         if self.countryCode2Btn.isHidden == false {
             self.countryCode2Btn.isHidden = true
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.phoneTxtField {
+            if self.phoneTxtField.text?.count ?? 0 < 10 {
+            self.presentAlertWithTitle(title: "", message: "Please enter valid phone number", options: "OK") { (_) in
+                
+            }
+            }
         }
     }
 }

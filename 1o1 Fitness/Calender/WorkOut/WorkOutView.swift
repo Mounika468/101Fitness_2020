@@ -14,9 +14,11 @@ protocol workOutViewDelegate {
     func cardioMessageSelected(indexPath : NSIndexPath, cardio: Cardio,commentType: CommentsType)
     func completeWorkOut()
     func completeCardio()
+    func setWoParentViewHeight(height: CGFloat)
 }
 class WorkOutView: UIView {
 
+    @IBOutlet weak var woTblConstrain: NSLayoutConstraint!
     @IBOutlet weak var restLbl: UILabel!
     @IBOutlet weak var restView: UIView!
     @IBOutlet weak var workOutTableView: UITableView!
@@ -52,6 +54,19 @@ class WorkOutView: UIView {
         self.nodataLbl.isHidden = true
         self.restView.isHidden = true
         self.workOutTableView.reloadData()
+        
+        let cardio = checkIfCardioExist()
+        var height : CGFloat = 0.0
+        if cardio {
+            self.woTblConstrain.constant = CGFloat((self.workOutsArr?.workouts?.count ?? 0) * 120 + 160)
+            height = 50 + self.woTblConstrain.constant
+        }
+        else {
+            self.woTblConstrain.constant = CGFloat((self.workOutsArr?.workouts?.count ?? 0) * 120 + 40)
+            height = 50 + self.woTblConstrain.constant
+        }
+        
+        self.woViewDelegate?.setWoParentViewHeight(height: height)
     }
     func displayNoWorkouts(message:String) {
         self.nodataLbl.isHidden = false

@@ -49,12 +49,12 @@ class ProfileMenuViewController: UIViewController {
            ])
         pagingViewController.menuItemSize = .sizeToFit(minWidth: UIScreen.main.bounds.size.width/4.0, height: 60.0)
         pagingViewController.textColor = UIColor.white
-        pagingViewController.font = UIFont(name: "Lato-Semibold", size: 13.0)!
+        pagingViewController.font = UIFont(name: "Lato-Semibold", size: 12.0)!
         pagingViewController.borderColor = UIColor.white.withAlphaComponent(0.3)
         pagingViewController.menuBackgroundColor = UIColor.black
         pagingViewController.indicatorColor = AppColours.textGreen
         pagingViewController.selectedTextColor = UIColor.white
-        pagingViewController.selectedFont = UIFont(name: "Lato-Semibold", size: 13.0)!
+        pagingViewController.selectedFont = UIFont(name: "Lato-Semibold", size: 12.0)!
         addChild(pagingViewController)
         view.addSubview(pagingViewController.view)
         view.constrainToEdges(pagingViewController.view, topPosition: xBarHeight)

@@ -42,6 +42,7 @@ class WOUpdateViewController: UIViewController {
         self.tblView.register(nib, forCellReuseIdentifier: "setsCell")
         self.modifiedSets = self.setsArr
         self.hideKeyboardWhenTappedAround()
+        self.tblView.tableFooterView = UIView()
     }
     @objc func backBtnTapped(sender : UIButton){
         self.dismiss(animated: true, completion: {

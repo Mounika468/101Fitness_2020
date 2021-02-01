@@ -8,10 +8,19 @@
 
 import UIKit
 
+let refiInProgress = "pg_1o1_refund_initiated"
+let refSuccess = "pg_1o1_refund_processed"
+let refiFailed = "pg_1o1_refund_failed"
+let refRejected = "pg_1o1_refund_rejected"
+
+let success = "Success"
+let inProgress = "Inprogress"
+let failed = "Failed"
+let rejected = "Rejected"
 class OrdersViewController: UIViewController {
 
     @IBOutlet weak var nodataLbl: UILabel!
-    @IBOutlet weak var tblHeightConstraint: NSLayoutConstraint!
+   // @IBOutlet weak var tblHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var orderTblView: UITableView!
     var ordersArr : [MyOrders]?
     var navigationView = NavigationView()
@@ -43,10 +52,10 @@ class OrdersViewController: UIViewController {
     }
     func reloadPrograms() {
         self.orderTblView.reloadData()
-        self.tblHeightConstraint.constant = CGFloat((self.ordersArr?.count ?? 0) * 185 + 40)
+//        self.tblHeightConstraint.constant = CGFloat((self.ordersArr?.count ?? 0) * 210 + 60)
     }
     func getMyOrders() {
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
                var authenticatedHeaders: [String: String] {
                    [
@@ -89,7 +98,7 @@ extension OrdersViewController: UITableViewDelegate,UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 185
+           return 210
        }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.ordersArr?.count ?? 0
@@ -128,7 +137,33 @@ extension OrdersViewController: UITableViewDelegate,UITableViewDataSource {
         default:
             cell.priceValLbl.text =   String(format: "%.2f",prName.price ?? 0)
         }
-        
+        if prName.enableRefund == true {
+            cell.refundBtn.isHidden = false
+            cell.statusLbl.isHidden = true
+            cell.statusVal.isHidden = true
+            cell.refundBtn.tag = indexPath.row
+            cell.refundBtn.addTarget(self, action: #selector(refundTapped(sender:)), for: .touchUpInside)
+        }else {
+            cell.refundBtn.isHidden = true
+            let status = prName.status
+            cell.statusLbl.isHidden = false
+            cell.statusVal.isHidden = false
+            if status == refiInProgress {
+                cell.statusVal.text = inProgress
+            }else if status == rejected {
+                cell.statusVal.text = rejected
+            }else if status == refiFailed {
+                cell.statusVal.text = failed
+            }else if status == refSuccess {
+                cell.statusVal.text = success
+            }else {
+                cell.refundBtn.isHidden = true
+                cell.statusLbl.isHidden = true
+                cell.statusVal.isHidden = true
+            }
+
+        }
+       
        // cell.prssView.progress = 0.15
         return cell
     }
@@ -136,12 +171,20 @@ extension OrdersViewController: UITableViewDelegate,UITableViewDataSource {
         
        
     }
+    @objc func refundTapped(sender : UIButton){
+        let prName = self.ordersArr![sender.tag]
+       // self.getMyProgramDetails(orderId: prName.order_id!)
+        let storyboard = UIStoryboard(name: "RefundVC", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "RefundVC") as! RefundVC
+        controller.programID = prName.programId ?? ""
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     @objc func detailsTapped(sender : UIButton){
         let prName = self.ordersArr![sender.tag]
         self.getMyProgramDetails(orderId: prName.order_id!)
     }
     func getMyProgramDetails(orderId : Int) {
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
                var authenticatedHeaders: [String: String] {

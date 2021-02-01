@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -55,12 +55,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmd-PI-ymQ">
-                        <rect key="frame" x="20" y="215" width="304" height="12"/>
-                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="10"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HwQ-sB-qOZ">
                         <rect key="frame" x="112" y="86.5" width="120" height="4"/>
                         <constraints>
@@ -78,9 +72,9 @@
                         <rect key="frame" x="0.0" y="229" width="524" height="30"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MM5-Jp-D0s">
-                                <rect key="frame" x="424" y="0.0" width="70" height="30"/>
+                                <rect key="frame" x="429" y="0.0" width="65" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="qwB-6i-pnl"/>
+                                    <constraint firstAttribute="width" constant="65" id="qwB-6i-pnl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Heavy" family="Lato" pointSize="13"/>
                                 <state key="normal" title="Details"/>
@@ -105,6 +99,15 @@
                             <constraint firstItem="SnS-KG-0hu" firstAttribute="leading" secondItem="MM5-Jp-D0s" secondAttribute="trailing" constant="2" id="u7m-K4-PhA"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmd-PI-ymQ">
+                        <rect key="frame" x="20" y="227" width="429" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="MxV-se-xU1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -112,12 +115,14 @@
                     <constraint firstItem="t54-c4-84U" firstAttribute="trailing" secondItem="Aw0-XH-vJD" secondAttribute="trailing" id="2ND-dB-Y5s"/>
                     <constraint firstItem="lcz-pz-ESY" firstAttribute="centerX" secondItem="QfC-4e-O6R" secondAttribute="centerX" id="AVn-IW-amK"/>
                     <constraint firstAttribute="bottom" secondItem="t54-c4-84U" secondAttribute="bottom" id="EOD-bd-4ne"/>
-                    <constraint firstItem="Aw0-XH-vJD" firstAttribute="top" secondItem="Fmd-PI-ymQ" secondAttribute="bottom" constant="2" id="FQT-29-iBa"/>
+                    <constraint firstItem="Aw0-XH-vJD" firstAttribute="top" secondItem="Fmd-PI-ymQ" secondAttribute="top" constant="2" id="FQT-29-iBa"/>
                     <constraint firstItem="Aw0-XH-vJD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GFX-uu-SD0"/>
                     <constraint firstAttribute="bottom" secondItem="Aw0-XH-vJD" secondAttribute="bottom" id="OTF-9w-l1S"/>
                     <constraint firstItem="Fmd-PI-ymQ" firstAttribute="trailing" secondItem="QfC-4e-O6R" secondAttribute="trailing" id="QFn-KT-puf"/>
                     <constraint firstItem="Whf-Qn-JcF" firstAttribute="height" secondItem="lcz-pz-ESY" secondAttribute="height" id="SBH-T7-q9K"/>
+                    <constraint firstAttribute="trailing" secondItem="Fmd-PI-ymQ" secondAttribute="trailing" constant="95" id="UWf-Rb-MxD"/>
                     <constraint firstItem="Whf-Qn-JcF" firstAttribute="leading" secondItem="lcz-pz-ESY" secondAttribute="leading" id="WYT-WJ-zlI"/>
+                    <constraint firstAttribute="trailing" secondItem="Fmd-PI-ymQ" secondAttribute="trailing" constant="10" id="Xef-8p-41l"/>
                     <constraint firstItem="QfC-4e-O6R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="YYA-kB-Wd2"/>
                     <constraint firstItem="Fmd-PI-ymQ" firstAttribute="width" secondItem="QfC-4e-O6R" secondAttribute="width" multiplier="0.90099" id="YjR-8U-cXg"/>
                     <constraint firstItem="t54-c4-84U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="a5r-4s-Jbe"/>
@@ -133,6 +138,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="QFn-KT-puf"/>
+                        <exclude reference="Xef-8p-41l"/>
                         <exclude reference="YjR-8U-cXg"/>
                         <exclude reference="yk7-3Q-Xf3"/>
                     </mask>

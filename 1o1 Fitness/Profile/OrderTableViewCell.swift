@@ -10,6 +10,9 @@ import UIKit
 
 class OrderTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var statusVal: UILabel!
+    @IBOutlet weak var statusLbl: UILabel!
+    @IBOutlet weak var refundBtn: UIButton!
     @IBOutlet weak var piBtn: UIButton!
     @IBOutlet weak var sdateValLbl: UILabel!
     @IBOutlet weak var sDateLbl: UILabel!
@@ -30,6 +33,8 @@ class OrderTableViewCell: UITableViewCell {
         self.progName.textColor = AppColours.textGreen
         self.sDateLbl.textColor = AppColours.textGreen
         self.prDetailsLbl.textColor = AppColours.textGreen
+        self.statusLbl.textColor = AppColours.graphYello
+        self.statusVal.textColor = .white
         self.priceLbl.textColor = AppColours.textGreen
         self.trainerNameLbl.textColor = AppColours.textGreen
         self.piBtn.setTitleColor(AppColours.textGreen, for: .normal)

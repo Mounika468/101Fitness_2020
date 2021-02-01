@@ -166,13 +166,21 @@ class DietViewL: UIView {
             self.carbsLbl.text = String(format: " Carbo %.2f g/%.2f g", self.diet!.mealplan!.overall_carboHydrate_consumed,self.diet!.mealplan!.overall_carboHydrate_recommended)
             self.proteinLbl.text = String(format: " Protein %.2f g/%.2f g", self.diet!.mealplan!.overall_protein_consumed,self.diet!.mealplan!.overall_protein_recommended)
             self.fatLbl.text = String(format: " Fat %.2f g/%.2f g", self.diet!.mealplan!.overall_fat_consumed,self.diet!.mealplan!.overall_fat_recommended)
-           // self.proteinLbl.text = "Protein \(self.diet!.mealplan!.overall_protein_consumed)g/\(self.diet!.mealplan!.overall_protein_recommended)g "
-           // self.fatLbl.text = "Fat \(self.diet!.mealplan!.overall_fat_consumed)g/\(self.diet!.mealplan!.overall_fat_recommended)g "
             self.consumedEnergyLbl.text = String(format: "%.2f Cals ",self.diet!.mealplan!.overall_calories_consumed)
             self.recomEnergyLbl.text = String(format: "%.2f Cals ",self.diet!.mealplan!.overall_calories_recommended)
               halfCircularProgress.progress = (self.diet!.mealplan!.overall_fat_consumed)/(self.diet!.mealplan!.overall_fat_recommended)
              halfCircularProgress1.progress = (self.diet!.mealplan!.overall_protein_consumed)/(self.diet!.mealplan!.overall_protein_recommended)
              halfCircularProgress2.progress = (self.diet!.mealplan!.overall_carboHydrate_consumed)/(self.diet!.mealplan!.overall_carboHydrate_recommended)
+        }else {
+            self.ofLbl.text = ""
+            self.carbsLbl.text = " Carbo 0 g/0 g"
+            self.proteinLbl.text = " Protein 0 g/0 g"
+            self.fatLbl.text = " Fat 0 g/0 g"
+            self.consumedEnergyLbl.text = ""
+            self.recomEnergyLbl.text = ""
+              halfCircularProgress.progress = 0
+             halfCircularProgress1.progress = 0
+             halfCircularProgress2.progress = 0
         }
     
     }
@@ -622,10 +630,13 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
        //  cell.timeBtn.addTarget(self, action: #selector(timeBtnSelected(sender:)), for: .touchUpInside)
         var units = 0.0
         var serving = 0.0
+       // let recServing = Double(foodItem.serving_qty?.recommended ?? 0.0)
         if foodItem.foodStatus == WOStatus.complete {
             serving = Double(foodItem.serving_qty?.consumed ?? 0.0)
             units = Double(foodItem.serving_weight_grams?.consumed ?? 0.0)
             cell.dietCompletImgView.isHidden = false  // String(format:"%.2f kcal",calories)
+//            let calories : Double = Double(Double(foodItem.nf_calories!.recommended) / recServing *  serving)
+           // cell.calLbl.text = String(format:"%.2f kcal",calories)
             cell.calLbl.text = String(format:"%.2f kcal",foodItem.nf_calories!.consumed)
             
         }else {
@@ -691,28 +702,28 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let delete = UIContextualAction(style: .normal, title: "") {
-                                action, sourceView, completionHandler in
-                              let actionPerformed = self.deleteAction(action: action, sourceView: sourceView, indexPath: indexPath)
-                                completionHandler(actionPerformed)
-                            }
+            action, sourceView, completionHandler in
+            let actionPerformed = self.deleteAction(action: action, sourceView: sourceView, indexPath: indexPath)
+            completionHandler(actionPerformed)
+        }
         delete.image = UIImage(named: "dietDelete")
         delete.backgroundColor =  UIColor.black
         
         let add = UIContextualAction(style: .normal, title: "") {
-                                action, sourceView, completionHandler in
-                              let actionPerformed = self.addAction(action: action, sourceView: sourceView, indexPath: indexPath)
-                                completionHandler(actionPerformed)
-                            }
-                          add.image = UIImage(named: "add")
-                          add.backgroundColor =  UIColor.black
-               
-               let minus = UIContextualAction(style: .normal, title: "") {
-                                       action, sourceView, completionHandler in
-                                       let actionPerformed = self.minusAction(action: action, sourceView: sourceView, indexPath: indexPath)
-                                       completionHandler(actionPerformed)
-                                   }
+            action, sourceView, completionHandler in
+            let actionPerformed = self.addAction(action: action, sourceView: sourceView, indexPath: indexPath)
+            completionHandler(actionPerformed)
+        }
+        add.image = UIImage(named: "add")
+        add.backgroundColor =  UIColor.black
+        
+        let minus = UIContextualAction(style: .normal, title: "") {
+            action, sourceView, completionHandler in
+            let actionPerformed = self.minusAction(action: action, sourceView: sourceView, indexPath: indexPath)
+            completionHandler(actionPerformed)
+        }
         minus.image = UIImage(named: "remove")
-                                 minus.backgroundColor =  UIColor.black
+        minus.backgroundColor =  UIColor.black
         
         let complete = UIContextualAction(style: .normal, title: "") {
             action, sourceView, completionHandler in
@@ -720,18 +731,23 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
             completionHandler(actionPerformed)
         }
         complete.image = UIImage(named: "dietgComplete")
-                                        complete.backgroundColor =  UIColor.black
+        complete.backgroundColor =  UIColor.black
+        var config = UISwipeActionsConfiguration(actions: [complete,add,minus])
+        let foodItem = self.foodItemsArr![indexPath.row]
+        if foodItem.createdBy == CreatedByTrainee.lowercased() {
+            config = UISwipeActionsConfiguration(actions: [delete,complete,add,minus])
+        }
         
-        let config = UISwipeActionsConfiguration(actions: [delete,complete,add,minus])
-                            config.performsFirstActionWithFullSwipe = false
-                      let cell:UITableViewCell = (tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)))!
-                      cell.backgroundColor = UIColor.black
-                      //action.backgroundColor = UIColor.green
-                            return config
+        config.performsFirstActionWithFullSwipe = false
+        let cell:UITableViewCell = (tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)))!
+        cell.backgroundColor = UIColor.black
+        //action.backgroundColor = UIColor.green
+        return config
         
     }
     func deleteAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
         let foodItem = self.foodItemsArr![indexPath.row]
+        
         self.dietviewDelegate?.deleteFoodItem(dietSelection: self.dietSelection, foodItems: foodItem)
          return true
     }

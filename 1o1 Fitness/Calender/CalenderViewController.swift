@@ -19,6 +19,8 @@ enum CalenderEvents {
 var isFromHomediet : Bool = false
 class CalenderViewController: UIViewController {
 
+    @IBOutlet weak var woViewConstrain: NSLayoutConstraint!
+    @IBOutlet weak var contentViewHeightConstrain: NSLayoutConstraint!
     @IBOutlet weak var woSubscribeBtn: UIButton!
     @IBOutlet weak var callsNoDataLbl: UILabel!
     @IBOutlet weak var makeCallBtn: UIButton!
@@ -349,12 +351,12 @@ class CalenderViewController: UIViewController {
     func workoutViewDisplay(isActive: Bool) {
        
         if !isActive {
-            self.workOutBtn.setImage(UIImage(named: "gdumbel"), for: .normal)
+            self.workOutBtn.setBackgroundImage(UIImage(named: "gdumbel"), for: .normal)
             self.workOutView.isHidden = true
         }
         else
         {
-            self.workOutBtn.setImage(UIImage(named: "dumbel"), for: .normal)
+            self.workOutBtn.setBackgroundImage(UIImage(named: "dumbel"), for: .normal)
                 self.workOutView.isHidden = false
                 self.getWorkouts(date: self.slectedDate)
                 self.bgView.isHidden = true
@@ -371,7 +373,7 @@ class CalenderViewController: UIViewController {
         }
         else
         {
-            self.workOutBtn.setImage(UIImage(named: "dumbel"), for: .normal)
+            self.workOutBtn.setBackgroundImage(UIImage(named: "dumbel"), for: .normal)
             self.woSubscribeBtn.isHidden = false
             self.subscribeBtn.isHidden = true
             self.createBtn.isHidden = true
@@ -380,14 +382,14 @@ class CalenderViewController: UIViewController {
     }
     func dietViewDisplay(isActive: Bool) {
         if !isActive {
-            self.dietBtn.setImage(UIImage(named: "gdiet"), for: .normal)
+            self.dietBtn.setBackgroundImage(UIImage(named: "gdiet"), for: .normal)
             self.dietView.isHidden = true
         }
         else
         {
              // self.getTrainerPublicVideos()
          //   self.videosView.isHidden = false
-            self.dietBtn.setImage(UIImage(named: "diet"), for: .normal)
+            self.dietBtn.setBackgroundImage(UIImage(named: "diet"), for: .normal)
                 self.getDietPlan(date: self.slectedDate)
                 self.dietView.isHidden = false
                 self.bgView.isHidden = true
@@ -399,21 +401,21 @@ class CalenderViewController: UIViewController {
 //        self.subscribeBtn.isHidden = false
 //        self.createBtn.isHidden = false
         if !isActive {
-            self.dietBtn.setImage(UIImage(named: "gdiet"), for: .normal)
+            self.dietBtn.setBackgroundImage(UIImage(named: "gdiet"), for: .normal)
         }
         else
         {
              // self.getTrainerPublicVideos()
          //   self.videosView.isHidden = false
             subscribeBtnMessage = "Please Sign up to get a free access"
-            self.dietBtn.setImage(UIImage(named: "diet"), for: .normal)
+            self.dietBtn.setBackgroundImage(UIImage(named: "diet"), for: .normal)
         }
     }
     func guestCallViewDisplay(isActive: Bool) {
         self.callView.isHidden = true
 
         if !isActive {
-            self.callBtn.setImage(UIImage(named: "gcall"), for: .normal)
+            self.callBtn.setBackgroundImage(UIImage(named: "gcall"), for: .normal)
             self.woSubscribeBtn.isHidden = true
             self.subscribeBtn.isHidden = false
             self.createBtn.isHidden = false
@@ -427,18 +429,18 @@ class CalenderViewController: UIViewController {
             self.createBtn.isHidden = true
             subscribeBtnMessage = "Please Sign up to access the 1o1 call features"
           //  self.presentAlertForGuest(message: "Please Sign up to access the 1o1 call features")
-            self.callBtn.setImage(UIImage(named: "call"), for: .normal)
+            self.callBtn.setBackgroundImage(UIImage(named: "call"), for: .normal)
         }
     }
     func callViewDisplay(isActive: Bool) {
         if !isActive {
-            self.callBtn.setImage(UIImage(named: "gcall"), for: .normal)
+            self.callBtn.setBackgroundImage(UIImage(named: "gcall"), for: .normal)
             self.callView.isHidden = true
             // self.displayCallView(hidden: true)
         }
         else
         {
-               
+            self.callBtn.setBackgroundImage(UIImage(named: "call"), for: .normal)
                 self.getCallDetailsForDate(date:self.slectedDate, successHandler:  { (scheduleArr) in
                     
                     DispatchQueue.main.async {
@@ -462,7 +464,9 @@ class CalenderViewController: UIViewController {
                     }
                     
                 }
-            self.callBtn.setImage(UIImage(named: "call"), for: .normal)
+            DispatchQueue.main.async {
+               self.contentViewHeightConstrain.constant = 800
+           }
         }
     }
     func getRoomStatus(slotId:String,schedulerId:String) {
@@ -562,7 +566,7 @@ class CalenderViewController: UIViewController {
         self.progressPhotoView.isHidden = true
 
         if !isActive {
-            self.progressBtn.setImage(UIImage(named: "gcamera"), for: .normal)
+            self.progressBtn.setBackgroundImage(UIImage(named: "gcamera"), for: .normal)
             self.woSubscribeBtn.isHidden = true
             self.subscribeBtn.isHidden = false
             self.createBtn.isHidden = false
@@ -570,7 +574,7 @@ class CalenderViewController: UIViewController {
         else
         {
             subscribeBtnMessage = "Please Sign up to access progress photos"
-            self.progressBtn.setImage(UIImage(named: "camera"), for: .normal)
+            self.progressBtn.setBackgroundImage(UIImage(named: "camera"), for: .normal)
            // self.presentAlertForGuest(message: "Please Sign up to access progress photos")
             self.woSubscribeBtn.isHidden = false
             self.subscribeBtn.isHidden = true
@@ -579,13 +583,13 @@ class CalenderViewController: UIViewController {
     }
     func progressPhotoViewDisplay(isActive: Bool) {
         if !isActive {
-            self.progressBtn.setImage(UIImage(named: "gcamera"), for: .normal)
+            self.progressBtn.setBackgroundImage(UIImage(named: "gcamera"), for: .normal)
             self.progressPhotoView.isHidden = true
         }
         else
         {
           //  self.getTrainerPackages()
-            self.progressBtn.setImage(UIImage(named: "camera"), for: .normal)
+            self.progressBtn.setBackgroundImage(UIImage(named: "camera"), for: .normal)
                 self.progressPhotoView.isHidden = false
                 self.getAllPhotosForTheUserByDate(successHandler: { (progressPhotos) in
                     DispatchQueue.main.async {
@@ -603,6 +607,10 @@ class CalenderViewController: UIViewController {
                         }
                     }
                 }
+            
+            DispatchQueue.main.async {
+               self.contentViewHeightConstrain.constant = 800
+           }
 
         }
     }
@@ -635,7 +643,7 @@ class CalenderViewController: UIViewController {
         self.startTimeValLbl.text = time
         self.durationValLbl.text = schedules.frequency?.name ?? ""
     
-        
+       
     }
     func timeComparisionToEnableJoinButton(schedules:SlotsData) {
 //        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -1131,6 +1139,12 @@ func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDef
 }
 //MARK: Delegate Methods
 extension CalenderViewController : workOutViewDelegate {
+    func setWoParentViewHeight(height: CGFloat) {
+        DispatchQueue.main.async {
+           self.woViewConstrain.constant =  height
+           self.contentViewHeightConstrain.constant = 400 + height
+       }
+    }
     func workOutSelected(indexPath: NSIndexPath, exercises: Workouts) {
         ProgramDetails.programDetails.workoutId = exercises.workoutId
         let storyboard = UIStoryboard(name: "WorkOut", bundle: nil)
@@ -1232,7 +1246,8 @@ extension CalenderViewController:DietSelectionDelegate {
     
     func setParentViewHeight(height: CGFloat) {
          DispatchQueue.main.async {
-            self.dietViewTbleHeight.constant = height
+            self.dietViewTbleHeight.constant =  height
+            self.contentViewHeightConstrain.constant = 400 + height
         }
     }
     

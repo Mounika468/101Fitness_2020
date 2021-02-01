@@ -33,6 +33,7 @@ class WOUpdateView: UIView {
             contentView.backgroundColor = UIColor.clear
             let nib = UINib(nibName: "SetsTableViewCell", bundle: nil)
             self.updateTableView.register(nib, forCellReuseIdentifier: "setsCell")
+            self.updateTableView.tableFooterView = UIView()
             
     }
     func reloadTable() {

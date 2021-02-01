@@ -154,7 +154,8 @@ class FoodDetailsVC: UIViewController {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "hh:mm"
                     
-                    let foodItem : NutritionixFoodData = NutritionixFoodData(food_name:  self.selectedFoodDetails?.food_name ?? "", serving_unit:  self.selectedFoodDetails?.serving_unit ?? "", nix_brand_id: self.selectedFoodDetails?.nix_brand_id, brand_name_item_name: self.selectedFoodDetails?.brand_name_item_name, serving_qty: Double(self.qtyTxtField.text ?? "") ?? 0.0, nf_calories: cal, photo: self.selectedFoodDetails?.photo, locale: "", brand_name: self.selectedFoodDetails?.brand_name ?? "", brand_type: self.selectedFoodDetails?.brand_type, region: self.selectedFoodDetails?.region, nix_item_id: self.selectedFoodDetails?.nix_item_id, nix_brand_name: self.selectedFoodDetails?.nix_brand_name, nix_item_name: self.selectedFoodDetails?.nix_item_name, serving_weight_grams: self.selectedFoodDetails?.serving_weight_grams, nf_total_fat: fat, nf_saturated_fat: self.selectedFoodDetails?.nf_saturated_fat ?? 0.0, nf_cholesterol: self.selectedFoodDetails?.nf_sugars ?? 0.0, nf_sodium: self.selectedFoodDetails?.nf_cholesterol ?? 0.0, nf_total_carbohydrate: carbo, nf_dietary_fiber: self.selectedFoodDetails?.nf_dietary_fiber ?? 0.0, nf_sugars: self.selectedFoodDetails?.nf_sugars ?? 0.0, nf_protein: prot, nf_potassium: self.selectedFoodDetails?.nf_potassium, nf_p: self.selectedFoodDetails?.nf_p, alt_measures: self.selectedFoodDetails?.alt_measures, upc: self.selectedFoodDetails?.upc ?? "",time:(dateFormatter.string(from: NSDate() as Date)), createdBy:"trainee",foodStatus:"new")
+                    let qtyInGrms = (self.selectedFoodDetails!.serving_weight_grams ?? 0) / self.selectedFoodDetails!.serving_qty * qtySel
+                    let foodItem : NutritionixFoodData = NutritionixFoodData(food_name:  self.selectedFoodDetails?.food_name ?? "", serving_unit:  self.selectedFoodDetails?.serving_unit ?? "", nix_brand_id: self.selectedFoodDetails?.nix_brand_id, brand_name_item_name: self.selectedFoodDetails?.brand_name_item_name, serving_qty: Double(self.qtyTxtField.text ?? "") ?? 0.0, nf_calories: cal, photo: self.selectedFoodDetails?.photo, locale: "", brand_name: self.selectedFoodDetails?.brand_name ?? "", brand_type: self.selectedFoodDetails?.brand_type, region: self.selectedFoodDetails?.region, nix_item_id: self.selectedFoodDetails?.nix_item_id, nix_brand_name: self.selectedFoodDetails?.nix_brand_name, nix_item_name: self.selectedFoodDetails?.nix_item_name, serving_weight_grams: qtyInGrms, nf_total_fat: fat, nf_saturated_fat: self.selectedFoodDetails?.nf_saturated_fat ?? 0.0, nf_cholesterol: self.selectedFoodDetails?.nf_sugars ?? 0.0, nf_sodium: self.selectedFoodDetails?.nf_cholesterol ?? 0.0, nf_total_carbohydrate: carbo, nf_dietary_fiber: self.selectedFoodDetails?.nf_dietary_fiber ?? 0.0, nf_sugars: self.selectedFoodDetails?.nf_sugars ?? 0.0, nf_protein: prot, nf_potassium: self.selectedFoodDetails?.nf_potassium, nf_p: self.selectedFoodDetails?.nf_p, alt_measures: self.selectedFoodDetails?.alt_measures, upc: self.selectedFoodDetails?.upc ?? "",time:(dateFormatter.string(from: NSDate() as Date)), createdBy:"trainee",foodStatus:"new")
                    
                    
                   
@@ -204,7 +205,7 @@ class FoodDetailsVC: UIViewController {
                 ]
             }
 
-               LoadingOverlay.shared.showOverlay(view: self.view)
+            LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
             self.getNutritionixData()
 
             
@@ -650,6 +651,7 @@ extension FoodDetailsVC : FoodQuantityChangedDelegate ,UIViewControllerTransitio
                     self.proteinLbl.text = "Protein \(food!.nf_protein!)g"
                     self.grmsBtn.setTitle(food?.serving_unit ?? "", for: .normal)
                     self.qtyTxtField.text = "\(food?.serving_qty ?? 0)"
+                    self.qtyInGrms.text = String(format:"%.0f",(food?.serving_weight_grams ?? 0))
 
                }
             }

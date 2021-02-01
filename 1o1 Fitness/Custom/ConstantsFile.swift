@@ -82,6 +82,9 @@ let postContactComments = "\(devHostURL)traineeservice/api/trainees/request"
 let getReminders = "\(devHostURL)traineeservice/api/trainees/reminder/"
 let postReminders = "\(devHostURL)traineeservice/api/trainees/reminder"
 
+//Refund URLs
+let postRefundURL = "\(devHostURL)traineeservice/api/trainees/request"
+
 struct UserPoolCredentials {
   
     static let accessKey = "AKIAUXZP6WV4EEXWBXUY"

@@ -190,10 +190,14 @@ extension ScheduleCallView: UITableViewDelegate,UITableViewDataSource {
                 cell.unavailableLbl.isHidden = true
                 if isToday == true || order == .orderedDescending {
                     cell.deleteTapped.isHidden = true
-                    if order == .orderedDescending {
+                    if order == .orderedDescending  {
                         cell.bookNowBtn.isEnabled = false
                     }else {
                         cell.bookNowBtn.isEnabled = true
+                    }
+                    if schedule?.status == "completed" {
+                        cell.bookNowBtn.setTitle("Completed", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
                     }
                 }else {
                     cell.bookNowBtn.isEnabled = true

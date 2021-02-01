@@ -62,6 +62,7 @@ class WODetailVC: UIViewController {
         
         let nib1 = UINib(nibName: "SetsTableViewCell", bundle: nil)
         self.tableView.register(nib1, forCellReuseIdentifier: "setsCell")
+        self.tableView.tableFooterView = UIView()
     }
     override func viewDidAppear(_ animated: Bool) {
         navigationView.titleLbl.text = self.woExercise?.exerciseName

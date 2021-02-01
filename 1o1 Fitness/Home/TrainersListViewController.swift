@@ -134,18 +134,23 @@ extension TrainersListViewController: UICollectionViewDelegate,UICollectionViewD
         let trainer = self.trainersInfo?[indexPath.row] as! TrainerInfo
         let imageInfo = trainer.profileImage?.profileImagePath as! String
         if imageInfo.count > 0 {
-             cell.profileImgView.load(url:URL(string: imageInfo)!,width:cell.profileImgView.frame.size.width ,height:cell.profileImgView.frame.size.height )
-            let imageURL = URL(string: imageInfo)!
-            DispatchQueue.global().async {
-                if let data = try? Data( contentsOf:imageURL)
-                {
-                    DispatchQueue.main.async {
-                        let image = UIImage( data:data)
-                        let squared = image?.squared
-                        cell.profileImgView.image = squared
-                    }
-                }
-            }
+            
+//            let imageInfo = trainer.profileImage?.profileImagePath as! String
+//            if imageInfo.count > 0 {
+                cell.profileImgView.sd_setImage(with: URL(string: imageInfo)!, completed: nil)
+         //   }
+//             cell.profileImgView.load(url:URL(string: imageInfo)!,width:cell.profileImgView.frame.size.width ,height:cell.profileImgView.frame.size.height )
+//            let imageURL = URL(string: imageInfo)!
+//            DispatchQueue.global().async {
+//                if let data = try? Data( contentsOf:imageURL)
+//                {
+//                    DispatchQueue.main.async {
+//                        let image = UIImage( data:data)
+//                        let squared = image?.squared
+//                        cell.profileImgView.image = squared
+//                    }
+//                }
+//            }
         }
         cell.nameLbl.text = trainer.firstName! + " " + trainer.lastName!
 //        if  let rating = trainer.rating {

@@ -97,14 +97,12 @@ class ChangePasswordVC: UIViewController {
                             print("Error getting token \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
+                    self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") { (_) in
                 }
-                self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") { (_) in
-                    
                 }
             }else {
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
-                }
                 let userdefaults = UserDefaults.standard
                 userdefaults.removeObject(forKey: UserDefaultsKeys.guestLogin)
                 userdefaults.removeObject(forKey: UserDefaultsKeys.userName)
@@ -112,6 +110,7 @@ class ChangePasswordVC: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "LandingVC")
             self.navigationController?.pushViewController(controller, animated: true)
+                }
             }
             
         }

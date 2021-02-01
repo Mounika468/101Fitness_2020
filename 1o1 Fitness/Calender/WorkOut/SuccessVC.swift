@@ -144,7 +144,7 @@ class SuccessVC: UIViewController {
         }
     }
      func getOrderSuccessDetails(orderId:Int) {
-        LoadingOverlay.shared.showOverlay(view: self.view)
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
                var authenticatedHeaders: [String: String] {

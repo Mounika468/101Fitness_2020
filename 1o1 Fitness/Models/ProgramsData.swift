@@ -62,6 +62,8 @@ struct MyOrders:Codable {
     let description:String?
     let trainerName:String?
     let currencyPaidIn:String?
+    let enableRefund: Bool?
+    let status: String?
 }
             
            
