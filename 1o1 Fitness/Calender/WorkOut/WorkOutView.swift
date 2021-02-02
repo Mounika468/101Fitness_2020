@@ -27,6 +27,7 @@ class WorkOutView: UIView {
     var workOutsArr : DayWorkOuts?
      var cardioIndex : Int = 0
     var cardioAvailable : Bool = false
+    var slectedDate: Date = Date()
     @IBOutlet weak var nodataLbl: UILabel!
     override init(frame: CGRect) {
             super.init(frame: frame)
@@ -199,6 +200,10 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        var order = Calendar.current.compare(Date(), to: self.slectedDate, toGranularity: .day)
+        if order == .orderedAscending {
+            return nil
+        }
         if indexPath.row != self.cardioIndex {
             var object = self.workOutsArr?.workouts?[indexPath.row]
             if object?.workoutStatus == "new" || (object?.workoutStatus == WOStatus.complete || object?.workoutPercentage == "100") {

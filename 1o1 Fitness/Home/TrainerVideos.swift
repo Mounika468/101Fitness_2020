@@ -62,7 +62,7 @@ extension TrainerVideos: UICollectionViewDelegate,UICollectionViewDataSource,UIC
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeProfileCV", for: indexPath) as! HomeTrainerCollectionViewCell
         cell.backgroundColor = UIColor.clear
         let videoInfo = self.videosArr![indexPath.row].exerciseVideo!
-        cell.profileImgView.loadImage(url:URL(string: videoInfo.videoThumbnailPath!)!)
+        cell.profileImgView.sd_setImage(with: URL(string: videoInfo.videoThumbnailPath!)!, completed: nil)
         cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
         cell.ratingBtn.isHidden = true
         cell.nameLbl.text = self.videosArr![indexPath.row].exerciseName!

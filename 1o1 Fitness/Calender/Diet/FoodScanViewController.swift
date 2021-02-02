@@ -128,86 +128,93 @@ class FoodScanViewController: UIViewController {
            self.navigationController?.popViewController(animated: true)
        }
        @objc func saveBtnTapped(sender : UIButton){
+        self.hideKeyboardWhenTappedAround()
+        self.servingSizeTxt.resignFirstResponder()
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm"
         
         if self.servingSizeTxt.text?.count ?? 0 > 0 {
-            if  Double(self.servingSizeTxt.text!)! == 0.0 {
+            if  Double(self.servingSizeTxt.text ?? "0") ?? 0.0 == 0.0 || Double(self.servingSizeTxt.text ?? "0") ?? 0 == 0 {
                 self.presentAlertWithTitle(title: "", message: "Please enter valid serving quantity", options: "OK") { (_) in
-                    
+                    return
                 }
-            }
-            if self.foodNameTxt.text?.count ?? 0 > 0 && self.servingSizeTxt.text?.count ?? 0 > 0 && self.fatTxt.text?.count ?? 0 > 0 && self.carboTxt.text?.count ?? 0 > 0 && self.proteinTxt.text?.count ?? 0 > 0  && self.caloriesTxt.text?.count ?? 0 > 0 {
-                let size = self.servingSizeTxt.text?.components(separatedBy: " ")
-                let serving = (size?[0])!
-                let calories = self.caloriesTxt.text?.components(separatedBy: " ")
-                let calory = (calories?[0])!
-                let fat = self.fatTxt.text?.components(separatedBy: " ")
-                let fats = (fat?[0])!
-                let satFat = saturatedTxt.text?.components(separatedBy: " ")
-                let satuFat = (satFat?[0])!
-                let chole = self.choleTxt.text?.components(separatedBy: " ")
-                let cholest = (chole?[0])!
-                let sodiums = self.sodiumTxt.text?.components(separatedBy: " ")
-                let sodium = (sodiums?[0])!
-                let totalCarb = self.carboTxt.text?.components(separatedBy: " ")
-                let carbs = (totalCarb?[0])!
-                let dFiber = self.fibertxt.text?.components(separatedBy: " ")
-                let dfib = (dFiber?[0])!
-                let sugurs = self.sugarsTxt.text?.components(separatedBy: " ")
-                let dsug = (sugurs?[0])!
-                let protien = proteinTxt.text?.components(separatedBy: " ")
-                let dprot = (protien?[0])!
-//                let protien = proteinTxt.text?.components(separatedBy: " ")
-//                let dprot = (protien?[0])!
-                
-                let foodItem : NutritionixFoodData = NutritionixFoodData(food_name:  self.foodNameTxt.text!, serving_unit:  self.selectedFoodDetails?.serving_unit ?? "", nix_brand_id: self.selectedFoodDetails?.nix_brand_id, brand_name_item_name: self.selectedFoodDetails?.brand_name_item_name, serving_qty: Double(serving)!, nf_calories: Double(calory)!, photo: self.selectedFoodDetails?.photo, locale: "", brand_name: self.brandNameTxt.text ?? "", brand_type: self.selectedFoodDetails?.brand_type, region: self.selectedFoodDetails?.region, nix_item_id: self.selectedFoodDetails?.nix_item_id, nix_brand_name: self.selectedFoodDetails?.nix_brand_name, nix_item_name: self.selectedFoodDetails?.nix_item_name, serving_weight_grams: self.selectedFoodDetails?.serving_weight_grams, nf_total_fat: Double(fats), nf_saturated_fat: Double(satuFat), nf_cholesterol: Double(cholest), nf_sodium: Double(sodium), nf_total_carbohydrate: Double(carbs), nf_dietary_fiber: Double(dfib), nf_sugars: Double(dsug), nf_protein: Double(dprot), nf_potassium: self.selectedFoodDetails?.nf_potassium, nf_p: self.selectedFoodDetails?.nf_p, alt_measures: self.selectedFoodDetails?.alt_measures, upc: self.selectedUPC,time:(dateFormatter.string(from: NSDate() as Date)), createdBy:"trainee",foodStatus:"new")
-                
-                let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
-                var authenticatedHeaders: [String: String] {
-                    [
-                        HeadersKeys.authorization: "\(HeaderValues.token) \(token!) ",
-                        HeadersKeys.contentType: HeaderValues.json
-                    ]
-                }
-                
-                let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem)
-
-                let jsonEncoder = JSONEncoder()
-                let jsonData = try! jsonEncoder.encode(postbody)
-
-                GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, methodName: "post", successHandler: { [weak self] (diet) in
-                          print("diet is \(diet)")
-                         // self?.dietView.diet = diet
-                                          DispatchQueue.main.async {
-                                          //   self?.dietView.reloadDietView()
-                                             LoadingOverlay.shared.hideOverlayView()
-                                             if diet == nil && diet?.mealplan == nil {
-                                                 var message = "No data available for the selected date"
-                                                 if messageString.count > 0 {
-                                                     message = messageString
-                                                 }
-
-                                             }else {
-                                                self?.navigationController?.popToRootViewController(animated: true)
-                                            }
-
-                                         }
-                      }, errorHandler: {  error in
-                              print(" error \(error)")
-                              DispatchQueue.main.async {
-                                  LoadingOverlay.shared.hideOverlayView()
-                              }
-                      })
             }else {
-                self.presentAlertWithTitle(title: "", message: "Please Enter Required Fields", options: "OK") { (_) in
+                if self.foodNameTxt.text?.count ?? 0 > 0 && self.servingSizeTxt.text?.count ?? 0 > 0 && self.fatTxt.text?.count ?? 0 > 0 && self.carboTxt.text?.count ?? 0 > 0 && self.proteinTxt.text?.count ?? 0 > 0  && self.caloriesTxt.text?.count ?? 0 > 0 {
+                    let size = self.servingSizeTxt.text?.components(separatedBy: " ")
+                    let serving = (size?[0])!
+                    let calories = self.caloriesTxt.text?.components(separatedBy: " ")
+                    let calory = (calories?[0])!
+                    let fat = self.fatTxt.text?.components(separatedBy: " ")
+                    let fats = (fat?[0])!
+                    let satFat = saturatedTxt.text?.components(separatedBy: " ")
+                    let satuFat = (satFat?[0])!
+                    let chole = self.choleTxt.text?.components(separatedBy: " ")
+                    let cholest = (chole?[0])!
+                    let sodiums = self.sodiumTxt.text?.components(separatedBy: " ")
+                    let sodium = (sodiums?[0])!
+                    let totalCarb = self.carboTxt.text?.components(separatedBy: " ")
+                    let carbs = (totalCarb?[0])!
+                    let dFiber = self.fibertxt.text?.components(separatedBy: " ")
+                    let dfib = (dFiber?[0])!
+                    let sugurs = self.sugarsTxt.text?.components(separatedBy: " ")
+                    let dsug = (sugurs?[0])!
+                    let protien = proteinTxt.text?.components(separatedBy: " ")
+                    let dprot = (protien?[0])!
+    //                let protien = proteinTxt.text?.components(separatedBy: " ")
+    //                let dprot = (protien?[0])!
                     
+                    let foodItem : NutritionixFoodData = NutritionixFoodData(food_name:  self.foodNameTxt.text!, serving_unit:  self.selectedFoodDetails?.serving_unit ?? "", nix_brand_id: self.selectedFoodDetails?.nix_brand_id, brand_name_item_name: self.selectedFoodDetails?.brand_name_item_name, serving_qty: Double(serving)!, nf_calories: Double(calory)!, photo: self.selectedFoodDetails?.photo, locale: "", brand_name: self.brandNameTxt.text ?? "", brand_type: self.selectedFoodDetails?.brand_type, region: self.selectedFoodDetails?.region, nix_item_id: self.selectedFoodDetails?.nix_item_id, nix_brand_name: self.selectedFoodDetails?.nix_brand_name, nix_item_name: self.selectedFoodDetails?.nix_item_name, serving_weight_grams: self.selectedFoodDetails?.serving_weight_grams, nf_total_fat: Double(fats), nf_saturated_fat: Double(satuFat), nf_cholesterol: Double(cholest), nf_sodium: Double(sodium), nf_total_carbohydrate: Double(carbs), nf_dietary_fiber: Double(dfib), nf_sugars: Double(dsug), nf_protein: Double(dprot), nf_potassium: self.selectedFoodDetails?.nf_potassium, nf_p: self.selectedFoodDetails?.nf_p, alt_measures: self.selectedFoodDetails?.alt_measures, upc: self.selectedUPC,time:(dateFormatter.string(from: NSDate() as Date)), createdBy:"trainee",foodStatus:"new")
+                    
+                    let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
+                    var authenticatedHeaders: [String: String] {
+                        [
+                            HeadersKeys.authorization: "\(HeaderValues.token) \(token!) ",
+                            HeadersKeys.contentType: HeaderValues.json
+                        ]
+                    }
+                    
+                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem)
+
+                    let jsonEncoder = JSONEncoder()
+                    let jsonData = try! jsonEncoder.encode(postbody)
+
+                    GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, methodName: "post", successHandler: { [weak self] (diet) in
+                              print("diet is \(diet)")
+                             // self?.dietView.diet = diet
+                                              DispatchQueue.main.async {
+                                              //   self?.dietView.reloadDietView()
+                                                 LoadingOverlay.shared.hideOverlayView()
+                                                 if diet == nil && diet?.mealplan == nil {
+                                                     var message = "No data available for the selected date"
+                                                     if messageString.count > 0 {
+                                                         message = messageString
+                                                     }
+
+                                                 }else {
+                                                    self?.navigationController?.popToRootViewController(animated: true)
+                                                }
+
+                                             }
+                          }, errorHandler: {  error in
+                                  print(" error \(error)")
+                                  DispatchQueue.main.async {
+                                      LoadingOverlay.shared.hideOverlayView()
+                                  }
+                          })
+                }else {
+                    self.presentAlertWithTitle(title: "", message: "Please Enter Required Fields", options: "OK") { (_) in
+                        
+                    }
                 }
             }
 
+
+        }else {
+            self.presentAlertWithTitle(title: "", message: "Please enter valid serving quantity", options: "OK") { (_) in
+                
+            }
         }
-        
-       
         
     }
     func addPaddingAndBorder(to textfield: UITextField) {
@@ -373,15 +380,22 @@ extension FoodScanViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         print("text qty changed Details")
         if self.servingSizeTxt.text?.count ?? 0 > 0 && self.isFromBarcodeScanner {
-            let qtySel : Double = Double(self.servingSizeTxt.text!)!
-            var cal = self.selectedFoodDetails!.nf_calories / self.selectedFoodDetails!.serving_qty * qtySel
-            var fat = self.selectedFoodDetails!.nf_total_fat! / self.selectedFoodDetails!.serving_qty * qtySel
-            var carbo = self.selectedFoodDetails!.nf_total_carbohydrate! / self.selectedFoodDetails!.serving_qty * qtySel
-            var prot = self.selectedFoodDetails!.nf_protein! / self.selectedFoodDetails!.serving_qty * qtySel
-                self.caloriesTxt.text = String(format:"%.2f kcal", cal)
-                self.fatTxt.text = String(format: "%.2f g", fat)
-                self.carboTxt.text = String(format: " %.2f g", carbo)
-                self.proteinTxt.text = String(format: " %.2f g", prot )
+            if textField.text == "." || textField.text == ".." || textField.text == "..." || textField.text == "...."{
+                self.presentAlertWithTitle(title: "", message: "Please enter valid values", options: "OK") { (_) in
+                    
+                }
+            }else {
+                let qtySel : Double = Double(self.servingSizeTxt.text!)!
+                var cal = self.selectedFoodDetails!.nf_calories / self.selectedFoodDetails!.serving_qty * qtySel
+                var fat = self.selectedFoodDetails!.nf_total_fat! / self.selectedFoodDetails!.serving_qty * qtySel
+                var carbo = self.selectedFoodDetails!.nf_total_carbohydrate! / self.selectedFoodDetails!.serving_qty * qtySel
+                var prot = self.selectedFoodDetails!.nf_protein! / self.selectedFoodDetails!.serving_qty * qtySel
+                    self.caloriesTxt.text = String(format:"%.2f kcal", cal)
+                    self.fatTxt.text = String(format: "%.2f g", fat)
+                    self.carboTxt.text = String(format: " %.2f g", carbo)
+                    self.proteinTxt.text = String(format: " %.2f g", prot )
+            }
+            
         }
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {

@@ -22,6 +22,12 @@ class TimePickerVC: UIViewController {
 
         // Do any additional setup after loading the view.
        timePicker.setValue(UIColor.white, forKeyPath: "textColor")
+        if #available(iOS 13.4, *) {
+                   
+            timePicker.preferredDatePickerStyle = .wheels
+            timePicker.setValue(UIColor.white, forKeyPath: "textColor")
+            
+        }
        // timePicker.locale = Locale.init(identifier: "en_gb")
     }
     

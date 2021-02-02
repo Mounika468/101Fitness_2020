@@ -21,6 +21,7 @@ class WorkOutViewController: UIViewController {
     var woExercisesArr : Workouts?
     var commentType: CommentsType?
      var selectedIndex: Int = 0
+    var slectedDate: Date = Date()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -163,6 +164,10 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        var order = Calendar.current.compare(Date(), to: self.slectedDate, toGranularity: .day)
+        if order == .orderedAscending {
+            return nil
+        }
         let exercises = self.woExercisesArr?.workoutExercises![indexPath.row]
        let name = exercises?.exerciseName.uppercased()
         switch name!.lowercased() {
@@ -235,7 +240,7 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
         
         var exercises = self.woExercisesArr?.workoutExercises![indexPath.row]
         if exercises?.exerciseStatus != WOStatus.notCompleted {
-             self.presentAlertWithTitle(title: "", message: "Are you sure want to submit the workout", options: "Cancel","Done") { (option) in
+             self.presentAlertWithTitle(title: "", message: "Are you sure want to submit the exercise", options: "Cancel","Done") { (option) in
                  if option == 1 {
                      self.completeExerciseAPI(indexPath: indexPath)
                  }

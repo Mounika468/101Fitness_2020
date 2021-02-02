@@ -163,7 +163,7 @@ class DietViewL: UIView {
         }
         if self.diet?.mealplan != nil {
             self.ofLbl.text = "of"
-            self.carbsLbl.text = String(format: " Carbo %.2f g/%.2f g", self.diet!.mealplan!.overall_carboHydrate_consumed,self.diet!.mealplan!.overall_carboHydrate_recommended)
+            self.carbsLbl.text = String(format: " Carbs %.2f g/%.2f g", self.diet!.mealplan!.overall_carboHydrate_consumed,self.diet!.mealplan!.overall_carboHydrate_recommended)
             self.proteinLbl.text = String(format: " Protein %.2f g/%.2f g", self.diet!.mealplan!.overall_protein_consumed,self.diet!.mealplan!.overall_protein_recommended)
             self.fatLbl.text = String(format: " Fat %.2f g/%.2f g", self.diet!.mealplan!.overall_fat_consumed,self.diet!.mealplan!.overall_fat_recommended)
             self.consumedEnergyLbl.text = String(format: "%.2f Cals ",self.diet!.mealplan!.overall_calories_consumed)
@@ -173,7 +173,7 @@ class DietViewL: UIView {
              halfCircularProgress2.progress = (self.diet!.mealplan!.overall_carboHydrate_consumed)/(self.diet!.mealplan!.overall_carboHydrate_recommended)
         }else {
             self.ofLbl.text = ""
-            self.carbsLbl.text = " Carbo 0 g/0 g"
+            self.carbsLbl.text = " Carbs 0 g/0 g"
             self.proteinLbl.text = " Protein 0 g/0 g"
             self.fatLbl.text = " Fat 0 g/0 g"
             self.consumedEnergyLbl.text = ""

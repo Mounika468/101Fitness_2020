@@ -511,7 +511,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCV", for: indexPath) as! HeaderCollectionViewCell
              cell.imgView.image = UIImage(named: headersImages[indexPath.row])
             cell.pieChart.isHidden = true
-            if indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0  {
+            if indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0 || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
                 DispatchQueue.main.async {
                 self.rotateView(view: cell.contentView, duration: 5.0)
                 }

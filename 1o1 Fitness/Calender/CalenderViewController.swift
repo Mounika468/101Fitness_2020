@@ -183,6 +183,7 @@ class CalenderViewController: UIViewController {
        }
        
        ProgramDetails.programDetails.dayWorkOut = woObject
+    self.workOutView.slectedDate = self.slectedDate
       self.workOutView.workOutsArr =  ProgramDetails.programDetails.dayWorkOut
       self.workOutView.loadWorkOuts()
        
@@ -843,7 +844,9 @@ class CalenderViewController: UIViewController {
             print("day workouts \(dayWorks)")
             ProgramDetails.programDetails.dayWorkOut = dayWorks
             self?.workOutView.workOutsArr = dayWorks
+            self?.workOutView.slectedDate = self?.slectedDate ?? Date()
             DispatchQueue.main.async {
+                
                  self?.workOutView.loadWorkOuts()
                 LoadingOverlay.shared.hideOverlayView()
                 
@@ -867,6 +870,7 @@ class CalenderViewController: UIViewController {
         }) { [weak self] error in
             print(" error \(error)")
             DispatchQueue.main.async {
+                self?.workOutView.slectedDate = self?.slectedDate ?? Date()
                 LoadingOverlay.shared.hideOverlayView()
                 ProgramDetails.programDetails.dayWorkOut = nil
                 self?.workOutView.workOutsArr = nil
@@ -1149,6 +1153,7 @@ extension CalenderViewController : workOutViewDelegate {
         ProgramDetails.programDetails.workoutId = exercises.workoutId
         let storyboard = UIStoryboard(name: "WorkOut", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "WOVC") as! WorkOutViewController
+        controller.slectedDate = self.slectedDate ?? Date()
         controller.woExercisesArr = exercises
         controller.selectedIndex = indexPath.row
        // controller.totalWOArr = self.totalWOArr

@@ -69,12 +69,14 @@ class ProgramViewController: UIViewController {
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
                 if programs?.count ?? 0 > 0 {
+                    self?.prTblView.isHidden = false
                     self?.nodataLbl.isHidden = true
                     self?.programsArr = programs
                     self?.reloadPrograms()
                 }else {
                     self?.programsArr = nil
                     self?.reloadPrograms()
+                    self?.prTblView.isHidden = true
                     self?.nodataLbl.isHidden = false
                 }
             }
@@ -85,7 +87,8 @@ class ProgramViewController: UIViewController {
                 self.presentAlertWithTitle(title: "Error", message:"\(error.errorDescription)", options: "OK") {[weak self] (_) in
                     self?.programsArr = nil
                     self?.reloadPrograms()
-                    self?.nodataLbl.isHidden = true
+                    self?.prTblView.isHidden = true
+                    self?.nodataLbl.isHidden = false
             }
             }
         }

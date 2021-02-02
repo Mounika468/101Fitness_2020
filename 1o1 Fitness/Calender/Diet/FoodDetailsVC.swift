@@ -233,7 +233,7 @@ class FoodDetailsVC: UIViewController {
             if self.foodItems?.foodStatus == WOStatus.complete {
               
                 self.qtyTxtField.text = "\(self.foodItems!.serving_qty!.consumed)"
-                self.caloreLbl.text = "\(self.foodItems!.nf_calories!.consumed) kcal"
+                self.caloreLbl.text = String(format: "%.2f kcal",self.foodItems!.nf_calories!.consumed)
                 self.calValLbl.text = "\(self.foodItems!.nf_calories!.consumed) kcal"
                    self.carboPerLbl.text = "\(self.foodItems!.dailyValues?.carboHydrate_consumed ?? 0)%"
                   self.fatPerLbl.text = "\(self.foodItems!.dailyValues?.fat_consumed ?? 0)%"
@@ -254,7 +254,7 @@ class FoodDetailsVC: UIViewController {
                 self.qtyInGrms.text = String(format:"%.0f",(self.foodItems?.serving_weight_grams?.consumed ?? 0))
                 
             }else {
-                self.caloreLbl.text = "\(self.foodItems!.nf_calories!.recommended) kcal"
+                self.caloreLbl.text = String(format: "%.2f kcal",self.foodItems!.nf_calories!.recommended)
                 self.calValLbl.text = "\(self.foodItems!.nf_calories!.recommended) kcal"
                 self.qtyTxtField.text = "\(self.foodItems!.serving_qty!.recommended)"
                    self.carboPerLbl.text = "\(self.foodItems!.dailyValues?.carboHydrate_recommended ?? 0)%"
@@ -330,7 +330,7 @@ class FoodDetailsVC: UIViewController {
                             self.imgView.loadImage(url: URL(string: (food?.photo?.thumb)!)!)
                         }
                         self.foodNameLbl.text = food?.food_name ?? ""
-                        self.caloreLbl.text = "\(food!.nf_calories) kcal"
+                        self.caloreLbl.text = String(format: "%.2f kcal",food!.nf_calories)
                         self.calValLbl.text = "\(food!.nf_calories) kcal"
                         self.fatLbl.text = "Fat \(food!.nf_total_fat!)g"
                         self.carboLbl.text = "Carbohydrate \(food!.nf_total_carbohydrate!)g"
@@ -426,7 +426,7 @@ class FoodDetailsVC: UIViewController {
                             self.imgView.loadImage(url: URL(string: (food?.photo?.thumb)!)!)
                         }
                         self.foodNameLbl.text = food?.food_name ?? ""
-                        self.caloreLbl.text = "\(food!.nf_calories) kcal"
+                        self.caloreLbl.text = String(format: "%.2f kcal",food!.nf_calories)
                         self.calValLbl.text = "\(food!.nf_calories) kcal"
                         self.fatLbl.text = "Fat \(food!.nf_total_fat!)g"
                         self.carboLbl.text = "Carbohydrate \(food!.nf_total_carbohydrate!)g"

@@ -83,7 +83,7 @@ class FoodSearchVC: UIViewController {
 //        self.searchBar.text = ""
 //        self.foodItemsArray = nil
 //        self.resTblView.reloadData()
-        self.navigationView.titleLbl.text  = self.mealType
+        self.navigationView.titleLbl.text  = self.mealType.capitalizingFirstLetter()
     }
     @objc func backBtnTapped(sender : UIButton){
         self.navigationController?.popViewController(animated: true)
@@ -356,4 +356,13 @@ extension FoodSearchVC: UISearchBarDelegate {
 
     }
     
+}
+extension String {
+    func capitalizingFirstLetter() -> String {
+      return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+      self = self.capitalizingFirstLetter()
+    }
 }
