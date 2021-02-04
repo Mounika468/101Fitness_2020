@@ -211,7 +211,7 @@ extension ScheduleCallView: UITableViewDelegate,UITableViewDataSource {
                         cell.bookNowBtn.setTitle("Completed", for: .normal)
                         cell.bookNowBtn.isEnabled = false
                     }else if schedule?.status == "rescheduled" {
-                        cell.bookNowBtn.setTitle("Reschedule", for: .normal)
+                        cell.bookNowBtn.setTitle("Rescheduled", for: .normal)
                         cell.bookNowBtn.isEnabled = false
                     }else if schedule?.status == "cancelled" {
                         cell.bookNowBtn.setTitle("Cancelled", for: .normal)
