@@ -85,7 +85,7 @@ class AccountViewController: UIViewController {
         deleteAccSecConstrain.priority = UILayoutPriority(rawValue: 500)
         deleteAccPriConstrain.priority = UILayoutPriority(rawValue: 999)
         if TraineeDetails.traineeDetails?.trainee_profile_staus == "google" {
-            
+            changePwdView.isHidden = true
             deleteAccSecConstrain.priority = UILayoutPriority(rawValue: 999)
             deleteAccPriConstrain.priority = UILayoutPriority(rawValue: 500)
             
@@ -102,7 +102,7 @@ class AccountViewController: UIViewController {
             //            }
             
         }else {
-            
+            changePwdView.isHidden = false
             deleteAccSecConstrain.priority = UILayoutPriority(rawValue: 500)
             deleteAccPriConstrain.priority = UILayoutPriority(rawValue: 999)
             //            if #available(iOS 13.0, *) {

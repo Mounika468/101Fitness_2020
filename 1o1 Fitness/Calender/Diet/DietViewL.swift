@@ -620,7 +620,7 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
         }
         let foodItem = self.foodItemsArr![indexPath.row]
         if  foodItem.photo != nil &&  foodItem.photo?.thumb?.count ?? 0 > 0 {
-            cell.imgView.loadImage(url: URL(string: (foodItem.photo?.thumb!)!)!)
+            cell.imgView.sd_setImage(with: URL(string: (foodItem.photo?.thumb!)!)!)
         }
         
         cell.foodName.text = foodItem.food_name!.lowercased()

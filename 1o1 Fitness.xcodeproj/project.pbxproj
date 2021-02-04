@@ -2100,7 +2100,7 @@
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
@@ -2128,7 +2128,7 @@
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "1o1 Fitness/Info.plist";

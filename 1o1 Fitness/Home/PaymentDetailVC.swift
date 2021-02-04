@@ -80,7 +80,8 @@ class PaymentDetailVC: UIViewController {
         default:
             print()
         }
-        self.profileImg.loadImage(url: URL(string: (self.paymentInfo!.profile_image?.profileImagePath)!)!)
+        self.profileImg.sd_setImage(with: URL(string: (self.paymentInfo!.profile_image?.profileImagePath)!)!, completed: nil)
+      
         if let lastname = self.paymentInfo!.last_name {
              self.nameLbl.text = (self.paymentInfo?.first_name)! + " " + lastname
         }else {

@@ -564,10 +564,22 @@ extension CallViewController: UITableViewDelegate,UITableViewDataSource {
                     if schedule?.status == "completed" {
                         cell.bookNowBtn.setTitle("Completed", for: .normal)
                         cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "rescheduled" {
+                        cell.bookNowBtn.setTitle("Reschedule", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "cancelled" {
+                        cell.bookNowBtn.setTitle("Cancelled", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
                     }
                 }else {
                     if schedule?.status == "completed" {
                         cell.bookNowBtn.setTitle("Completed", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "rescheduled" {
+                        cell.bookNowBtn.setTitle("Reschedule", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "cancelled" {
+                        cell.bookNowBtn.setTitle("Cancelled", for: .normal)
                         cell.bookNowBtn.isEnabled = false
                     }else {
                         cell.bookNowBtn.isEnabled = true

@@ -178,6 +178,7 @@ extension ScheduleCallView: UITableViewDelegate,UITableViewDataSource {
             }else {
                 cell.bookNowBtn.isEnabled = true
             }
+            
         }else {
             if checkIfUserisParticipant(slots:schedule!) {
                 cell.bookNowBtn.layer.borderColor = AppColours.textGreen.cgColor
@@ -198,12 +199,30 @@ extension ScheduleCallView: UITableViewDelegate,UITableViewDataSource {
                     if schedule?.status == "completed" {
                         cell.bookNowBtn.setTitle("Completed", for: .normal)
                         cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "rescheduled" {
+                        cell.bookNowBtn.setTitle("Reschedule", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "cancelled" {
+                        cell.bookNowBtn.setTitle("Cancelled", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
                     }
                 }else {
-                    cell.bookNowBtn.isEnabled = true
-                    cell.deleteTapped.isHidden = false
-                     cell.deleteTapped.tag = indexPath.row
-                    cell.deleteTapped.addTarget(self, action: #selector(self.deleteTappedSelection(_:)), for: .touchUpInside)
+                    if schedule?.status == "completed" {
+                        cell.bookNowBtn.setTitle("Completed", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "rescheduled" {
+                        cell.bookNowBtn.setTitle("Reschedule", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else if schedule?.status == "cancelled" {
+                        cell.bookNowBtn.setTitle("Cancelled", for: .normal)
+                        cell.bookNowBtn.isEnabled = false
+                    }else {
+                        cell.bookNowBtn.isEnabled = true
+                        cell.deleteTapped.isHidden = false
+                         cell.deleteTapped.tag = indexPath.row
+                        cell.deleteTapped.addTarget(self, action: #selector(self.deleteTappedSelection(_:)), for: .touchUpInside)
+                    }
+                   
                 }
                 
             }else {

@@ -98,7 +98,18 @@ class SignUpViewController: UIViewController {
             }
             
         }
-        
+        var countryCode = "+1"
+        var countryCode2 = "+91"
+        let location = LocationSingleton.sharedInstance.country ?? ""
+        if location.lowercased() == "india" {
+            countryCode = "+91"
+            countryCode2 = "+1"
+        }else if location.lowercased() == "us" || location.lowercased() == "united states" {
+            countryCode = "+1"
+            countryCode2 = "+91"
+        }
+        self.countryCode1Btn.setTitle(countryCode, for: .normal)
+        self.countryCode2Btn.setTitle(countryCode2, for: .normal)
         self.countryCode2Btn.layer.cornerRadius = 2.0
         self.countryCode2Btn.backgroundColor = UIColor.init(red: 91/255, green: 91/255, blue: 91/255, alpha: 0.5)
         self.emailTxtField.autocorrectionType = .yes

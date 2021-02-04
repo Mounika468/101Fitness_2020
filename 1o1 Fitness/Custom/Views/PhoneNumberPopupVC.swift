@@ -58,6 +58,18 @@ class PhoneNumberPopupVC: UIViewController {
 //        bgView.layer.borderColor = UIColor.lightGray.cgColor
       //  self.setUpPhoneView()
         self.hideKeyboardWhenTappedAround()
+        var countryCode = "+1"
+        var countryCode2 = "+91"
+        let location = LocationSingleton.sharedInstance.country ?? ""
+        if location.lowercased() == "india" {
+            countryCode = "+91"
+            countryCode2 = "+1"
+        }else if location.lowercased() == "us" || location.lowercased() == "united states" {
+            countryCode = "+1"
+            countryCode2 = "+91"
+        }
+        self.countryCode1Btn.setTitle(countryCode, for: .normal)
+        self.countryCode2Btn.setTitle(countryCode2, for: .normal)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
