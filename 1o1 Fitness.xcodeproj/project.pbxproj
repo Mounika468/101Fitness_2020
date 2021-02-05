@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E676A31BF4D4E62BD7AFDAD /* Pods_1o1_Fitness_1o1_FitnessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3602C9C2D504E6AA8B4F9E6A /* Pods_1o1_Fitness_1o1_FitnessUITests.framework */; };
+		637E63FA25CD298B0012A7FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 637E63F925CD298A0012A7FA /* GoogleService-Info.plist */; };
 		639ED94625C1517C00526347 /* RefundVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639ED94525C1517C00526347 /* RefundVC.storyboard */; };
 		639ED94B25C1518B00526347 /* RefundVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639ED94A25C1518B00526347 /* RefundVC.swift */; };
 		639ED9FB25C15ED300526347 /* RefundAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639ED9FA25C15ED300526347 /* RefundAlertVC.swift */; };
@@ -60,7 +61,6 @@
 		6F224DA124875611005B9F1C /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F224DA024875611005B9F1C /* CommentsViewController.swift */; };
 		6F224DA324875620005B9F1C /* CommentsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F224DA224875620005B9F1C /* CommentsVC.storyboard */; };
 		6F23F7F225644C3D0094A6F0 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F23F7F125644C3D0094A6F0 /* NotificationsViewController.swift */; };
-		6F23F8B1256BAF3A0094A6F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F23F8B0256BAF3A0094A6F0 /* GoogleService-Info.plist */; };
 		6F251E00249F454C00D0C796 /* CheckOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F251DFF249F454C00D0C796 /* CheckOutViewController.swift */; };
 		6F26978724E4531100E4F4D4 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26978624E4531100E4F4D4 /* ScheduleTableViewCell.swift */; };
 		6F2C08EB24F8F442005CC0D7 /* CallScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C08E924F8F442005CC0D7 /* CallScheduleTableViewCell.swift */; };
@@ -357,6 +357,7 @@
 		3602C9C2D504E6AA8B4F9E6A /* Pods_1o1_Fitness_1o1_FitnessUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1o1_Fitness_1o1_FitnessUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E93E8C61A449DBC4AC45D54 /* Pods_1o1_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1o1_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		528D190EB9F1E435285755D0 /* Pods-1o1 Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1o1 Fitness.debug.xcconfig"; path = "Target Support Files/Pods-1o1 Fitness/Pods-1o1 Fitness.debug.xcconfig"; sourceTree = "<group>"; };
+		637E63F925CD298A0012A7FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		639ED94525C1517C00526347 /* RefundVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefundVC.storyboard; sourceTree = "<group>"; };
 		639ED94A25C1518B00526347 /* RefundVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundVC.swift; sourceTree = "<group>"; };
 		639ED9FA25C15ED300526347 /* RefundAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundAlertVC.swift; sourceTree = "<group>"; };
@@ -409,7 +410,6 @@
 		6F224DA024875611005B9F1C /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		6F224DA224875620005B9F1C /* CommentsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentsVC.storyboard; sourceTree = "<group>"; };
 		6F23F7F125644C3D0094A6F0 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
-		6F23F8B0256BAF3A0094A6F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F251DFF249F454C00D0C796 /* CheckOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutViewController.swift; sourceTree = "<group>"; };
 		6F26978624E4531100E4F4D4 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		6F2C08E924F8F442005CC0D7 /* CallScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallScheduleTableViewCell.swift; sourceTree = "<group>"; };
@@ -805,7 +805,7 @@
 		6F23F8AC256BAF1B0094A6F0 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				6F23F8B0256BAF3A0094A6F0 /* GoogleService-Info.plist */,
+				637E63F925CD298A0012A7FA /* GoogleService-Info.plist */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1340,6 +1340,7 @@
 				6F7EBC1B244EC6D200453649 /* Resources */,
 				C614C12E7BFA8DA7B5188AB6 /* [CP] Embed Pods Frameworks */,
 				B228566213A6BFC0A167FAD6 /* [CP] Copy Pods Resources */,
+				637E63F025CD28980012A7FA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1472,7 +1473,6 @@
 				6F31194D24739C2A00E4CE17 /* DietListHeader.xib in Resources */,
 				6F434F1B2456F7E60054642B /* TrainerProfileView.xib in Resources */,
 				6F3D7F9B24601AEB0065170D /* StartVC.storyboard in Resources */,
-				6F23F8B1256BAF3A0094A6F0 /* GoogleService-Info.plist in Resources */,
 				63A409D325B82A9E0077ABBB /* LoadingReusableView.xib in Resources */,
 				6F7EBC812451B54900453649 /* TrainerCollectionViewCell.xib in Resources */,
 				6F9368482463E118007656D2 /* PersonalInfoVC.storyboard in Resources */,
@@ -1519,6 +1519,7 @@
 				6FB1166824B87132006C77CD /* AddressPopVC.storyboard in Resources */,
 				6F93682B2462C4F8007656D2 /* FoodPreferenceVC.storyboard in Resources */,
 				6F67A7D2248E03FD00A26115 /* ExerciseInfoView.xib in Resources */,
+				637E63FA25CD298B0012A7FA /* GoogleService-Info.plist in Resources */,
 				6F31195024739C2A00E4CE17 /* DietListTableViewCell.xib in Resources */,
 				6F67A7DC2491F5E000A26115 /* PaymentDetailVC.storyboard in Resources */,
 				6F31ACA224CF35ED00C850E9 /* FoodDetailsVC.storyboard in Resources */,
@@ -1607,6 +1608,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		637E63F025CD28980012A7FA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		8AFE119689DBD214029ACCFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

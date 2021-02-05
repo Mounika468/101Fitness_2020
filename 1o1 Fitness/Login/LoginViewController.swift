@@ -239,7 +239,46 @@ class LoginViewController: UIViewController {
                             self.navigationController?.pushViewController(confirmSignupViewController, animated: true)
                         }
                     }
-                    
+                case .invalidPassword(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Invalid Password", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .userNotFound(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "User Not Found", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .invalidParameter(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Invalid User Name/Password", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .notAuthorized(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Not Authorized", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .passwordResetRequired(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Password Rest Required", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
                 default:
                     DispatchQueue.main.async {
                         LoadingOverlay.shared.hideOverlayView()

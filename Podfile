@@ -29,6 +29,7 @@ target '1o1 Fitness' do
   pod 'BarcodeScanner'
   pod 'Firebase/Auth'
   pod 'Firebase/Messaging'
+  pod 'Firebase/Crashlytics'
   pod 'PieCharts'
   pod "youtube-ios-player-helper"
 

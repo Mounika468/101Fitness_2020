@@ -52,6 +52,7 @@ class ConfirmSignUpViewController: UIViewController {
     func resendSignUpHandler(result: SignUpResult?, error: Error?) {
         if let error = error {
             print("\(error)")
+            
             return
         }
         
@@ -118,14 +119,70 @@ class ConfirmSignUpViewController: UIViewController {
                }
         AWSMobileClient.sharedInstance().signIn(username: username, password: password) {
             (signInResult, error) in
-            if let error = error  {
-                 DispatchQueue.main.async {
-                     LoadingOverlay.shared.hideOverlayView()
-                self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") {_ in
+            
+            if let error = error as? AWSMobileClientError {
+                switch(error) {
+                case .userNotConfirmed(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "User Not Confirmed", message: "\(message)", options: "OK") {_ in
+                            let confirmSignupViewController = ConfirmSignUpViewController(username: username, password: password)
+                            self.navigationController?.pushViewController(confirmSignupViewController, animated: true)
+                        }
+                    }
+                case .invalidPassword(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Invalid Password", message: "\(message)", options: "OK") {_ in
+                            return
+                        }
+                    }
+                case .userNotFound(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "User Not Found", message: "\(message)", options: "OK") {_ in
+                            return
+                        }
+                    }
+                case .invalidParameter(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Invalid User Name/Password", message: "\(message)", options: "OK") {_ in
+                            return
+                        }
+                    }
+                case .notAuthorized(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Not Authorized", message: "\(message)", options: "OK") {_ in
+                            return
+                        }
+                    }
+                case .passwordResetRequired(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Password Rest Required", message: "\(message)", options: "OK") {_ in
+                            return
+                        }
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") {_ in
+                        }
+                    }
+                    return
+                    
                 }
-                }
-                return
             }
+//            if let error = error  {
+//                 DispatchQueue.main.async {
+//                     LoadingOverlay.shared.hideOverlayView()
+//                self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") {_ in
+//                }
+//                }
+//                return
+//            }
             
             guard let signInResult = signInResult else {
                 DispatchQueue.main.async {
