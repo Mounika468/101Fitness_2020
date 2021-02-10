@@ -219,6 +219,9 @@ final class LandingViewController : BaseViewController {
                AWSMobileClient.sharedInstance().signIn(username: username, password: password) {
                    (signInResult, error) in
                 if self.isLoading == true {
+                    DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                    }
                     return
                 }
                        if let error = error  {

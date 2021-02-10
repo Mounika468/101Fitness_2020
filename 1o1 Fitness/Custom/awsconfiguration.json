@@ -9,25 +9,25 @@
    "CredentialsProvider":{
       "CognitoIdentity":{
          "Default":{
-            "PoolId":"us-east-1_gMWu79Y0F",
-            "Region":"us-east-1"
+            "PoolId":"eu-west-3_O4FADfZXN",
+            "Region":"eu-west-3"
          }
       }
    },
    "CognitoUserPool":{
       "Default":{
-         "PoolId":"us-east-1_gMWu79Y0F",
-         "Region":"us-east-1",
-         "AppClientId":"43lgfpjlmp8sg0f2l48lqp7o6b",
-         "AppClientSecret":"arp61r4mb5p8tmgmhavmajb3ar1j4u7vrsdg4tv9perv3ffvdgh"
+         "PoolId":"eu-west-3_O4FADfZXN",
+         "Region":"eu-west-3",
+         "AppClientId":"62ar7ilm4d0dhve7hg6s9npi4j",
+         "AppClientSecret":"9tmjeiput5ocj0k3tnrgaj2vnvp3u9e82n4ndmgkgdnbdmqgoqp"
       }
    },
    "Auth": {
       "Default": {
           "OAuth": {
-              "WebDomain": "mobile-staging-domain.auth.us-east-1.amazoncognito.com",
-              "AppClientId": "43lgfpjlmp8sg0f2l48lqp7o6b",
-              "AppClientSecret": "arp61r4mb5p8tmgmhavmajb3ar1j4u7vrsdg4tv9perv3ffvdgh",
+              "WebDomain": "trainee1o1-app-eu.auth.eu-west-3.amazoncognito.com",
+              "AppClientId": "62ar7ilm4d0dhve7hg6s9npi4j",
+              "AppClientSecret": "9tmjeiput5ocj0k3tnrgaj2vnvp3u9e82n4ndmgkgdnbdmqgoqp",
               "SignInRedirectURI": "myapp://",
               "SignOutRedirectURI": "myapp://",
               "Scopes": ["openid","email","profile","aws.cognito.signin.user.admin"]

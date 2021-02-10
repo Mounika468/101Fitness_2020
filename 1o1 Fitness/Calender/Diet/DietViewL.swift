@@ -622,7 +622,6 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
         if  foodItem.photo != nil &&  foodItem.photo?.thumb?.count ?? 0 > 0 {
             cell.imgView.sd_setImage(with: URL(string: (foodItem.photo?.thumb!)!)!)
         }
-        
         cell.foodName.text = foodItem.food_name!.lowercased()
         let consumedTime = foodItem.consumedTime ?? foodItem.time ?? ""
         cell.timeBtn.text = consumedTime
