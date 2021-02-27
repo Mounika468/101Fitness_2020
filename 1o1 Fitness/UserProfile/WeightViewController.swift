@@ -49,9 +49,9 @@ class WeightViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         
-         self.kgBtn.isSelected = true
-          self.kgBtn.setTitleColor(AppColours.appYellow, for: .normal)
-         self.metric = "kg"
+//         self.kgBtn.isSelected = true
+//          self.kgBtn.setTitleColor(AppColours.appYellow, for: .normal)
+//         self.metric = "kg"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +73,9 @@ class WeightViewController: UIViewController {
 //                secHeightConstraint.priority = UILayoutPriority(rawValue: 999)
 //                priHeightConstraint.priority = UILayoutPriority(rawValue: 1000)
 //            }
+            self.kgBtn.isSelected = true
+             self.kgBtn.setTitleColor(AppColours.appYellow, for: .normal)
+            self.metric = "kg"
           
         case .profileMenu:
             self.headerView.isHidden = true
@@ -124,7 +127,11 @@ class WeightViewController: UIViewController {
                  TraineeInfo.details.weight = dict
                     TraineeDetails.traineeDetails?.currrent_weight = Currrent_Weight(weight: val, metric: self.metric, updated_on: Date.getCurrentDate())
             }else {
-                TraineeDetails.traineeDetails?.targetWeight = Float(val)
+              //  TraineeDetails.traineeDetails?.targetWeight = Float(val)
+                
+                let dict : [String : Any] = ["weight": val ,"metric": self.metric,"updated_on":Date.getCurrentDate()]
+                 TraineeInfo.details.targetWeight = dict
+                    TraineeDetails.traineeDetails?.targetWeight = Target_Weight(weight: val, metric: self.metric, updated_on: Date.getCurrentDate())
             }
        
           self.weightDelegate?.updateWeightForProfile()
@@ -198,7 +205,7 @@ class WeightViewController: UIViewController {
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         scrollView.heightAnchor.constraint(equalToConstant: 100).isActive = true
        // scrollView = UIScrollView(frame: CGRect(x: 20, y: Int(self.headerLbl.frame.maxY) + 50, width: Int(self.view.frame.maxX) - 40, height: 100))
-        
+        scrollView.bounces = false
         let imageView = UIImageView()
         imageView.frame = CGRect(x: Int(scrollView.frame.midX), y: Int(scrollView.frame.minY), width: 1, height: 80)
         imageView.backgroundColor = AppColours.textGreen
@@ -238,7 +245,7 @@ extension WeightViewController: UIScrollViewDelegate {
         
         var offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / 10
-        let roundedIndex = round(index)
+        let roundedIndex = (index)
 
         offset = CGPoint(x: roundedIndex * 10 - scrollView.contentInset.left, y: -scrollView.contentInset.top)
         targetContentOffset.pointee = offset
@@ -258,8 +265,6 @@ extension WeightViewController: UIScrollViewDelegate {
              weightLbl.text = String(format: "%.2f", weight)
            // self.weightVal = weight
         }else {
-            
-           
               weightLbl.text = String(format: "%.2f", selectedNumber)
         }
        
@@ -279,6 +284,7 @@ extension WeightViewController : BottomViewDelegate {
             if self.metric == "lbs" {
                 val = (1000*(self.weightVal * 2.20)/1000)
             }
+            "targetWeight"
             let dict : [String : Any] = ["weight": val ,"metric": self.metric,"updated_on":Date.getCurrentDate()]
              TraineeInfo.details.weight = dict
                    let storyboard = UIStoryboard(name: "HeightViewController", bundle: nil)
@@ -336,7 +342,6 @@ extension Date {
         let formatter2 = DateFormatter()
         formatter2.dateFormat = "MMM dd @hh:mm aa"
         let localTime = formatter2.string(from: sourceDate!)
-        print("local time %@",localTime)
         return localTime
     }
     

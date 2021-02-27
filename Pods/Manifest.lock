@@ -69,6 +69,7 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 6.7)
     - Protobuf (>= 3.9.2, ~> 3.9)
   - FSCalendar (2.8.1)
+  - FTPopOverMenu_Swift (0.1.4)
   - GoogleDataTransport (7.5.1):
     - nanopb (~> 1.30906.0)
   - GoogleMaps/Base (3.6.0)
@@ -139,6 +140,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Messaging
   - FSCalendar
+  - FTPopOverMenu_Swift (~> 0.1.3)
   - GooglePlaces (~> 3.6.0)
   - GoogleSignIn
   - IQKeyboardManagerSwift
@@ -178,6 +180,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FSCalendar
+    - FTPopOverMenu_Swift
     - GoogleDataTransport
     - GoogleMaps
     - GooglePlaces
@@ -224,6 +227,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: bd3ffc24367f901a43c063b36c640b345a4a5dd1
   FirebaseMessaging: 5eca4ef173de76253352511aafef774caa1cba2a
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  FTPopOverMenu_Swift: e4cafd1085d8125339c710fa9e53477fd615b1e2
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
   GooglePlaces: 1b9d29cf3e164903d873600f511f42acdfe85294
@@ -249,6 +253,6 @@ SPEC CHECKSUMS:
   TwilioVideo: 569fc99e004ea82614d96e1657969dacd07aa6aa
   youtube-ios-player-helper: 40b96e52c22445f0fdc43731cefa32c67075ff81
 
-PODFILE CHECKSUM: 099b49f798eff5bbae4600c2799f384b3260fced
+PODFILE CHECKSUM: e668d02f089ed42958c531c5fb742c16c71777e5
 
 COCOAPODS: 1.10.1

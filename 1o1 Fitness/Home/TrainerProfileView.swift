@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Cosmos
 protocol TrainerProfileViewDelegate {
     func certificateSelected(urlString: String?)
     func playButtonTapped()
+    func ratingsBtnTapped()
 }
 class TrainerProfileView: UIView {
 
+    @IBOutlet weak var ratingsBtn: UIButton!
+    @IBOutlet weak var ratings: CosmosView!
     @IBOutlet weak var ratingBtn: UIButton!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var certCV: UICollectionView! {
@@ -27,7 +31,7 @@ class TrainerProfileView: UIView {
     @IBOutlet var contentView: UIView!
     var profileDelegate : TrainerProfileViewDelegate?
     var certArray : [Certification]?
-   
+    var trainerId : String?
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -66,6 +70,9 @@ class TrainerProfileView: UIView {
     }
     @IBAction func playButtonTapped(_ sender: Any) {
         self.profileDelegate?.playButtonTapped()
+    }
+    @IBAction func ratingsBtnTapped(_ sender: Any) {
+        self.profileDelegate?.ratingsBtnTapped()
     }
 }
 extension TrainerProfileView: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {

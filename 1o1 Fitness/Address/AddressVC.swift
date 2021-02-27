@@ -253,7 +253,6 @@ class AddressVC: UIViewController, UITextFieldDelegate {
                    return false
                }
                
-               print(UIApplication.shared.windows[0].safeAreaInsets)
                if(UIApplication.shared.windows[0].safeAreaInsets.bottom != 0.0) {
                    return true
                }
@@ -712,7 +711,6 @@ extension AddressVC: GMSAutocompleteViewControllerDelegate {
 
   // User cancelled the operation.
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-    print("Autocomplete was cancelled.")
      self.flatTxtField .resignFirstResponder()
     textFieldDidEndEditing(self.flatTxtField)
     dismiss(animated: true, completion: nil)

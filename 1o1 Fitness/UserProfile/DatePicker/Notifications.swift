@@ -32,7 +32,6 @@ extension WeekdayPicker {
     
     @objc
     private func weekdayUpdate() {
-        print("Update day")
         
      //   let currentWeekday = self.weekdays[self.selectedRow(inComponent: .weekday)]
         

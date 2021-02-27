@@ -166,6 +166,7 @@ class TrainerDetailsViewController: UIViewController {
             }else {
                 self.profileView.setRatings(rating: "")
             }
+           
             
             
         }
@@ -240,16 +241,13 @@ class TrainerDetailsViewController: UIViewController {
                 do {
                     request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                 } catch let error {
-                    print("Error : \(error.localizedDescription)")
                 }
         messageString = ""
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {
@@ -353,12 +351,10 @@ class TrainerDetailsViewController: UIViewController {
                 }
         messageString = ""
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {
@@ -440,7 +436,6 @@ class TrainerDetailsViewController: UIViewController {
         
         TrainerDetailsAPI.post(trainerId:(self.trainersInfo?.trainerId)!, header: authenticatedHeaders, successHandler: { [weak self] trainerPofile  in
             
-            print(" success response \(trainerPofile)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
                 self?.profileView.nameLbl.text = trainerPofile[0].firstName! + " " + trainerPofile[0].lastName!
@@ -451,6 +446,16 @@ class TrainerDetailsViewController: UIViewController {
                  let profileVideo = trainerPofile[0].profileIntroVideo
                 self?.introVideo = profileVideo?.videoMp4Destination!
                 self?.profileView.setupCertificatesView()
+                self?.profileView.trainerId = trainerPofile[0].trainerId
+                self?.profileView.ratings.rating = Double(trainerPofile[0].rating ?? 0)
+                if  let ratingCount = trainerPofile[0].ratingCount {
+                    self?.profileView.ratingsBtn.setTitle("(\(ratingCount) Comments)", for: .normal)
+                    self?.profileView.ratingsBtn.isUserInteractionEnabled = true
+                    
+                }else {
+                    self?.profileView.ratingsBtn.isUserInteractionEnabled = false
+                    self?.profileView.ratingsBtn.setTitle("", for: .normal)
+                }
             }
         }) { [weak self] error in
             print(" error \(error)")
@@ -482,7 +487,6 @@ class TrainerDetailsViewController: UIViewController {
                 }
                 self?.videosView.loadVideosList()
             }
-            print(" success response \(trainerVideos)")
            
                 LoadingOverlay.shared.hideOverlayView()
 
@@ -563,6 +567,18 @@ extension TrainerDetailsViewController:TrainerProfileViewDelegate
         playerViewController.player = player
         self.present(playerViewController, animated: true) {
             playerViewController.player!.play()
+        }
+    }
+    func ratingsBtnTapped() {
+        if self.trainersInfo?.rating ?? 0.0 == 0.0 {
+            self.presentAlertWithTitle(title: "", message: "No ratings found", options: "OK") { (_) in
+                
+            }
+        }else {
+        let storyboard = UIStoryboard(name: "RatingsListViewController", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "RatingsListViewController") as! RatingsListViewController
+        controller.trainerId = self.profileView.trainerId
+        self.navigationController?.pushViewController(controller, animated: true)
         }
     }
 }
@@ -670,12 +686,10 @@ extension TrainerDetailsViewController: CallScheduleDelegate {
         }
             messageString = ""
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40 && json["code"] as? Int != 64
                             {
@@ -784,12 +798,10 @@ extension TrainerDetailsViewController: CallScheduleDelegate {
                 }
         messageString = ""
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {

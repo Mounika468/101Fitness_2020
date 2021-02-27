@@ -82,7 +82,6 @@ class TrainersListViewController: UIViewController {
         GetTrainersAPI.post(parameters:[:], pageNumber: self.pageNumber,header:authenticatedHeaders, successHandler: { [weak self] trainerInfo  in
                       self?.trainersInfo = trainerInfo
             self?.pageNumber = self!.pageNumber + 1
-                      print(" success response \(trainerInfo)")
                     DispatchQueue.main.async {
                         self?.isLoading = false
                         self?.profileCV.reloadData()
@@ -153,15 +152,15 @@ extension TrainersListViewController: UICollectionViewDelegate,UICollectionViewD
 //            }
         }
         cell.nameLbl.text = trainer.firstName! + " " + trainer.lastName!
-//        if  let rating = trainer.rating {
-//            let ratings = String(describing: rating)
-//            let rating = ratings
-//            cell.ratingBtn.setTitle(rating, for: .normal)
-//        }else {
-//            cell.ratingBtn.setTitle("", for: .normal)
-//        }
-        cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
-        cell.ratingBtn.isHidden = true
+        if  let rating = trainer.rating {
+            let ratings = String(format: "%.1f", rating)
+            cell.ratingBtn.setTitle(ratings, for: .normal)
+            //cell.ratingBtn.setTitle(rating, for: .normal)
+        }else {
+            cell.ratingBtn.setTitle("", for: .normal)
+        }
+//        cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
+//        cell.ratingBtn.isHidden = true
 
         return cell
         
@@ -242,7 +241,6 @@ extension TrainersListViewController: UICollectionViewDelegate,UICollectionViewD
                         self?.isLoading = true
                     }
                 }
-                print(" success response \(trainerInfo)")
                       }) { [weak self] error in
                           print(" error \(error)")
                         DispatchQueue.main.async {

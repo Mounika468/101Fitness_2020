@@ -66,7 +66,6 @@ class FilterVC: UIViewController {
         if countriesArr?.count ?? 0 > 0 {
         let predicate =  NSPredicate(format:"self.prodName CONTAINS [cd] %@",sender.text ?? "")
         let filteredArray = self.countriesArr!.filter{predicate.evaluate(with: $0)}
-        print("filtered array \(filteredArray)")
             self.filteredArray = filteredArray
         }
     }
@@ -77,7 +76,6 @@ extension FilterVC: UITextFieldDelegate {
         if countriesArr?.count ?? 0 > 0 {
 
              self.filteredArray  = self.countriesArr!.filter { ($0.name as! String).range(of: textField.text!, options: [.diacriticInsensitive, .caseInsensitive]) != nil }
-            print("filtered array \(filteredArray)")
             
             DispatchQueue.main.async {
                                self.filterTbleView.reloadData()

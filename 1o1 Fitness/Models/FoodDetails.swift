@@ -35,7 +35,6 @@ struct PartialFoodDetails: Codable {
         self.servingSize = servingSize
     }
     init(from decoder: Decoder) throws {
-        print("Quantity erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.foodId = try container.decode(Int.self, forKey: .foodId)
         self.foodCode = try container.decode(Int.self, forKey: .foodCode)

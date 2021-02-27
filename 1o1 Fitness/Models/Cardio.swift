@@ -30,7 +30,6 @@ struct Cardio: Codable {
     }
     
     init(from decoder: Decoder) throws {
-        print("Cardio erroe")
            let container = try decoder.container(keyedBy: CodingKeys.self)
            self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)

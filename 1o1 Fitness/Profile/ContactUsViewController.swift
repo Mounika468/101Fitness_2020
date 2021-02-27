@@ -108,6 +108,11 @@ extension ContactUsViewController: UITableViewDelegate,UITableViewDataSource {
         let storyboard = UIStoryboard(name: "SupportViewController", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ContactCommentsViewController") as! ContactCommentsViewController
         controller.category = self.sourceArr?[indexPath.row].name ?? ""
+        if self.sourceArr?[indexPath.row].name ?? "" == "Refund related" {
+            controller.commentsType = .refund
+        }else {
+            controller.commentsType = .contact
+        }
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

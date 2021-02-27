@@ -328,7 +328,7 @@ class SignUpViewController: UIViewController {
 //        let username = userNameTxtField.text, !username.isEmpty,
 //        let password = pwdTxtField.text, !password.isEmpty
         
-        guard let fullName = fsTxtField.text, !fullName.isEmpty else {
+        guard let fullName = fsTxtField.text, !fullName.isEmpty, fullName.whiteSpaceBeforeString(name: fsTxtField.text!) else {
                 
             self.fnErrLbl.isHidden = false
             self.fnImg.isHidden = false
@@ -339,20 +339,20 @@ class SignUpViewController: UIViewController {
                            }
             return
         }
-        guard let lsName = lnTxtField.text, !lsName.isEmpty else {
+        guard let lsName = lnTxtField.text, !lsName.isEmpty, lsName.whiteSpaceBeforeString(name: lnTxtField.text!) else {
                        
                    self.lnErrLbl.isHidden = false
              self.lnImg.isHidden = false
                    return
                }
         
-        guard let email = emailTxtField.text, !email.isEmpty else {
+        guard let email = emailTxtField.text, !email.isEmpty, email.whiteSpaceBeforeString(name: emailTxtField.text!) else {
                               
                           self.emailErrLbl.isHidden = false
              self.emImg.isHidden = false
                           return
                       }
-        guard let userName = userNameTxtField.text, !userName.isEmpty else {
+        guard let userName = userNameTxtField.text, !userName.isEmpty, userName.whiteSpaceBeforeString(name: userNameTxtField.text!) else {
                                      
                                  self.userErrLbl.isHidden = false
              self.usImg.isHidden = false
@@ -363,7 +363,7 @@ class SignUpViewController: UIViewController {
                            }
             return
         }
-        guard let pwd = pwdTxtField.text, !pwd.isEmpty else {
+        guard let pwd = pwdTxtField.text, !pwd.isEmpty, pwd.whiteSpaceBeforeString(name: pwdTxtField.text!) else {
                 
             self.pwdTxtField.isHidden = false
              self.pwImg.isHidden = false
@@ -441,20 +441,38 @@ extension SignUpViewController: UITextFieldDelegate {
         }
         
         if textField == phoneTxtField {
-        let allowedCharacters = CharacterSet(charactersIn:"0123456789+").inverted
-            //let telefonRegex = "^[0-9]{8}$"
-            let components = string.components(separatedBy: allowedCharacters)
-            let filtered = components.joined(separator: "")
-            
-            if string == filtered {
-                print("string \(string)")
+            let allowedCharacters = CharacterSet(charactersIn:"0123456789").inverted
+                let components = string.components(separatedBy: allowedCharacters)
+                let filtered = components.joined(separator: "")
                 
-                return true
+                if string == filtered {
+                    
+                   let maxLength = 10
+                    let currentString: NSString = textField.text! as NSString
+                    let newString: NSString =
+                        currentString.replacingCharacters(in: range, with: string) as NSString
+                   
+                    return newString.length <= maxLength
 
-            } else {
-                
-                return false
-            }
+                } else {
+                    
+                    return false
+                }
+            
+//        let allowedCharacters = CharacterSet(charactersIn:"0123456789+").inverted
+//            //let telefonRegex = "^[0-9]{8}$"
+//            let components = string.components(separatedBy: allowedCharacters)
+//            let filtered = components.joined(separator: "")
+//
+//            if string == filtered {
+//                print("string \(string)")
+//
+//                return true
+//
+//            } else {
+//
+//                return false
+//            }
         }
         return true
     }
@@ -531,7 +549,7 @@ extension SignUpViewController: UITextFieldDelegate {
              self.lnImg.isHidden = true
         }
         if textField == userNameTxtField {
-            guard  let name = userNameTxtField.text, !name.isEmpty else {
+            guard  let name = userNameTxtField.text, !name.isEmpty,name.whiteSpaceBeforeString(name: userNameTxtField.text!) else {
                 self.userErrLbl.isHidden = false
                  self.usImg.isHidden = false
                 // self.emailErrLbl.text = "Please enter valid email"
@@ -569,5 +587,16 @@ extension SignUpViewController: UITextFieldDelegate {
                                          self.userErrLbl.isHidden = true
              self.usImg.isHidden = true
                                     }
+    }
+}
+extension String {
+    
+    func whiteSpaceBeforeString(name: String) -> Bool {
+        if name.hasPrefix(" ") || name.hasSuffix(" ") {
+            print("Wrong value format in setCityName")
+            return false
+        } else {
+            return true
+        }
     }
 }

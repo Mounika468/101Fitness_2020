@@ -91,7 +91,6 @@ struct Mealplan: Decodable {
         
     }
     init(from decoder: Decoder) throws {
-        print("MeqalPlan erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.breakfast = try container.decodeIfPresent(Breakfast.self, forKey: .breakfast)
         self.lunch = try container.decodeIfPresent(Lunch.self, forKey: .lunch)
@@ -153,7 +152,6 @@ struct NutriInfo: Codable {
         
     }
     init(from decoder: Decoder) throws {
-        print("Nutrition erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.per_serving = try container.decodeIfPresent(Float.self, forKey: .per_serving)
         self.recommended = try container.decode(Float.self, forKey: .recommended)
@@ -204,7 +202,6 @@ struct Breakfast: Codable {
    
     }
     init(from decoder: Decoder) throws {
-        print("Bf exercises erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.overall_protein_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_protein_recommended)
         self.overall_carboHydrate_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_carboHydrate_recommended)
@@ -288,7 +285,6 @@ struct Lunch: Codable {
      
     }
     init(from decoder: Decoder) throws {
-        print("Lunch exercises erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.overall_protein_recommended = try container.decode(Float.self, forKey: .overall_protein_recommended)
         self.overall_carboHydrate_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_carboHydrate_recommended)
@@ -371,7 +367,6 @@ struct Dinner: Codable {
      
     }
     init(from decoder: Decoder) throws {
-        print("Dinner exercises erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.overall_protein_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_protein_recommended)
         self.overall_carboHydrate_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_carboHydrate_recommended)
@@ -454,7 +449,6 @@ struct Snacks_2: Codable {
        
     }
     init(from decoder: Decoder) throws {
-        print("Snacks_2 exercises erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.overall_protein_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_protein_recommended)
         self.overall_carboHydrate_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_carboHydrate_recommended)
@@ -541,7 +535,6 @@ struct Snacks: Codable {
 
     }
     init(from decoder: Decoder) throws {
-        print("Snacks_1 exercises erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.overall_protein_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_protein_recommended)
         self.overall_carboHydrate_recommended = try container.decodeIfPresent(Float.self, forKey: .overall_carboHydrate_recommended)
@@ -677,7 +670,6 @@ struct FoodItems: Codable {
           self.consumedTime = consumedTime
     }
     init(from decoder: Decoder) throws {
-        print("FoodItems erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.foodId = try container.decode(Int.self, forKey: .foodId)
         self.catagory1 = try container.decodeIfPresent(String.self, forKey: .catagory1)
@@ -740,7 +732,6 @@ struct Type: Codable {
         self.item_text = item_text
     }
     init(from decoder: Decoder) throws {
-        print("Type erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.item_id = try container.decode(Int.self, forKey: .item_id)
         self.item_text = try container.decodeIfPresent(String.self, forKey: .item_text)
@@ -757,7 +748,6 @@ struct Quantity: Codable {
         self.consumed = consumed
     }
     init(from decoder: Decoder) throws {
-        print("Quantity erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.recommended = try container.decode(Int.self, forKey: .recommended)
         self.consumed = try container.decodeIfPresent(Int.self, forKey: .consumed)
@@ -787,7 +777,6 @@ struct Macros: Codable {
         self.protein_consumed = protein_consumed
     }
     init(from decoder: Decoder) throws {
-        print("Quantity erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.carboHydrate_recommended = try container.decode(Int.self, forKey: .carboHydrate_recommended)
         self.protein_recommended = try container.decode(Int.self, forKey: .protein_recommended)

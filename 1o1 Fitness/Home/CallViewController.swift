@@ -119,12 +119,10 @@ class CallViewController: UIViewController {
             print("Error : \(error.localizedDescription)")
         }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40 && json["code"] as? Int != 64
                             {
@@ -225,12 +223,10 @@ class CallViewController: UIViewController {
                     print("Error : \(error.localizedDescription)")
                 }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {
@@ -320,7 +316,6 @@ class CallViewController: UIViewController {
                     print("Error : \(error.localizedDescription)")
                 }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
@@ -467,7 +462,6 @@ class CallViewController: UIViewController {
                 LoadingOverlay.shared.hideOverlayView()
             }
         }) { [weak self] error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
 

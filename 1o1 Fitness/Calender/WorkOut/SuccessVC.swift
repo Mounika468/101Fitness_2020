@@ -138,7 +138,6 @@ class SuccessVC: UIViewController {
             
         case .failure:
              self.navigationController?.popViewController(animated: true)
-            print("failure")
         default:
             self.tabBarController?.selectedIndex = 2
         }

@@ -323,7 +323,6 @@ class LoginViewController: UIViewController {
     func getGoogleUserAttributes(complete:@escaping ()->()) {
         AWSMobileClient.sharedInstance().getTokens { (tokens, error) in
             if let error = error {
-                print("Error getting token \(error.localizedDescription)")
                 self.isLoading = false
                 //complete()
             } else if let tokens = tokens {
@@ -362,9 +361,7 @@ class LoginViewController: UIViewController {
             if let error = error {
                 print("Error getting token \(error.localizedDescription)")
             } else if let tokens = tokens {
-                print(" getting email \(tokens.idToken?.claims?["email"])")
                 
-                print(tokens.accessToken!.tokenString!)
                 let userdefaults = UserDefaults.standard
                 if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.accessToken){
                     userdefaults.removeObject(forKey: UserDefaultsKeys.accessToken)

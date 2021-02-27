@@ -39,6 +39,7 @@ class FoodDetailsVC: UIViewController {
     @IBOutlet weak var caloreLbl: UILabel!
     @IBOutlet weak var foodNameLbl: UILabel!
     @IBOutlet weak var imgView: UIImageView!
+    var dotLocation = Int()
     var navigationView = NavigationView()
     var xBarHeight :CGFloat  = 0.0
     var foodItems : NutritionixFoodItems?
@@ -122,7 +123,6 @@ class FoodDetailsVC: UIViewController {
                 let jsonData = try! jsonEncoder.encode(postbody)
                 
                 GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: [:], dataParams: jsonData, methodName: "put", successHandler: { [weak self] (diet) in
-                    print("diet is \(diet)")
                    // self?.dietView.diet = diet
                                     DispatchQueue.main.async {
                                       // self?.dietView.reloadDietView()
@@ -141,7 +141,6 @@ class FoodDetailsVC: UIViewController {
                     
                                    }
                 }, errorHandler: {  error in
-                        print(" error \(error)")
                         DispatchQueue.main.async {
                             LoadingOverlay.shared.hideOverlayView()
                         }
@@ -166,7 +165,6 @@ class FoodDetailsVC: UIViewController {
                     let jsonData = try! jsonEncoder.encode(postbody)
 
                     GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, methodName: "post", successHandler: { [weak self] (diet) in
-                              print("diet is \(diet)")
                              // self?.dietView.diet = diet
                                               DispatchQueue.main.async {
                                               //   self?.dietView.reloadDietView()
@@ -183,7 +181,6 @@ class FoodDetailsVC: UIViewController {
 
                                              }
                           }, errorHandler: {  error in
-                                  print(" error \(error)")
                                   DispatchQueue.main.async {
                                       LoadingOverlay.shared.hideOverlayView()
                                   }
@@ -319,10 +316,8 @@ class FoodDetailsVC: UIViewController {
             let query = "\(self.commonfoodItem!.serving_qty) " + "\(self.commonfoodItem!.serving_unit) " + self.commonfoodItem!.food_name
          //   let postBody : [String: Any] = ["query": query]
             self.getCommonFoodDetails(query: query)  { (foodDetails) in
-                print("food Details \(foodDetails)")
                 DispatchQueue.main.async { [self] in
                      LoadingOverlay.shared.hideOverlayView()
-                     print(" error \(foodDetails)")
                     if foodDetails?.foods?.count ?? 0 > 0 {
                     let food = foodDetails?.foods![0]
                         self.selectedFoodDetails = food
@@ -415,10 +410,8 @@ class FoodDetailsVC: UIViewController {
             })*/
         }else {
             GetDietByDateAPI.getNutritionixBrandedFoodDetails(header: authenticatedHeaders, nixID: (self.brandedfoodItem?.nix_item_id)!) { (foodDetails) in
-                print("food Details \(foodDetails)")
                 DispatchQueue.main.async {
                      LoadingOverlay.shared.hideOverlayView()
-                     print(" error \(foodDetails)")
                     if foodDetails?.foods?.count ?? 0 > 0 {
                     let food = foodDetails?.foods![0]
                         self.selectedFoodDetails = food
@@ -456,7 +449,6 @@ class FoodDetailsVC: UIViewController {
                    }
                 }
             } errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -488,16 +480,13 @@ class FoodDetailsVC: UIViewController {
                    do {
                        request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                    } catch let error {
-                       print("Error : \(error.localizedDescription)")
                    }
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {
@@ -565,11 +554,49 @@ extension FoodDetailsVC: UITextFieldDelegate {
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.qtyTxtField   {
-            let maxLength = 4
-               let currentString: NSString = textField.text! as NSString
-            let newString: NSString =
-                currentString.replacingCharacters(in: range, with: string) as NSString
-            return newString.length <= maxLength
+            let nonNumberSet = CharacterSet(charactersIn: "0123456789.").inverted
+
+                    if Int(range.length) == 0 && string.count == 0 {
+                        return true
+                    }
+
+                    if (string == ".") {
+                        if Int(range.location) == 0 {
+                            return false
+                        }
+                        if dotLocation == 0 {
+                            dotLocation = range.location
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+
+                    if range.location == dotLocation && string.count == 0 {
+                        dotLocation = 0
+                    }
+
+                    if dotLocation > 0 && range.location > dotLocation + 2 {
+                        return false
+                    }
+
+                    if range.location >= 4 {
+
+                        if dotLocation >= 4 || string.count == 0 {
+                            return true
+                        } else if range.location > dotLocation + 2 {
+                            return false
+                        }
+
+                        var newValue = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+                        newValue = newValue?.components(separatedBy: nonNumberSet).joined(separator: "")
+                        textField.text = newValue
+
+                        return false
+
+                    } else {
+                        return true
+                    }
         }
         return true
     }
@@ -577,7 +604,6 @@ extension FoodDetailsVC: UITextFieldDelegate {
         return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("text qty changed Details")
         if self.qtyTxtField.text?.count ?? 0 > 0  {
             if self.isFromSearch == true {
                 let qtySel : Double = Double(self.qtyTxtField.text ?? "") ?? 0.0
@@ -636,7 +662,6 @@ extension FoodDetailsVC : FoodQuantityChangedDelegate ,UIViewControllerTransitio
             
             DispatchQueue.main.async {
                  LoadingOverlay.shared.hideOverlayView()
-                 print(" error \(foodDetails)")
                 if foodDetails?.foods?.count ?? 0 > 0 {
                 let food = foodDetails?.foods![0]
                     self.selectedFoodDetails = food
@@ -656,7 +681,6 @@ extension FoodDetailsVC : FoodQuantityChangedDelegate ,UIViewControllerTransitio
                }
             }
         } errorHandler: {  error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
                 self.presentAlertWithTitle(title: "", message: error, options: "OK") {_ in

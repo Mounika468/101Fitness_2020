@@ -181,7 +181,6 @@ extension MedicalViewController : BottomViewDelegate {
         }
         Alamofire.request(request).responseJSON{ (response) in
             
-            print("response is \(response)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }
@@ -189,7 +188,6 @@ extension MedicalViewController : BottomViewDelegate {
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
-                    print("example success")
                     DispatchQueue.main.async {
 
                         let storyboard = UIStoryboard(name: "CustomAlertVC", bundle: nil)

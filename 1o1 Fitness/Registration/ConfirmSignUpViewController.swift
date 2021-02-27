@@ -429,4 +429,23 @@ extension ConfirmSignUpViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet(charactersIn:"0123456789").inverted
+            let components = string.components(separatedBy: allowedCharacters)
+            let filtered = components.joined(separator: "")
+            
+            if string == filtered {
+                
+               let maxLength = 6
+                let currentString: NSString = textField.text! as NSString
+                let newString: NSString =
+                    currentString.replacingCharacters(in: range, with: string) as NSString
+               
+                return newString.length <= maxLength
+
+            } else {
+                
+                return false
+            }
+    }
 }

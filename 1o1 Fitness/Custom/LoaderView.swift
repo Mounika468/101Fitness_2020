@@ -27,16 +27,16 @@ public class LoadingOverlay{
         bgView.backgroundColor = UIColor.clear
         bgView.addSubview(overlayView)
         bgView.autoresizingMask = [.flexibleLeftMargin,.flexibleTopMargin,.flexibleRightMargin,.flexibleBottomMargin,.flexibleHeight, .flexibleWidth]
-        overlayView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        overlayView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         overlayView.center = view.center
         overlayView.autoresizingMask = [.flexibleLeftMargin,.flexibleTopMargin,.flexibleRightMargin,.flexibleBottomMargin]
-        overlayView.backgroundColor = UIColor.gray
+        overlayView.backgroundColor = UIColor.lightText
         overlayView.clipsToBounds = true
         overlayView.layer.cornerRadius = 10
 
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         if #available(iOS 13.0, *) {
-            activityIndicator.style = .large
+            activityIndicator.style = .medium
         } else {
             // Fallback on earlier versions
             activityIndicator.style = .gray
@@ -51,7 +51,7 @@ public class LoadingOverlay{
 
     public func hideOverlayView() {
         activityIndicator.stopAnimating()
-        bgView.removeFromSuperview()
+       bgView.removeFromSuperview()
     }
 }
 

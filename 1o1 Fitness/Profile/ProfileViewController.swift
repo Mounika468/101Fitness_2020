@@ -596,22 +596,25 @@ class ProfileViewController: UIViewController {
             
         }
          let height = TraineeDetails.traineeDetails?.trainee_height
+        self.height = Double((height?.height)!) as! Double
         if height?.metric! == "cm" {
            self.cmBtn.isSelected = true
             self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.ftBtn.isSelected = false
             self.ftBtn.setTitleColor(UIColor.white, for: .normal)
             self.heightMetric = "cm"
+            self.heightBtn.setTitle(String(format: "%.2f", self.height), for: .normal)
+
         }else {
-             self.ftBtn.isSelected = true
-                       self.ftBtn.setTitleColor(AppColours.appGreen, for: .normal)
-                       self.cmBtn.isSelected = false
-                       self.cmBtn.setTitleColor(UIColor.white, for: .normal)
+             self.cmBtn.isSelected = true
+                       self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
+                       self.ftBtn.isSelected = false
+                       self.ftBtn.setTitleColor(UIColor.white, for: .normal)
             self.heightMetric = "feet"
-           
+            self.heightBtn.setTitle(String(format: "%.2f", self.height), for: .normal)
+
         }
-        self.height = Double((height?.height)!) as! Double
-        self.heightBtn.setTitle(String(format: "%.2f", self.height), for: .normal)
+       
       //  self.heightTxtField.text =
         let weight = TraineeDetails.traineeDetails?.currrent_weight
         if weight?.metric! == "kg" {
@@ -684,7 +687,7 @@ class ProfileViewController: UIViewController {
             }
         }
         let currrent_weight : [String : Any] = ["weight": self.weight ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
-         let  currrent_height : [String : Any] = ["height": "\(self.height)" ,"metric": self.heightMetric]
+        let  currrent_height : [String : Any] = ["height": self.heightBtn.titleLabel?.text ?? "" ,"metric": self.heightMetric]
         
         
         TraineeInfo.details.food_preference = ["food_type": [self.foodType],"non_veg_preference": self.meatSelectedArr,"no_of_meals_day": self.noOfMeals]
@@ -739,11 +742,9 @@ class ProfileViewController: UIViewController {
             do {
                 request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
             } catch let error {
-                print("Error : \(error.localizedDescription)")
             }
             Alamofire.request(request).responseJSON{ (response) in
                 
-                print("response is \(response)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -752,7 +753,6 @@ class ProfileViewController: UIViewController {
                     switch(status){
                     case 200:
                         if let json = response.result.value as? [String: Any] {
-                            print("JSON: \(json)") // serialized json response
                             do {
                                 if json[ResponseKeys.data.rawValue] != nil
                                 {
@@ -800,7 +800,7 @@ class ProfileViewController: UIViewController {
                if self.heightMetric == "cm" {
                 controller.weightVal = self.height
                }else {
-                  controller.weightVal = self.height * 30.48
+                controller.weightVal = self.height
                }
               controller.heightDelegate = self
                controller.modalPresentationStyle = .custom
@@ -1155,11 +1155,13 @@ class ProfileViewController: UIViewController {
         if self.ftBtn.isSelected {
             self.ftBtn.isSelected = false
             self.ftBtn.setTitleColor(UIColor.white, for: .normal)
+            self.cmBtn.isSelected = true
+            self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.heightMetric = "cm"
              let text = self.heightBtn.titleLabel?.text!
              let cms =  Double(text!)!
-            self.height = Double(1000 * (cms * 30.48) / 1000)
-            self.heightBtn.setTitle( String(format: "%.1f", self.height), for: .normal)
+            self.height = Double(1000 * (cms * 32.8084) / 1000)
+            self.heightBtn.setTitle( String(format: "%.2f", self.height), for: .normal)
         }else {
             self.ftBtn.isSelected = true
             self.ftBtn.setTitleColor(AppColours.appGreen, for: .normal)
@@ -1169,8 +1171,12 @@ class ProfileViewController: UIViewController {
             self.height = Double(text!)!
             self.heightMetric = "feet"
             let cms = Double(self.height)
-                       self.height = Double(1000 * (cms / 30.48) / 1000)
-             self.heightBtn.setTitle( String(format: "%.1f", self.height), for: .normal)
+            let feet = Double(cms * 0.0328084)
+                 let feetShow = Int(floor(feet))
+                 let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
+                 let inches = Int(floor(feetRest * 12))
+            self.height = Double(1000 * (cms / 32.8084) / 1000)
+             self.heightBtn.setTitle( "\(feetShow).\(inches)", for: .normal)
         }
     }
     @IBAction func cmBtnTapped(_ sender: Any) {
@@ -1180,13 +1186,19 @@ class ProfileViewController: UIViewController {
         if self.cmBtn.isSelected {
             self.cmBtn.isSelected = false
             self.cmBtn.setTitleColor(UIColor.white, for: .normal)
+            self.ftBtn.isSelected = true
+            self.ftBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.heightMetric = "feet"
             let text = self.heightBtn.titleLabel?.text!
              self.height = Double(text!)!
-          let fts =    Double(1000 * (height / 30.48) / 1000)
+            let feet = Double(self.height * 0.0328084)
+                 let feetShow = Int(floor(feet))
+                 let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
+                 let inches = Int(floor(feetRest * 12))
+            let fts =    Double(1000 * (height / 32.8084) / 1000)
             self.height = fts
             // self.heightTxtField.text = String(format: "%.2f", fts)
-            self.heightBtn.setTitle( String(format: "%.1f", fts), for: .normal)
+            self.heightBtn.setTitle( "\(feetShow).\(inches)", for: .normal)
         }else {
             self.cmBtn.isSelected = true
             self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
@@ -1195,9 +1207,9 @@ class ProfileViewController: UIViewController {
             let text = self.heightBtn.titleLabel?.text!
             self.height = Double(text!)!
             self.heightMetric = "cm"
-            let fts =    Double(1000 * (height * 30.48) / 1000)
+            let fts =    Double(1000 * (height * 32.8084) / 1000)
                        self.height = fts
-            self.heightBtn.setTitle( String(format: "%.1f", fts), for: .normal)
+            self.heightBtn.setTitle( String(format: "%.2f", fts), for: .normal)
         }
     }
     @IBAction func lbBtnTapped(_ sender: Any) {
@@ -1738,12 +1750,10 @@ extension ProfileViewController: PhotosBottomVCDelegate,CropViewControllerDelega
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {

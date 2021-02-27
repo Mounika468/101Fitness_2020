@@ -62,7 +62,6 @@ var xBarHeight :CGFloat  = 0.0
                     NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
                 }
         }, errorHandler: {  error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }

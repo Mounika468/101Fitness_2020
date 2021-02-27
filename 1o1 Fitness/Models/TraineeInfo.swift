@@ -38,7 +38,7 @@ struct TraineeInfo  {
      var address_submission: Bool = false
      var profile_submission: Bool = false
      var traineeProfileImg: String = ""
-    var targetWeight: Float = 0.0
+    var targetWeight:Dictionary = [String : Any]()
     var notificationCount: Int = 0
 }
 struct ProgramDetails {
@@ -55,6 +55,11 @@ struct ProgramPaymentDetails {
     static var programPaymentDetails: ProgramPaymentDetails = ProgramPaymentDetails()
     var PaymentInfo: PaymentDetails?
    
+}
+struct Target_Weight: Codable {
+    let weight: Double?
+     let metric: String?
+     let updated_on: String?
 }
 struct Currrent_Weight: Codable {
     let weight: Double?
@@ -245,7 +250,7 @@ struct TraineeDetails: Decodable {
     let last_name: String?
     let trainee_profile_staus: String?
     let mobile_no: String?
-    var targetWeight: Float?
+    var targetWeight: Target_Weight?
     var dayProgress: DayProgress?
     let notificationCount: Int?
     static var traineeDetails: TraineeDetails?
@@ -273,11 +278,9 @@ struct TraineeDetails: Decodable {
          profile_submission: Bool?,
          app_version: Double?,
          user_type: String?,
-         targetWeight:Float,
          notificationCount: Int?) {
         
         self.trainee_id = trainee_id
-        self.targetWeight = targetWeight
         self.first_name = first_name
         self.last_name = last_name
         self.gender = gender
@@ -337,7 +340,7 @@ struct TraineeDetails: Decodable {
         self.user_type = try container.decodeIfPresent(String.self, forKey: .user_type)
         self.traineeProfileImg = try container.decodeIfPresent(TraineeProfileImg.self, forKey: .traineeProfileImg)
         
-        self.targetWeight = try container.decodeIfPresent(Float.self, forKey: .targetWeight)
+        self.targetWeight = try container.decodeIfPresent(Target_Weight.self, forKey: .targetWeight)
         self.bmi_bmr = try container.decodeIfPresent(BMIBMR.self, forKey: .bmi_bmr)
         
         self.currrent_weight = try container.decodeIfPresent(Currrent_Weight.self, forKey: .currrent_weight)

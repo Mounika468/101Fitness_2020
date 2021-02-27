@@ -15,6 +15,25 @@ struct ContactUs:Codable {
 struct ContactusResponse: Codable {
     var values: [ContactUs]?
 }
+struct RefundTypes: Codable {
+    let program_id: String?
+    let programName: String?
+     let order_id: Int?
+    let invoice_id: Int?
+    let priceWithTax: Double?
+   let programDuration: Int?
+    let trainerId: String?
+    let program_start_date: String?
+    let program_end_date: String?
+     var programImg: ProgramImg?
+    let price: Double?
+    var currency: [Currency]?
+    let description:String?
+    let trainerName:String?
+    let currencyPaidIn:String?
+    let enableRefund: Bool?
+    let status: String?
+}
 struct ContactUsPostBody: Codable {
     let comments: String
    let os_version: String

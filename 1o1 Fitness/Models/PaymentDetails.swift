@@ -329,7 +329,6 @@ struct LatLongAttributes: Codable {
         
     }
     init(from decoder: Decoder) throws {
-        print("LatLongAttributes erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.latitude = try container.decodeIfPresent(String.self, forKey: .latitude)
         self.longitude = try container.decodeIfPresent(String.self, forKey: .longitude)

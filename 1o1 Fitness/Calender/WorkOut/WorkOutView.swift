@@ -103,7 +103,6 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
        // return self.workOutList?.workoutExercises?.count ?? 0
         let cardio = checkIfCardioExist()
         if cardio {
-            print("rows \((self.workOutsArr?.workouts?.count ?? 0 + 1))")
            return (self.workOutsArr?.workouts?.count ?? 0) + 1
         }
         else {
@@ -326,14 +325,12 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
           object = nil
         }
         }
-       print("Complete Actions")
           return true //You may need to return false if the action is cancelled
       }
         
       func deleteAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
           //Do somethiing for "Added" button.
           //...
-        print("delete Actions")
         if indexPath.row != self.cardioIndex {
             self.woViewDelegate?.workOutMessageSelected(indexPath:indexPath as NSIndexPath, workOut: (self.workOutsArr?.workouts?[indexPath.row])! ,commentType: .workoutDelete)
         }else {
@@ -348,7 +345,6 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
     func editAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
         //Do somethiing for "Added" button.
         //...
-      print("editAction Actions")
         if indexPath.row == self.cardioIndex && self.checkIfCardioExist() {
              let object = self.workOutsArr?.cardio
             if object?.cardioStatus != WOStatus.notCompleted {
@@ -366,7 +362,6 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
     func messageAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
            //Do somethiing for "Added" button.
            //...
-         print("message Actions")
   
         if indexPath.row != self.cardioIndex {
                     let object = self.workOutsArr?.workouts?[indexPath.row]

@@ -513,7 +513,6 @@ class CalenderViewController: UIViewController {
               }
               
           }) { [weak self] error in
-              print(" error \(error)")
               DispatchQueue.main.async {
                   LoadingOverlay.shared.hideOverlayView()
                 self?.presentAlertWithTitle(title: "", message: error.localizedDescription, options: "OK") {_ in
@@ -537,7 +536,6 @@ class CalenderViewController: UIViewController {
                            ProgramDetails.programDetails.programId = id
                        }
           GetCallInfoByDateAPI.getTokenForCall(header: authenticatedHeaders, roomName: roomName, traineeid: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, successHandler: { [weak self] token in
-              print("\(token)")
              // self?.dietView.diet = diet
               if (token != nil) {
                    DispatchQueue.main.async {
@@ -556,7 +554,6 @@ class CalenderViewController: UIViewController {
                   LoadingOverlay.shared.hideOverlayView()
               }
           }) { [weak self] error in
-              print(" error \(error)")
               DispatchQueue.main.async {
                   LoadingOverlay.shared.hideOverlayView()
 
@@ -681,7 +678,6 @@ class CalenderViewController: UIViewController {
             let endTime = formatter.date(from: schedules.endTime!)! as Date
             let currentTime = formatter.date(from:currentTimedate)! as Date
             let timeInterval = currentTime.timeIntervalSince(startTime)
-            print("time difference \(timeInterval)")
         }
         
         
@@ -717,15 +713,12 @@ class CalenderViewController: UIViewController {
                 do {
                     request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                 } catch let error {
-                    print("Error : \(error.localizedDescription)")
                 }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {
@@ -803,7 +796,6 @@ class CalenderViewController: UIViewController {
             ]
         }
         GetCalenderByDateAPI.getCalendarDayColours(header: authenticatedHeaders, trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String) { [weak self] daysColours in
-            print(" error \(daysColours)")
             DispatchQueue.main.async {
                 self?.programDaysColour = daysColours
                 if self?.programDaysColour != nil {
@@ -812,7 +804,6 @@ class CalenderViewController: UIViewController {
             }
             
         } errorHandler: { [weak self] error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }
@@ -841,7 +832,6 @@ class CalenderViewController: UIViewController {
          self.programId = ProgramDetails.programDetails.programId
       //  self.programId = (UserDefaults.standard.value(forKey: UserDefaultsKeys.programId) as? String) ?? ""
         GetCalenderByDateAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date), successHandler: { [weak self] dayWorks in
-            print("day workouts \(dayWorks)")
             ProgramDetails.programDetails.dayWorkOut = dayWorks
             self?.workOutView.workOutsArr = dayWorks
             self?.workOutView.slectedDate = self?.slectedDate ?? Date()
@@ -914,12 +904,10 @@ class CalenderViewController: UIViewController {
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {
@@ -986,7 +974,6 @@ class CalenderViewController: UIViewController {
              self.programId = ProgramDetails.programDetails.programId
           //  self.programId = (UserDefaults.standard.value(forKey: UserDefaultsKeys.programId) as? String) ?? ""
             GetDietByDateAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date), successHandler: { [weak self] diet in
-                print("day workouts \(diet)")
                 self?.dietView.diet = diet
                 DispatchQueue.main.async {
                     self?.dietView.reloadDietView()
@@ -1002,7 +989,6 @@ class CalenderViewController: UIViewController {
                     }
                 }
             }) { [weak self] error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                
@@ -1206,7 +1192,6 @@ extension CalenderViewController : workOutViewDelegate {
                     self?.workOutView.loadWorkOuts()
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1225,7 +1210,6 @@ extension CalenderViewController : workOutViewDelegate {
                     self?.workOutView.loadWorkOuts()
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1306,7 +1290,6 @@ extension CalenderViewController:DietSelectionDelegate {
         let jsonData = try! jsonEncoder.encode(postbody)
         
         GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: [:], dataParams: jsonData, methodName: "put", successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
             self?.dietView.diet = diet
                             DispatchQueue.main.async {
                                self?.dietView.reloadDietView()
@@ -1323,7 +1306,6 @@ extension CalenderViewController:DietSelectionDelegate {
                               self?.isTimeUpdateCall = false
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1350,7 +1332,6 @@ extension CalenderViewController:DietSelectionDelegate {
         let jsonData = try! jsonEncoder.encode(postbody)
         
         GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: [:], dataParams: jsonData, methodName: "put", successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
             self?.dietView.diet = diet
                             DispatchQueue.main.async {
                                self?.dietView.reloadDietView()
@@ -1367,7 +1348,6 @@ extension CalenderViewController:DietSelectionDelegate {
             
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1401,7 +1381,6 @@ extension CalenderViewController:DietSelectionDelegate {
         }
         
         GetDietByDateAPI.deleteMealPlanAPI(header: authenticatedHeaders, mealType: mealType, foodRefId: foodItems.refId ?? 0, successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
             self?.dietView.diet = diet
                             DispatchQueue.main.async {
                                self?.dietView.reloadDietView()
@@ -1418,7 +1397,6 @@ extension CalenderViewController:DietSelectionDelegate {
             
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1530,17 +1508,14 @@ extension CalenderViewController: PhotosBottomVCDelegate,CropViewControllerDeleg
                    do {
                        request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                    } catch let error {
-                       print("Error : \(error.localizedDescription)")
                    }
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {
@@ -1664,17 +1639,14 @@ extension CalenderViewController: PhotosBottomVCDelegate,CropViewControllerDeleg
                          do {
                              request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                          } catch let error {
-                             print("Error : \(error.localizedDescription)")
                          }
                  //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
                  Alamofire.request(request).responseJSON{ (response) in
-                     print("response is \(response)")
                      if let status = response.response?.statusCode {
                          switch(status){
                          case 200:
                              if let json = response.result.value as? [String: Any] {
-                                 print("JSON: \(json)") // serialized json response
                                  do {
                                      if json["code"] as? Int != 40
                                      {

@@ -115,7 +115,7 @@ class BMIBMRViewController: UIViewController {
     }
     func setupView() {
         let BMIBMRVal = TraineeDetails.traineeDetails?.bmi_bmr
-        let targetWeight = (TraineeDetails.traineeDetails?.targetWeight) ?? 0
+        let targetWeight = TraineeDetails.traineeDetails?.targetWeight
         ageValLbl.text =  "\(TraineeDetails.traineeDetails?.age ?? 0)"
         heightLbl.text = String(format: "%.2f", (TraineeDetails.traineeDetails?.trainee_height?.height ?? 0))
         if TraineeDetails.traineeDetails?.trainee_height?.metric == "cm" {
@@ -123,16 +123,16 @@ class BMIBMRViewController: UIViewController {
             self.ftLbl.setTitleColor(.white, for: .normal)
         }else {
             self.cmLbl.setTitleColor(.white, for: .normal)
-            self.ftLbl.setTitleColor(AppColours.textGreen, for: .normal)
+            self.cmLbl.setTitleColor(AppColours.textGreen, for: .normal)
         }
 
-        self.targetWeight = Double(targetWeight)
+        self.targetWeight = Double(targetWeight?.weight ?? 0.0)
         if self.targetWeight == 0.0 {
             self.tWeightView.layer.shadowColor = UIColor.lightText.cgColor
         }else {
             self.tWeightView.layer.shadowColor = AppColours.textGreen.cgColor
         }
-        self.tweightBtn.setTitle(String(format: "%.2f", targetWeight), for: .normal)
+        self.tweightBtn.setTitle(String(format: "%.2f", self.targetWeight), for: .normal)
         if BMIBMRVal != nil {
             self.bmrValLbl.textColor = AppColours.appYellow
             self.bmrValLbl.text = "\(BMIBMRVal!.bmr_value!)"
@@ -369,8 +369,9 @@ class BMIBMRViewController: UIViewController {
         }
         
         let currrent_weight : [String : Any] = ["weight": self.weight ,"metric": self.tweightMetric,"updated_on":Date.getCurrentDate()]
+        let target_weight : [String : Any] = ["weight": self.targetWeight ,"metric": self.tweightMetric,"updated_on":Date.getCurrentDate()]
         let  currrent_height : [String : Any] = ["height": TraineeDetails.traineeDetails?.trainee_height?.height ,"metric": TraineeDetails.traineeDetails?.trainee_height?.metric ?? ""]
-        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name ?? "","last_name": TraineeDetails.traineeDetails?.last_name ?? "","currrent_weight":currrent_weight,"created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"username":TraineeInfo.details.username,"targetWeight":self.targetWeight,"trainee_height":currrent_height,"gender": TraineeDetails.traineeDetails?.gender ?? "","age":TraineeDetails.traineeDetails?.age ?? 0,"profile_submission":true]
+        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name ?? "","last_name": TraineeDetails.traineeDetails?.last_name ?? "","currrent_weight":currrent_weight,"created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"username":TraineeInfo.details.username,"targetWeight":target_weight,"trainee_height":currrent_height,"gender": TraineeDetails.traineeDetails?.gender ?? "","age":TraineeDetails.traineeDetails?.age ?? 0,"profile_submission":true]
             
             let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
        
@@ -402,7 +403,6 @@ class BMIBMRViewController: UIViewController {
         }
             Alamofire.request(request).responseJSON{ (response) in
                 
-                print("response is \(response)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -411,7 +411,6 @@ class BMIBMRViewController: UIViewController {
                     switch(status){
                     case 200:
                         if let json = response.result.value as? [String: Any] {
-                            print("JSON: \(json)") // serialized json response
                             do {
                                 if json[ResponseKeys.data.rawValue] != nil
                                 {
@@ -543,20 +542,34 @@ extension BMIBMRViewController :  UIViewControllerTransitioningDelegate, WeightB
     func updateWeightForProfile() {
         DispatchQueue.main.async {
             if self.isFromTagetWeight {
-                let weight = TraineeDetails.traineeDetails?.targetWeight
-                self.targetWeight = Double(weight ?? 0)
+                let weight = TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0
+                self.tweightMetric = TraineeDetails.traineeDetails?.targetWeight?.metric ?? ""
+                self.targetWeight = Double(weight)
                  self.tweightBtn.setTitle(String(format: "%.2f", self.targetWeight), for: .normal)
+                if self.tweightMetric  == "kg" {
+                    self.tKgBtn.isSelected = true
+                    self.tKgBtn.setTitleColor(AppColours.graphYello, for: .normal)
+                    self.tLbBtn.isSelected = false
+                    self.tLbBtn.setTitleColor(UIColor.white, for: .normal)
+                    self.tweightMetric = "kg"
+                }else {
+                    self.tLbBtn.isSelected = true
+                    self.tLbBtn.setTitleColor(AppColours.graphYello, for: .normal)
+                    self.tKgBtn.isSelected = false
+                    self.tKgBtn.setTitleColor(UIColor.white, for: .normal)
+                     self.tweightMetric = "lbs"
+                }
             }else {
                 let weight = TraineeDetails.traineeDetails?.currrent_weight
                 if weight?.metric! == "kg" {
                     self.kgBtn.isSelected = true
-                    self.kgBtn.setTitleColor(AppColours.appGreen, for: .normal)
+                    self.kgBtn.setTitleColor(AppColours.graphYello, for: .normal)
                     self.lbBtn.isSelected = false
                     self.lbBtn.setTitleColor(UIColor.white, for: .normal)
                     self.weightMetric = "kg"
                 }else {
                     self.lbBtn.isSelected = true
-                    self.lbBtn.setTitleColor(AppColours.appGreen, for: .normal)
+                    self.lbBtn.setTitleColor(AppColours.graphYello, for: .normal)
                     self.kgBtn.isSelected = false
                     self.kgBtn.setTitleColor(UIColor.white, for: .normal)
                      self.weightMetric = "lbs"

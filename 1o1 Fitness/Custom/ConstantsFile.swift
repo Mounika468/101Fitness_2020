@@ -16,7 +16,7 @@ import UIKit
 //let baseHostURL = "http://15.206.204.136:9092/api/guest" // Test Env
 //let hostURL = "http://15.206.204.136:9092"
 //let devHostURL = "https://dev.1o1.cloudns.asia/"
-let devHostURL = "https://demo.1o1fitness.com/"
+let devHostURL = "https://uat.1o1fitness.com/"
 let demoHostURL = "https://demo.1o1fitness.com/"
 let getAllTrainers = "\(devHostURL)traineeservice/api/guest/trainers/all"
 let getTrainerByLocation = "\(devHostURL)traineeservice/api/guest/trainers"
@@ -63,6 +63,7 @@ let getNutriDietByDate = "\(devHostURL)traineeservice/api/trainees/mealplan/day"
 //Programs API
 let getPrograms = "\(devHostURL)traineeservice/api/trainees/"
 let getDetailsForProgramId = "\(devHostURL)traineeservice/api/trainees/"
+let postRatings = "\(devHostURL)traineeservice/api/trainees/ratings"
 
 //Search API
 let trainersSearch = "\(devHostURL)traineeservice/api/guest/trainers/search/"
@@ -77,6 +78,7 @@ let postNotificationsURL = "\(devHostURL)/notificationservice/api/notifications/
 //Contactsus API
 let getcontactUs = "\(devHostURL)traineeservice/api/trainees/request/types"
 let postContactComments = "\(devHostURL)traineeservice/api/trainees/request"
+let getrefundTypes = "\(devHostURL)traineeservice/api/trainees/"
 
 //Reminders API
 let getReminders = "\(devHostURL)traineeservice/api/trainees/reminder/"

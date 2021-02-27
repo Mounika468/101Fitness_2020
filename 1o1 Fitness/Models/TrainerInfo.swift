@@ -14,16 +14,18 @@ struct TrainerInfo: Decodable {
     let lastName: String?
     var profileImage: ProfileImage?
     let rating: Float?
-    
+    let ratingCount: Int?
     init(trainerId: String,
          firstName: String?,
          lastName: String?,
-         rating: Float?) {
+         rating: Float?,
+         ratingCount: Int?) {
         
         self.trainerId = trainerId
         self.firstName = firstName
         self.lastName = lastName
         self.rating = rating
+        self.ratingCount = ratingCount
       //  self.rating = rating
        // self.new = new
     }
@@ -35,7 +37,7 @@ struct TrainerInfo: Decodable {
         self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
         self.profileImage = try container.decodeIfPresent(ProfileImage.self, forKey: .profileImage)
         self.rating = try container.decodeIfPresent(Float.self, forKey: .rating)
-      //  self.rating = try container.decodeIfPresent(String.self, forKey: .rating)
+        self.ratingCount = try container.decodeIfPresent(Int.self, forKey: .ratingCount)
       //  self.new = try container.decodeIfPresent(Bool.self, forKey: .new)
        // self.profileIntroVideo = try container.decodeIfPresent(IntroVideo.self, forKey: .profileIntroVideo)
         
@@ -44,17 +46,17 @@ struct TrainerInfo: Decodable {
 }
 extension TrainerInfo {
        
-       enum CodingKeys: String, CodingKey {
-           
-           case trainerId
-           case firstName
-           case lastName
-        //   case profileIntroVideo
-           case profileImage
-           case rating
-           case new
-           
-       }
+    enum CodingKeys: String, CodingKey {
+        
+        case trainerId
+        case firstName
+        case lastName
+        case profileImage
+        case rating
+        case ratingCount
+        case new
+        
+    }
    }
 //struct IntroVideo: Codable {
 //    let id: Int?

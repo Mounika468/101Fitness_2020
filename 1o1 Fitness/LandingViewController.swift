@@ -149,7 +149,6 @@ final class LandingViewController : BaseViewController {
                }
              let username = userName
                let password = password
-               print("\(username) and \(password)")
        
                AWSMobileClient.sharedInstance().signIn(username: username, password: password) {
                    (signInResult, error) in
@@ -158,8 +157,6 @@ final class LandingViewController : BaseViewController {
                 }
                        if let error = error  {
                        
-                           print("There's an error : \(error.localizedDescription)")
-                           print(error)
                            DispatchQueue.main.async {
                            LoadingOverlay.shared.hideOverlayView()
                            }
@@ -174,7 +171,6 @@ final class LandingViewController : BaseViewController {
                    
                        switch (signInResult.signInState) {
                        case .signedIn:
-                           print("User is signed in.")
                             self.isLoading = true
                           // self.getUserattributes() //get user attributes
                            AWSUserSingleton.shared.getUserattributes()
@@ -194,14 +190,12 @@ final class LandingViewController : BaseViewController {
                            }
                        case .newPasswordRequired:
                          self.isLoading = true
-                           print("User needs a new password.")
                            DispatchQueue.main.async {
                         self.presentAlertWithTitle(title: "Error", message: "User needs a new password.", options: "OK") {_ in
                                        }
                         }
                        default:
                          self.isLoading = true
-                           print("Sign In needs info which is not et supported.")
                        }
                   DispatchQueue.main.async {
                    LoadingOverlay.shared.hideOverlayView()
@@ -292,7 +286,6 @@ final class LandingViewController : BaseViewController {
     {
          AWSMobileClient.sharedInstance().getTokens { (tokens, error) in
                     if let error = error {
-                                    print("Error getting token \(error.localizedDescription)")
                                 } else if let tokens = tokens {
                                     print(tokens.accessToken!.tokenString!)
                      let userdefaults = UserDefaults.standard
@@ -304,7 +297,6 @@ final class LandingViewController : BaseViewController {
                 }
         AWSMobileClient.sharedInstance().getUserAttributes { (attributes, error) in
              if(error != nil){
-                print("ERROR: \(error?.localizedDescription)")
              }else{
                 if let attributesDict = attributes{
                     print(attributesDict["sub"] as Any)

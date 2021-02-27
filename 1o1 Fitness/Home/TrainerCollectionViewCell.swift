@@ -42,7 +42,7 @@ class TrainerCollectionViewCell: UICollectionViewCell {
 //      self.contentView.layer.masksToBounds = false
 //      self.contentView.layer.shadowColor = UIColor.black.cgColor
 //      self.contentView.layer.shadowOpacity = Float(0.7)
-//      self.contentView.layer.shadowOffset = CGSize(width: shadowOfSetWidth, height: shadowOfSetHeight)
+//      self.contentView.layer.shadowOffset UIImagePic= CGSize(width: shadowOfSetWidth, height: shadowOfSetHeight)
 //      self.contentView.layer.shadowRadius = 5
 //
 //      self.contentView.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath

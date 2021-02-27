@@ -516,9 +516,9 @@
                                                 <rect key="frame" x="268" y="65" width="106" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8T-QA-ve3">
-                                                        <rect key="frame" x="24" y="4" width="20" height="22"/>
+                                                        <rect key="frame" x="24" y="4" width="0.0" height="22"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="20" id="LUw-S6-Cka"/>
+                                                            <constraint firstAttribute="width" id="LUw-S6-Cka"/>
                                                             <constraint firstAttribute="height" constant="22" id="dhv-q6-Q9C"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
@@ -533,12 +533,12 @@
                                                             <constraint firstAttribute="width" constant="20" id="WQv-Qz-l6q"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
-                                                        <state key="normal" title="Cm">
+                                                        <state key="normal" title="Ft">
                                                             <color key="titleColor" red="0.45098039220000002" green="0.92156862750000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23i-Te-D24">
-                                                        <rect key="frame" x="46" y="4.5" width="54" height="21"/>
+                                                        <rect key="frame" x="26" y="4.5" width="74" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="IRP-wc-akp"/>
                                                         </constraints>

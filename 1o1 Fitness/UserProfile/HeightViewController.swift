@@ -12,6 +12,7 @@ protocol HeightBackButtonTapDelegate {
 }
 class HeightViewController: UIViewController {
 
+    @IBOutlet weak var feetLbl: UILabel!
     @IBOutlet weak var doneBtn: UIButton!
     @IBOutlet  var priHeightConstraint: NSLayoutConstraint!
     @IBOutlet  var secHeightConstraint: NSLayoutConstraint!
@@ -62,9 +63,9 @@ class HeightViewController: UIViewController {
 //               priHeightConstraint.isActive = true
                self.secHeightConstraint.priority = UILayoutPriority(rawValue: 500)
                self.priHeightConstraint.priority = UILayoutPriority(rawValue: 999)
-              self.cmBtn.isSelected = true
-               self.cmBtn.setTitleColor(AppColours.appYellow, for: .normal)
-              self.metric = "cm"
+              self.ftBtn.isSelected = true
+               self.ftBtn.setTitleColor(AppColours.appYellow, for: .normal)
+              self.metric = "feet"
            case .profileMenu:
                self.headerView.isHidden = true
                self.bottomView.isHidden = true
@@ -75,45 +76,28 @@ class HeightViewController: UIViewController {
 //               priHeightConstraint.isActive = false
 //               secHeightConstraint.isActive = true
                 self.view.dropShadow(color: UIColor.white, opacity: 10, offSet: CGSize.init(width: 3, height: 3), radius: 3, scale: true)
-               if self.metric == "cm" {
-                self.cmBtnTapped(self.cmBtn as Any)
-                  
+               if self.metric == "feet" {
+                self.ftBtnTapped(self.ftBtn as Any)
                }else{
-                   self.ftBtnTapped(self.ftBtn as Any)
+                self.cmBtnTapped(self.cmBtn as Any)
                }
             
-               // self.weightLbl.text = String(format: "%.2f", self.weightVal)
            default:
                print(")")
            }
        }
-    @IBAction func leftBtnTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    @IBAction func rightBtnTapped(_ sender: Any) {
-//       if self.weightLbl.text !=  nil &&  self.weightLbl.text != "0 cm"{
-//        let weight = self.weightLbl.text?.components(separatedBy: " cm")
-//        TraineeInfo.details.height = Int(weight?[0] ?? "") ?? 0
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let controller = storyboard.instantiateViewController(withIdentifier: "activityVC")
-//            self.navigationController?.pushViewController(controller, animated: true)
-//        } else {
-//        presentAlertWithTitle(title: "", message: "Please select weight", options: "OK") { (option) in
-//
-//                  }
-//        }
-    }
+  
    
     @IBAction func doneBtnTapped(_ sender: Any) {
         if self.weightVal != nil &&  self.weightVal > 0{
             var val = self.weightVal
             if self.metric == "feet" {
-                val = (1000*(self.weightVal/30.48)/1000)
+                val = (1000*(self.weightVal * 0.0328084)/1000)
             }
             
-            let dict : [String : Any] = ["height": val ,"metric": self.metric]
+            let dict : [String : Any] = ["height": self.feetLbl.text ?? "" ,"metric": "feet"]
             TraineeInfo.details.height = dict
-            TraineeDetails.traineeDetails?.trainee_height = Trainee_Height(height: val, metric: self.metric)
+            TraineeDetails.traineeDetails?.trainee_height = Trainee_Height(height: Double(self.feetLbl.text!), metric: self.metric)
             self.heightDelegate?.updateHeightForProfile()
             self.dismiss(animated: true, completion: nil)
         }
@@ -124,23 +108,7 @@ class HeightViewController: UIViewController {
         }
     }
     @IBAction func backBtnTapped(_ sender: Any) {
-//        if self.weightVal != nil &&  self.weightVal > 0{
-//            var val = self.weightVal
-//            if self.metric == "feet" {
-//                val = (1000*(self.weightVal/30.48)/1000)
-//            }
-//
-//            let dict : [String : Any] = ["height": val ,"metric": self.metric]
-//            TraineeInfo.details.height = dict
-//            TraineeDetails.traineeDetails?.trainee_height = Trainee_Height(height: val, metric: self.metric)
-//            self.heightDelegate?.updateHeightForProfile()
-//            self.dismiss(animated: true, completion: nil)
-//        }
-//        else {
-//        presentAlertWithTitle(title: "", message: "Please select height", options: "OK") { (option) in
-//
-//                  }
-//        }
+
         self.dismiss(animated: true, completion: nil)
        
     }
@@ -150,8 +118,6 @@ class HeightViewController: UIViewController {
             self.cmBtn.setTitleColor(UIColor.white, for: .normal)
             self.ftBtn.isSelected = true
             let height =  Double(self.weightVal / 30.48)
-          //  self.weightLbl.text = String(format: "%.2f",height)
-             self.weightLbl.text = self.convertFts(val: height)
             self.ftBtn.setTitleColor(AppColours.appYellow, for: .normal)
             self.metric = "feet"
         }
@@ -159,6 +125,11 @@ class HeightViewController: UIViewController {
             self.cmBtn.isSelected = true
             self.ftBtn.isSelected = false
             self.weightLbl.text = String(format: "%.2f", self.weightVal)
+            let feet = self.weightVal * 0.0328084
+                 let feetShow = Int(floor(feet))
+                 let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
+                 let inches = Int(floor(feetRest * 12))
+            feetLbl.text =  "\(feetShow).\(inches)"
             self.cmBtn.setTitleColor(AppColours.appYellow, for: .normal)
              self.ftBtn.setTitleColor(UIColor.white, for: .normal)
             self.metric = "cm"
@@ -181,18 +152,21 @@ class HeightViewController: UIViewController {
         else {
             self.ftBtn.isSelected = true
             self.cmBtn.isSelected = false
-            let height =  Double(self.weightVal / 30.48)
-           // self.weightLbl.text = String(format: "%.2f", height)
-            self.weightLbl.text = self.convertFts(val: height)
+           // let height =  Double(self.weightVal / 30.48)
+            let feet = self.weightVal
+            feetLbl.text =  String(format: "%.2f", self.weightVal)
             self.ftBtn.setTitleColor(AppColours.appYellow, for: .normal)
             self.cmBtn.setTitleColor(UIColor.white, for: .normal)
             self.metric = "feet"
-            if self.navigationType == .profileMenu && self.isOffsetSet == false {
-                
-                let offsetY = CGFloat(self.weightVal * 10) - scrollView.contentInset.top
-                scrollView.setContentOffset(CGPoint(x: scrollView.frame.origin.x, y: offsetY), animated: true)
-                self.isOffsetSet = true
-            }
+            let fts =    Double(1000 * (feet * 32.8084) / 1000)
+                       self.weightVal = fts
+            self.weightLbl.text = String(format: "%.2f", self.weightVal)
+//            if self.navigationType == .profileMenu && self.isOffsetSet == false {
+//                
+//                let offsetY = CGFloat(self.weightVal * 10) - scrollView.contentInset.top
+//                scrollView.setContentOffset(CGPoint(x: scrollView.frame.origin.x, y: offsetY), animated: true)
+//                self.isOffsetSet = true
+//            }
         }
         
     }
@@ -218,6 +192,12 @@ class HeightViewController: UIViewController {
         weightLbl.textAlignment = .center
         weightLbl.textColor = AppColours.appGreen
         weightLbl.font = UIFont(name: "Lato-Regular", size: 12.0)
+        
+        
+        feetLbl.frame = CGRect(x: Int(imageView.frame.minX) - 10, y: Int(imageView.frame.minY) - 20 , width: 100, height: 30)
+        feetLbl.textAlignment = .center
+        feetLbl.textColor = AppColours.appGreen
+        feetLbl.font = UIFont(name: "Lato-Regular", size: 12.0)
        //  self.view.addSubview(weightLbl)
         
         
@@ -252,7 +232,7 @@ extension HeightViewController: UIScrollViewDelegate {
         
         var offset = targetContentOffset.pointee
         let index = (offset.y + scrollView.contentInset.top) / 10
-        let roundedIndex = round(index)
+        let roundedIndex = (index)
         
         offset = CGPoint(x: -scrollView.contentInset.left, y: roundedIndex * 10 - scrollView.contentInset.top)
         targetContentOffset.pointee = offset
@@ -266,65 +246,16 @@ extension HeightViewController: UIScrollViewDelegate {
          let roundedIndex = (index)
          
         let selectedNumber = roundedIndex <= 0 ? 0 : Double(roundedIndex)
-        // weightLbl.text = "\(selectedNumber) cm"
-        if self.ftBtn.isSelected {
-            let height =   (selectedNumber / 30.48)
+            let feet = selectedNumber * 0.0304084
+                 let feetShow = Int(floor(feet))
+                 let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
+                 let inches = Int(floor(feetRest * 12))
             
-          //  weightLbl.text = String(format: "%.2f", height)
-            weightLbl.text = self.convertFts(val: height)
-           //  self.weightVal = Double(height)
-            // weightLbl.text = "\((1000 * height)/1000)"
-         }else {
-              weightLbl.text =  String(format: "%.2f", selectedNumber)
-            
-         }
-        
+        feetLbl.text =  "\(feetShow).\(inches)"
+        weightLbl.text =  String(format: "%.2f", selectedNumber)
          self.weightVal = Double((1000 * selectedNumber)/1000)
     }
-    func convertFts(val:Double)->String {
-         return String(format: "%.2f", val)
-        
-        let fts = String(format: "%.2f", val)
-        let token = fts.components(separatedBy: ".")
-        if Int(token[1])! >= 12 {
-                       let end = Double(token[0])! + 1.0
-            print("height \(String(format: "%.2f", end))")
-                        return String(format: "%.2f", end)
-                   }else {
-             print("height \(String(format: "%.2f", val))")
-                       return String(format: "%.2f", val)
-                   }
-        
-        if Int(token[0])! <= 1 {
-           if Int(token[1])! >= 12 {
-                let end = Double(token[0])! + 1.0
-                 return String(format: "%.2f", end)
-            }else {
-                return String(format: "%.2f", val)
-            }
-        }else {
-            var end = ""
-            if Int(token[1])! >= 12 {
-                switch Int(token[1])! {
-                case 12:
-                    let end = Double(token[0])! + 1.0
-                    return String(format: "%.2f", end)
-                case 22:
-                    end = "3"
-                    case 32:
-                    end = "4"
-                default:
-                    end = "3"
-                }
-                let end = Double(token[0])! + 1.0
-                 return String(format: "%f.%.2f",Double(token[0])!, end)
-            }else {
-                return String(format: "%.2f", val)
-        }
-        
-        }
-       
-    }
+   
 }
 extension HeightViewController : BottomViewDelegate {
     func leftBtnTapped() {
@@ -333,12 +264,7 @@ extension HeightViewController : BottomViewDelegate {
     }
     func rightBtnTapped() {
         if self.weightVal != nil &&  self.weightVal > 0{
-            var val = self.weightVal
-            if self.metric == "feet" {
-                val = (1000*(self.weightVal/30.48)/1000)
-            }
-            
-            let dict : [String : Any] = ["height": "\(val)" ,"metric": self.metric]
+            let dict : [String : Any] = ["height": self.feetLbl.text ?? "" ,"metric": "feet"]
             TraineeInfo.details.height = dict
                    let storyboard = UIStoryboard(name: "ActivityVC", bundle: nil)
                    let controller = storyboard.instantiateViewController(withIdentifier: "activityVC")
@@ -352,7 +278,3 @@ extension HeightViewController : BottomViewDelegate {
        
     }
 }
-//"trainee_height": {
-//   "height": 34.3,
-//   "metrics": "KG"
-// },

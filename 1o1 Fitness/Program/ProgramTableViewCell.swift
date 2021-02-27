@@ -15,6 +15,7 @@ class ProgramTableViewCell: UITableViewCell {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var durationLbl: UILabel!
+    @IBOutlet weak var ratePrgmBtn: UIButton!
     @IBOutlet weak var prssView: UIProgressView!
     @IBOutlet weak var progressLbl: UILabel!
     @IBOutlet weak var prNameLbl: UILabel!
@@ -26,6 +27,7 @@ class ProgramTableViewCell: UITableViewCell {
         progressLbl.textColor = AppColours.graphBlue
         prssView.backgroundColor = UIColor.white
         detailsBtn.setTitleColor(AppColours.topBarGreen, for: .normal)
+        ratePrgmBtn.setTitleColor(AppColours.topBarGreen, for: .normal)
        
     }
 

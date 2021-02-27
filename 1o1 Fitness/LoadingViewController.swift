@@ -88,7 +88,6 @@ final class LoadingViewController : BaseViewController {
                }
              let username = userName
                let password = password
-               print("\(username) and \(password)")
        
                AWSMobileClient.sharedInstance().signIn(username: username, password: password) {
                    (signInResult, error) in
@@ -97,8 +96,6 @@ final class LoadingViewController : BaseViewController {
                 }
                        if let error = error  {
                        
-                           print("There's an error : \(error.localizedDescription)")
-                           print(error)
                            DispatchQueue.main.async {
                            LoadingOverlay.shared.hideOverlayView()
                            }
@@ -113,7 +110,6 @@ final class LoadingViewController : BaseViewController {
                    
                        switch (signInResult.signInState) {
                        case .signedIn:
-                           print("User is signed in.")
                             self.isLoading = true
                           // self.getUserattributes() //get user attributes
                            AWSUserSingleton.shared.getUserattributes()
@@ -133,7 +129,6 @@ final class LoadingViewController : BaseViewController {
                            }
                        case .newPasswordRequired:
                          self.isLoading = true
-                           print("User needs a new password.")
                            DispatchQueue.main.async {
                         self.presentAlertWithTitle(title: "Error", message: "User needs a new password.", options: "OK") {_ in
                                        }

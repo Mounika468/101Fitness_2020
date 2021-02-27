@@ -68,7 +68,6 @@ class ForgotPwdViewController: UIViewController {
                            return
                           }
                       } else if let error = error {
-                          print("Error occurred: \(error.localizedDescription)")
                         DispatchQueue.main.async {
                             LoadingOverlay.shared.hideOverlayView()
                        self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") {_ in

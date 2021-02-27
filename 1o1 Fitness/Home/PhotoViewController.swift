@@ -9,6 +9,7 @@
 import UIKit
 import CropViewController
 import Alamofire
+import PhotosUI
 class PhotoViewController: UIViewController {
 
     
@@ -108,13 +109,40 @@ class PhotoViewController: UIViewController {
     }
     
     @IBAction func galleryTapped(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = true
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.allowsEditing = true
+//            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+//            self.present(imagePicker, animated: true, completion: nil)
+//        }
+        if #available(iOS 14, *) {
+                    // using PHPickerViewController
+                    var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+                    config.selectionLimit = 1
+                    config.filter = .images
+                    config.preferredAssetRepresentationMode = .current
+                    let picker = PHPickerViewController(configuration: config)
+                    picker.delegate = self
+                    DispatchQueue.main.async {
+                        self.present(picker, animated: true, completion: nil)
+                    }
+                } else {
+                    let imagePickerViewController = UIImagePickerController()
+                    imagePickerViewController.allowsEditing = true
+                    imagePickerViewController.sourceType = .photoLibrary
+                    imagePickerViewController.delegate = self
+                    imagePickerViewController.modalPresentationStyle = .fullScreen
+                    if(UIDevice.current.userInterfaceIdiom == .pad) {
+                        imagePickerViewController.modalPresentationStyle = .popover
+                        imagePickerViewController.popoverPresentationController?.sourceView  = self.view
+                        imagePickerViewController.popoverPresentationController?.sourceRect = self.view.frame
+                        imagePickerViewController.popoverPresentationController?.permittedArrowDirections = .any
+                    }
+                    DispatchQueue.main.async {
+                        self.present(imagePickerViewController, animated: true, completion: nil)
+                    }
+                }
     }
     @IBAction func closeTapped(_ sender: Any) {
         self.photoCV.alpha = 1.0
@@ -265,12 +293,10 @@ extension PhotoViewController: UICollectionViewDelegate,UICollectionViewDataSour
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {
@@ -317,7 +343,7 @@ extension PhotoViewController: UICollectionViewDelegate,UICollectionViewDataSour
          
        }
 }
-extension PhotoViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate,CropViewControllerDelegate{
+extension PhotoViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate,CropViewControllerDelegate,PHPickerViewControllerDelegate{
        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
          if let pickedImage = info[.originalImage] as? UIImage {
             picker.dismiss(animated: false, completion: {
@@ -332,6 +358,27 @@ extension PhotoViewController: UIImagePickerControllerDelegate,UINavigationContr
          }
        
      }
+    @available(iOS 14, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true, completion: nil)
+        guard !results.isEmpty else { return }
+        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self)
+            { [weak self]  image, error in
+                DispatchQueue.main.async {
+                  guard let self = self else { return }
+                  if let image = image as? UIImage {
+                    self.selectedImage = image
+                    self.bgView.isHidden = true
+                    self.presentCropViewController(image: self.selectedImage!)
+                    } else {
+                        
+                    }
+                }
+            }
+        }
+    }
+        
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         //    self.profilePicImageView.image = image
         let window = UIApplication.shared.windows.first!
@@ -415,12 +462,10 @@ extension PhotoViewController: UIImagePickerControllerDelegate,UINavigationContr
         //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {

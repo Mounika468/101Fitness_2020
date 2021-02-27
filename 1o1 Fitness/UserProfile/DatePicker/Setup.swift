@@ -27,7 +27,6 @@ extension WeekdayPicker {
     
     @objc
     private func saveFirstWeekday() {
-        print(createDateFromSelected())
         
         // Save weekday TMP
 //        let currentWeekday = self.weekdays[self.selectedRow(inComponent: .weekday)]

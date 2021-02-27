@@ -139,7 +139,6 @@ class CommentsViewController: UIViewController {
                 }
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -175,7 +174,6 @@ class CommentsViewController: UIViewController {
                 }
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -209,7 +207,6 @@ class CommentsViewController: UIViewController {
                   }
                   }
           }, errorHandler: {  error in
-              print(" error \(error)")
               DispatchQueue.main.async {
                   LoadingOverlay.shared.hideOverlayView()
               }

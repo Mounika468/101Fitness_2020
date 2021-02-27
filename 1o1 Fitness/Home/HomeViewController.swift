@@ -53,8 +53,6 @@ class HomeViewController: UIViewController {
         self.searchBar.isHidden = true
          LocationSingleton.sharedInstance.startUpdatingLocation()
       //  self.tabBarController?.delegate = self
-        print("locaions \( String(describing: LocationSingleton.sharedInstance.lastLocation))")
-        print("city \( String(describing: LocationSingleton.sharedInstance.city))")
         let nib = UINib(nibName: "HeaderCollectionViewCell", bundle: nil)
         self.headerCollectionView.register(nib, forCellWithReuseIdentifier:"headerCV")
          let trainerNib = UINib(nibName: "HomeTrainerCollectionViewCell", bundle: nil)
@@ -535,8 +533,14 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 cell.profileImgView.sd_setImage(with: URL(string: imageInfo)!, completed: nil)
             }
             cell.nameLbl.text = trainer.firstName! + " " + trainer.lastName!
-                cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
-                cell.ratingBtn.isHidden = true
+                if  let rating = trainer.rating {
+                    let ratings = String(format: "%.1f", rating)
+                    cell.ratingBtn.setTitle(ratings, for: .normal)
+                }else {
+                    cell.ratingBtn.setTitle("", for: .normal)
+                }
+                //cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
+               // cell.ratingBtn.isHidden = true
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "meatCV", for: indexPath) as! MeatCollectionViewCell
@@ -724,6 +728,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         case self.headerCollectionView:
             switch indexPath.row {
             case 0:
+                
                 let storyboard = UIStoryboard(name: "TrainerList", bundle: nil)
                 let controller = storyboard.instantiateViewController(withIdentifier: "trainerListVC") as! TrainersListViewController
                 //controller.trainersInfo = self.trainersInfo
