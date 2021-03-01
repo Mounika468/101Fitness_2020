@@ -10,6 +10,7 @@ import UIKit
 
 class NavigationView: UIView {
 
+    @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var rightArrow: UIButton!
     @IBOutlet weak var leftArrow: UIButton!
     @IBOutlet weak var addBtn: UIButton!

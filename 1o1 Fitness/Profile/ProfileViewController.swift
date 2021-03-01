@@ -687,6 +687,7 @@ class ProfileViewController: UIViewController {
             }
         }
         let currrent_weight : [String : Any] = ["weight": self.weight ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
+        let target_weight : [String : Any] = ["weight": TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0 ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
         let  currrent_height : [String : Any] = ["height": self.heightBtn.titleLabel?.text ?? "" ,"metric": self.heightMetric]
         
         
@@ -714,9 +715,9 @@ class ProfileViewController: UIViewController {
         }
         TraineeInfo.details.country_code = self.countryCode1Btn.titleLabel?.text ?? ""
         
-        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name!,"last_name": TraineeDetails.traineeDetails?.last_name!,"mobile_no": self.phoneTxtField.text!,"gender": TraineeInfo.details.gender,"date_of_birth": TraineeDetails.traineeDetails?.date_of_birth!, "age":TraineeDetails.traineeDetails?.age!,"currrent_weight":currrent_weight, "trainee_height":currrent_height, "activity_level": TraineeInfo.details.activityLevel, "primary_goal":self.primaryGoal, "best_workout_day": TraineeInfo.details.best_workout_day, "food_preference":TraineeInfo.details.food_preference, "smoke_alcohol_consumption":TraineeInfo.details.smoke_alcohol_consumption, "sleep_duration":self.sleepDuration, "sleep_quality":self.sleepQuality,"previous_workout_history":TraineeInfo.details.previous_workout_history,"trainee_timezone":"IST","created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"profile_submission":true,"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"address_submission":TraineeDetails.traineeDetails?.address_submission,"username":TraineeInfo.details.username,"medical_history":TraineeInfo.details.medical_history,"targetWeight":TraineeDetails.traineeDetails?.targetWeight,"country_code":TraineeInfo.details.country_code]
+        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name!,"last_name": TraineeDetails.traineeDetails?.last_name!,"mobile_no": self.phoneTxtField.text!,"gender": TraineeInfo.details.gender,"date_of_birth": TraineeDetails.traineeDetails?.date_of_birth!, "age":TraineeDetails.traineeDetails?.age!,"currrent_weight":currrent_weight, "trainee_height":currrent_height, "activity_level": TraineeInfo.details.activityLevel, "primary_goal":self.primaryGoal, "best_workout_day": TraineeInfo.details.best_workout_day, "food_preference":TraineeInfo.details.food_preference, "smoke_alcohol_consumption":TraineeInfo.details.smoke_alcohol_consumption, "sleep_duration":self.sleepDuration, "sleep_quality":self.sleepQuality,"previous_workout_history":TraineeInfo.details.previous_workout_history,"trainee_timezone":"IST","created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"profile_submission":true,"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"address_submission":TraineeDetails.traineeDetails?.address_submission,"username":TraineeInfo.details.username,"medical_history":TraineeInfo.details.medical_history,"targetWeight":target_weight,"country_code":TraineeInfo.details.country_code]
             
-            let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
+            let jsonData = try? JSONSerialization.data(withJSONObject: postBody)
        
             let window = UIApplication.shared.windows.first!
             DispatchQueue.main.async {

@@ -357,7 +357,7 @@ class HomeViewController: UIViewController {
                 weightMetric = "lbs"
             }
             weightVal = (weight?.weight) ?? 0
-            var weightStr = String(format: "Weight: %.2f", weightVal,weightMetric)
+            let weightStr = String(format: "Weight: %.2f %@", weightVal,weightMetric)
 
             var myMutableString = NSMutableAttributedString(string: weightStr)
             myMutableString.addAttribute(.foregroundColor, value: AppColours.textGreen, range: NSRange(location:0,length:7))

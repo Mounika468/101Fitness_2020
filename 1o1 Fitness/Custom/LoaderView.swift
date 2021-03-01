@@ -30,7 +30,7 @@ public class LoadingOverlay{
         overlayView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         overlayView.center = view.center
         overlayView.autoresizingMask = [.flexibleLeftMargin,.flexibleTopMargin,.flexibleRightMargin,.flexibleBottomMargin]
-        overlayView.backgroundColor = UIColor.lightText
+        overlayView.backgroundColor = UIColor.clear
         overlayView.clipsToBounds = true
         overlayView.layer.cornerRadius = 10
 
