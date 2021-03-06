@@ -165,9 +165,10 @@ class LoginViewController: UIViewController {
                                         self.navigationController?.pushViewController(registration, animated: true)
                                     }
                                 }
-                                
+                           
                             default:
-                                print("Error: Invalid case.")
+                                
+                                print("Error: Invalid case.err\(error?.localizedDescription)")
                                 DispatchQueue.main.async {
                                     LoadingOverlay.shared.hideOverlayView()
                                 self.presentAlertWithTitle(title: "Error", message: "Can't perform the operation. PLease try after sometime", options: "OK") { (_) in
@@ -175,11 +176,23 @@ class LoginViewController: UIViewController {
                                 }
                                 }
                             }
-                        } else if let error = error {
+                        } else    if let error = error as? AWSMobileClientError {
+                            var errMessage = ""
+                            switch(error) {
+                            case .limitExceeded(let message) :
+                                  errMessage = message
+                            case .codeDeliveryFailure(let message) :
+                            errMessage = message
+                            case .userNotConfirmed(let message) , .userNotFound(let message), .notAuthorized(let message), .unknown(let message) :
+                            errMessage = message
+                            default :
+                                errMessage = error.localizedDescription
+                            }
+                         
                             print("Error occurred: \(error.localizedDescription)")
                             DispatchQueue.main.async {
                                 LoadingOverlay.shared.hideOverlayView()
-                            self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") { (_) in
+                            self.presentAlertWithTitle(title: "Error", message: "\(errMessage)", options: "OK") { (_) in
                                 
                             }
                             }

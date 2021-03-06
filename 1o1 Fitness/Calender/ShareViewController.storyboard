@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="latoregular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Share View Controller-->
+        <scene sceneID="2Rs-kM-UNT">
+            <objects>
+                <viewController storyboardIdentifier="ShareViewController" id="v1L-ss-CYG" customClass="ShareViewController" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BJK-1b-qm5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reporting Period :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8u-Jp-MBb">
+                                <rect key="frame" x="30" y="104" width="135" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3aD-89-gwK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioM-O1-oxL">
+                                <rect key="frame" x="315" y="104" width="69" height="21"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <state key="normal" title="Today  " image="downArrow"/>
+                                <connections>
+                                    <action selector="todayBtnTapped:" destination="v1L-ss-CYG" eventType="touchUpInside" id="f3Y-7I-niE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1v-nA-SZF">
+                                <rect key="frame" x="70" y="164" width="94" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="JAz-1G-IQB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="19"/>
+                                <state key="normal" title="   Fitness" image="rUCheck"/>
+                                <connections>
+                                    <action selector="fitnessBtnTapped:" destination="v1L-ss-CYG" eventType="touchUpInside" id="cDr-rK-WOV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZbU-98-JTw">
+                                <rect key="frame" x="273" y="164" width="71" height="30"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="19"/>
+                                <state key="normal" title="   Diet" image="rUCheck"/>
+                                <connections>
+                                    <action selector="dietBtnTapped:" destination="v1L-ss-CYG" eventType="touchUpInside" id="zsm-tM-mch"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPy-7V-hYn">
+                                <rect key="frame" x="117" y="758" width="180" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="T9T-Pq-Vnz"/>
+                                    <constraint firstAttribute="width" constant="180" id="fK0-IR-ymq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <state key="normal" title="Review" backgroundImage="loginBtn"/>
+                                <connections>
+                                    <action selector="reviewBtnTapped:" destination="v1L-ss-CYG" eventType="touchUpInside" id="0sI-5P-T51"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ywl-c5-es3"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="f1v-nA-SZF" firstAttribute="leading" secondItem="Ywl-c5-es3" secondAttribute="leading" constant="70" id="81q-rd-RyI"/>
+                            <constraint firstItem="ZbU-98-JTw" firstAttribute="top" secondItem="f1v-nA-SZF" secondAttribute="top" id="OX8-W2-PfF"/>
+                            <constraint firstItem="ZbU-98-JTw" firstAttribute="height" secondItem="f1v-nA-SZF" secondAttribute="height" id="Oj4-6Q-4eq"/>
+                            <constraint firstItem="ioM-O1-oxL" firstAttribute="top" secondItem="D8u-Jp-MBb" secondAttribute="top" id="SPg-gN-Ajt"/>
+                            <constraint firstItem="Ywl-c5-es3" firstAttribute="trailing" secondItem="ioM-O1-oxL" secondAttribute="trailing" constant="30" id="Ucn-Ne-wXK"/>
+                            <constraint firstItem="D8u-Jp-MBb" firstAttribute="top" secondItem="Ywl-c5-es3" secondAttribute="top" constant="60" id="VrX-HG-zrq"/>
+                            <constraint firstItem="D8u-Jp-MBb" firstAttribute="leading" secondItem="Ywl-c5-es3" secondAttribute="leading" constant="30" id="Vyc-EZ-VRM"/>
+                            <constraint firstItem="Ywl-c5-es3" firstAttribute="bottom" secondItem="iPy-7V-hYn" secondAttribute="bottom" constant="60" id="fAU-Wl-ed1"/>
+                            <constraint firstItem="Ywl-c5-es3" firstAttribute="trailing" secondItem="ZbU-98-JTw" secondAttribute="trailing" constant="70" id="fH3-AR-6pO"/>
+                            <constraint firstItem="f1v-nA-SZF" firstAttribute="top" secondItem="D8u-Jp-MBb" secondAttribute="bottom" constant="30" id="t1g-ch-Vl4"/>
+                            <constraint firstItem="ioM-O1-oxL" firstAttribute="height" secondItem="D8u-Jp-MBb" secondAttribute="height" multiplier="0.7" id="vBV-bj-9gx"/>
+                            <constraint firstItem="iPy-7V-hYn" firstAttribute="centerX" secondItem="Ywl-c5-es3" secondAttribute="centerX" id="vfi-21-fgU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dietBtn" destination="ZbU-98-JTw" id="qJa-1H-eaf"/>
+                        <outlet property="finessBtn" destination="f1v-nA-SZF" id="HdF-wj-4b1"/>
+                        <outlet property="reportTypeBtn" destination="ioM-O1-oxL" id="zPp-sK-k3W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="93v-4q-4JM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-377" y="40"/>
+        </scene>
+        <!--Report ReviewVC-->
+        <scene sceneID="rvf-8W-fid">
+            <objects>
+                <viewController storyboardIdentifier="ReportReviewVC" id="uPA-SR-Vs8" customClass="ReportReviewVC" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LCL-rO-8Yz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KV0-F7-prN">
+                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pn7-GD-Pg1"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KV0-F7-prN" firstAttribute="top" secondItem="pn7-GD-Pg1" secondAttribute="top" constant="60" id="HxP-gG-bxr"/>
+                            <constraint firstItem="pn7-GD-Pg1" firstAttribute="trailing" secondItem="KV0-F7-prN" secondAttribute="trailing" id="r44-xO-hWB"/>
+                            <constraint firstItem="KV0-F7-prN" firstAttribute="leading" secondItem="pn7-GD-Pg1" secondAttribute="leading" id="rEl-mJ-b6i"/>
+                            <constraint firstItem="pn7-GD-Pg1" firstAttribute="bottom" secondItem="KV0-F7-prN" secondAttribute="bottom" id="ub9-9u-Sl0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="KV0-F7-prN" id="8Tp-wx-CUp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wEI-fO-pBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="338" y="23"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="downArrow" width="16" height="9"/>
+        <image name="loginBtn" width="236" height="44"/>
+        <image name="rUCheck" width="20" height="20"/>
+    </resources>
+</document>

@@ -77,7 +77,7 @@ class WeightViewController: UIViewController {
              self.kgBtn.setTitleColor(AppColours.appYellow, for: .normal)
             self.metric = "kg"
           
-        case .profileMenu:
+        case .profileMenu,.bmiBmr:
             self.headerView.isHidden = true
             self.bottomView.isHidden = true
             self.backBtn.isHidden = false
@@ -93,14 +93,23 @@ class WeightViewController: UIViewController {
 //                secHeightConstraint.priority = UILayoutPriority(rawValue: 1000)
 //            }
 
-            
+           
                         
             self.view.dropShadow(color: UIColor.clear, opacity: 10, offSet: CGSize.init(width: 3, height: 3), radius: 3, scale: true)
             if self.metric == "kg" {
                 self.kbBtnTapped(kgBtn as Any)
-                
+                if self.navigationType == .bmiBmr {
+                    self.lbBtn.isHidden = true
+                }else {
+                    self.lbBtn.isHidden = false
+                }
             }else{
                 self.lbBtnTapped(self.lbBtn as Any)
+                if self.navigationType == .bmiBmr {
+                    self.kgBtn.isHidden = true
+                }else {
+                    self.kgBtn.isHidden = false
+                }
             }
         // self.weightLbl.text = String(format: "%.2f", self.weightVal)
         default:
@@ -165,7 +174,7 @@ class WeightViewController: UIViewController {
             self.lbBtn.setTitleColor(AppColours.appYellow, for: .normal)
              self.kgBtn.setTitleColor(UIColor.white, for: .normal)
         }
-        if self.navigationType == .profileMenu && self.isOffsetSet == false {
+        if (self.navigationType == .profileMenu || self.navigationType == .bmiBmr) && self.isOffsetSet == false {
              let offsetX = CGFloat(self.weightVal * 10) - scrollView.contentInset.left
             scrollView.setContentOffset(CGPoint(x:offsetX , y: scrollView.frame.origin.y), animated: true)
             self.isOffsetSet = true
@@ -189,7 +198,7 @@ class WeightViewController: UIViewController {
         self.lbBtn.setTitleColor(UIColor.white, for: .normal)
         self.metric = "kg"
         }
-        if self.navigationType == .profileMenu && self.isOffsetSet == false {
+        if (self.navigationType == .profileMenu || self.navigationType == .bmiBmr) && self.isOffsetSet == false {
              let offsetX = CGFloat(self.weightVal * 10) - scrollView.contentInset.left
             scrollView.setContentOffset(CGPoint(x:offsetX , y: scrollView.frame.origin.y), animated: true)
             self.isOffsetSet = true
@@ -327,6 +336,13 @@ extension Date {
     
         return dateFormatter.string(from: date)
 
+    }
+    static func getEndDateInFormatFrom(format:String, day: Int, startDate: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let date = dateFormatter.date(from: startDate)
+        let endDate = Calendar.current.date(byAdding: .day, value: day, to: date!)!
+        return dateFormatter.string(from: endDate)
     }
     static func getEndDateInFormat(format:String, week: Int, startDate: String) -> String {
         let dateFormatter = DateFormatter()

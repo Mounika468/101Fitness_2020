@@ -145,88 +145,95 @@ class FeedbackViewController: UIViewController {
   
     
     @IBAction func submitBtnTapped(_ sender: Any) {
-        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
-        let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
-               var authenticatedHeaders: [String: String] {
-                   [
-                       HeadersKeys.authorization: "\(HeaderValues.token) \(token!) ",
-                       HeadersKeys.contentType: HeaderValues.json
-                   ]
-               }
-       
+        if Double(self.pcosmoView.rating) == 0.0 || Double(self.pcosmoView.rating) == 0.0 {
+            self.presentAlertWithTitle(title: "", message: "Please enter comments", options: "OK") { (_) in
+                
+            }
+        }else {
+            LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
+            let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
+                   var authenticatedHeaders: [String: String] {
+                       [
+                           HeadersKeys.authorization: "\(HeaderValues.token) \(token!) ",
+                           HeadersKeys.contentType: HeaderValues.json
+                       ]
+                   }
+           
 
-        let postBody : [String: Any] = ["review_comment": txtView.text ?? "","program_rating":Double(self.pcosmoView.rating),"trainer_rating":Double(self.tCosmoView.rating),"commentDate":Date.getDateInFormat(format: "dd/MM/yyyy", date: Date()),"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"program_id":prDetails?.programId ?? ""]
-                    let urlString = postRatings
-                    guard let url = URL(string: urlString) else {return}
-                    var request        = URLRequest(url: url)
-                    request.httpMethod = "Post"
-                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                    request.setValue("\(HeaderValues.token) \(token!) ", forHTTPHeaderField: "Authorization")
-                    do {
-                        request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
-                    } catch let error {
-                    }
-            Alamofire.request(request).responseJSON{ (response) in
-                if let status = response.response?.statusCode {
-                    switch(status){
-                    case 200:
-                        if let json = response.result.value as? [String: Any] {
-                            do {
-                                if json["code"] as? Int == 80
-                                {
-                                    if  let jsonDict = json[ResponseKeys.data.rawValue]   {
-                                        if jsonDict is NSNull {
-                                            
-                                            if let jsonMessage = json[ResponseKeys.message.rawValue] {
-                                                messageString = (jsonMessage as? String)!
-                                            }
-                                            
-                                        }else {
-                                           
-                                            
-                                        }
-                                        DispatchQueue.main.async {
-                                            LoadingOverlay.shared.hideOverlayView()
-                                            self.presentAlertWithTitle(title: "", message: messageString, options: "OK") {_ in
-                                                self.navigationController?.popViewController(animated: true)
-                                            }
-                                        }
-                                    } else {
-                                        DispatchQueue.main.async {
-                                             LoadingOverlay.shared.hideOverlayView()
-                                            self.presentAlertWithTitle(title: "", message: "Posting comments failed", options: "OK") {_ in
+            let postBody : [String: Any] = ["review_comment": txtView.text ?? "","program_rating":Double(self.pcosmoView.rating),"trainer_rating":Double(self.tCosmoView.rating),"commentDate":Date.getDateInFormat(format: "dd/MM/yyyy", date: Date()),"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"program_id":prDetails?.programId ?? ""]
+                        let urlString = postRatings
+                        guard let url = URL(string: urlString) else {return}
+                        var request        = URLRequest(url: url)
+                        request.httpMethod = "Post"
+                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                        request.setValue("\(HeaderValues.token) \(token!) ", forHTTPHeaderField: "Authorization")
+                        do {
+                            request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
+                        } catch let error {
+                        }
+                Alamofire.request(request).responseJSON{ (response) in
+                    if let status = response.response?.statusCode {
+                        switch(status){
+                        case 200:
+                            if let json = response.result.value as? [String: Any] {
+                                do {
+                                    if json["code"] as? Int == 80
+                                    {
+                                        if  let jsonDict = json[ResponseKeys.data.rawValue]   {
+                                            if jsonDict is NSNull {
+                                                
+                                                if let jsonMessage = json[ResponseKeys.message.rawValue] {
+                                                    messageString = (jsonMessage as? String)!
+                                                }
+                                                
+                                            }else {
+                                               
                                                 
                                             }
-                                        }
-                                    }
-                                }else {
-                                    if let jsonMessage = json[ResponseKeys.message.rawValue] {
-                                        messageString = (jsonMessage as? String)!
-                                         DispatchQueue.main.async {
-                                            LoadingOverlay.shared.hideOverlayView()
-                                            self.presentAlertWithTitle(title: "", message: messageString, options: "OK") {_ in
-                                                self.navigationController?.popViewController(animated: true)
+                                            DispatchQueue.main.async {
+                                                LoadingOverlay.shared.hideOverlayView()
+                                                self.presentAlertWithTitle(title: "", message: messageString, options: "OK") {_ in
+                                                    self.navigationController?.popViewController(animated: true)
+                                                }
+                                            }
+                                        } else {
+                                            DispatchQueue.main.async {
+                                                 LoadingOverlay.shared.hideOverlayView()
+                                                self.presentAlertWithTitle(title: "", message: "Posting comments failed", options: "OK") {_ in
+                                                    
+                                                }
                                             }
                                         }
-                                    }
-                                } }catch let error {
-                                    DispatchQueue.main.async {
-                                        LoadingOverlay.shared.hideOverlayView()
-                                        self.presentAlertWithTitle(title: "", message: "Posting comments failed", options: "OK") {_ in
+                                    }else {
+                                        if let jsonMessage = json[ResponseKeys.message.rawValue] {
+                                            messageString = (jsonMessage as? String)!
+                                             DispatchQueue.main.async {
+                                                LoadingOverlay.shared.hideOverlayView()
+                                                self.presentAlertWithTitle(title: "", message: messageString, options: "OK") {_ in
+                                                    self.navigationController?.popViewController(animated: true)
+                                                }
+                                            }
                                         }
-                                    }
+                                    } }catch let error {
+                                        DispatchQueue.main.async {
+                                            LoadingOverlay.shared.hideOverlayView()
+                                            self.presentAlertWithTitle(title: "", message: "Posting comments failed", options: "OK") {_ in
+                                            }
+                                        }
+                                }
                             }
-                        }
-                        
-                    default:
-                        DispatchQueue.main.async {
-                            LoadingOverlay.shared.hideOverlayView()
-                            self.presentAlertWithTitle(title: "", message: "Posting comments failed", options: "OK") {_ in
+                            
+                        default:
+                            DispatchQueue.main.async {
+                                LoadingOverlay.shared.hideOverlayView()
+                                self.presentAlertWithTitle(title: "", message: "Posting comments failed", options: "OK") {_ in
+                                }
                             }
                         }
                     }
                 }
-            }
+
+        }
 
     }
     

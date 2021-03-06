@@ -202,6 +202,9 @@ class CalenderViewController: UIViewController {
    }
     @objc func shareBtnTapped(sender : UIButton){
     // self.navigationController?.popViewController(animated: true)
+        let storyboard = UIStoryboard(name: "ShareViewController", bundle: nil)
+                       let controller = storyboard.instantiateViewController(withIdentifier: "ShareViewController") as! ShareViewController
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     @IBAction func progressBtntapped(_ sender: Any) {
         self.refreshView(calenderEvent: .progressPhoto)

@@ -15,10 +15,14 @@ protocol SelectedValuesFromPickerDelegate {
 protocol FoodQuantityChangedDelegate {
     func foodQtyChanged(measures:AlternateMeasures)
 }
+protocol ReportTypeDelegate {
+    func reportTypeSelected(reportType:String)
+}
 enum PopType {
     case morePicker
     case activityPicker
     case foodQuantity
+    case reportType
 }
 
 class PickerVC: UIViewController {
@@ -33,6 +37,7 @@ class PickerVC: UIViewController {
     @IBOutlet weak var customPicker: UIPickerView!
     var pickerDelegate: SelectedValuesFromPickerDelegate?
     var foodPickerDelegate: FoodQuantityChangedDelegate?
+    var reportTypeDelegate: ReportTypeDelegate?
     var popType: PopType = .morePicker
     var selectedMeals = ""
     var selectedMeasures :AlternateMeasures?
@@ -40,6 +45,7 @@ class PickerVC: UIViewController {
     var textActivityArr : Array = ["Sedentary","Lightly active","Moderately active","Very active","Extra active"]
     let activityArr : Array = ["gsedentary","glightly","gmoderate","gactive","gextra"]
            let activityNames : Array = ["Sedentary (little or no exercise)","Lightly active (light exercise/sports 1-3 days/week)","Moderately active (moderate exercise/sports 3-5 days/week)","Very active (hard exercise/sports 6-7 days a week)","Extra active (very hard exercise/sports & a physical job)"]
+    let reportTypeArr = ["Today", "Last 7 days","Month"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -83,6 +89,14 @@ class PickerVC: UIViewController {
              self.backBtn.isHidden = true
             self.arrowImgView.isHidden = false
             self.seperatorLbl.isHidden = false
+        case .reportType:
+            self.customPicker.isHidden = false
+            self.activityTblView.isHidden = true
+            self.doneBtn.isHidden = false
+            self.cancelBtn.isHidden = false
+             self.backBtn.isHidden = true
+            self.arrowImgView.isHidden = false
+            self.seperatorLbl.isHidden = false
         default:
             self.customPicker.isHidden = false
         }
@@ -99,6 +113,11 @@ class PickerVC: UIViewController {
         switch self.popType {
         case .foodQuantity:
             self.foodPickerDelegate?.foodQtyChanged(measures:  self.selectedMeasures!)
+        case .reportType:
+            if self.selectedMeals == "" {
+                self.selectedMeals = self.reportTypeArr[0]
+            }
+            self.reportTypeDelegate?.reportTypeSelected(reportType: self.selectedMeals)
         default:
             self.pickerDelegate?.noOfMealsday(mealsNo: self.selectedMeals)
 
@@ -138,6 +157,8 @@ extension PickerVC: UIPickerViewDataSource, UIPickerViewDelegate {
         switch self.popType {
         case .foodQuantity:
             return self.foodQtyArr?.count ?? 0
+        case .reportType:
+            return self.reportTypeArr.count
         default:
             return self.titles.count
         }
@@ -153,6 +174,8 @@ extension PickerVC: UIPickerViewDataSource, UIPickerViewDelegate {
         case .foodQuantity:
             let measure = self.foodQtyArr?[row]
             return measure?.measure ?? ""
+        case .reportType:
+            return self.reportTypeArr[row]
         default:
             return self.titles[row]
         }
@@ -166,6 +189,8 @@ extension PickerVC: UIPickerViewDataSource, UIPickerViewDelegate {
             let measure = self.foodQtyArr?[row]
             self.selectedMeasures = measure
             self.selectedMeals =  measure?.measure ?? ""
+        case .reportType:
+            self.selectedMeals = self.reportTypeArr[row]
         default:
             self.selectedMeals = self.titles[row]
         }
@@ -179,6 +204,10 @@ extension PickerVC: UIPickerViewDataSource, UIPickerViewDelegate {
             let measure = self.foodQtyArr?[row]
             let titleData = measure?.measure ?? ""
             let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+            return myTitle
+        case .reportType:
+            let report = self.reportTypeArr[row]
+            let myTitle = NSAttributedString(string: report, attributes: [NSAttributedString.Key.foregroundColor: AppColours.topBarGreen])
             return myTitle
         default:
             let titleData = self.titles[row]

@@ -687,7 +687,15 @@ class ProfileViewController: UIViewController {
             }
         }
         let currrent_weight : [String : Any] = ["weight": self.weight ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
-        let target_weight : [String : Any] = ["weight": TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0 ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
+        var targetWeight = 0.0
+        if self.weightMetric != TraineeDetails.traineeDetails?.targetWeight?.metric {
+            if self.weightMetric == "kg" {
+                targetWeight = (TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0)/2.20
+            }else {
+                targetWeight = (TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0) * 2.20
+            }
+        }
+        let target_weight : [String : Any] = ["weight": targetWeight ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
         let  currrent_height : [String : Any] = ["height": self.heightBtn.titleLabel?.text ?? "" ,"metric": self.heightMetric]
         
         

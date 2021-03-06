@@ -114,6 +114,7 @@ class BMIBMRViewController: UIViewController {
         self.setupView()
     }
     func setupView() {
+    
         let BMIBMRVal = TraineeDetails.traineeDetails?.bmi_bmr
         let targetWeight = TraineeDetails.traineeDetails?.targetWeight
         ageValLbl.text =  "\(TraineeDetails.traineeDetails?.age ?? 0)"
@@ -178,36 +179,45 @@ class BMIBMRViewController: UIViewController {
             }
 
         }
-        
+        // removing the tap actions
+        self.kgBtn.isUserInteractionEnabled = false
+        self.tKgBtn.isUserInteractionEnabled = false
+        self.lbBtn.isHidden = true
+        self.tLbBtn.isHidden = true
         let weight = TraineeDetails.traineeDetails?.currrent_weight
+        self.kgBtn.isSelected = true
+        self.kgBtn.setTitleColor(AppColours.appYellow, for: .normal)
+        self.tKgBtn.isSelected = true
+        self.tKgBtn.setTitleColor(AppColours.appYellow, for: .normal)
         if weight?.metric! == "kg" {
-            self.kgBtn.isSelected = true
-            self.kgBtn.setTitleColor(AppColours.appYellow, for: .normal)
-            self.lbBtn.isSelected = false
-            self.lbBtn.setTitleColor(UIColor.white, for: .normal)
-            
-            self.tKgBtn.isSelected = true
-            self.tKgBtn.setTitleColor(AppColours.appYellow, for: .normal)
-            self.tLbBtn.isSelected = false
-            self.tLbBtn.setTitleColor(UIColor.white, for: .normal)
+           
+           
+//            self.lbBtn.isSelected = false
+//            self.lbBtn.setTitleColor(UIColor.white, for: .normal)
+//
+//
+//            self.tLbBtn.isSelected = false
+//            self.tLbBtn.setTitleColor(UIColor.white, for: .normal)
             self.weightMetric = "kg"
             self.tweightMetric = "kg"
         }else {
-            self.lbBtn.isSelected = true
-            self.lbBtn.setTitleColor(AppColours.appYellow, for: .normal)
-            self.kgBtn.isSelected = false
-            self.kgBtn.setTitleColor(UIColor.white, for: .normal)
-            
-            self.tKgBtn.isSelected = false
-            self.tLbBtn.setTitleColor(AppColours.appYellow, for: .normal)
-            self.tLbBtn.isSelected = true
-            self.tKgBtn.setTitleColor(UIColor.white, for: .normal)
+//            self.lbBtn.isSelected = true
+//            self.lbBtn.setTitleColor(AppColours.appYellow, for: .normal)
+//            self.kgBtn.isSelected = false
+//            self.kgBtn.setTitleColor(UIColor.white, for: .normal)
+//
+//            self.tKgBtn.isSelected = false
+//            self.tLbBtn.setTitleColor(AppColours.appYellow, for: .normal)
+//            self.tLbBtn.isSelected = true
+//            self.tKgBtn.setTitleColor(UIColor.white, for: .normal)
              self.weightMetric = "lbs"
             self.tweightMetric = "lbs"
         }
         let weightVal = weight?.weight ?? 0.0
         self.weight = weightVal
         self.weightBtn.setTitle(String(format: "%.2f", weightVal), for: .normal)
+        self.kgBtn.setTitle(self.weightMetric, for: .normal)
+        self.tKgBtn.setTitle(self.tweightMetric, for: .normal)
         if  let activityLevel = TraineeDetails.traineeDetails?.activity_level?.trimmingCharacters(in: .whitespaces) {
             self.activityLevelIndex = self.textActivityArr.firstIndex(of: activityLevel) ?? 0
              TraineeInfo.details.activityLevel = activityLevel
@@ -227,7 +237,7 @@ class BMIBMRViewController: UIViewController {
         isFromTagetWeight = false
         let storyboard = UIStoryboard(name: "WeightVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "weightVC") as! WeightViewController
-        controller.navigationType = .profileMenu
+        controller.navigationType = .bmiBmr
          controller.metric = self.weightMetric
         if self.weightMetric == "lbs" {
             controller.weightVal = self.weight/2.20
@@ -244,7 +254,7 @@ class BMIBMRViewController: UIViewController {
         isFromTagetWeight = true
         let storyboard = UIStoryboard(name: "WeightVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "weightVC") as! WeightViewController
-        controller.navigationType = .profileMenu
+        controller.navigationType = .bmiBmr
          controller.metric = self.tweightMetric
         if self.tweightMetric == "lbs" {
             controller.weightVal =  self.targetWeight/2.20

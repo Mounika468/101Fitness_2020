@@ -87,6 +87,9 @@ let postReminders = "\(devHostURL)traineeservice/api/trainees/reminder"
 //Refund URLs
 let postRefundURL = "\(devHostURL)traineeservice/api/trainees/request"
 
+//ShareURL
+let getShareReportURL = "\(devHostURL)traineeservice/api/pdf"
+
 struct UserPoolCredentials {
   
     static let accessKey = "AKIAUXZP6WV4EEXWBXUY"
