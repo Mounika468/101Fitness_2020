@@ -140,4 +140,64 @@ final class ProgramAPI: API
                                  errorHandler(error)
                              })
                          }
+    static func postRatingsCall(header:[String: String],dataParams:Data,
+                        successHandler: @escaping (String) -> Void,
+                        errorHandler: @escaping (APIError) -> Void) {
+
+           let urlString =  postRatings
+           let request = APIRequest(method: .post, url: urlString, parameters: nil, headers: header, dataParams: dataParams)
+        sendAPIRequest(request,
+                       successHandler: { (json: JSON) in
+                        do {
+                            if  let jsonDict = json[ResponseKeys.data.rawValue] {
+                                if jsonDict != nil {
+                                   // let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any, options: .prettyPrinted)
+                                    //let photos = try JSONDecoder().decode(urlString.self, from: jsonData)
+                                    successHandler("")
+                                }else {
+                                    if let jsonMessage = json[ResponseKeys.message.rawValue] {
+                                        messageString = (jsonMessage as? String)!
+                                        successHandler(messageString)
+                                    }
+                                }
+                                
+                            } else {
+                                
+                                  successHandler("")
+                            }
+                        }catch let error {
+                            errorHandler(APIError.invalidResponse(ErrorMessage("error.parsing")))
+                        }
+
+        }, errorHandler: { error in
+            errorHandler(error)
+        })
+       }
+    static func getTrainerRatings(trainerId: String,header:[String: String],
+                     successHandler: @escaping ([TrainerRatings]?) -> Void,
+                     errorHandler: @escaping (APIError) -> Void) {
+        
+        
+        let urlString = String(format: "%@?trainer_id=%@&pagesize=20&pagenumber=0", postRatings,trainerId)
+        let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
+
+        sendAPIRequest(request,
+                       successHandler: { (json: JSON) in
+                        do {
+                            if  let jsonDict = json[ResponseKeys.data.rawValue] {
+                                let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any, options: .prettyPrinted)
+                                let trainerRatings = try JSONDecoder().decode([TrainerRatings].self, from: jsonData)
+                                successHandler(trainerRatings)
+                            } else {
+                                successHandler(nil)
+                            }
+                        } catch let error {
+                            errorHandler(APIError.invalidResponse(ErrorMessage("error.parsing")))
+                        }
+                        
+        }, errorHandler: { error in
+            errorHandler(error)
+        })
+
+    }
 }

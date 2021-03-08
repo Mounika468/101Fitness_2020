@@ -111,8 +111,6 @@ class DatePickerViewController: UIViewController {
                        
                        let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
                        
-                       print(currentDate)
-                       print(futureDate!)
                 
                 customPicker.setToDate(futureDate!)
                 
@@ -175,7 +173,6 @@ extension DatePickerViewController: WeekdayPickerDelegate {
             let now = Date()
             let calcAge = calendar.components(.year, from: date, to: now, options: [])
             let age = calcAge.year
-            print("Age is \(String(describing: age))")
             self.ageField.text = "\(age ?? 0)"
             let dateFormatter = DateFormatter()
                    dateFormatter.dateFormat = "yyyy-MM-dd"

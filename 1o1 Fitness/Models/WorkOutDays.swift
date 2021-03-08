@@ -26,7 +26,6 @@ struct WorkOutDays: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        print("THis is WorkOUtdays")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         day = try container.decode(Int.self, forKey: .day)
         rest = try container.decode(Bool.self, forKey: .rest)

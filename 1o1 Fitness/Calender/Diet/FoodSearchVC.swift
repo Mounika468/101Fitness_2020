@@ -170,14 +170,12 @@ class FoodSearchVC: UIViewController {
         LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         GetDietByDateAPI.getNutritionixFoodItems(header: authenticatedHeaders, searchString: searchString, successHandler: { (foodDetails) in
            // self.foodArray = foodDetails
-            print("fooddetails ae \(foodDetails)")
             self.foodItemsArray = foodDetails
             DispatchQueue.main.async {
                  LoadingOverlay.shared.hideOverlayView()
                 self.resTblView.reloadData()
             }
            }, errorHandler: {  error in
-                   print(" error \(error)")
                    DispatchQueue.main.async {
                        LoadingOverlay.shared.hideOverlayView()
                    }

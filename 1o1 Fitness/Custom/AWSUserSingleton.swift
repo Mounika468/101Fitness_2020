@@ -21,7 +21,6 @@ class AWSUserSingleton{
         var token = ""
         AWSMobileClient.sharedInstance().getTokens { (tokens, error) in
             if let error = error {
-                            print("Error getting token \(error.localizedDescription)")
                         } else if let tokens = tokens {
                             print(tokens.accessToken!.tokenString!)
              let userdefaults = UserDefaults.standard
@@ -39,10 +38,8 @@ class AWSUserSingleton{
         var token = ""
         AWSMobileClient.sharedInstance().getTokens { (tokens, error) in
             if let error = error {
-                            print("Error getting token \(error.localizedDescription)")
                 finished("")
                         } else if let tokens = tokens {
-                            print(tokens.accessToken!.tokenString!)
              let userdefaults = UserDefaults.standard
                 if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.accessToken){
                  userdefaults.removeObject(forKey: UserDefaultsKeys.accessToken)
@@ -56,7 +53,6 @@ class AWSUserSingleton{
         
         AWSMobileClient.sharedInstance().changePassword(currentPassword: "", proposedPassword: "") { (error) in
             if let error = error {
-                            print("Error getting token \(error.localizedDescription)")
             }
         }
     }
@@ -66,7 +62,6 @@ class AWSUserSingleton{
         
          AWSMobileClient.sharedInstance().getTokens { (tokens, error) in
                     if let error = error {
-                                    print("Error getting token \(error.localizedDescription)")
                                 } else if let tokens = tokens {
                                     print(tokens.accessToken!.tokenString!)
                      let userdefaults = UserDefaults.standard
@@ -81,7 +76,6 @@ class AWSUserSingleton{
                 print("ERROR: \(error?.localizedDescription)")
              }else{
                 if let attributesDict = attributes{
-                    print(attributesDict["sub"])
                     let userdefaults = UserDefaults.standard
                     if userdefaults.string(forKey: UserDefaultsKeys.subId) != nil{
                         userdefaults.removeObject(forKey: UserDefaultsKeys.subId)

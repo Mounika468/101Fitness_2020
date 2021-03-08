@@ -72,7 +72,6 @@ extension FAQViewController:UIDocumentInteractionControllerDelegate {
 }
 extension FAQViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("Finished navigating to url \(webView.url)")
         if webView.canGoBack {
             self.navigationView.leftArrow.isEnabled = true
             self.navigationView.leftArrow.setImage(UIImage(named: "canBack"), for: .normal)

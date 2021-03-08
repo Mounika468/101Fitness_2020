@@ -8,9 +8,18 @@
 
 import UIKit
 import Alamofire
-
+import FTPopOverMenu_Swift
+enum ContactUSCommentsType {
+    case refund
+    case contact
+    
+}
 class ContactCommentsViewController: UIViewController {
 
+    @IBOutlet weak var commentsSConstrain: NSLayoutConstraint!
+    @IBOutlet weak var commentsPConstrain: NSLayoutConstraint!
+    @IBOutlet weak var refundTypeBtn: UIButton!
+    @IBOutlet weak var refundTypesView: CardView!
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var commentsCardView: CardView!
@@ -18,6 +27,10 @@ class ContactCommentsViewController: UIViewController {
     @IBOutlet weak var nameCardView: CardView!
     var navigationView = NavigationView()
     var category : String = ""
+    var commentsType : ContactUSCommentsType = .contact
+    var refundsArr : [RefundTypes]?
+    var refundNames : [String]?
+    var selectedPrgmIndex : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,12 +48,42 @@ class ContactCommentsViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         self.HeaderLbl.textColor = AppColours.textGreen
         self.hideKeyboardWhenTappedAround()
+        
+            
     }
     
     override func viewWillAppear(_ animated: Bool) {
        // self.getContactUsInfo()
         self.HeaderLbl.text = category
         txtView.textColor = UIColor.lightGray
+        if self.commentsType == .contact {
+            self.refundTypesView.isHidden = true
+            if #available(iOS 13.0, *) {
+                commentsPConstrain.isActive = true
+                commentsSConstrain.isActive = false
+                commentsPConstrain.priority = UILayoutPriority(rawValue: 1000)
+                commentsSConstrain.priority = UILayoutPriority(rawValue: 999)
+            } else {
+                // Fallback on earlier versions
+                commentsPConstrain.isActive = true
+                commentsSConstrain.isActive = false
+                
+            }
+        }else {
+            self.refundTypesView.isHidden = false
+            self.getRefundDetailsInfo()
+            if #available(iOS 13.0, *) {
+                commentsPConstrain.isActive = false
+                commentsSConstrain.isActive = true
+                commentsPConstrain.priority = UILayoutPriority(rawValue: 999)
+                commentsSConstrain.priority = UILayoutPriority(rawValue: 1000)
+            } else {
+                // Fallback on earlier versions
+                commentsPConstrain.isActive = false
+                commentsSConstrain.isActive = true
+                
+            }
+        }
     }
     @objc func backBtnTapped(sender : UIButton){
      self.navigationController?.popViewController(animated: true)
@@ -86,7 +129,43 @@ class ContactCommentsViewController: UIViewController {
 //            }
 //        }
 //    }
+    func getRefundDetailsInfo() {
+        self.refundNames?.removeAll()
+        LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
+        let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
+               var authenticatedHeaders: [String: String] {
+                   [
+                       HeadersKeys.authorization: "\(HeaderValues.token) \(token!) ",
+                       HeadersKeys.contentType: HeaderValues.json
+                   ]
+               }
+        ContactsAPI.getRefundDetails(header: authenticatedHeaders, traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!) { [weak self] (refundTypes) in
+            DispatchQueue.main.async {
+                LoadingOverlay.shared.hideOverlayView()
+            self?.refundsArr = refundTypes
+            if self?.refundsArr?.count ?? 0 > 0 {
+                self?.refundsArr!.forEach { refunds in
+                    guard let prName = refunds.programName else { return }
+                    self?.refundNames?.append(prName)
+                    self?.refundTypeBtn.setTitle(refunds.programName, for: .normal)
 
+                }
+            }else {
+                self?.presentAlertWithTitle(title: "", message: "No Refunds are initiated", options: "OK", completion: { (_) in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+            }
+            }
+            
+        } errorHandler: { (error) in
+            DispatchQueue.main.async {
+                LoadingOverlay.shared.hideOverlayView()
+                self.refundNames?.removeAll()
+            }
+        }
+
+    }
+    
     func postComments() {
         LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
@@ -102,7 +181,12 @@ class ContactCommentsViewController: UIViewController {
 //        let postComments  = ContactUsPostBody(comments: self.txtView.text, os_version: "", app_version: "", devise_model: "", currentDateTime: "", raisedBy: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, requestType: self.category)
 //        let jsonEncoder = JSONEncoder()
 //        let jsonData = try! jsonEncoder.encode(postComments)
-        let postBody : [String: Any] = ["comments": txtView.text,"app_version":"","os_version":"","devise_model":"","currentDateTime":"","raisedBy":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"requestType":self.category]
+        var postBody : [String: Any] = ["comments": txtView.text,"app_version":"","os_version":"","devise_model":"","currentDateTime":"","raisedBy":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"requestType":self.category]
+        if self.commentsType == .refund {
+            let refundDetail = self.refundsArr![self.selectedPrgmIndex]
+            postBody = ["comments":txtView.text,"app_version":"","os_version":"","devise_model":"","currentDateTime":"","raisedBy":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"requestType":self.category,"assignedTo" : "Admin",
+                        "program_id" :refundDetail.program_id,"order_id" :refundDetail.order_id,"invoice_id":refundDetail.invoice_id]
+        }
                 let urlString = postContactComments
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)
@@ -115,12 +199,10 @@ class ContactCommentsViewController: UIViewController {
                     print("Error : \(error.localizedDescription)")
                 }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int == 80
                             {
@@ -138,7 +220,7 @@ class ContactCommentsViewController: UIViewController {
                                     DispatchQueue.main.async {
                                         LoadingOverlay.shared.hideOverlayView()
                                         self.presentAlertWithTitle(title: "", message: messageString, options: "OK") {_ in
-                                            self.navigationController?.popToRootViewController(animated: true)
+                                            self.navigationController?.popViewController(animated: true)
                                         }
                                     }
                                 } else {
@@ -184,6 +266,27 @@ class ContactCommentsViewController: UIViewController {
                 
             }
         }
+    }
+    @IBAction func refunTypesBtntapped(_ sender: Any) {
+        let configuration = FTConfiguration.shared
+        let cellConfi = FTCellConfiguration()
+        configuration.menuRowHeight = 30
+        configuration.menuWidth =  300
+        configuration.backgoundTintColor = UIColor.black
+        cellConfi.textColor = AppColours.topBarGreen
+        cellConfi.textFont = UIFont(name: "Lato-Semibold", size: 12.0)!
+        configuration.borderColor = UIColor.white
+        configuration.menuSeparatorColor = UIColor.white
+        configuration.borderWidth = 0.5
+        cellConfi.textAlignment = NSTextAlignment.center
+        
+        FTPopOverMenu.showForSender(sender: sender as! UIView, with: self.refundNames ?? []) { (selectedIndex) in
+            self.txtView.text = "Enter your comments"
+            self.selectedPrgmIndex = selectedIndex
+        } cancel: {
+            self.txtView.text = "Enter your comments"
+        }
+
     }
 }
 extension ContactCommentsViewController: UITextViewDelegate {

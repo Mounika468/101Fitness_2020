@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,6 +24,7 @@
                 <outlet property="leftArrow" destination="1zL-QB-PYj" id="vpy-z6-VdZ"/>
                 <outlet property="rightArrow" destination="dCd-zf-HQU" id="3GV-LE-OaN"/>
                 <outlet property="saveBtn" destination="gfp-Pl-9xg" id="z97-yD-lKf"/>
+                <outlet property="shareBtn" destination="hiY-tv-wcD" id="p8z-bG-in3"/>
                 <outlet property="titleLbl" destination="dMp-YS-qHP" id="D6x-rO-fEw"/>
             </connections>
         </placeholder>
@@ -84,12 +85,18 @@
                     </constraints>
                     <state key="normal" image="canGo"/>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiY-tv-wcD">
+                    <rect key="frame" x="396" y="12" width="32" height="30"/>
+                    <state key="normal" backgroundImage="share"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="hiY-tv-wcD" firstAttribute="height" secondItem="gfp-Pl-9xg" secondAttribute="height" id="2x4-ZQ-JdV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gfp-Pl-9xg" secondAttribute="trailing" constant="15" id="306-uV-TyB"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dMp-YS-qHP" secondAttribute="trailing" constant="50" id="FGd-IH-jgn"/>
+                <constraint firstItem="hiY-tv-wcD" firstAttribute="top" secondItem="gfp-Pl-9xg" secondAttribute="top" id="JTH-ND-0F5"/>
                 <constraint firstItem="E0w-dU-o1d" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="MKt-Mq-CJl"/>
                 <constraint firstItem="dMp-YS-qHP" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-5" id="Mxa-0v-QbZ"/>
                 <constraint firstItem="dCd-zf-HQU" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="WL3-v4-Wrr"/>
@@ -98,9 +105,11 @@
                 <constraint firstItem="E0w-dU-o1d" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-5" id="Yg3-ae-rU8"/>
                 <constraint firstItem="dMp-YS-qHP" firstAttribute="leading" secondItem="E0w-dU-o1d" secondAttribute="trailing" constant="15" id="kGp-Nq-oNk"/>
                 <constraint firstItem="gfp-Pl-9xg" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-5" id="kat-1f-WkD"/>
+                <constraint firstItem="hiY-tv-wcD" firstAttribute="leading" secondItem="gfp-Pl-9xg" secondAttribute="leading" id="pml-Y9-6HK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JZt-ah-4aO" secondAttribute="trailing" constant="20" id="pnd-Co-27X"/>
                 <constraint firstItem="dCd-zf-HQU" firstAttribute="leading" secondItem="1zL-QB-PYj" secondAttribute="trailing" constant="20" id="poA-VD-ed9"/>
                 <constraint firstItem="dCd-zf-HQU" firstAttribute="leading" secondItem="1zL-QB-PYj" secondAttribute="trailing" constant="20" id="qYU-M7-3R5"/>
+                <constraint firstItem="hiY-tv-wcD" firstAttribute="width" secondItem="gfp-Pl-9xg" secondAttribute="width" id="r2e-Ij-aML"/>
                 <constraint firstAttribute="trailing" secondItem="dCd-zf-HQU" secondAttribute="trailing" constant="30" id="tKM-69-5he"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -117,5 +126,6 @@
         <image name="canBack" width="32" height="32"/>
         <image name="canGo" width="32" height="32"/>
         <image name="newAdd" width="24" height="24"/>
+        <image name="share" width="31" height="29"/>
     </resources>
 </document>

@@ -139,6 +139,8 @@ extension ProgramViewController: UITableViewDelegate,UITableViewDataSource {
         cell.progressLbl.text = String(format: "%d days left", prName.daysLeft ?? 0)
         cell.detailsBtn.tag = indexPath.row
         cell.detailsBtn.addTarget(self, action: #selector(detailsTapped(sender:)), for: .touchUpInside)
+        cell.ratePrgmBtn.tag = indexPath.row
+        cell.ratePrgmBtn.addTarget(self, action: #selector(ratePrgmBtnTapped(sender:)), for: .touchUpInside)
         let progress =  Float(prName.daysLeft!) /  Float(prName.programDuration!)
         cell.prssView.progress = Float(1 - progress)
        // cell.prssView.progress = 0.15
@@ -149,7 +151,11 @@ extension ProgramViewController: UITableViewDelegate,UITableViewDataSource {
             cell.prStatusLbl.text = "Inactive"
             cell.prStatusLbl.textColor = .red
         }
-        
+        if self.programsArr![indexPath.row].isRatingSubmitted == true {
+            cell.ratePrgmBtn.isHidden = true
+        }else {
+            cell.ratePrgmBtn.isHidden = false
+        }
        
         return cell
     }
@@ -163,6 +169,13 @@ extension ProgramViewController: UITableViewDelegate,UITableViewDataSource {
     @objc func detailsTapped(sender : UIButton){
         let prName = self.programsArr![sender.tag]
         self.getMyProgramDetails(orderId: prName.order_id!)
+    }
+    @objc func ratePrgmBtnTapped(sender : UIButton){
+        let prName = self.programsArr![sender.tag]
+        let storyboard = UIStoryboard(name: "FeedbackVC", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
+        controller.prDetails = prName
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     func getMyProgramDetails(orderId : Int) {
         LoadingOverlay.shared.showOverlay(view: UIApplication.shared.windows.first!)

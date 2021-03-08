@@ -75,7 +75,6 @@ class AccountViewController: UIViewController {
         deleteAccLbl.textColor = AppColours.textGreen
         logOutLbl.textColor = AppColours.textGreen
         
-        print("Trainee details \( TraineeDetails.traineeDetails?.trainee_address)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -205,10 +204,8 @@ class AccountViewController: UIViewController {
         
         AWSCognitoIdentityUserPool.default().currentUser()?.delete().continueWith(block: { (task) -> Any? in
                    if let error = task.error {
-                       print("Error deleting user: \(error.localizedDescription)")
                    }
                    if let _ = task.result {
-                       print("User deleted successfully.")
                     self.deleteUserPostCall()
                    }
                    return nil
@@ -243,7 +240,6 @@ class AccountViewController: UIViewController {
         }
         Alamofire.request(request).responseJSON{ (response) in
             
-            print("response is \(response)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }
@@ -252,7 +248,6 @@ class AccountViewController: UIViewController {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json[ResponseKeys.data.rawValue] != nil
                             {

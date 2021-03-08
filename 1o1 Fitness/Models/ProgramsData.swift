@@ -20,6 +20,7 @@ struct MyPrograms:Codable {
     let program_end_date: String?
      var programImg: ProgramImg?
     let isProgramActive: Bool?
+    let isRatingSubmitted: Bool?
 }
 struct ProgramImg:Codable {
     let imgPath: String?
@@ -65,6 +66,35 @@ struct MyOrders:Codable {
     let enableRefund: Bool?
     let status: String?
 }
-            
-           
+
+
+struct RatingsPostBody: Codable {
+    let trainee_id: String
+   let program_rating: Double
+    let trainer_rating: Double
+   let review_comment:String
+    let commentDate : String
+  
+    init(trainee_id:String,
+         program_rating: Double,
+         trainer_rating: Double,
+         review_comment: String,
+         commentDate:String)  {
+        self.trainee_id = trainee_id
+        self.program_rating = program_rating
+        self.trainer_rating = trainer_rating
+        self.review_comment = review_comment
+        self.commentDate = commentDate
+        
+    }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+        self.program_rating = try container.decode(Double.self, forKey: .program_rating)
+        self.trainer_rating = try container.decode(Double.self, forKey: .trainer_rating)
+         self.review_comment = try container.decode(String.self, forKey: .review_comment)
+        self.commentDate = try container.decode(String.self, forKey: .commentDate)
+        
+    }
+}
            

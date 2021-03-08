@@ -225,7 +225,6 @@ class PackageDetailsViewController: UIViewController {
                 ]
             }
             SubscriptionAPI.postSubscription(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, successHandler: { [weak self]  paymentDetails in
-                print("package dettails \(paymentDetails)")
                 self?.paymentInfo = paymentDetails
                 DispatchQueue.main.async {
                     if self?.paymentInfo != nil {
@@ -239,7 +238,6 @@ class PackageDetailsViewController: UIViewController {
                         UserDefaults.standard.set(ProgramDetails.programDetails.programId, forKey:ProgramDetails.programDetails.subId )
                         let programId = UserDefaults.standard.string(forKey: ProgramDetails.programDetails.subId)
                         
-                        print("program id \(programId)")
                         //  UserDefaults.standard.set(self?.programId, forKey:UserDefaultsKeys.programId )
                         
                         UserDefaults.standard.set( ProgramDetails.programDetails.programStartDate, forKey:UserDefaultsKeys.programStartdate )

@@ -39,10 +39,8 @@ extension API {
                                   successHandler: @escaping (T) -> Void,
                                   errorHandler: @escaping ((APIError) -> Void)) {
         
-        print("Sending API Request: \(request)")
         
         guard let reachability = reachability, reachability.connection != .unavailable else {
-            print("Unable to send request \(request). Internet is not reachable.")
             errorHandler(.offline)
             return
         }
@@ -56,7 +54,6 @@ extension API {
                           headers: request.headers)
             .validate()
             .responseJSON { response in
-                print("API request had successful response: \(response.result).")
                 switch response.result {
                     
                 case .success(let value):
@@ -64,7 +61,6 @@ extension API {
                     if let result = value as? T {
                         successHandler(result)
                     }
-                    print("API request had successful response: `\(value)`.")
 
                 case .failure(let error):
                     errorHandler(APIError(response))
@@ -76,10 +72,8 @@ extension API {
                                successHandler: @escaping () -> Void,
                                errorHandler: @escaping ((APIError) -> Void)) {
         
-        print("Sending API Request: \(request)")
         
         guard let reachability = reachability, reachability.connection != .unavailable else {
-            print("Unable to send request \(request). Internet is not reachable.")
             errorHandler(.offline)
             return
         }
@@ -93,7 +87,6 @@ extension API {
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
-                    print("API request had successful response: \(value).")
                     successHandler()
                 case .failure(let error):
                //     Logger.error("API Response Failure with error: \(error)")
@@ -105,10 +98,8 @@ extension API {
                                successHandler: @escaping (T) -> Void,
                                errorHandler: @escaping ((APIError) -> Void)) {
         
-        print("Sending API Request: \(request)")
         
         guard let reachability = reachability, reachability.connection != .unavailable else {
-            print("Unable to send request \(request). Internet is not reachable.")
             errorHandler(.offline)
             return
         }
@@ -126,7 +117,6 @@ extension API {
                 if let result = value as? T {
                     successHandler(result)
                 }
-                print("API request had successful response: `\(value)`.")
                 
             case .failure(let error):
                 errorHandler(APIError(response))

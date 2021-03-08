@@ -596,22 +596,25 @@ class ProfileViewController: UIViewController {
             
         }
          let height = TraineeDetails.traineeDetails?.trainee_height
+        self.height = Double((height?.height)!) as! Double
         if height?.metric! == "cm" {
            self.cmBtn.isSelected = true
             self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.ftBtn.isSelected = false
             self.ftBtn.setTitleColor(UIColor.white, for: .normal)
             self.heightMetric = "cm"
+            self.heightBtn.setTitle(String(format: "%.2f", self.height), for: .normal)
+
         }else {
-             self.ftBtn.isSelected = true
-                       self.ftBtn.setTitleColor(AppColours.appGreen, for: .normal)
-                       self.cmBtn.isSelected = false
-                       self.cmBtn.setTitleColor(UIColor.white, for: .normal)
+             self.cmBtn.isSelected = true
+                       self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
+                       self.ftBtn.isSelected = false
+                       self.ftBtn.setTitleColor(UIColor.white, for: .normal)
             self.heightMetric = "feet"
-           
+            self.heightBtn.setTitle(String(format: "%.2f", self.height), for: .normal)
+
         }
-        self.height = Double((height?.height)!) as! Double
-        self.heightBtn.setTitle(String(format: "%.2f", self.height), for: .normal)
+        self.cmBtn.isUserInteractionEnabled = false
       //  self.heightTxtField.text =
         let weight = TraineeDetails.traineeDetails?.currrent_weight
         if weight?.metric! == "kg" {
@@ -684,7 +687,16 @@ class ProfileViewController: UIViewController {
             }
         }
         let currrent_weight : [String : Any] = ["weight": self.weight ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
-         let  currrent_height : [String : Any] = ["height": "\(self.height)" ,"metric": self.heightMetric]
+        var targetWeight = 0.0
+        if self.weightMetric != TraineeDetails.traineeDetails?.targetWeight?.metric {
+            if self.weightMetric == "kg" {
+                targetWeight = (TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0)/2.20
+            }else {
+                targetWeight = (TraineeDetails.traineeDetails?.targetWeight?.weight ?? 0) * 2.20
+            }
+        }
+        let target_weight : [String : Any] = ["weight": targetWeight ,"metric": self.weightMetric,"updated_on":Date.getCurrentDate()]
+        let  currrent_height : [String : Any] = ["height": self.heightBtn.titleLabel?.text ?? "" ,"metric": self.heightMetric]
         
         
         TraineeInfo.details.food_preference = ["food_type": [self.foodType],"non_veg_preference": self.meatSelectedArr,"no_of_meals_day": self.noOfMeals]
@@ -711,9 +723,9 @@ class ProfileViewController: UIViewController {
         }
         TraineeInfo.details.country_code = self.countryCode1Btn.titleLabel?.text ?? ""
         
-        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name!,"last_name": TraineeDetails.traineeDetails?.last_name!,"mobile_no": self.phoneTxtField.text!,"gender": TraineeInfo.details.gender,"date_of_birth": TraineeDetails.traineeDetails?.date_of_birth!, "age":TraineeDetails.traineeDetails?.age!,"currrent_weight":currrent_weight, "trainee_height":currrent_height, "activity_level": TraineeInfo.details.activityLevel, "primary_goal":self.primaryGoal, "best_workout_day": TraineeInfo.details.best_workout_day, "food_preference":TraineeInfo.details.food_preference, "smoke_alcohol_consumption":TraineeInfo.details.smoke_alcohol_consumption, "sleep_duration":self.sleepDuration, "sleep_quality":self.sleepQuality,"previous_workout_history":TraineeInfo.details.previous_workout_history,"trainee_timezone":"IST","created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"profile_submission":true,"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"address_submission":TraineeDetails.traineeDetails?.address_submission,"username":TraineeInfo.details.username,"medical_history":TraineeInfo.details.medical_history,"targetWeight":TraineeDetails.traineeDetails?.targetWeight,"country_code":TraineeInfo.details.country_code]
+        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name!,"last_name": TraineeDetails.traineeDetails?.last_name!,"mobile_no": self.phoneTxtField.text!,"gender": TraineeInfo.details.gender,"date_of_birth": TraineeDetails.traineeDetails?.date_of_birth!, "age":TraineeDetails.traineeDetails?.age!,"currrent_weight":currrent_weight, "trainee_height":currrent_height, "activity_level": TraineeInfo.details.activityLevel, "primary_goal":self.primaryGoal, "best_workout_day": TraineeInfo.details.best_workout_day, "food_preference":TraineeInfo.details.food_preference, "smoke_alcohol_consumption":TraineeInfo.details.smoke_alcohol_consumption, "sleep_duration":self.sleepDuration, "sleep_quality":self.sleepQuality,"previous_workout_history":TraineeInfo.details.previous_workout_history,"trainee_timezone":"IST","created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"profile_submission":true,"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"address_submission":TraineeDetails.traineeDetails?.address_submission,"username":TraineeInfo.details.username,"medical_history":TraineeInfo.details.medical_history,"targetWeight":target_weight,"country_code":TraineeInfo.details.country_code]
             
-            let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
+            let jsonData = try? JSONSerialization.data(withJSONObject: postBody)
        
             let window = UIApplication.shared.windows.first!
             DispatchQueue.main.async {
@@ -739,11 +751,9 @@ class ProfileViewController: UIViewController {
             do {
                 request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
             } catch let error {
-                print("Error : \(error.localizedDescription)")
             }
             Alamofire.request(request).responseJSON{ (response) in
                 
-                print("response is \(response)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -752,7 +762,6 @@ class ProfileViewController: UIViewController {
                     switch(status){
                     case 200:
                         if let json = response.result.value as? [String: Any] {
-                            print("JSON: \(json)") // serialized json response
                             do {
                                 if json[ResponseKeys.data.rawValue] != nil
                                 {
@@ -800,7 +809,7 @@ class ProfileViewController: UIViewController {
                if self.heightMetric == "cm" {
                 controller.weightVal = self.height
                }else {
-                  controller.weightVal = self.height * 30.48
+                controller.weightVal = self.height
                }
               controller.heightDelegate = self
                controller.modalPresentationStyle = .custom
@@ -1155,11 +1164,13 @@ class ProfileViewController: UIViewController {
         if self.ftBtn.isSelected {
             self.ftBtn.isSelected = false
             self.ftBtn.setTitleColor(UIColor.white, for: .normal)
+            self.cmBtn.isSelected = true
+            self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.heightMetric = "cm"
              let text = self.heightBtn.titleLabel?.text!
              let cms =  Double(text!)!
-            self.height = Double(1000 * (cms * 30.48) / 1000)
-            self.heightBtn.setTitle( String(format: "%.1f", self.height), for: .normal)
+            self.height = Double(1000 * (cms * 30.04084) / 1000)
+            self.heightBtn.setTitle( String(format: "%.2f", self.height), for: .normal)
         }else {
             self.ftBtn.isSelected = true
             self.ftBtn.setTitleColor(AppColours.appGreen, for: .normal)
@@ -1169,8 +1180,12 @@ class ProfileViewController: UIViewController {
             self.height = Double(text!)!
             self.heightMetric = "feet"
             let cms = Double(self.height)
-                       self.height = Double(1000 * (cms / 30.48) / 1000)
-             self.heightBtn.setTitle( String(format: "%.1f", self.height), for: .normal)
+            let feet = Double(cms * 0.03004084)
+                 let feetShow = Int(floor(feet))
+                 let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
+                 let inches = Int(floor(feetRest * 12))
+            self.height = Double(1000 * (cms / 30.04084) / 1000)
+             self.heightBtn.setTitle( "\(feetShow).\(inches)", for: .normal)
         }
     }
     @IBAction func cmBtnTapped(_ sender: Any) {
@@ -1180,13 +1195,19 @@ class ProfileViewController: UIViewController {
         if self.cmBtn.isSelected {
             self.cmBtn.isSelected = false
             self.cmBtn.setTitleColor(UIColor.white, for: .normal)
+            self.ftBtn.isSelected = true
+            self.ftBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.heightMetric = "feet"
             let text = self.heightBtn.titleLabel?.text!
              self.height = Double(text!)!
-          let fts =    Double(1000 * (height / 30.48) / 1000)
+            let feet = Double(self.height * 0.03004084)
+                 let feetShow = Int(floor(feet))
+                 let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
+                 let inches = Int(floor(feetRest * 12))
+            let fts =    Double(1000 * (height / 30.04084) / 1000)
             self.height = fts
             // self.heightTxtField.text = String(format: "%.2f", fts)
-            self.heightBtn.setTitle( String(format: "%.1f", fts), for: .normal)
+            self.heightBtn.setTitle( "\(feetShow).\(inches)", for: .normal)
         }else {
             self.cmBtn.isSelected = true
             self.cmBtn.setTitleColor(AppColours.appGreen, for: .normal)
@@ -1194,10 +1215,10 @@ class ProfileViewController: UIViewController {
             self.ftBtn.setTitleColor(UIColor.white, for: .normal)
             let text = self.heightBtn.titleLabel?.text!
             self.height = Double(text!)!
-            self.heightMetric = "cm"
-            let fts =    Double(1000 * (height * 30.48) / 1000)
+            self.heightMetric = "cm"  //0.0304084
+            let fts =    Double(1000 * (height * 30.04084) / 1000)
                        self.height = fts
-            self.heightBtn.setTitle( String(format: "%.1f", fts), for: .normal)
+            self.heightBtn.setTitle( String(format: "%.2f", fts), for: .normal)
         }
     }
     @IBAction func lbBtnTapped(_ sender: Any) {
@@ -1205,6 +1226,8 @@ class ProfileViewController: UIViewController {
             self.countryCode2Btn.isHidden = true
         }
         if self.lbBtn.isSelected {
+            self.kgBtn.isSelected = true
+            self.kgBtn.setTitleColor(AppColours.appGreen, for: .normal)
             self.lbBtn.isSelected = false
             self.lbBtn.setTitleColor(UIColor.white, for: .normal)
              self.weightMetric = "kg"
@@ -1234,6 +1257,8 @@ class ProfileViewController: UIViewController {
         if self.kgBtn.isSelected {
             self.kgBtn.isSelected = false
             self.kgBtn.setTitleColor(UIColor.white, for: .normal)
+            self.lbBtn.isSelected = true
+            self.lbBtn.setTitleColor(AppColours.appGreen, for: .normal)
              let text = self.weightBtn.titleLabel?.text!
             let lbs = Double(text!)!
             self.weightMetric = "lbs"
@@ -1738,12 +1763,10 @@ extension ProfileViewController: PhotosBottomVCDelegate,CropViewControllerDelega
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {

@@ -144,7 +144,6 @@ class PhoneNumberPopupVC: UIViewController {
                         }
                         Alamofire.request(request).responseJSON{ (response) in
                             
-                            print("response is \(response)")
                             DispatchQueue.main.async {
                                 LoadingOverlay.shared.hideOverlayView()
                             }
@@ -153,7 +152,6 @@ class PhoneNumberPopupVC: UIViewController {
                                 switch(status){
                                 case 200:
                                     if let json = response.result.value as? [String: Any] {
-                                        print("JSON: \(json)") // serialized json response
                                         do {
                                             if json[ResponseKeys.data.rawValue] != nil
                                             {

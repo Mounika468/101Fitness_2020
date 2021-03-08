@@ -151,7 +151,6 @@ class PaymentDetailVC: UIViewController {
         let postBody : [String: Any] = ["amount_without_tax":self.paymentInfo!.price,"order_purchase_date": Date.getCurrentDateInFormat(format: "yyyy-MM-dd") ,"order_status":"1o1_new","payment_type_id":self.paymentInfo!.payment_type_id,"program_id":ProgramDetails.programDetails.programId,"tax_brack_up_id":self.paymentInfo!.tax_break_up_id,"total_amount":self.paymentInfo!.total_amount,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"payment_mode":"card","address_id":addressId,"currency_id":self.paymentInfo!.currency_id!]
                    let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
         SubscriptionAPI.postToOrderId(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, successHandler:  { [weak self] orderDetails  in
-            print("order details \(orderDetails)")
             self?.orderDetails = orderDetails
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
@@ -170,7 +169,6 @@ class PaymentDetailVC: UIViewController {
             }
             
         }) {  error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
                 self.presentAlertWithTitle(title: "Failure", message: "Fetching order details failed", options: "OK") { (option) in
@@ -266,7 +264,6 @@ class PaymentDetailVC: UIViewController {
                     LoadingOverlay.shared.hideOverlayView()
                 }
             }) { [weak self] error in
-                print(" error \(error)")
                 self?.presentAlertWithTitle(title: "Error", message: "Please try after sometine", options: "OK") { (option) in
                 }
                 DispatchQueue.main.async {

@@ -60,8 +60,6 @@ extension WeekdayPicker {
                          
                          let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
                          
-                         print(currentDate)
-                         print(futureDate!)
         
         
         

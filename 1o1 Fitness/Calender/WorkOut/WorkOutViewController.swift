@@ -248,7 +248,6 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
         }
         exercises = nil
 
-       print("Complete Actions")
         
           return true //You may need to return false if the action is cancelled
       }
@@ -256,7 +255,6 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
       func deleteAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
           //Do somethiing for "Added" button.
           //...
-        print("delete Actions")
          self.commentType = .exercisesDelete
          self.updateComments(indexPath: indexPath)
           return true //You may need to return false if the action is cancelled
@@ -264,7 +262,6 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
     func editAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
         //Do somethiing for "Added" button.
         //...
-      print("editAction Actions")
         var exercises = self.woExercisesArr?.workoutExercises![indexPath.row]
         if exercises?.exerciseStatus != WOStatus.notCompleted {
              self.updateWorkOut(indexPath: indexPath)
@@ -275,14 +272,8 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
     func messageAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
            //Do somethiing for "Added" button.
            //...
-         print("message Actions")
         let exercises = self.woExercisesArr?.workoutExercises![indexPath.row]
-//        if exercises?.exerciseComments?.count ?? 0 > 0 || exercises?.exerciseStatus == WOStatus.notCompleted {
-//            self.commentType = .exercisesMsg
-//             self.updateComments(indexPath: indexPath)
-//        }else {
-//
-//        }
+
         self.commentType = .exercisesMsg
                     self.updateComments(indexPath: indexPath)
            return true //You may need to return false if the action is cancelled
@@ -336,7 +327,6 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
                 self?.viewWillAppear(true)
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }

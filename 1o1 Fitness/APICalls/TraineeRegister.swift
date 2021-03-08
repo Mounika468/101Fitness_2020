@@ -31,11 +31,9 @@ final class TraineeRegister: API
         do {
             request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
         } catch let error {
-            print("Error : \(error.localizedDescription)")
         }
         Alamofire.request(request).responseJSON{ (response) in
             
-            print("response is \(response)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }
@@ -91,6 +89,32 @@ final class TraineeRegister: API
                                 
                             } else {
                                 successHandler()
+                            }
+                        } catch let error {
+                            errorHandler(APIError.invalidResponse(ErrorMessage("error.parsing")))
+                        }
+                        
+        }, errorHandler: { error in
+            errorHandler(error)
+        })
+
+    }
+    static func checkUserEmail(email: String,header:[String: String],
+                     successHandler: @escaping (Int) -> Void,
+                     errorHandler: @escaping (APIError) -> Void) {
+        
+        
+        let urlString = String(format: "%@%@", getEmailRegistered,email)
+        let request = APIRequest(method: .get, url: urlString, parameters:nil, headers: header, dataParams: nil)
+
+        sendAPIRequest(request,
+                       successHandler: { (json: JSON) in
+                        do {
+                            if let code = json["code"] as? Int {
+                               
+                                let code = json["code"] as? Int
+                                messageString = json["message"] as! String
+                                successHandler(code!)
                             }
                         } catch let error {
                             errorHandler(APIError.invalidResponse(ErrorMessage("error.parsing")))

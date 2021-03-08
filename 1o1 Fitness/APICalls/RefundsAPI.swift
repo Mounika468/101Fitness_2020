@@ -38,11 +38,9 @@ final class RefundsAPI: API
         do {
             request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
         } catch let error {
-            print("Error : \(error.localizedDescription)")
         }
         Alamofire.request(request).responseJSON{ (response) in
             
-            print("response is \(response)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }

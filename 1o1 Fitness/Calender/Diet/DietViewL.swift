@@ -120,7 +120,7 @@ class DietViewL: UIView {
          self.tbleHeightConstraint.constant = CGFloat((self.foodItemsArr?.count ?? 0) * 110 + 40)
         let height = self.foodTblView.frame.minY + self.tbleHeightConstraint.constant
         if self.dietSelection == .water {
-            self.dietviewDelegate?.setParentViewHeight(height: 1000)
+            self.dietviewDelegate?.setParentViewHeight(height: 650)
             let water = self.diet?.mealplan?.waterConsumed
             if water != nil {
                 self.waterQtyLbl.text = "\(water!.consumed)"
@@ -568,7 +568,6 @@ class DietViewL: UIView {
         let jsonData = try! jsonEncoder.encode(postbody)
         
         GetDietByDateAPI.updateWaterAPI(parameters: [:], header: [:], dataParams: jsonData, successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
                         self?.diet = diet
                             DispatchQueue.main.async {
                                self?.reloadDietView()
@@ -583,7 +582,6 @@ class DietViewL: UIView {
             
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -607,7 +605,6 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
         return UITableView.automaticDimension
        }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("number of cells \(self.foodItemsArr?.count ?? 0)")
         return self.foodItemsArr?.count ?? 0
     }
     
@@ -664,7 +661,6 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
         self.selectedTimeIndex = NSIndexPath(row:tag, section: 0)
         let foodItem = self.foodItemsArr![tag]
 
-        print("tap working \(tag)")
         let cell = self.foodTblView.cellForRow(at: self.selectedTimeIndex as! IndexPath) as! DietListTableViewCell
         var serving = 0.0
         if foodItem.foodStatus == WOStatus.complete {

@@ -25,6 +25,8 @@
                 <outlet property="nameLbl" destination="8w9-zz-i5R" id="pdt-9y-Flu"/>
                 <outlet property="playBtn" destination="1Ac-gQ-qrh" id="XDM-Qs-Xcw"/>
                 <outlet property="ratingBtn" destination="IAs-K8-n0m" id="042-WA-eXM"/>
+                <outlet property="ratings" destination="1Is-Dh-SaR" id="g0m-XB-FGi"/>
+                <outlet property="ratingsBtn" destination="fBR-CX-UgN" id="iiw-Mw-98k"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -38,6 +40,15 @@
                         <constraint firstAttribute="width" secondItem="SFz-eV-ySd" secondAttribute="height" multiplier="4:2.25" id="WZK-wm-m1X"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8w9-zz-i5R">
+                    <rect key="frame" x="20" y="259.5" width="325" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="chD-aQ-Z6l"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Heavy" family="Lato" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ac-gQ-qrh">
                     <rect key="frame" x="170" y="135.5" width="25.5" height="32"/>
                     <constraints>
@@ -72,25 +83,50 @@
                         <outlet property="delegate" destination="-1" id="fcH-J6-qZw"/>
                     </connections>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8w9-zz-i5R">
-                    <rect key="frame" x="20" y="259.5" width="325" height="20"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAs-K8-n0m">
+                    <rect key="frame" x="168" y="279.5" width="29" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="chD-aQ-Z6l"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Heavy" family="Lato" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAs-K8-n0m">
-                    <rect key="frame" x="168" y="309.5" width="29" height="0.0"/>
-                    <constraints>
-                        <constraint firstAttribute="height" id="I5V-x0-wP1"/>
+                        <constraint firstAttribute="height" constant="30" id="I5V-x0-wP1"/>
                         <constraint firstAttribute="width" constant="29" id="tqU-gt-VDr"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                     <state key="normal" backgroundImage="star">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                </button>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Is-Dh-SaR" customClass="CosmosView" customModule="Cosmos">
+                    <rect key="frame" x="72.5" y="279.5" width="120" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="kZf-sh-CsP"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                            <real key="value" value="22"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="fstar"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="estar"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBR-CX-UgN">
+                    <rect key="frame" x="207" y="283.5" width="100" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="Fld-kf-KSu"/>
+                        <constraint firstAttribute="width" constant="100" id="qEZ-Hg-K4m"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                    <state key="normal">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="ratingsBtnTapped:" destination="-1" eventType="touchUpInside" id="Dd1-UL-Q5s"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -101,11 +137,16 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8w9-zz-i5R" secondAttribute="trailing" constant="20" id="7BX-dH-JLx"/>
                 <constraint firstItem="gkw-35-h0k" firstAttribute="width" secondItem="8w9-zz-i5R" secondAttribute="width" id="F7z-8E-mz7"/>
                 <constraint firstItem="O7z-Ff-ExZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="FJ5-oR-CeQ"/>
+                <constraint firstItem="fBR-CX-UgN" firstAttribute="leading" secondItem="IAs-K8-n0m" secondAttribute="trailing" constant="10" id="JbK-vB-pjL"/>
+                <constraint firstItem="1Is-Dh-SaR" firstAttribute="height" secondItem="IAs-K8-n0m" secondAttribute="height" id="Kof-w2-RtI"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="O7z-Ff-ExZ" secondAttribute="bottom" id="KsI-Wv-bkc"/>
                 <constraint firstItem="gkw-35-h0k" firstAttribute="leading" secondItem="8w9-zz-i5R" secondAttribute="leading" id="LJH-LR-sp5"/>
+                <constraint firstItem="1Is-Dh-SaR" firstAttribute="top" secondItem="IAs-K8-n0m" secondAttribute="top" id="Pf9-lA-xtF"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="O7z-Ff-ExZ" secondAttribute="trailing" constant="30" id="U7e-zh-doG"/>
+                <constraint firstItem="1Is-Dh-SaR" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" constant="-50" id="XEw-FK-dSu"/>
                 <constraint firstItem="O7z-Ff-ExZ" firstAttribute="top" secondItem="gkw-35-h0k" secondAttribute="bottom" id="bF9-m2-tjI"/>
                 <constraint firstItem="SFz-eV-ySd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="dm9-cS-nMu"/>
+                <constraint firstItem="fBR-CX-UgN" firstAttribute="centerY" secondItem="1Is-Dh-SaR" secondAttribute="centerY" id="dmJ-Tn-S5D"/>
                 <constraint firstItem="1Ac-gQ-qrh" firstAttribute="centerX" secondItem="SFz-eV-ySd" secondAttribute="centerX" id="f3M-zk-brD"/>
                 <constraint firstItem="SFz-eV-ySd" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="h8Z-xl-K6Y"/>
                 <constraint firstItem="gkw-35-h0k" firstAttribute="top" secondItem="8w9-zz-i5R" secondAttribute="bottom" constant="30" id="j5J-lc-jVA"/>
@@ -123,10 +164,12 @@
                     <exclude reference="vPi-t9-9h7"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="130.40000000000001" y="80.059970014992516"/>
+            <point key="canvasLocation" x="129.71014492753625" y="79.6875"/>
         </view>
     </objects>
     <resources>
+        <image name="estar" width="20" height="20"/>
+        <image name="fstar" width="19" height="19"/>
         <image name="gplay" width="25.5" height="32"/>
         <image name="star" width="46" height="43"/>
     </resources>

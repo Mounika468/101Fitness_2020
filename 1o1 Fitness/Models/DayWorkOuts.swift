@@ -57,7 +57,6 @@ struct Workouts: Decodable {
         self.workoutPercentage = workoutPercentage
     }
     init(from decoder: Decoder) throws {
-        print("workout erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.workoutId = try container.decode(String.self, forKey: .workoutId)
         self.trainerId = try container.decode(String.self, forKey: .trainerId)
@@ -97,7 +96,6 @@ struct WorkoutName: Codable {
         
     }
     init(from decoder: Decoder) throws {
-        print("workoutname erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
@@ -140,7 +138,6 @@ struct WorkoutExercises: Codable {
         
     }
     init(from decoder: Decoder) throws {
-        print("workout exercises erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.exerciseId = try container.decode(String.self, forKey: .exerciseId)
         self.exerciseName = try container.decode(String.self, forKey: .exerciseName)
@@ -173,7 +170,7 @@ struct OtherInfo: Codable {
         self.imgUrl = imgUrl
     }
     init(from decoder: Decoder) throws {
-        print("sets erroe")
+       
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
@@ -194,7 +191,7 @@ struct Comments: Codable {
         self.comment = comment
     }
     init(from decoder: Decoder) throws {
-        print("sets erroe")
+       
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.commentId = try container.decode(String.self, forKey: .commentId)
         self.commentDate = try container.decodeIfPresent(String.self, forKey: .commentDate)
@@ -212,7 +209,7 @@ struct PostComments: Codable {
         self.comment = comment
     }
     init(from decoder: Decoder) throws {
-        print("sets erroe")
+       
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.commentDate = try container.decodeIfPresent(String.self, forKey: .commentDate)
         self.comment = try container.decodeIfPresent(String.self, forKey: .comment)
@@ -239,7 +236,7 @@ struct Sets: Codable {
         self.heartrate = heartrate
     }
     init(from decoder: Decoder) throws {
-        print("sets erroe")
+       
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.setNo = try container.decode(Int.self, forKey: .setNo)
         self.reputationValue = try container.decodeIfPresent(DisplayVal.self, forKey: .reputationValue)
@@ -264,7 +261,6 @@ struct DisplayVal: Codable {
         
     }
     init(from decoder: Decoder) throws {
-        print("display erroe")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.actual = try container.decode(Int.self, forKey: .actual)
         self.completed = try container.decodeIfPresent(Int.self, forKey: .completed)

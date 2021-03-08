@@ -56,6 +56,7 @@ class CalenderViewController: UIViewController {
     var headersImages : Array = ["gdumbel","gdiet","gcall","gcamera"]
      var selctedHeadersImages : Array = ["dumbel","diet","call","camera"]
      var programId = ""
+    var navigationView = NavigationView()
     var xBarHeight :CGFloat  = 0.0
     var subscribeBtnMessage = "Please Sign up to get a free access"
   //  dietSelection: DietSelection, foodItems:FoodItems, quantity: Int
@@ -69,6 +70,14 @@ class CalenderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bgView.backgroundColor = AppColours.popBgColour
+        navigationView = NavigationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height:  88))
+        navigationView.backgroundColor = AppColours.topBarGreen
+        navigationView.backBtn.isHidden = true
+        navigationView.shareBtn.isHidden = false
+        navigationView.addBtn.isHidden = true
+        navigationView.titleLbl.text = "Calendar"
+        navigationView.shareBtn.addTarget(self, action: #selector(shareBtnTapped(sender:)), for: .touchUpInside)
+        self.view.addSubview(navigationView)
 
         // Do any additional setup after loading the view.
         self.layoutViews()
@@ -83,7 +92,8 @@ class CalenderViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.xBarHeight = (navigationController?.navigationBar.frame.maxY)!
         self.navigationController?.isNavigationBarHidden = true
-        
+        // Do any additional setup after loading the view.
+       
         if isFromHomediet == true {
             self.calenderSelectionEvent = .diet
         }
@@ -112,7 +122,9 @@ class CalenderViewController: UIViewController {
                 self.dietBtn.isEnabled = true
                 self.progressBtn.isEnabled = true
                 self.callBtn.isEnabled = true
+                navigationView.shareBtn.isHidden = true
             }else {
+                navigationView.shareBtn.isHidden = false
                 self.bgView.isHidden = true
                 self.workOutView.isHidden = false
                 self.refreshView(calenderEvent: .workout)
@@ -188,6 +200,12 @@ class CalenderViewController: UIViewController {
       self.workOutView.loadWorkOuts()
        
    }
+    @objc func shareBtnTapped(sender : UIButton){
+    // self.navigationController?.popViewController(animated: true)
+        let storyboard = UIStoryboard(name: "ShareViewController", bundle: nil)
+                       let controller = storyboard.instantiateViewController(withIdentifier: "ShareViewController") as! ShareViewController
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     @IBAction func progressBtntapped(_ sender: Any) {
         self.refreshView(calenderEvent: .progressPhoto)
     }
@@ -513,7 +531,6 @@ class CalenderViewController: UIViewController {
               }
               
           }) { [weak self] error in
-              print(" error \(error)")
               DispatchQueue.main.async {
                   LoadingOverlay.shared.hideOverlayView()
                 self?.presentAlertWithTitle(title: "", message: error.localizedDescription, options: "OK") {_ in
@@ -537,7 +554,6 @@ class CalenderViewController: UIViewController {
                            ProgramDetails.programDetails.programId = id
                        }
           GetCallInfoByDateAPI.getTokenForCall(header: authenticatedHeaders, roomName: roomName, traineeid: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, successHandler: { [weak self] token in
-              print("\(token)")
              // self?.dietView.diet = diet
               if (token != nil) {
                    DispatchQueue.main.async {
@@ -556,7 +572,6 @@ class CalenderViewController: UIViewController {
                   LoadingOverlay.shared.hideOverlayView()
               }
           }) { [weak self] error in
-              print(" error \(error)")
               DispatchQueue.main.async {
                   LoadingOverlay.shared.hideOverlayView()
 
@@ -584,14 +599,15 @@ class CalenderViewController: UIViewController {
     }
     func progressPhotoViewDisplay(isActive: Bool) {
         if !isActive {
+            DispatchQueue.main.async {
             self.progressBtn.setBackgroundImage(UIImage(named: "gcamera"), for: .normal)
             self.progressPhotoView.isHidden = true
+            }
         }
         else
         {
           //  self.getTrainerPackages()
-            self.progressBtn.setBackgroundImage(UIImage(named: "camera"), for: .normal)
-                self.progressPhotoView.isHidden = false
+           
                 self.getAllPhotosForTheUserByDate(successHandler: { (progressPhotos) in
                     DispatchQueue.main.async {
                         LoadingOverlay.shared.hideOverlayView()
@@ -611,6 +627,8 @@ class CalenderViewController: UIViewController {
             
             DispatchQueue.main.async {
                self.contentViewHeightConstrain.constant = 800
+                self.progressBtn.setBackgroundImage(UIImage(named: "camera"), for: .normal)
+                    self.progressPhotoView.isHidden = false
            }
 
         }
@@ -681,7 +699,6 @@ class CalenderViewController: UIViewController {
             let endTime = formatter.date(from: schedules.endTime!)! as Date
             let currentTime = formatter.date(from:currentTimedate)! as Date
             let timeInterval = currentTime.timeIntervalSince(startTime)
-            print("time difference \(timeInterval)")
         }
         
         
@@ -717,15 +734,12 @@ class CalenderViewController: UIViewController {
                 do {
                     request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                 } catch let error {
-                    print("Error : \(error.localizedDescription)")
                 }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int != 40
                             {
@@ -803,7 +817,6 @@ class CalenderViewController: UIViewController {
             ]
         }
         GetCalenderByDateAPI.getCalendarDayColours(header: authenticatedHeaders, trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String) { [weak self] daysColours in
-            print(" error \(daysColours)")
             DispatchQueue.main.async {
                 self?.programDaysColour = daysColours
                 if self?.programDaysColour != nil {
@@ -812,7 +825,6 @@ class CalenderViewController: UIViewController {
             }
             
         } errorHandler: { [weak self] error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }
@@ -841,7 +853,6 @@ class CalenderViewController: UIViewController {
          self.programId = ProgramDetails.programDetails.programId
       //  self.programId = (UserDefaults.standard.value(forKey: UserDefaultsKeys.programId) as? String) ?? ""
         GetCalenderByDateAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date), successHandler: { [weak self] dayWorks in
-            print("day workouts \(dayWorks)")
             ProgramDetails.programDetails.dayWorkOut = dayWorks
             self?.workOutView.workOutsArr = dayWorks
             self?.workOutView.slectedDate = self?.slectedDate ?? Date()
@@ -914,12 +925,10 @@ class CalenderViewController: UIViewController {
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {
@@ -986,7 +995,6 @@ class CalenderViewController: UIViewController {
              self.programId = ProgramDetails.programDetails.programId
           //  self.programId = (UserDefaults.standard.value(forKey: UserDefaultsKeys.programId) as? String) ?? ""
             GetDietByDateAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date), successHandler: { [weak self] diet in
-                print("day workouts \(diet)")
                 self?.dietView.diet = diet
                 DispatchQueue.main.async {
                     self?.dietView.reloadDietView()
@@ -1002,7 +1010,6 @@ class CalenderViewController: UIViewController {
                     }
                 }
             }) { [weak self] error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                
@@ -1040,64 +1047,76 @@ func getDatesStatus() {
     ProgramDetails.programDetails.selectedWODate = date
        let dateString = self.dateSelected(date: date)
               self.calenderBtn.setTitle(dateString, for: .normal)
-    switch self.calenderSelectionEvent {
-    case .workout:
-         self.getWorkouts(date: date)
-        case .diet:
-        self.getDietPlan(date: date)
-    case .call:
-                    self.getCallDetailsForDate(date:self.slectedDate, successHandler:  { (scheduleArr) in
-                        
+    
+    
+    let userdefaults = UserDefaults.standard
+    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+        if  savedValue == UserDefaultsKeys.guestLogin {
+            
+        }else {
+            switch self.calenderSelectionEvent {
+            case .workout:
+                 self.getWorkouts(date: date)
+                case .diet:
+                self.getDietPlan(date: date)
+            case .call:
+                            self.getCallDetailsForDate(date:self.slectedDate, successHandler:  { (scheduleArr) in
+                                
+                                DispatchQueue.main.async {
+                                    LoadingOverlay.shared.hideOverlayView()
+                                    if scheduleArr?.count ?? 0 > 0 {
+                                          self.callScheduleData = scheduleArr![0]
+                                        self.setUpCallView(schedules: scheduleArr![0])
+                                        self.displayCallView(hidden: false)
+                                    }else {
+                                        self.displayCallView(hidden: true)
+                                        self.callsNoDataLbl.text = messageString
+                                    }
+                                   
+                //                    self.progressPhotoView.photosArr = progressPhoto
+                //                    self.progressPhotoView.refreshViews()
+                                }
+                            }) { (message) in
+                                DispatchQueue.main.async {
+                                     LoadingOverlay.shared.hideOverlayView()
+                                    self.displayCallView(hidden: true)
+                //                   self.progressPhotoView.photosArr = nil
+                //                                self.progressPhotoView.refreshViews()
+                                    self.presentAlertWithTitle(title: "", message: message, options: "OK") { _ in
+                                        
+                                    }
+                                }
+                                
+                            }
+               // self.getCallDetailsForDate(date:date,sc)
+            case .progressPhoto :
+               // self.progressBtn.setImage(UIImage(named: "camera"), for: .normal)
+                    self.progressPhotoView.isHidden = false
+                    self.getAllPhotosForTheUserByDate(successHandler: { (progressPhotos) in
                         DispatchQueue.main.async {
                             LoadingOverlay.shared.hideOverlayView()
-                            if scheduleArr?.count ?? 0 > 0 {
-                                  self.callScheduleData = scheduleArr![0]
-                                self.setUpCallView(schedules: scheduleArr![0])
-                                self.displayCallView(hidden: false)
-                            }else {
-                                self.displayCallView(hidden: true)
-                                self.callsNoDataLbl.text = messageString
-                            }
-                           
-        //                    self.progressPhotoView.photosArr = progressPhoto
-        //                    self.progressPhotoView.refreshViews()
+                            self.progressPhotoView.photosArr = progressPhotos
+                            self.progressPhotoView.refreshViews()
                         }
-                    }) { (message) in
+                    }) { (error) in
                         DispatchQueue.main.async {
                              LoadingOverlay.shared.hideOverlayView()
-                            self.displayCallView(hidden: true)
-        //                   self.progressPhotoView.photosArr = nil
-        //                                self.progressPhotoView.refreshViews()
-                            self.presentAlertWithTitle(title: "", message: message, options: "OK") { _ in
+                           self.progressPhotoView.photosArr = nil
+                                        self.progressPhotoView.refreshViews()
+                            self.presentAlertWithTitle(title: "", message: error, options: "OK") { _ in
                                 
                             }
                         }
-                        
                     }
-       // self.getCallDetailsForDate(date:date,sc)
-    case .progressPhoto :
-        self.progressBtn.setImage(UIImage(named: "camera"), for: .normal)
-            self.progressPhotoView.isHidden = false
-            self.getAllPhotosForTheUserByDate(successHandler: { (progressPhotos) in
-                DispatchQueue.main.async {
-                    LoadingOverlay.shared.hideOverlayView()
-                    self.progressPhotoView.photosArr = progressPhotos
-                    self.progressPhotoView.refreshViews()
-                }
-            }) { (error) in
-                DispatchQueue.main.async {
-                     LoadingOverlay.shared.hideOverlayView()
-                   self.progressPhotoView.photosArr = nil
-                                self.progressPhotoView.refreshViews()
-                    self.presentAlertWithTitle(title: "", message: error, options: "OK") { _ in
-                        
-                    }
-                }
+                
+            default:
+                 self.getWorkouts(date: date)
             }
-        
-    default:
-         self.getWorkouts(date: date)
+        }
     }
+    
+    
+   
    
    }
 func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
@@ -1206,7 +1225,6 @@ extension CalenderViewController : workOutViewDelegate {
                     self?.workOutView.loadWorkOuts()
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1225,7 +1243,6 @@ extension CalenderViewController : workOutViewDelegate {
                     self?.workOutView.loadWorkOuts()
                 }
             }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1306,7 +1323,6 @@ extension CalenderViewController:DietSelectionDelegate {
         let jsonData = try! jsonEncoder.encode(postbody)
         
         GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: [:], dataParams: jsonData, methodName: "put", successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
             self?.dietView.diet = diet
                             DispatchQueue.main.async {
                                self?.dietView.reloadDietView()
@@ -1323,7 +1339,6 @@ extension CalenderViewController:DietSelectionDelegate {
                               self?.isTimeUpdateCall = false
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1350,7 +1365,6 @@ extension CalenderViewController:DietSelectionDelegate {
         let jsonData = try! jsonEncoder.encode(postbody)
         
         GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: [:], dataParams: jsonData, methodName: "put", successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
             self?.dietView.diet = diet
                             DispatchQueue.main.async {
                                self?.dietView.reloadDietView()
@@ -1367,7 +1381,6 @@ extension CalenderViewController:DietSelectionDelegate {
             
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1401,7 +1414,6 @@ extension CalenderViewController:DietSelectionDelegate {
         }
         
         GetDietByDateAPI.deleteMealPlanAPI(header: authenticatedHeaders, mealType: mealType, foodRefId: foodItems.refId ?? 0, successHandler: { [weak self] (diet) in
-            print("diet is \(diet)")
             self?.dietView.diet = diet
                             DispatchQueue.main.async {
                                self?.dietView.reloadDietView()
@@ -1418,7 +1430,6 @@ extension CalenderViewController:DietSelectionDelegate {
             
                            }
         }, errorHandler: {  error in
-                print(" error \(error)")
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.hideOverlayView()
                 }
@@ -1530,17 +1541,14 @@ extension CalenderViewController: PhotosBottomVCDelegate,CropViewControllerDeleg
                    do {
                        request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                    } catch let error {
-                       print("Error : \(error.localizedDescription)")
                    }
            //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
            Alamofire.request(request).responseJSON{ (response) in
-               print("response is \(response)")
                if let status = response.response?.statusCode {
                    switch(status){
                    case 200:
                        if let json = response.result.value as? [String: Any] {
-                           print("JSON: \(json)") // serialized json response
                            do {
                                if json["code"] as? Int != 40
                                {
@@ -1664,17 +1672,14 @@ extension CalenderViewController: PhotosBottomVCDelegate,CropViewControllerDeleg
                          do {
                              request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
                          } catch let error {
-                             print("Error : \(error.localizedDescription)")
                          }
                  //  request.setValue(postBody.capacity, forHTTPHeaderField: "Content-Length")
 
                  Alamofire.request(request).responseJSON{ (response) in
-                     print("response is \(response)")
                      if let status = response.response?.statusCode {
                          switch(status){
                          case 200:
                              if let json = response.result.value as? [String: Any] {
-                                 print("JSON: \(json)") // serialized json response
                                  do {
                                      if json["code"] as? Int != 40
                                      {

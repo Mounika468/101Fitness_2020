@@ -8,6 +8,7 @@
 
 import UIKit
 import CropViewController
+import PhotosUI
 protocol PhotosBottomVCDelegate {
     func imageSelected(image:UIImage)
 }
@@ -53,13 +54,40 @@ class PhotosBottomVC: UIViewController {
     }
     
     @IBAction func galleryBtnTapped(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = true
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.allowsEditing = true
+//            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+//            self.present(imagePicker, animated: true, completion: nil)
+//        }
+        if #available(iOS 14, *) {
+                    // using PHPickerViewController
+                    var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+                    config.selectionLimit = 1
+                    config.filter = .images
+                    config.preferredAssetRepresentationMode = .current
+                    let picker = PHPickerViewController(configuration: config)
+                    picker.delegate = self
+                    DispatchQueue.main.async {
+                        self.present(picker, animated: true, completion: nil)
+                    }
+                } else {
+                    let imagePickerViewController = UIImagePickerController()
+                    imagePickerViewController.allowsEditing = true
+                    imagePickerViewController.sourceType = .photoLibrary
+                    imagePickerViewController.delegate = self
+                    imagePickerViewController.modalPresentationStyle = .fullScreen
+                    if(UIDevice.current.userInterfaceIdiom == .pad) {
+                        imagePickerViewController.modalPresentationStyle = .popover
+                        imagePickerViewController.popoverPresentationController?.sourceView  = self.view
+                        imagePickerViewController.popoverPresentationController?.sourceRect = self.view.frame
+                        imagePickerViewController.popoverPresentationController?.permittedArrowDirections = .any
+                    }
+                    DispatchQueue.main.async {
+                        self.present(imagePickerViewController, animated: true, completion: nil)
+                    }
+                }
     }
     @IBAction func closeBtnTapped(_ sender: Any) {
         self.dismiss(animated: true)
@@ -72,13 +100,9 @@ class PhotosBottomVC: UIViewController {
          self.dismiss(animated: true)
     }
 }
-extension PhotosBottomVC: UIImagePickerControllerDelegate,UINavigationControllerDelegate,CropViewControllerDelegate{
+extension PhotosBottomVC: UIImagePickerControllerDelegate,UINavigationControllerDelegate,CropViewControllerDelegate,PHPickerViewControllerDelegate{
        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
          if let pickedImage = info[.originalImage] as? UIImage {
-            
-            
-            
-            
             picker.dismiss(animated: false, completion: {
                 self.selectedImage = pickedImage
                 self.dismiss(animated: true) {
@@ -89,6 +113,48 @@ extension PhotosBottomVC: UIImagePickerControllerDelegate,UINavigationController
          }
        
      }
+    @available(iOS 14, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true, completion: nil)
+        guard !results.isEmpty else { return }
+        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self)
+            { [weak self]  image, error in
+                DispatchQueue.main.async {
+                  guard let self = self else { return }
+                  if let image = image as? UIImage {
+                    self.selectedImage = image
+                    self.dismiss(animated: true) {
+                        self.photoPickerDelegate?.imageSelected(image: self.selectedImage ?? UIImage(named: "")!)
+                    }
+                    } else {
+                        
+                    }
+                }
+            }
+        }
+        
+//        let tempImage:UIImage = (info[UIImagePickerController.InfoKey.editedImage] as? UIImage)!
+//        DispatchQueue.main.async {
+//            self.profileImgView.image = tempImage
+//        self.dismiss(animated: true, completion: nil)
+//        }
+       
+        // request image urls
+//        let identifier = results.compactMap(\.assetIdentifier)
+//        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: identifier, options: nil)
+//        var count = fetchResult.count
+//        fetchResult.enumerateObjects {(asset, index, stop) in
+//
+//            PHAsset.getURL(ofPhotoWith: asset) {[weak self] (url) in
+//                if let url = url {
+//                  // got image url
+//                } else {
+//                  // show error
+//                }
+//            }
+//        }
+    }
    
 }
 class Utility {

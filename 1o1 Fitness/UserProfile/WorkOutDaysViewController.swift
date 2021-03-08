@@ -10,6 +10,7 @@ import UIKit
 enum NavigationType {
     case profileMenu
     case profileNormal
+    case bmiBmr
 }
 class WorkOutDaysViewController: UIViewController {
 

@@ -39,6 +39,7 @@ class FoodScanViewController: UIViewController {
     var navigationView = NavigationView()
     var isFromBarcodeScanner : Bool = true
     var xBarHeight :CGFloat  = 0.0
+    var dotLocation = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -180,7 +181,6 @@ class FoodScanViewController: UIViewController {
                     let jsonData = try! jsonEncoder.encode(postbody)
 
                     GetDietByDateAPI.updateMealPlanAPI(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, methodName: "post", successHandler: { [weak self] (diet) in
-                              print("diet is \(diet)")
                              // self?.dietView.diet = diet
                                               DispatchQueue.main.async {
                                               //   self?.dietView.reloadDietView()
@@ -197,7 +197,6 @@ class FoodScanViewController: UIViewController {
 
                                              }
                           }, errorHandler: {  error in
-                                  print(" error \(error)")
                                   DispatchQueue.main.async {
                                       LoadingOverlay.shared.hideOverlayView()
                                   }
@@ -230,7 +229,6 @@ class FoodScanViewController: UIViewController {
 }
 extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErrorDelegate,BarcodeScannerDismissalDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-      print(code)
         self.selectedUPC = code
         var authenticatedHeaders: [String: String] {
             [
@@ -244,7 +242,6 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
        }
            GetDietByDateAPI.getNutritionixFoodItemsByBarcode(header: authenticatedHeaders, searchString: self.selectedUPC, successHandler: { (foodDetails) in
               // self.foodArray = foodDetails
-               print("fooddetails ae \(foodDetails)")
             DispatchQueue.main.async {
             if foodDetails?.foods?.count ?? 0 > 0 {
             let food = foodDetails?.foods![0]
@@ -275,7 +272,6 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
             }
                }
               }, errorHandler: {  error in
-                      print(" error \(error)")
                       DispatchQueue.main.async {
                           LoadingOverlay.shared.hideOverlayView()
                         controller.dismiss(animated: false, completion: nil)
@@ -299,7 +295,6 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
        }
            GetDietByDateAPI.getNutritionixFoodItemsByBarcode(header: authenticatedHeaders, searchString: "801541071005", successHandler: { (foodDetails) in
               // self.foodArray = foodDetails
-               print("fooddetails ae \(foodDetails)")
             DispatchQueue.main.async {
             if foodDetails?.foods?.count ?? 0 > 0 {
             let food = foodDetails?.foods![0]
@@ -326,7 +321,6 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
                // controller.dismiss(animated: false, completion: nil)
                }
               }, errorHandler: {  error in
-                      print(" error \(error)")
                       DispatchQueue.main.async {
                           LoadingOverlay.shared.hideOverlayView()
                        // controller.dismiss(animated: false, completion: nil)
@@ -358,14 +352,12 @@ extension FoodScanViewController : BarcodeScannerCodeDelegate,BarcodeScannerErro
         }
             GetDietByDateAPI.getNutritionixFoodItemsByBarcode(header: authenticatedHeaders, searchString: barcode, successHandler: { (foodDetails) in
                // self.foodArray = foodDetails
-                print("fooddetails ae \(foodDetails)")
               //  self.foodItemsArray = foodDetails
                 DispatchQueue.main.async {
                      LoadingOverlay.shared.hideOverlayView()
                   //  self.resTblView.reloadData()
                 }
                }, errorHandler: {  error in
-                       print(" error \(error)")
                        DispatchQueue.main.async {
                            LoadingOverlay.shared.hideOverlayView()
                        }
@@ -378,7 +370,6 @@ extension FoodScanViewController: UITextFieldDelegate {
         return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("text qty changed Details")
         if self.servingSizeTxt.text?.count ?? 0 > 0 && self.isFromBarcodeScanner {
             if textField.text == "." || textField.text == ".." || textField.text == "..." || textField.text == "...."{
                 self.presentAlertWithTitle(title: "", message: "Please enter valid values", options: "OK") { (_) in
@@ -405,18 +396,95 @@ extension FoodScanViewController: UITextFieldDelegate {
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.servingSizeTxt   {
-            
-            let maxLength = 4
-               let currentString: NSString = textField.text! as NSString
-            let newString: NSString =
-                currentString.replacingCharacters(in: range, with: string) as NSString
-            return newString.length <= maxLength
+            let nonNumberSet = CharacterSet(charactersIn: "0123456789.").inverted
+
+                    if Int(range.length) == 0 && string.count == 0 {
+                        return true
+                    }
+
+                    if (string == ".") {
+                        if Int(range.location) == 0 {
+                            return false
+                        }
+                        if dotLocation == 0 {
+                            dotLocation = range.location
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+
+                    if range.location == dotLocation && string.count == 0 {
+                        dotLocation = 0
+                    }
+
+                    if dotLocation > 0 && range.location > dotLocation + 2 {
+                        return false
+                    }
+
+                    if range.location >= 4 {
+
+                        if dotLocation >= 4 || string.count == 0 {
+                            return true
+                        } else if range.location > dotLocation + 2 {
+                            return false
+                        }
+
+                        var newValue = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+                        newValue = newValue?.components(separatedBy: nonNumberSet).joined(separator: "")
+                        textField.text = newValue
+
+                        return false
+
+                    } else {
+                        return true
+                    }
         }else if (textField == self.foodNameTxt || textField == brandNameTxt ){
             return true
         }else {
-            let allowedCharacters = CharacterSet.decimalDigits
-                let characterSet = CharacterSet(charactersIn: string)
-                return allowedCharacters.isSuperset(of: characterSet)
+            let nonNumberSet = CharacterSet(charactersIn: "0123456789.").inverted
+
+                    if Int(range.length) == 0 && string.count == 0 {
+                        return true
+                    }
+
+                    if (string == ".") {
+                        if Int(range.location) == 0 {
+                            return false
+                        }
+                        if dotLocation == 0 {
+                            dotLocation = range.location
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+
+                    if range.location == dotLocation && string.count == 0 {
+                        dotLocation = 0
+                    }
+
+                    if dotLocation > 0 && range.location > dotLocation + 2 {
+                        return false
+                    }
+
+                    if range.location >= 6 {
+
+                        if dotLocation >= 6 || string.count == 0 {
+                            return true
+                        } else if range.location > dotLocation + 2 {
+                            return false
+                        }
+
+                        var newValue = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+                        newValue = newValue?.components(separatedBy: nonNumberSet).joined(separator: "")
+                        textField.text = newValue
+
+                        return false
+
+                    } else {
+                        return true
+                    }
         }
         
     }

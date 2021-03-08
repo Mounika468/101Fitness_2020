@@ -15,7 +15,6 @@ struct TrainerPackage: Decodable {
    
     
     init() {
-         print("before")
     }
     
     init(from decoder: Decoder) throws {
@@ -71,10 +70,8 @@ struct Beginner: Codable {
            let container = try decoder.container(keyedBy: CodingKeys.self)
            self.programId = try container.decodeIfPresent(String.self, forKey: .programId)
         self.programName = try container.decodeIfPresent(String.self, forKey: .programName)
-        print("before")
         self.priceInDollars = try container.decodeIfPresent(Double.self, forKey: .priceInDollars)
         self.priceInRupees = try container.decodeIfPresent(Double.self, forKey: .priceInRupees)
-         print("after")
         self.trainerId = try container.decodeIfPresent(String.self, forKey: .trainerId)
          self.packageType = try container.decodeIfPresent(PackageType.self, forKey: .packageType)
         self.currency = try container.decodeIfPresent([Currency].self, forKey: .currency)

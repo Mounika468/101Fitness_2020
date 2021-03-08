@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		3E676A31BF4D4E62BD7AFDAD /* Pods_1o1_Fitness_1o1_FitnessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3602C9C2D504E6AA8B4F9E6A /* Pods_1o1_Fitness_1o1_FitnessUITests.framework */; };
+		6335B59B25EE0CB50088ACB1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335B59A25EE0CB50088ACB1 /* ShareViewController.swift */; };
+		6335B5A025EE0CC00088ACB1 /* ShareViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6335B59F25EE0CC00088ACB1 /* ShareViewController.storyboard */; };
+		637E63FA25CD298B0012A7FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 637E63F925CD298A0012A7FA /* GoogleService-Info.plist */; };
+		6387DB8D25EF8237000FCAB3 /* ReportReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387DB8C25EF8237000FCAB3 /* ReportReviewVC.swift */; };
+		638E468225D6773A0091456C /* RatingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638E468125D6773A0091456C /* RatingsListViewController.swift */; };
+		638E468725D677450091456C /* RatingsListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638E468625D677450091456C /* RatingsListViewController.storyboard */; };
+		638E468C25D67E5C0091456C /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638E468B25D67E5C0091456C /* RatingTableViewCell.swift */; };
+		639629A925D4FF58002CF23A /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639629A825D4FF58002CF23A /* FeedbackViewController.swift */; };
+		639629AE25D4FF72002CF23A /* FeedbackVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639629AD25D4FF72002CF23A /* FeedbackVC.storyboard */; };
 		639ED94625C1517C00526347 /* RefundVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639ED94525C1517C00526347 /* RefundVC.storyboard */; };
 		639ED94B25C1518B00526347 /* RefundVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639ED94A25C1518B00526347 /* RefundVC.swift */; };
 		639ED9FB25C15ED300526347 /* RefundAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639ED9FA25C15ED300526347 /* RefundAlertVC.swift */; };
@@ -60,7 +69,6 @@
 		6F224DA124875611005B9F1C /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F224DA024875611005B9F1C /* CommentsViewController.swift */; };
 		6F224DA324875620005B9F1C /* CommentsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F224DA224875620005B9F1C /* CommentsVC.storyboard */; };
 		6F23F7F225644C3D0094A6F0 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F23F7F125644C3D0094A6F0 /* NotificationsViewController.swift */; };
-		6F23F8B1256BAF3A0094A6F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F23F8B0256BAF3A0094A6F0 /* GoogleService-Info.plist */; };
 		6F251E00249F454C00D0C796 /* CheckOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F251DFF249F454C00D0C796 /* CheckOutViewController.swift */; };
 		6F26978724E4531100E4F4D4 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26978624E4531100E4F4D4 /* ScheduleTableViewCell.swift */; };
 		6F2C08EB24F8F442005CC0D7 /* CallScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C08E924F8F442005CC0D7 /* CallScheduleTableViewCell.swift */; };
@@ -357,6 +365,15 @@
 		3602C9C2D504E6AA8B4F9E6A /* Pods_1o1_Fitness_1o1_FitnessUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1o1_Fitness_1o1_FitnessUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E93E8C61A449DBC4AC45D54 /* Pods_1o1_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1o1_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		528D190EB9F1E435285755D0 /* Pods-1o1 Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1o1 Fitness.debug.xcconfig"; path = "Target Support Files/Pods-1o1 Fitness/Pods-1o1 Fitness.debug.xcconfig"; sourceTree = "<group>"; };
+		6335B59A25EE0CB50088ACB1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		6335B59F25EE0CC00088ACB1 /* ShareViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShareViewController.storyboard; sourceTree = "<group>"; };
+		637E63F925CD298A0012A7FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6387DB8C25EF8237000FCAB3 /* ReportReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewVC.swift; sourceTree = "<group>"; };
+		638E468125D6773A0091456C /* RatingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsListViewController.swift; sourceTree = "<group>"; };
+		638E468625D677450091456C /* RatingsListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RatingsListViewController.storyboard; sourceTree = "<group>"; };
+		638E468B25D67E5C0091456C /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
+		639629A825D4FF58002CF23A /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		639629AD25D4FF72002CF23A /* FeedbackVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedbackVC.storyboard; sourceTree = "<group>"; };
 		639ED94525C1517C00526347 /* RefundVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefundVC.storyboard; sourceTree = "<group>"; };
 		639ED94A25C1518B00526347 /* RefundVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundVC.swift; sourceTree = "<group>"; };
 		639ED9FA25C15ED300526347 /* RefundAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundAlertVC.swift; sourceTree = "<group>"; };
@@ -409,7 +426,6 @@
 		6F224DA024875611005B9F1C /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		6F224DA224875620005B9F1C /* CommentsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentsVC.storyboard; sourceTree = "<group>"; };
 		6F23F7F125644C3D0094A6F0 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
-		6F23F8B0256BAF3A0094A6F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F251DFF249F454C00D0C796 /* CheckOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutViewController.swift; sourceTree = "<group>"; };
 		6F26978624E4531100E4F4D4 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		6F2C08E924F8F442005CC0D7 /* CallScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallScheduleTableViewCell.swift; sourceTree = "<group>"; };
@@ -805,7 +821,7 @@
 		6F23F8AC256BAF1B0094A6F0 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				6F23F8B0256BAF3A0094A6F0 /* GoogleService-Info.plist */,
+				637E63F925CD298A0012A7FA /* GoogleService-Info.plist */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1034,6 +1050,8 @@
 				6F7AD5F1254A9649000EE822 /* ProgramTableViewCell.xib */,
 				6F7AD601254AB218000EE822 /* ProgramDetailsViewController.swift */,
 				6F7AD606254AB224000EE822 /* ProgramDetailsViewController.storyboard */,
+				639629A825D4FF58002CF23A /* FeedbackViewController.swift */,
+				639629AD25D4FF72002CF23A /* FeedbackVC.storyboard */,
 			);
 			path = Program;
 			sourceTree = "<group>";
@@ -1187,6 +1205,9 @@
 				6F820389253A1F2800E4EA30 /* HorizontalBar.swift */,
 				6F808DC02580C073009AF959 /* YoutubeVideoVC.swift */,
 				6F808DC52580C084009AF959 /* YoutubeVideoVC.storyboard */,
+				638E468125D6773A0091456C /* RatingsListViewController.swift */,
+				638E468625D677450091456C /* RatingsListViewController.storyboard */,
+				638E468B25D67E5C0091456C /* RatingTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1280,6 +1301,9 @@
 				6F31193A2472A82600E4CE17 /* Diet */,
 				6F31192D246E99FA00E4CE17 /* WorkOut */,
 				6F7EBC892452F2B000453649 /* CalenderViewController.swift */,
+				6335B59A25EE0CB50088ACB1 /* ShareViewController.swift */,
+				6335B59F25EE0CC00088ACB1 /* ShareViewController.storyboard */,
+				6387DB8C25EF8237000FCAB3 /* ReportReviewVC.swift */,
 			);
 			path = Calender;
 			sourceTree = "<group>";
@@ -1340,6 +1364,7 @@
 				6F7EBC1B244EC6D200453649 /* Resources */,
 				C614C12E7BFA8DA7B5188AB6 /* [CP] Embed Pods Frameworks */,
 				B228566213A6BFC0A167FAD6 /* [CP] Copy Pods Resources */,
+				637E63F025CD28980012A7FA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1472,7 +1497,6 @@
 				6F31194D24739C2A00E4CE17 /* DietListHeader.xib in Resources */,
 				6F434F1B2456F7E60054642B /* TrainerProfileView.xib in Resources */,
 				6F3D7F9B24601AEB0065170D /* StartVC.storyboard in Resources */,
-				6F23F8B1256BAF3A0094A6F0 /* GoogleService-Info.plist in Resources */,
 				63A409D325B82A9E0077ABBB /* LoadingReusableView.xib in Resources */,
 				6F7EBC812451B54900453649 /* TrainerCollectionViewCell.xib in Resources */,
 				6F9368482463E118007656D2 /* PersonalInfoVC.storyboard in Resources */,
@@ -1481,6 +1505,7 @@
 				6F1E82C3247FBD4B009B47F0 /* WOUpdateTableViewCell.xib in Resources */,
 				6F7EBC632450A1D100453649 /* lato_light.ttf in Resources */,
 				6F2C08EC24F8F442005CC0D7 /* CallScheduleTableViewCell.xib in Resources */,
+				639629AE25D4FF72002CF23A /* FeedbackVC.storyboard in Resources */,
 				6F224DA324875620005B9F1C /* CommentsVC.storyboard in Resources */,
 				6F20D8C824F3B53A008ED3B7 /* ProgressCollectionViewCell.xib in Resources */,
 				6F93683C24631747007656D2 /* HabitChoiceVC.storyboard in Resources */,
@@ -1519,6 +1544,7 @@
 				6FB1166824B87132006C77CD /* AddressPopVC.storyboard in Resources */,
 				6F93682B2462C4F8007656D2 /* FoodPreferenceVC.storyboard in Resources */,
 				6F67A7D2248E03FD00A26115 /* ExerciseInfoView.xib in Resources */,
+				637E63FA25CD298B0012A7FA /* GoogleService-Info.plist in Resources */,
 				6F31195024739C2A00E4CE17 /* DietListTableViewCell.xib in Resources */,
 				6F67A7DC2491F5E000A26115 /* PaymentDetailVC.storyboard in Resources */,
 				6F31ACA224CF35ED00C850E9 /* FoodDetailsVC.storyboard in Resources */,
@@ -1527,6 +1553,7 @@
 				6F3D7F95245FF2AC0065170D /* ProfileBottom.xib in Resources */,
 				6F7EBC652450A1D100453649 /* lato_heavy.ttf in Resources */,
 				6F93681E2462BDF0007656D2 /* WorkOutStoryboard.storyboard in Resources */,
+				638E468725D677450091456C /* RatingsListViewController.storyboard in Resources */,
 				6F3119272465315C00E4CE17 /* SignUpViewController.xib in Resources */,
 				6F31195224739C2A00E4CE17 /* DietPlan.storyboard in Resources */,
 				6F7EBC7324516B0F00453649 /* MeatCollectionViewCell.xib in Resources */,
@@ -1541,6 +1568,7 @@
 				6F311931246E9A0F00E4CE17 /* WorkOutTypeTableViewCell.xib in Resources */,
 				6F7AD607254AB224000EE822 /* ProgramDetailsViewController.storyboard in Resources */,
 				6F1A062224DEA6CE00732E56 /* TimePickerVC.storyboard in Resources */,
+				6335B5A025EE0CC00088ACB1 /* ShareViewController.storyboard in Resources */,
 				6F808DFF2580E410009AF959 /* MealEditViewController.storyboard in Resources */,
 				6F31195624739C2A00E4CE17 /* Water.storyboard in Resources */,
 				6F9368122462B798007656D2 /* BorderCellTableViewCell.xib in Resources */,
@@ -1607,6 +1635,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		637E63F025CD28980012A7FA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		8AFE119689DBD214029ACCFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1803,6 +1850,7 @@
 				6F1A062024DEA22F00732E56 /* TimePickerVC.swift in Sources */,
 				6F434F0C2456D2520054642B /* WorkOutWeeks.swift in Sources */,
 				6F93681F2462BDF0007656D2 /* WorkOutDaysViewController.swift in Sources */,
+				638E468225D6773A0091456C /* RatingsListViewController.swift in Sources */,
 				6F2C08EB24F8F442005CC0D7 /* CallScheduleTableViewCell.swift in Sources */,
 				6F7EBC7D2451B4E700453649 /* NavigationView.swift in Sources */,
 				6F434EEE2456D2220054642B /* TraineeRegister.swift in Sources */,
@@ -1816,6 +1864,7 @@
 				6F5EF989257A0C1500B3C3EA /* ContactCommentsViewController.swift in Sources */,
 				6F3119282465315C00E4CE17 /* ConfirmSignUpViewController.swift in Sources */,
 				6F9DD771255168B3005AC016 /* TrainerSearch.swift in Sources */,
+				638E468C25D67E5C0091456C /* RatingTableViewCell.swift in Sources */,
 				6F5EF97F2579478C00B3C3EA /* ContactUsViewController.swift in Sources */,
 				6F251E00249F454C00D0C796 /* CheckOutViewController.swift in Sources */,
 				6F31194F24739C2A00E4CE17 /* DietListHeaderView.swift in Sources */,
@@ -1859,14 +1908,17 @@
 				6F1450C5249E6F0A00F3F277 /* AddressAPI.swift in Sources */,
 				6F7EBC532450837700453649 /* LandingViewController.swift in Sources */,
 				63A409D225B82A9E0077ABBB /* LoadingReusableView.swift in Sources */,
+				639629A925D4FF58002CF23A /* FeedbackViewController.swift in Sources */,
 				6F434EEC2456D2220054642B /* TrainerPackageAPI.swift in Sources */,
 				6F9368362462F87D007656D2 /* HabitsViewController.swift in Sources */,
+				6335B59B25EE0CB50088ACB1 /* ShareViewController.swift in Sources */,
 				6F434F3D245A9E7F0054642B /* SectionView.swift in Sources */,
 				6F434F092456D2520054642B /* TrainerInfo.swift in Sources */,
 				6F549CAE24E2F6B90021BF84 /* GetCallInfoAPI.swift in Sources */,
 				6F434F0A2456D2520054642B /* TrainerPackage.swift in Sources */,
 				6F434ECC2456BBA70054642B /* ConstantsFile.swift in Sources */,
 				6F3119372472587F00E4CE17 /* WOUpdateViewController.swift in Sources */,
+				6387DB8D25EF8237000FCAB3 /* ReportReviewVC.swift in Sources */,
 				6F3119582473A63E00E4CE17 /* WaterView.swift in Sources */,
 				6F9368162462B7B8007656D2 /* BorderTableViewCell.swift in Sources */,
 				6F434F002456D2520054642B /* PostUpdateCalender.swift in Sources */,
@@ -2100,7 +2152,7 @@
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
@@ -2128,7 +2180,7 @@
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "1o1 Fitness/Info.plist";

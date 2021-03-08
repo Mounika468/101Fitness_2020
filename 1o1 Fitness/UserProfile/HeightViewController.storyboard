@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,17 +57,11 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                 <state key="normal" title="Ft"/>
-                                <connections>
-                                    <action selector="ftBtnTapped:" destination="SKv-2W-Ffu" eventType="touchUpInside" id="5JM-kf-YHx"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBC-tG-SmF">
                                 <rect key="frame" x="344" y="438" width="50" height="30"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                 <state key="normal" title="Cm"/>
-                                <connections>
-                                    <action selector="cmBtnTapped:" destination="SKv-2W-Ffu" eventType="touchUpInside" id="z41-A5-qPg"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1c3-Qk-Djt">
                                 <rect key="frame" x="294" y="407" width="100" height="21"/>
@@ -106,6 +100,16 @@
                                     <action selector="backBtnTapped:" destination="SKv-2W-Ffu" eventType="touchUpInside" id="DZH-HH-xBy"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhi-DY-TaY">
+                                <rect key="frame" x="15" y="407" width="100" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ijg-Eq-bt8"/>
+                                    <constraint firstAttribute="width" constant="100" id="kG1-tu-L27"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Acr-sb-yh2"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -113,6 +117,7 @@
                             <constraint firstItem="Acr-sb-yh2" firstAttribute="trailing" secondItem="PN1-qq-vMF" secondAttribute="trailing" id="3rD-hy-tbF"/>
                             <constraint firstItem="X10-fc-DQd" firstAttribute="top" secondItem="Acr-sb-yh2" secondAttribute="top" id="5c9-Sj-D1C"/>
                             <constraint firstItem="TNG-j5-L0e" firstAttribute="top" secondItem="1c3-Qk-Djt" secondAttribute="top" id="7Im-OO-VA1"/>
+                            <constraint firstItem="rhi-DY-TaY" firstAttribute="bottom" secondItem="1c3-Qk-Djt" secondAttribute="bottom" id="7fc-yd-SDk"/>
                             <constraint firstItem="Acr-sb-yh2" firstAttribute="trailing" secondItem="1c3-Qk-Djt" secondAttribute="trailing" constant="20" id="7pw-jD-dtp"/>
                             <constraint firstItem="Acr-sb-yh2" firstAttribute="trailing" secondItem="zBC-tG-SmF" secondAttribute="trailing" constant="20" id="CAR-nt-qY3"/>
                             <constraint firstItem="zBC-tG-SmF" firstAttribute="width" secondItem="I5y-KF-dAE" secondAttribute="width" id="Efh-dD-RgK"/>
@@ -124,6 +129,7 @@
                             <constraint firstItem="Acr-sb-yh2" firstAttribute="trailing" secondItem="2pe-eD-M7p" secondAttribute="trailing" constant="20" id="Nxh-DR-Ofo"/>
                             <constraint firstItem="TNG-j5-L0e" firstAttribute="centerX" secondItem="Acr-sb-yh2" secondAttribute="centerX" id="Sac-2O-1i8"/>
                             <constraint firstItem="MhL-a1-DzQ" firstAttribute="centerX" secondItem="Acr-sb-yh2" secondAttribute="centerX" id="SjG-z7-0WJ"/>
+                            <constraint firstItem="rhi-DY-TaY" firstAttribute="leading" secondItem="Acr-sb-yh2" secondAttribute="leading" constant="15" id="Sk5-R0-uXP"/>
                             <constraint firstItem="Bee-sB-WWf" firstAttribute="top" secondItem="Acr-sb-yh2" secondAttribute="top" constant="20" id="UPa-uA-2N9"/>
                             <constraint firstItem="MhL-a1-DzQ" firstAttribute="top" secondItem="X10-fc-DQd" secondAttribute="bottom" priority="999" constant="50" id="esa-Yb-pgn"/>
                             <constraint firstItem="2pe-eD-M7p" firstAttribute="height" secondItem="Bee-sB-WWf" secondAttribute="height" multiplier="0.966667" id="fU0-Gx-XRc"/>
@@ -151,6 +157,7 @@
                         <outlet property="bottomView" destination="PN1-qq-vMF" id="shg-aK-RcC"/>
                         <outlet property="cmBtn" destination="zBC-tG-SmF" id="hgS-cg-OOj"/>
                         <outlet property="doneBtn" destination="2pe-eD-M7p" id="YvG-Wc-lKe"/>
+                        <outlet property="feetLbl" destination="rhi-DY-TaY" id="fZN-57-L59"/>
                         <outlet property="ftBtn" destination="I5y-KF-dAE" id="Gtk-Q2-ofW"/>
                         <outlet property="headerLbl" destination="MhL-a1-DzQ" id="iHx-SY-HQz"/>
                         <outlet property="headerView" destination="X10-fc-DQd" id="agt-ZK-9XT"/>

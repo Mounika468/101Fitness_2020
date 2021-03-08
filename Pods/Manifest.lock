@@ -24,6 +24,9 @@ PODS:
     - FirebaseAuth (~> 6.9.2)
   - Firebase/CoreOnly (6.34.0):
     - FirebaseCore (= 6.10.4)
+  - Firebase/Crashlytics (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 4.6.2)
   - Firebase/Messaging (6.34.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.7.1)
@@ -41,6 +44,12 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
+  - FirebaseCrashlytics (4.6.2):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleDataTransport (~> 7.2)
+    - nanopb (~> 1.30906.0)
+    - PromisesObjC (~> 1.2)
   - FirebaseInstallations (1.7.0):
     - FirebaseCore (~> 6.10)
     - GoogleUtilities/Environment (~> 6.7)
@@ -60,6 +69,7 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 6.7)
     - Protobuf (>= 3.9.2, ~> 3.9)
   - FSCalendar (2.8.1)
+  - FTPopOverMenu_Swift (0.1.4)
   - GoogleDataTransport (7.5.1):
     - nanopb (~> 1.30906.0)
   - GoogleMaps/Base (3.6.0)
@@ -127,8 +137,10 @@ DEPENDENCIES:
   - Cosmos (~> 20.0)
   - CropViewController
   - Firebase/Auth
+  - Firebase/Crashlytics
   - Firebase/Messaging
   - FSCalendar
+  - FTPopOverMenu_Swift (~> 0.1.3)
   - GooglePlaces (~> 3.6.0)
   - GoogleSignIn
   - IQKeyboardManagerSwift
@@ -163,10 +175,12 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
+    - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
     - FSCalendar
+    - FTPopOverMenu_Swift
     - GoogleDataTransport
     - GoogleMaps
     - GooglePlaces
@@ -208,10 +222,12 @@ SPEC CHECKSUMS:
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  FirebaseCrashlytics: 1a747c9cc084a24dc6d9511c991db1cd078154eb
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseInstanceID: bd3ffc24367f901a43c063b36c640b345a4a5dd1
   FirebaseMessaging: 5eca4ef173de76253352511aafef774caa1cba2a
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  FTPopOverMenu_Swift: e4cafd1085d8125339c710fa9e53477fd615b1e2
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
   GooglePlaces: 1b9d29cf3e164903d873600f511f42acdfe85294
@@ -237,6 +253,6 @@ SPEC CHECKSUMS:
   TwilioVideo: 569fc99e004ea82614d96e1657969dacd07aa6aa
   youtube-ios-player-helper: 40b96e52c22445f0fdc43731cefa32c67075ff81
 
-PODFILE CHECKSUM: 0900074cbd13714f00c6110b2b1af8a8f99123c4
+PODFILE CHECKSUM: e668d02f089ed42958c531c5fb742c16c71777e5
 
 COCOAPODS: 1.10.1

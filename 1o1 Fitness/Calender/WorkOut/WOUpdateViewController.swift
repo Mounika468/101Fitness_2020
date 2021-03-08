@@ -54,7 +54,6 @@ class WOUpdateViewController: UIViewController {
         if let index = self.selectedIndexPath {
         let indexpath = NSIndexPath(row: index, section: 0)
         let cell = self.tblView.cellForRow(at: indexpath as IndexPath) as? SetsTableViewCell
-            print("text rep,rest ,wightchanged \(indexpath.row),\(String(describing: cell!.weightTxtField.text)),\(cell!.repTxtField.text ?? ""),\(cell!.restTxtField.text)")
             cell?.repTxtField.resignFirstResponder()
             cell?.weightTxtField.resignFirstResponder()
             cell?.restTxtField.resignFirstResponder()
@@ -83,7 +82,6 @@ class WOUpdateViewController: UIViewController {
                 ProgramDetails.programDetails.dayWorkOut = dayWorks
                  NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
         }, errorHandler: {  error in
-            print(" error \(error)")
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
             }
@@ -179,7 +177,6 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
 //        set.reputationValue!.completed = set.reputationValue?.actual
 //         set.maxWeights!.completed = set.maxWeights?.actual
         self.modifiedSets![index] = set
-        print("modified sets \(set)")
         textField.resignFirstResponder()
     }
     @objc func weightTxtFieldDidChange(_ textField: UITextField) {
@@ -202,7 +199,6 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
         set.reputationValue!.completed = reputat
          set.restPeriod!.completed = rest
         self.modifiedSets![index] = set
-        print("modified sets \(set)")
         textField.resignFirstResponder()
        }
     @objc func repTxtFieldDidChange(_ textField: UITextField) {
@@ -226,7 +222,6 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
         set.maxWeights!.completed = weight
          set.restPeriod!.completed = rest
         self.modifiedSets![index] = set
-        print("modified sets \(set)")
         textField.resignFirstResponder()
           }
     

@@ -45,6 +45,7 @@ final class GetCalenderByDateAPI: API
     static func post(traineeId: String,programId: String,header:[String: String],date: String,
                      successHandler: @escaping (DayWorkOuts) -> Void,
                      errorHandler: @escaping (APIError) -> Void) {
+        messageString = ""
         
        // ?trainee_id=37aa26f0-14a4-40e5-ba78-a6825c36d3e5&program_id=5ec8cbcb71038065bb3dc8a2
         let urlString = getCalenderforDay + "trainee_id=" + traineeId  + "&date=" + date
@@ -82,7 +83,7 @@ final class GetCalenderByDateAPI: API
     static func getCalendarDayColours(header:[String: String],trainee_id:String,
                                         successHandler: @escaping (CalendarDayColours?) -> Void,
                                         errorHandler: @escaping (APIError) -> Void) {
-        
+        messageString = ""
          let urlString = getDaysColours + trainee_id
          let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 

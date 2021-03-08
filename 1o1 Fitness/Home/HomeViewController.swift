@@ -53,8 +53,6 @@ class HomeViewController: UIViewController {
         self.searchBar.isHidden = true
          LocationSingleton.sharedInstance.startUpdatingLocation()
       //  self.tabBarController?.delegate = self
-        print("locaions \( String(describing: LocationSingleton.sharedInstance.lastLocation))")
-        print("city \( String(describing: LocationSingleton.sharedInstance.city))")
         let nib = UINib(nibName: "HeaderCollectionViewCell", bundle: nil)
         self.headerCollectionView.register(nib, forCellWithReuseIdentifier:"headerCV")
          let trainerNib = UINib(nibName: "HomeTrainerCollectionViewCell", bundle: nil)
@@ -359,7 +357,7 @@ class HomeViewController: UIViewController {
                 weightMetric = "lbs"
             }
             weightVal = (weight?.weight) ?? 0
-            var weightStr = String(format: "Weight: %.2f", weightVal,weightMetric)
+            let weightStr = String(format: "Weight: %.2f %@", weightVal,weightMetric)
 
             var myMutableString = NSMutableAttributedString(string: weightStr)
             myMutableString.addAttribute(.foregroundColor, value: AppColours.textGreen, range: NSRange(location:0,length:7))
@@ -511,6 +509,8 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCV", for: indexPath) as! HeaderCollectionViewCell
              cell.imgView.image = UIImage(named: headersImages[indexPath.row])
             cell.pieChart.isHidden = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+            cell.pieChart.addGestureRecognizer(tap)
             if (indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
                 DispatchQueue.main.async {
                 self.rotateView(view: cell.contentView, duration: 5.0)
@@ -535,8 +535,14 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 cell.profileImgView.sd_setImage(with: URL(string: imageInfo)!, completed: nil)
             }
             cell.nameLbl.text = trainer.firstName! + " " + trainer.lastName!
-                cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
-                cell.ratingBtn.isHidden = true
+                if  let rating = trainer.rating {
+                    let ratings = String(format: "%.1f", rating)
+                    cell.ratingBtn.setTitle(ratings, for: .normal)
+                }else {
+                    cell.ratingBtn.setTitle("", for: .normal)
+                }
+                //cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
+               // cell.ratingBtn.isHidden = true
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "meatCV", for: indexPath) as! MeatCollectionViewCell
@@ -598,7 +604,20 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
 //        }
 //        }
 //    }
-    
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin {
+                self.presentAlert(message: "Please Sign up to get a free access")
+                // self.popupBox()
+            }else {
+                self.tabBarController?.selectedIndex = 1
+            }
+        }else {
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
     func loadMoreData() {
         if !self.isLoading {
             self.isLoading = true
@@ -724,6 +743,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         case self.headerCollectionView:
             switch indexPath.row {
             case 0:
+                
                 let storyboard = UIStoryboard(name: "TrainerList", bundle: nil)
                 let controller = storyboard.instantiateViewController(withIdentifier: "trainerListVC") as! TrainersListViewController
                 //controller.trainersInfo = self.trainersInfo
@@ -734,7 +754,11 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                     if  savedValue == UserDefaultsKeys.guestLogin {
                         self.presentAlert(message: "Please Sign up to get a free access")
                         // self.popupBox()
+                    }else {
+                        self.tabBarController?.selectedIndex = 1
                     }
+                }else {
+                    self.tabBarController?.selectedIndex = 1
                 }
             
                 

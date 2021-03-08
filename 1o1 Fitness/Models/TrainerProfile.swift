@@ -16,17 +16,20 @@ struct TrainerProfile: Decodable {
     let about: String?
     var certification: [Certification]?
     var profileIntroVideo : ProfileIntroVideo?
+    let ratingCount : Int?
     init(trainerId: String,
          firstName: String?,
          lastName: String?,
          about: String?,
-         rating: Float?) {
+         rating: Float?,
+         ratingCount: Int?) {
         
         self.trainerId = trainerId
         self.firstName = firstName
         self.lastName = lastName
         self.rating = rating
          self.about = about
+        self.ratingCount = ratingCount
     }
     
     init(from decoder: Decoder) throws {
@@ -36,6 +39,7 @@ struct TrainerProfile: Decodable {
            self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
            self.profileImage = try container.decodeIfPresent(ProfileImage.self, forKey: .profileImage)
            self.rating = try container.decodeIfPresent(Float.self, forKey: .rating)
+        self.ratingCount = try container.decodeIfPresent(Int.self, forKey: .ratingCount)
            self.about = try container.decodeIfPresent(String.self, forKey: .about)
           self.certification = try container.decodeIfPresent([Certification].self, forKey: .certification)
          self.profileIntroVideo = try container.decodeIfPresent(ProfileIntroVideo.self, forKey: .profileIntroVideo)
@@ -55,6 +59,7 @@ extension TrainerProfile {
         case rating
         case about
         case profileIntroVideo
+        case ratingCount
     }
 }
 struct Certification: Codable {
@@ -93,4 +98,17 @@ struct ProfileIntroVideo: Codable {
         self.videoThumbnailPath = try container.decodeIfPresent(String.self, forKey: .videoThumbnailPath)
 
        }
+}
+struct TrainerRatings : Codable {
+    let trainer_rating : Double?
+    let program_rating : Double?
+    let review_comment: String?
+    let creationDate: String?
+    let trainer_name: String?
+    var trainerProfileImage: TrainerProfileImage?
+    let trainee_name : String?
+}
+struct TrainerProfileImage: Codable {
+    let profileImageName: String?
+     let profileImagePath: String?
 }

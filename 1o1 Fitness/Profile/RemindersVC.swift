@@ -108,7 +108,6 @@ class RemindersVC: UIViewController {
         RemindersAPI.getRemindersCall(header: authenticatedHeaders) {[weak self] (reminders) in
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
-                print(" reminders \(reminders)")
                 if reminders != nil {
                     self?.mainSwitch.setOn(reminders?.meal?.isNotify ??  false, animated: true)
                     self?.weightSwitch.setOn(reminders?.weight?.isNotify ??  false, animated: true)
@@ -161,12 +160,10 @@ class RemindersVC: UIViewController {
                     print("Error : \(error.localizedDescription)")
                 }
         Alamofire.request(request).responseJSON{ (response) in
-            print("response is \(response)")
             if let status = response.response?.statusCode {
                 switch(status){
                 case 200:
                     if let json = response.result.value as? [String: Any] {
-                        print("JSON: \(json)") // serialized json response
                         do {
                             if json["code"] as? Int == 0
                             {

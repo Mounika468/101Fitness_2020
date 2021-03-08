@@ -165,9 +165,10 @@ class LoginViewController: UIViewController {
                                         self.navigationController?.pushViewController(registration, animated: true)
                                     }
                                 }
-                                
+                           
                             default:
-                                print("Error: Invalid case.")
+                                
+                                print("Error: Invalid case.err\(error?.localizedDescription)")
                                 DispatchQueue.main.async {
                                     LoadingOverlay.shared.hideOverlayView()
                                 self.presentAlertWithTitle(title: "Error", message: "Can't perform the operation. PLease try after sometime", options: "OK") { (_) in
@@ -175,11 +176,23 @@ class LoginViewController: UIViewController {
                                 }
                                 }
                             }
-                        } else if let error = error {
+                        } else    if let error = error as? AWSMobileClientError {
+                            var errMessage = ""
+                            switch(error) {
+                            case .limitExceeded(let message) :
+                                  errMessage = message
+                            case .codeDeliveryFailure(let message) :
+                            errMessage = message
+                            case .userNotConfirmed(let message) , .userNotFound(let message), .notAuthorized(let message), .unknown(let message) :
+                            errMessage = message
+                            default :
+                                errMessage = error.localizedDescription
+                            }
+                         
                             print("Error occurred: \(error.localizedDescription)")
                             DispatchQueue.main.async {
                                 LoadingOverlay.shared.hideOverlayView()
-                            self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") { (_) in
+                            self.presentAlertWithTitle(title: "Error", message: "\(errMessage)", options: "OK") { (_) in
                                 
                             }
                             }
@@ -239,7 +252,46 @@ class LoginViewController: UIViewController {
                             self.navigationController?.pushViewController(confirmSignupViewController, animated: true)
                         }
                     }
-                    
+                case .invalidPassword(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Invalid Password", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .userNotFound(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "User Not Found", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .invalidParameter(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Invalid User Name/Password", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .notAuthorized(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Not Authorized", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
+                case .passwordResetRequired(let message):
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "Password Rest Required", message: "\(message)", options: "OK") {_ in
+                            self.isLoading = false
+                            return
+                        }
+                    }
                 default:
                     DispatchQueue.main.async {
                         LoadingOverlay.shared.hideOverlayView()
@@ -284,7 +336,6 @@ class LoginViewController: UIViewController {
     func getGoogleUserAttributes(complete:@escaping ()->()) {
         AWSMobileClient.sharedInstance().getTokens { (tokens, error) in
             if let error = error {
-                print("Error getting token \(error.localizedDescription)")
                 self.isLoading = false
                 //complete()
             } else if let tokens = tokens {
@@ -323,9 +374,7 @@ class LoginViewController: UIViewController {
             if let error = error {
                 print("Error getting token \(error.localizedDescription)")
             } else if let tokens = tokens {
-                print(" getting email \(tokens.idToken?.claims?["email"])")
                 
-                print(tokens.accessToken!.tokenString!)
                 let userdefaults = UserDefaults.standard
                 if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.accessToken){
                     userdefaults.removeObject(forKey: UserDefaultsKeys.accessToken)
