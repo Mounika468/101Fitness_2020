@@ -90,6 +90,9 @@ let postRefundURL = "\(devHostURL)traineeservice/api/trainees/request"
 //ShareURL
 let getShareReportURL = "\(devHostURL)traineeservice/api/pdf"
 
+//Check Email URL
+let getEmailRegistered = "\(devHostURL)traineeservice/api/authenticate/"
+
 struct UserPoolCredentials {
   
     static let accessKey = "AKIAUXZP6WV4EEXWBXUY"

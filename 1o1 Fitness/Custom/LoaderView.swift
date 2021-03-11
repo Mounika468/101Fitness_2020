@@ -43,7 +43,7 @@ public class LoadingOverlay{
         }
         activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2, y: overlayView.bounds.height / 2)
 
-        overlayView.addSubview(activityIndicator)
+     //   overlayView.addSubview(activityIndicator)
         view.addSubview(bgView)
         self.activityIndicator.startAnimating()
 

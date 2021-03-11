@@ -92,7 +92,7 @@ class HeightViewController: UIViewController {
         if self.weightVal != nil &&  self.weightVal > 0{
             var val = self.weightVal
             if self.metric == "feet" {
-                val = (1000*(self.weightVal * 0.0328084)/1000)
+                val = (1000*(self.weightVal * 0.0304084)/1000)
             }
             
             let dict : [String : Any] = ["height": self.feetLbl.text ?? "" ,"metric": "feet"]
@@ -158,12 +158,12 @@ class HeightViewController: UIViewController {
             self.ftBtn.setTitleColor(AppColours.appYellow, for: .normal)
             self.cmBtn.setTitleColor(UIColor.white, for: .normal)
             self.metric = "feet"
-            let fts =    Double(1000 * (feet * 32.8084) / 1000)
+            let fts =    Double(1000 * (feet * 30.4084) / 1000)
                        self.weightVal = fts
             self.weightLbl.text = String(format: "%.2f", self.weightVal)
 //            if self.navigationType == .profileMenu && self.isOffsetSet == false {
 //                
-//                let offsetY = CGFloat(self.weightVal * 10) - scrollView.contentInset.top
+//                let offsetY = (CGFloat(self.weightVal) + self.scrollView.contentInset.top) * 10
 //                scrollView.setContentOffset(CGPoint(x: scrollView.frame.origin.x, y: offsetY), animated: true)
 //                self.isOffsetSet = true
 //            }

@@ -86,7 +86,7 @@ class ShareViewController: UIViewController {
         default:
             endDate = Date.getDateInFormat(format: "yyyy-MM-dd", date: Date())
         }
-        let postBody : [String: Any] = ["startDate": Date.getDateInFormat(format: "yyyy-MM-dd", date: Date()),"endDate":endDate,"report_type":self.reportType,"type":self.reportDuration,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!]
+        let postBody : [String: Any] = ["startDate": endDate,"endDate":Date.getDateInFormat(format: "yyyy-MM-dd", date: Date()),"report_type":self.reportType,"type":self.reportDuration,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!]
 //        let postBody : [String: Any] = ["startDate": "2021-03-04","endDate":"2021-03-15","report_type":self.reportType,"type":self.reportDuration,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!]
                         let urlString = getShareReportURL
                         guard let url = URL(string: urlString) else {return}

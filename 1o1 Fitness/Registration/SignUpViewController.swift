@@ -394,10 +394,36 @@ class SignUpViewController: UIViewController {
         DispatchQueue.main.async {
                LoadingOverlay.shared.showOverlay(view: UIApplication.shared.keyWindow!)
                }
-        AWSMobileClient.sharedInstance().signUp(username: userName,
-                                                password: pwd,
-                                                userAttributes: ["email" : email, "name": fullName],
-                                                completionHandler: signUpHandler);
+        var authenticatedHeaders: [String: String] {
+            [
+                HeadersKeys.contentType: HeaderValues.json
+            ]
+        }
+        TraineeRegister.checkUserEmail(email: email, header: authenticatedHeaders) { code in
+            if code == 0 {
+                AWSMobileClient.sharedInstance().signUp(username: userName,
+                                                        password: pwd,
+                                                        userAttributes: ["email" : email, "name": fullName],
+                                                        completionHandler: self.signUpHandler);
+            } else {
+                DispatchQueue.main.async {
+                       LoadingOverlay.shared.hideOverlayView()
+                    self.presentAlertWithTitle(title: "Error", message: "\(messageString)", options: "OK") {_ in
+                    }
+                       }
+            }
+            
+        } errorHandler: { (error) in
+            DispatchQueue.main.async {
+                   LoadingOverlay.shared.hideOverlayView()
+                self.presentAlertWithTitle(title: "Error", message: "\(error.localizedDescription)", options: "OK") {_ in
+                }
+                   }
+        }
+
+        
+
+
     }
     
     @IBAction func dismissModal(_ sender: Any) {

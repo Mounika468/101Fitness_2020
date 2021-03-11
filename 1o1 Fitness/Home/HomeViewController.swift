@@ -509,6 +509,8 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCV", for: indexPath) as! HeaderCollectionViewCell
              cell.imgView.image = UIImage(named: headersImages[indexPath.row])
             cell.pieChart.isHidden = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+            cell.pieChart.addGestureRecognizer(tap)
             if (indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
                 DispatchQueue.main.async {
                 self.rotateView(view: cell.contentView, duration: 5.0)
@@ -602,7 +604,20 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
 //        }
 //        }
 //    }
-    
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin {
+                self.presentAlert(message: "Please Sign up to get a free access")
+                // self.popupBox()
+            }else {
+                self.tabBarController?.selectedIndex = 1
+            }
+        }else {
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
     func loadMoreData() {
         if !self.isLoading {
             self.isLoading = true
@@ -739,7 +754,11 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                     if  savedValue == UserDefaultsKeys.guestLogin {
                         self.presentAlert(message: "Please Sign up to get a free access")
                         // self.popupBox()
+                    }else {
+                        self.tabBarController?.selectedIndex = 1
                     }
+                }else {
+                    self.tabBarController?.selectedIndex = 1
                 }
             
                 
