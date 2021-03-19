@@ -266,8 +266,8 @@ extension HabitsViewController : BottomViewDelegate {
                 selection = "yes"
             }
                 TraineeInfo.details.smoke_alcohol_consumption = ["status":selection,"alcohol_consumption":self.alcoholChoice,"smoking_consumption":self.smokeChoice]
-            let storyboard = UIStoryboard(name: "MedicalVC", bundle: nil)
-                   let controller = storyboard.instantiateViewController(withIdentifier: "medicalVC")
+            let storyboard = UIStoryboard(name: "SexualActivityVC", bundle: nil)
+                   let controller = storyboard.instantiateViewController(withIdentifier: "SexualActivityVC")
                    self.navigationController?.pushViewController(controller, animated: true)
             
         }else {

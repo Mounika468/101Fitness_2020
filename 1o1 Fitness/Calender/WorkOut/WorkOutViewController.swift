@@ -383,7 +383,9 @@ class HalfSizePresentationController : UIPresentationController {
             
             if self.presentedViewController.isKind(of: PhotosBottomVC.self) {
                  return CGRect(x: 0, y: theView.bounds.height*0.7, width: theView.bounds.width, height: theView.bounds.height*0.3)
-            }else {
+            }else if self.presentedViewController.isKind(of: WorkOutDaysViewController.self) {
+                return CGRect(x: 0, y: theView.bounds.height*0.4, width: theView.bounds.width, height: theView.bounds.height*0.6)
+           }else {
                  return CGRect(x: 0, y: theView.bounds.height*0.5, width: theView.bounds.width, height: theView.bounds.height*0.5)
             }
 

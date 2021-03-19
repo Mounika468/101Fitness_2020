@@ -14,6 +14,7 @@ import CropViewController
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var neverBtn: UIButton!
     @IBOutlet weak var countryCode2Btn: UIButton!
     @IBOutlet weak var countryCode1Btn: UIButton!
     @IBOutlet weak var phoneBg: UIView!
@@ -48,13 +49,17 @@ class ProfileViewController: UIViewController {
             diableTxtField.textColor = UIColor.lightGray
         }
     }
-    @IBOutlet weak var updateBtn: UIButton! 
+    @IBOutlet weak var occsionalBtn: UIButton!
+    @IBOutlet weak var weekendsBtn: UIButton!
+    @IBOutlet weak var updateBtn: UIButton!
     @IBOutlet weak var medicalYesBtn: UIButton!
     @IBOutlet weak var gainBtn: UIButton!
     @IBOutlet weak var maintainBtn: UIButton!
     @IBOutlet weak var looseBtn: UIButton!
     @IBOutlet weak var hr1Btn: UIButton!
     
+    @IBOutlet weak var weekdaysBtn: UIButton!
+    @IBOutlet weak var everyDayBtn: UIButton!
     @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var hr8Btn: UIButton!
     
@@ -226,6 +231,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
      var meatSelectedArr :[String] = []
     var sleepQuality = ""
+    var sActivityChoice = ""
        var sleepDuration = ""
     var workOutDesc = ""
     var height : Double = 0.00
@@ -235,6 +241,9 @@ class ProfileViewController: UIViewController {
     var weight : Double = 0.00
     var weightMetric = ""
     var selectedTimeIndex: Int = 0
+    var selectedTime: String = ""
+    var mselectedTime: String = ""
+    var eselectedTime: String = ""
       var selectedDays = [Int] ()
        var alcoholChoice = ""
     var primaryGoal = ""
@@ -565,6 +574,79 @@ class ProfileViewController: UIViewController {
         default:
             self.moreBtn.setImage(UIImage(named: "cradio"),  for: .normal)
         }
+        
+        let sActivity = TraineeDetails.traineeDetails?.sexualActivity
+        switch sActivity {
+        case "everyday":
+            self.sActivityChoice = "everyday"
+            self.everyDayBtn.isSelected = true
+            self.everyDayBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.weekdaysBtn.isSelected = false
+            self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.isSelected = false
+            self.occsionalBtn.isSelected = false
+            self.sActivityChoice = "everyday"
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+        case "3-5 times a week":
+            self.sActivityChoice = "3-5 times a week"
+            self.weekdaysBtn.isSelected = true
+            self.weekdaysBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.isSelected = false
+            self.weekendsBtn.isSelected = false
+            self.occsionalBtn.isSelected = false
+            self.sActivityChoice = "3-5 times a week"
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+        case "weekends":
+            self.sActivityChoice = "weekends"
+            self.weekendsBtn.isSelected = true
+            self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.isSelected = false
+            self.occsionalBtn.isSelected = false
+            self.weekdaysBtn.isSelected = false
+            self.sActivityChoice = "weekends"
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+        case "occasionally":
+            self.sActivityChoice = "occasionally"
+            self.occsionalBtn.isSelected = true
+            self.everyDayBtn.isSelected = false
+            self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.occsionalBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.isSelected = false
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+
+            self.weekdaysBtn.isSelected = false
+          
+            self.sActivityChoice = "occasionally"
+        case "never":
+            self.sActivityChoice = "never"
+            self.neverBtn.isSelected = true
+            self.neverBtn.setImage(UIImage(named: "scheck"), for: .normal)
+            self.occsionalBtn.isSelected = false
+            self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+                self.everyDayBtn.isSelected = false
+                self.weekdaysBtn.isSelected = false
+                self.weekendsBtn.isSelected = false
+        default:
+            print("")
+        }
+
         if let medicalHistory = TraineeDetails.traineeDetails?.medical_history {
             self.diableTxtField.text = medicalHistory.any_disability
                    self.foodATxtField.text = medicalHistory.any_food_allergies
@@ -636,7 +718,10 @@ class ProfileViewController: UIViewController {
        
         let bestWoDay = TraineeDetails.traineeDetails?.best_workout_day
         let timeSpent = bestWoDay?.time_spent!
-        self.selectedTimeIndex = workOutLevel.firstIndex(of: timeSpent ?? "") ?? 0
+        self.mselectedTime = bestWoDay?.bestMorningWorkoutTime ?? ""
+        self.eselectedTime = bestWoDay?.bestEveningWorkoutTime ?? ""
+        self.selectedTime = bestWoDay?.time_spent ?? ""
+//        self.selectedTimeIndex = workOutLevel.firstIndex(of: timeSpent ?? "") ?? 0
         if bestWoDay?.days?.count ?? 0 > 0 {
 
             for i in 0 ..< bestWoDay!.days!.count {
@@ -647,7 +732,7 @@ class ProfileViewController: UIViewController {
             }
         }
         let unique = Array(Set(bestWoDay!.days!))
-        TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": timeSpent]
+        TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime," bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":eselectedTime]
         let primaryGoal = TraineeDetails.traineeDetails?.primary_goal
         switch primaryGoal?.lowercased() {
         case "maintain weight":
@@ -723,7 +808,7 @@ class ProfileViewController: UIViewController {
         }
         TraineeInfo.details.country_code = self.countryCode1Btn.titleLabel?.text ?? ""
         
-        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name!,"last_name": TraineeDetails.traineeDetails?.last_name!,"mobile_no": self.phoneTxtField.text!,"gender": TraineeInfo.details.gender,"date_of_birth": TraineeDetails.traineeDetails?.date_of_birth!, "age":TraineeDetails.traineeDetails?.age!,"currrent_weight":currrent_weight, "trainee_height":currrent_height, "activity_level": TraineeInfo.details.activityLevel, "primary_goal":self.primaryGoal, "best_workout_day": TraineeInfo.details.best_workout_day, "food_preference":TraineeInfo.details.food_preference, "smoke_alcohol_consumption":TraineeInfo.details.smoke_alcohol_consumption, "sleep_duration":self.sleepDuration, "sleep_quality":self.sleepQuality,"previous_workout_history":TraineeInfo.details.previous_workout_history,"trainee_timezone":"IST","created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"profile_submission":true,"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"address_submission":TraineeDetails.traineeDetails?.address_submission,"username":TraineeInfo.details.username,"medical_history":TraineeInfo.details.medical_history,"targetWeight":target_weight,"country_code":TraineeInfo.details.country_code]
+        let postBody : [String: Any] = ["first_name": TraineeDetails.traineeDetails?.first_name!,"last_name": TraineeDetails.traineeDetails?.last_name!,"mobile_no": self.phoneTxtField.text!,"gender": TraineeInfo.details.gender,"date_of_birth": TraineeDetails.traineeDetails?.date_of_birth!, "age":TraineeDetails.traineeDetails?.age!,"currrent_weight":currrent_weight, "trainee_height":currrent_height, "activity_level": TraineeInfo.details.activityLevel, "primary_goal":self.primaryGoal, "best_workout_day": TraineeInfo.details.best_workout_day, "food_preference":TraineeInfo.details.food_preference, "smoke_alcohol_consumption":TraineeInfo.details.smoke_alcohol_consumption, "sleep_duration":self.sleepDuration, "sleep_quality":self.sleepQuality,"previous_workout_history":TraineeInfo.details.previous_workout_history,"trainee_timezone":"IST","created_on": Date.getCurrentDate() ,"updated_on":Date.getCurrentDate(),"profile_submission":true,"user_type":"registered","trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"address_submission":TraineeDetails.traineeDetails?.address_submission,"username":TraineeInfo.details.username,"medical_history":TraineeInfo.details.medical_history,"targetWeight":target_weight,"country_code":TraineeInfo.details.country_code,"sexualActivity":self.sActivityChoice]
             
             let jsonData = try? JSONSerialization.data(withJSONObject: postBody)
        
@@ -770,6 +855,10 @@ class ProfileViewController: UIViewController {
                                             let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any,
                                                                                       options: .prettyPrinted)
                                             TraineeDetails.traineeDetails = try JSONDecoder().decode(TraineeDetails.self, from: jsonData)
+                                            DispatchQueue.main.async {
+                                           self.presentAlertWithTitle(title: "", message: "Profile Updated Successfully", options: "OK") {_ in
+                                           }
+                                           }
                                         }else {
                                             
                                         }
@@ -950,6 +1039,119 @@ class ProfileViewController: UIViewController {
             self.goodBtn.isSelected = false
             self.goodBtn.setImage(UIImage(named: "cradio"),  for: .normal)
            self.sleepQuality = "bad"
+        }
+    }
+    
+    @IBAction func neverBtnTapped(_ sender: Any) {
+        if self.countryCode2Btn.isHidden == false {
+            self.countryCode2Btn.isHidden = true
+        }
+        if self.neverBtn.isSelected {
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"),  for: .normal)
+            self.sActivityChoice = ""
+        }else {
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "scheck"),  for: .normal)
+            self.sActivityChoice = "never"
+            self.weekendsBtn.isSelected = false
+            self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.occsionalBtn.isSelected = false
+             self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+                      self.weekdaysBtn.isSelected = false
+                        self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.isSelected = false
+             self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            
+        }
+    }
+    @IBAction func weekendsBtnTapped(_ sender: Any) {
+        if self.countryCode2Btn.isHidden == false {
+            self.countryCode2Btn.isHidden = true
+        }
+        if self.weekendsBtn.isSelected {
+            self.weekendsBtn.isSelected = false
+            self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.sActivityChoice = ""
+        }else {
+            self.sActivityChoice = "weekends"
+            self.weekendsBtn.isSelected = true
+            self.weekendsBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.occsionalBtn.isSelected = false
+             self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+                      self.weekdaysBtn.isSelected = false
+                        self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.isSelected = false
+             self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+        }
+    }
+    
+    @IBAction func occationalBtnTapped(_ sender: Any) {
+        if self.countryCode2Btn.isHidden == false {
+            self.countryCode2Btn.isHidden = true
+        }
+        if self.occsionalBtn.isSelected {
+            self.occsionalBtn.isSelected = false
+            self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.sActivityChoice = ""
+        }else {
+            self.sActivityChoice = "occasionally"
+            self.occsionalBtn.isSelected = true
+            self.occsionalBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.weekendsBtn.isSelected = false
+             self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+                      self.weekdaysBtn.isSelected = false
+                        self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.isSelected = false
+             self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+        }
+    }
+    @IBAction func weekdaysBtnTapped(_ sender: Any) {
+        if self.countryCode2Btn.isHidden == false {
+            self.countryCode2Btn.isHidden = true
+        }
+        if self.weekdaysBtn.isSelected {
+            self.weekdaysBtn.isSelected = false
+            self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.sActivityChoice = ""
+        }else {
+            self.sActivityChoice = "3-5 times a week"
+            self.weekdaysBtn.isSelected = true
+            self.weekdaysBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.weekendsBtn.isSelected = false
+             self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+                      self.occsionalBtn.isSelected = false
+                        self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.everyDayBtn.isSelected = false
+             self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+        }
+    }
+    @IBAction func everyDayBtnTapped(_ sender: Any) {
+        if self.countryCode2Btn.isHidden == false {
+            self.countryCode2Btn.isHidden = true
+        }
+        if self.everyDayBtn.isSelected {
+            self.everyDayBtn.isSelected = false
+            self.everyDayBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.sActivityChoice = ""
+        }else {
+            self.sActivityChoice = "everyday"
+            self.everyDayBtn.isSelected = true
+            self.everyDayBtn.setImage(UIImage(named: "wradio"),  for: .normal)
+            self.occsionalBtn.isSelected = false
+             self.occsionalBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+                      self.weekdaysBtn.isSelected = false
+                        self.weekdaysBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.weekendsBtn.isSelected = false
+             self.weekendsBtn.setImage(UIImage(named: "cradio"),  for: .normal)
+            self.neverBtn.isSelected = false
+            self.neverBtn.setImage(UIImage(named: "ucheck"), for: .normal)
         }
     }
     @IBAction func hrBtnTapped(_ sender: Any) {
@@ -1319,10 +1521,15 @@ class ProfileViewController: UIViewController {
         if self.countryCode2Btn.isHidden == false {
             self.countryCode2Btn.isHidden = true
         }
+        
         let bestWoDay = TraineeInfo.details.best_workout_day
         let timeSpent = bestWoDay["time_spent"]
+        self.mselectedTime = bestWoDay["bestMorningWorkoutTime"] as? String ?? ""
+        self.eselectedTime = bestWoDay["bestEveningWorkoutTime"] as? String ?? ""
+        self.selectedTime = bestWoDay["time_spent"] as! String
+
         self.selectedDays = []
-        self.selectedTimeIndex = workOutLevel.firstIndex(of: timeSpent as! String)!
+        self.selectedTimeIndex = workOutLevel.firstIndex(of: timeSpent as! String) ?? 0
         var arr = bestWoDay["days"] as! [Any]
         if arr.count > 0 {
             for i in 0 ..< arr.count {
@@ -1337,7 +1544,12 @@ class ProfileViewController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "workoutVC") as! WorkOutDaysViewController
         controller.navigationType = .profileMenu
         controller.selectedTimeIndex = self.selectedTimeIndex
+        
+        
         controller.selectedDays = self.selectedDays
+        controller.selectedTime = self.selectedTime
+        controller.mselectedTime = self.mselectedTime
+        controller.eselectedTime = self.eselectedTime
        // self.definesPresentationContext = true
 //               self.providesPresentationContextTransitionStyle = true
 //               self.overlayBlurredBackgroundView()

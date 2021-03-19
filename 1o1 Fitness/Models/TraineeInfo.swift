@@ -40,6 +40,7 @@ struct TraineeInfo  {
      var traineeProfileImg: String = ""
     var targetWeight:Dictionary = [String : Any]()
     var notificationCount: Int = 0
+    var sexualActivity: String = ""
 }
 struct ProgramDetails {
     static var programDetails: ProgramDetails = ProgramDetails()
@@ -100,17 +101,24 @@ struct Trainee_Height: Codable {
 struct Best_workout_day: Codable {
     var days: [String]?
      let time_spent: String?
-    
+    var bestMorningWorkoutTime:String?
+    var bestEveningWorkoutTime:String?
     init(days: [String]?,
-         time_spent: String?) {
+         time_spent: String?,
+         bestMorningWorkoutTime:String?,
+         bestEveningWorkoutTime: String?) {
         self.days = days
          self.time_spent = time_spent
+        self.bestEveningWorkoutTime = bestEveningWorkoutTime
+        self.bestMorningWorkoutTime = bestMorningWorkoutTime
     }
     
     init(from decoder: Decoder) throws {
            let container = try decoder.container(keyedBy: CodingKeys.self)
            self.days = try container.decodeIfPresent([String].self, forKey: .days)
         self.time_spent = try container.decodeIfPresent(String.self, forKey: .time_spent)
+        self.bestEveningWorkoutTime = try container.decodeIfPresent(String.self, forKey: .bestEveningWorkoutTime)
+        self.bestMorningWorkoutTime = try container.decodeIfPresent(String.self, forKey: .bestMorningWorkoutTime)
        }
 }
 struct Food_preference: Codable {
@@ -253,6 +261,7 @@ struct TraineeDetails: Decodable {
     var targetWeight: Target_Weight?
     var dayProgress: DayProgress?
     let notificationCount: Int?
+    let sexualActivity: String?
     static var traineeDetails: TraineeDetails?
     init(trainee_id: String,
          first_name: String?,
@@ -278,7 +287,8 @@ struct TraineeDetails: Decodable {
          profile_submission: Bool?,
          app_version: Double?,
          user_type: String?,
-         notificationCount: Int?) {
+         notificationCount: Int?,
+         sexualActivity: String?) {
         
         self.trainee_id = trainee_id
         self.first_name = first_name
@@ -305,6 +315,7 @@ struct TraineeDetails: Decodable {
         self.app_version = app_version
         self.user_type = user_type
         self.notificationCount = notificationCount
+        self.sexualActivity = sexualActivity
         
     }
     
@@ -355,7 +366,7 @@ struct TraineeDetails: Decodable {
         self.trainee_address = try container.decodeIfPresent([Address].self, forKey: .trainee_address)
         self.dayProgress = try container.decodeIfPresent(DayProgress.self, forKey: .dayProgress)
         self.notificationCount = try container.decodeIfPresent(Int.self, forKey: .notificationCount)
-        
+        self.sexualActivity = try container.decodeIfPresent(String.self, forKey: .sexualActivity)
     }
     
 }
@@ -404,6 +415,7 @@ extension TraineeDetails {
         case bmi_bmr
         case dayProgress
         case notificationCount
+        case sexualActivity
     }
 }
 struct TraineeProfileImg:Codable {

@@ -1269,7 +1269,14 @@ extension CalenderViewController:DietSelectionDelegate {
     func setParentViewHeight(height: CGFloat) {
          DispatchQueue.main.async {
             self.dietViewTbleHeight.constant =  height
-            self.contentViewHeightConstrain.constant = 400 + height
+            if self.calender.isHidden == false {
+                self.dietViewTbleHeight.constant =  height + 200
+                self.contentViewHeightConstrain.constant = 600 + height
+            }else {
+                self.dietViewTbleHeight.constant =  height
+                self.contentViewHeightConstrain.constant = 400 + height
+            }
+            
         }
     }
     

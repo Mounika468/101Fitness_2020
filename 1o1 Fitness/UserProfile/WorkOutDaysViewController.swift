@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FTPopOverMenu_Swift
 enum NavigationType {
     case profileMenu
     case profileNormal
@@ -14,6 +15,9 @@ enum NavigationType {
 }
 class WorkOutDaysViewController: UIViewController {
 
+    @IBOutlet weak var durationBtn: UIButton!
+    @IBOutlet weak var eveningBtn: UIButton!
+    @IBOutlet weak var morningBtn: UIButton!
     @IBOutlet  var firstPriority: NSLayoutConstraint!
     @IBOutlet  var secPriority: NSLayoutConstraint!
     @IBOutlet weak var backBtn: UIButton!
@@ -33,9 +37,13 @@ class WorkOutDaysViewController: UIViewController {
     var lastSelectedIndex  = -1
     var lastSelectedTime  = -1
     var selectedTime: String = ""
+    var mselectedTime: String = ""
+    var eselectedTime: String = ""
     var selectedDayNames : Array = [String] ()
     var navigationType: NavigationType = .profileNormal
-    
+    let morningTimingsArray = ["5am - 7am","7am  - 9am","9am - 11am"]
+    let evenTimingsArray = ["5pm - 7pm","7pm  - 9pm","9pm - 11pm"]
+    let durationsArray = ["less than 30 mins","30 mins","45 mins","60 mins","75 min", "90 mins","more than 90 mins"]
      var selectedTimeIndex: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +63,7 @@ class WorkOutDaysViewController: UIViewController {
         let timeFlowLayout = UICollectionViewFlowLayout()
         timeFlowLayout.scrollDirection = .horizontal
         self.timeCV.collectionViewLayout = timeFlowLayout
+        self.timeCV.isHidden = true
           self.backBtn.isHidden = true
        // self.norealTimeBtn.layer.cornerRadius = 8.0
       //  self.norealTimeBtn.layer.borderWidth = 0.5
@@ -63,6 +72,17 @@ class WorkOutDaysViewController: UIViewController {
 //        if self.navigationType == .profileMenu {
 //
 //        }
+        morningBtn.layer.cornerRadius = 8
+        morningBtn.layer.borderWidth = 1
+        morningBtn.layer.borderColor = AppColours.topBarGreen.cgColor
+        
+        eveningBtn.layer.cornerRadius = 8
+        eveningBtn.layer.borderWidth = 1
+        eveningBtn.layer.borderColor = AppColours.topBarGreen.cgColor
+        
+        durationBtn.layer.cornerRadius = 8
+        durationBtn.layer.borderWidth = 1
+        durationBtn.layer.borderColor = AppColours.topBarGreen.cgColor
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -89,17 +109,66 @@ class WorkOutDaysViewController: UIViewController {
             for i in 0 ..< self.selectedDays.count {
                 self.selectedDayNames.append(days[self.selectedDays[i]])
             }
+            self.morningBtn.setTitle(self.mselectedTime.capitalizingFirstLetter(), for: .normal)
+            self.eveningBtn.setTitle(self.eselectedTime.capitalizingFirstLetter(), for: .normal)
+            self.durationBtn.setTitle(self.selectedTime.capitalizingFirstLetter(), for: .normal)
         default:
             print(")")
         }
     }
+    @IBAction func eveningBtnTapped(_ sender: Any) {
+        let configuration = FTConfiguration.shared
+        let cellConfi = FTCellConfiguration()
+        configuration.menuRowHeight = 25
+        configuration.menuWidth =  120
+        configuration.backgoundTintColor = UIColor.black
+        cellConfi.textColor = AppColours.textGreen
+        cellConfi.textFont = .systemFont(ofSize: 8)
+        configuration.borderColor = UIColor.lightText
+        configuration.menuSeparatorColor = UIColor.white
+        configuration.borderWidth = 0.25
+        cellConfi.textAlignment = NSTextAlignment.center
+        FTPopOverMenu.showForSender(sender: sender as! UIView,
+                                    with: self.evenTimingsArray ,
+                                    done: { (selectedIndex) -> () in
+                                        print(selectedIndex)
+                                        let btn = sender as! UIButton
+                                        btn.setTitle(self.evenTimingsArray[selectedIndex].capitalizingFirstLetter(), for: .normal)
+                                        self.eselectedTime = self.evenTimingsArray[selectedIndex]
+        }) {
+            
+        }
+    }
+    @IBAction func morningBtnTapped(_ sender: Any) {
+        let configuration = FTConfiguration.shared
+        let cellConfi = FTCellConfiguration()
+        configuration.menuRowHeight = 25
+        configuration.menuWidth =  120
+        configuration.backgoundTintColor = UIColor.black
+        cellConfi.textColor = AppColours.textGreen
+        cellConfi.textFont = .systemFont(ofSize: 8)
+        configuration.borderColor = UIColor.lightText
+        configuration.menuSeparatorColor = UIColor.white
+        configuration.borderWidth = 0.25
+        cellConfi.textAlignment = NSTextAlignment.center
+        FTPopOverMenu.showForSender(sender: sender as! UIView,
+                                    with: self.morningTimingsArray ,
+                                    done: { (selectedIndex) -> () in
+                                        print(selectedIndex)
+                                        let btn = sender as! UIButton
+                                        btn.setTitle(self.morningTimingsArray[selectedIndex].capitalizingFirstLetter(), for: .normal)
+                                        self.mselectedTime = self.morningTimingsArray[selectedIndex]
+        }) {
+            
+        }
+    }
     @IBAction func backBtnTapped(_ sender: Any) {
-         if self.selectedTime.count != 0 && self.selectedDayNames.count > 0{
+        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0) {
         let unique = Array(Set(self.selectedDayNames))
-               TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime]
+            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.durationBtn.titleLabel?.text ?? "","bestMorningWorkoutTime":self.morningBtn.titleLabel?.text ?? "","bestEveningWorkoutTime":self.eveningBtn.titleLabel?.text ?? ""]
         self.dismiss(animated: true, completion: nil)
          }else {
-            presentAlertWithTitle(title: "", message: "Please select workout days and time", options: "OK") { (option) in
+            presentAlertWithTitle(title: "", message: "Please select workout days, time and duration", options: "OK") { (option) in
                              }
         }
     }
@@ -108,6 +177,29 @@ class WorkOutDaysViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func durationBtnTapped(_ sender: Any) {
+        let configuration = FTConfiguration.shared
+        let cellConfi = FTCellConfiguration()
+        configuration.menuRowHeight = 25
+        configuration.menuWidth =  160
+        configuration.backgoundTintColor = UIColor.black
+        cellConfi.textColor = AppColours.textGreen
+        cellConfi.textFont = .systemFont(ofSize: 8)
+        configuration.borderColor = UIColor.lightText
+        configuration.menuSeparatorColor = UIColor.white
+        configuration.borderWidth = 0.25
+        cellConfi.textAlignment = NSTextAlignment.center
+        FTPopOverMenu.showForSender(sender: sender as! UIView,
+                                    with: self.durationsArray ,
+                                    done: { (selectedIndex) -> () in
+                                        print(selectedIndex)
+                                        let btn = sender as! UIButton
+                                        btn.setTitle(self.durationsArray[selectedIndex].capitalizingFirstLetter(), for: .normal)
+                                        self.selectedTime = self.durationsArray[selectedIndex]
+        }) {
+            
+        }
+    }
     @IBAction func btnRightTapped(_ sender: Any) {
         
 //        if self.selectedTime.count != 0 {
@@ -145,7 +237,13 @@ class WorkOutDaysViewController: UIViewController {
 
 }
 extension WorkOutDaysViewController: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.collectionView:
@@ -326,18 +424,18 @@ extension WorkOutDaysViewController : BottomViewDelegate {
         
     }
     func rightBtnTapped() {
-        if self.selectedTime.count != 0 && self.selectedDayNames.count > 0{
+        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0) {
 //            for dayName in self.selectedDayNames {
 //                let dict = ["day":dayName,"spentTime":self.selectedTime]
 //                TraineeInfo.details.days.append(dict)
 //            }
             let unique = Array(Set(self.selectedDayNames))
-            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime]
+            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime,"bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":self.eselectedTime]
             let storyboard = UIStoryboard(name: "FoodPreferenceVC", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "foodPreferVC")
             self.navigationController?.pushViewController(controller, animated: true)
         }else {
-        presentAlertWithTitle(title: "", message: "Please select workout days and time", options: "OK") { (option) in
+        presentAlertWithTitle(title: "", message: "Please select workout days, time and duration", options: "OK") { (option) in
                   }
         }
     }

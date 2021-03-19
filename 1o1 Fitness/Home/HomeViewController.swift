@@ -744,6 +744,10 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             switch indexPath.row {
             case 0:
                 
+//                       let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
+//                       let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
+//                       self.navigationController?.pushViewController(controller, animated: true)
+                
                 let storyboard = UIStoryboard(name: "TrainerList", bundle: nil)
                 let controller = storyboard.instantiateViewController(withIdentifier: "trainerListVC") as! TrainersListViewController
                 //controller.trainersInfo = self.trainersInfo

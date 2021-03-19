@@ -27,6 +27,7 @@ class YoutubeVideoVC: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
         self.playerView.load(withVideoId: self.videoId)
+        self.playerView.delegate = self
     }
     
     @objc func backBtnTapped(sender : UIButton){
@@ -43,4 +44,10 @@ class YoutubeVideoVC: UIViewController {
     }
     */
 
+}
+extension YoutubeVideoVC : YTPlayerViewDelegate {
+    func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
+        playerView.playVideo()
+
+    }
 }
