@@ -44,10 +44,10 @@ class SupportViewController: UIViewController {
         contactView.addGestureRecognizer(changePwdTapGesture)
         
         
-        appInfoLbl.textColor = AppColours.topBarGreen
-        faqLbl.textColor = AppColours.topBarGreen
-        contactUsLbl.textColor = AppColours.topBarGreen
-        feedbackLbl.textColor = AppColours.topBarGreen
+//        appInfoLbl.textColor = AppColours.topBarGreen
+//        faqLbl.textColor = AppColours.topBarGreen
+//        contactUsLbl.textColor = AppColours.topBarGreen
+//        feedbackLbl.textColor = AppColours.topBarGreen
     }
     
     @objc func faqsViewTouched(_ sender: UITapGestureRecognizer) {

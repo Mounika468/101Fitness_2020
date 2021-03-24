@@ -11,8 +11,13 @@ import CoreLocation
 import AWSMobileClient
 import PopupDialog
 import PieCharts
-let kRotationAnimationKey = "com.myapplication.rotationanimationkey"
+import Floaty
+import FanMenu
 
+let kRotationAnimationKey = "com.myapplication.rotationanimationkey"
+let kFitnessTag = "fitnessTag"
+let kYogaTag = "yogaTag"
+let kZumba = "zumbaTag"
 class HomeViewController: UIViewController {
 //    func onLocationUpdate(location: CLLocation) {
 //        print("locatiojn is \(location.coordinate.latitude) , \(location.coordinate.longitude)")
@@ -31,6 +36,11 @@ class HomeViewController: UIViewController {
     var loadingView: LoadingReusableView?
     var pageNumber : Int = 0
     var isLoading = false
+    var floatyQuad = Floaty()
+    var floatyCircular = Floaty()
+    
+    @IBOutlet weak var floatView: FanMenu!
+    
     @IBOutlet weak var trainersCollectionView: UICollectionView! {
         didSet {
             trainersCollectionView.showsVerticalScrollIndicator = false
@@ -173,6 +183,100 @@ class HomeViewController: UIViewController {
 //        let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
 //        let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
 //        self.navigationController?.pushViewController(controller, animated: true)
+       // layoutFABforSemiCircleAnimation(floaty: floatView)
+      //  floatyQuad.addDragging()
+//floatView.openAnimationType =  .pop
+        
+        floatView.button = FanMenuButton(
+            id: "main",
+            image: "float",
+            color: .clear
+        )
+        floatView.items = [
+            FanMenuButton(
+                id: kFitnessTag,
+                image: "fitnessF",
+                color: .clear
+            ),
+            FanMenuButton(
+                id: kYogaTag,
+                image: "yogaF",
+                    color: .clear
+            ),
+            FanMenuButton(
+                id: kZumba,
+                image: "zumbaF",
+                    color: .red
+            )
+        ]
+        // distance between button and items
+        floatView.menuRadius = 90.0
+
+        // animation duration
+        floatView.duration = 0.35
+
+        // menu opening delay
+        floatView.delay = 0.05
+
+        // interval for buttons in radians
+        floatView.interval = (Double.pi, 2 * Double.pi)
+        //floatView.radius = 25.0
+
+        // menu background color
+        floatView.backgroundColor = .clear
+        
+        floatView.onItemDidClick = { button in
+            print("ItemDidClick: \(button.id)")
+            switch button.id {
+            case kFitnessTag:
+                self.fitnessFloatTapped()
+                print("ItemDidClick: \(button.id)")
+            case kYogaTag:
+                print("ItemDidClick: \(button.id)")
+                self.yogaFloatTapped()
+            case kZumba:
+                print("ItemDidClick: \(button.id)")
+                self.zumbaFloatTapped()
+            default:
+                print("ItemDidClick: \(button.id)")
+            }
+        }
+
+    }
+    func fitnessFloatTapped() {
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin  {
+                // return
+                self.presentAlert(message: "Please Sign up to access the fitness information")
+            }else {
+            }
+        }
+    }
+    func yogaFloatTapped() {
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin  {
+                // return
+                self.presentAlert(message: "Please Sign up to access the yoga information")
+            }else {
+            }
+        }
+    }
+    func zumbaFloatTapped() {
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin  {
+                // return
+                self.presentAlert(message: "Please Sign up to access the zumba information")
+            }else {
+            }
+        }
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        floatView.updateNode()
     }
     override func viewWillDisappear(_ animated: Bool) {
       //  self.navigationController?.isNavigationBarHidden = false
@@ -323,6 +427,8 @@ class HomeViewController: UIViewController {
         
         
     }
+    
+    
     func getTraineeDetails(authenticatedHeaders:[String: String]) {
          let traineeId = UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!
         TraineeRegister.getTraineeDetails(traineeId: traineeId, header: authenticatedHeaders, successHandler:{ [weak self] traineeDetails  in
@@ -878,6 +984,10 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         alertVC.message = message
         present(alertVC, animated: false, completion: nil)
     }
+    
+    
+    
+    
     func popupBox() {
        
         

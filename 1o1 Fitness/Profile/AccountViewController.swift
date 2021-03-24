@@ -69,11 +69,11 @@ class AccountViewController: UIViewController {
         logOutTapGesture.addTarget(self, action: #selector(self.logOutTapGestureTouched(_:)))
         logOutView.addGestureRecognizer(logOutTapGesture)
         
-        myOrdersLbl.textColor = AppColours.textGreen
-        changePwd.textColor = AppColours.textGreen
-        bAddressLbl.textColor = AppColours.textGreen
-        deleteAccLbl.textColor = AppColours.textGreen
-        logOutLbl.textColor = AppColours.textGreen
+//        myOrdersLbl.textColor = AppColours.textGreen
+//        changePwd.textColor = AppColours.textGreen
+//        bAddressLbl.textColor = AppColours.textGreen
+//        deleteAccLbl.textColor = AppColours.textGreen
+//        logOutLbl.textColor = AppColours.textGreen
         
     }
     
