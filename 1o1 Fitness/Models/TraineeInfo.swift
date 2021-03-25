@@ -109,7 +109,7 @@ struct Best_workout_day: Codable {
          bestEveningWorkoutTime: String?) {
         self.days = days
          self.time_spent = time_spent
-        self.bestEveningWorkoutTime = bestEveningWorkoutTime
+        self.bestMorningWorkoutTime = bestMorningWorkoutTime
         self.bestMorningWorkoutTime = bestMorningWorkoutTime
     }
     

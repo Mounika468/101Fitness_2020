@@ -92,7 +92,7 @@ class HeightViewController: UIViewController {
         if self.weightVal != nil &&  self.weightVal > 0{
             var val = self.weightVal
             if self.metric == "feet" {
-                val = (1000*(self.weightVal * 0.0304084)/1000)
+                val = (1000*(self.weightVal * 0.03048)/1000)
             }
             
             let dict : [String : Any] = ["height": self.feetLbl.text ?? "" ,"metric": "feet"]
@@ -125,7 +125,7 @@ class HeightViewController: UIViewController {
             self.cmBtn.isSelected = true
             self.ftBtn.isSelected = false
             self.weightLbl.text = String(format: "%.2f", self.weightVal)
-            let feet = self.weightVal * 0.0328084
+            let feet = self.weightVal * 0.03048
                  let feetShow = Int(floor(feet))
                  let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
                  let inches = Int(floor(feetRest * 12))
@@ -158,7 +158,7 @@ class HeightViewController: UIViewController {
             self.ftBtn.setTitleColor(AppColours.appYellow, for: .normal)
             self.cmBtn.setTitleColor(UIColor.white, for: .normal)
             self.metric = "feet"
-            let fts =    Double(1000 * (feet * 30.4084) / 1000)
+            let fts =    Double(1000 * (feet * 30.48) / 1000)
                        self.weightVal = fts
             self.weightLbl.text = String(format: "%.2f", self.weightVal)
 //            if self.navigationType == .profileMenu && self.isOffsetSet == false {
@@ -246,7 +246,7 @@ extension HeightViewController: UIScrollViewDelegate {
          let roundedIndex = (index)
          
         let selectedNumber = roundedIndex <= 0 ? 0 : Double(roundedIndex)
-            let feet = selectedNumber * 0.0304084
+        let feet = selectedNumber / 30.48
                  let feetShow = Int(floor(feet))
                  let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
                  let inches = Int(floor(feetRest * 12))

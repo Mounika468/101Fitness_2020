@@ -12,6 +12,7 @@ import AWSMobileClient
 
 class SignUpViewController: UIViewController {
 
+    @IBOutlet weak var checkBtn: UIButton!
     @IBOutlet weak var countryCode2Btn: UIButton!
     @IBOutlet weak var countryCode1Btn: UIButton!
     @IBOutlet weak var pwImg: UIImageView!
@@ -426,6 +427,17 @@ class SignUpViewController: UIViewController {
 
     }
     
+    @IBAction func checkBtnTapped(_ sender: Any) {
+        if self.checkBtn.isSelected {
+            self.checkBtn.isSelected = false
+            self.checkBtn.setImage(UIImage(named: "ucheck"), for: .normal)
+            // self.alcoholChoice = ""
+        }else {
+            self.checkBtn.isSelected = true
+            self.checkBtn.setImage(UIImage(named: "scheck"), for: .normal)
+        }
+    
+    }
     @IBAction func dismissModal(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }

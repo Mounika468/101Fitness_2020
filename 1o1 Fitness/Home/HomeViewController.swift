@@ -349,19 +349,28 @@ class HomeViewController: UIViewController {
 
             }
             let weight = TraineeDetails.traineeDetails?.currrent_weight
-            var weightMetric = ""
-            var weightVal = 0.0
-            if weight?.metric! == "kg" {
-               weightMetric = "kg"
+            if TraineeInfo.details.profile_submission == false {
+                self?.weightLbl.isHidden = true
             }else {
-                weightMetric = "lbs"
-            }
-            weightVal = (weight?.weight) ?? 0
-            let weightStr = String(format: "Weight: %.2f %@", weightVal,weightMetric)
+                self?.weightLbl.isHidden = false
+                var weightMetric = ""
+                var weightVal = 0.0
+                if weight?.metric! == "kg" {
+                   weightMetric = "kg"
+                }else {
+                    weightMetric = "lbs"
+                }
+                weightVal = (weight?.weight) ?? 0
+                let weightStr = String(format: "Weight: %.2f %@", weightVal,weightMetric)
 
-            var myMutableString = NSMutableAttributedString(string: weightStr)
-            myMutableString.addAttribute(.foregroundColor, value: AppColours.textGreen, range: NSRange(location:0,length:7))
-            myMutableString.addAttribute(.foregroundColor, value: AppColours.appYellow, range: NSRange(location:7,length:(weightStr.count - 7)))
+                var myMutableString = NSMutableAttributedString(string: weightStr)
+                myMutableString.addAttribute(.foregroundColor, value: AppColours.textGreen, range: NSRange(location:0,length:7))
+                myMutableString.addAttribute(.foregroundColor, value: AppColours.appYellow, range: NSRange(location:7,length:(weightStr.count - 7)))
+                DispatchQueue.main.async {
+                self?.weightLbl.attributedText = myMutableString
+                }
+            }
+           
           DispatchQueue.main.async {
               LoadingOverlay.shared.hideOverlayView()
             if  TraineeInfo.details.traineeProfileImg.count > 0 {
@@ -377,7 +386,7 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.headerCollectionView.reloadItems(at: [indexPath])
             }
-            self?.weightLbl.attributedText = myMutableString
+            
             if  TraineeInfo.details.notificationCount > 0 {
                 if let tabItems = self?.tabBarController?.tabBar.items {
                     // In this case we want to modify the badge number of the third tab:

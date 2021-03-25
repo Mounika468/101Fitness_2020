@@ -653,6 +653,10 @@ class ProfileViewController: UIViewController {
                    self.habbitsTxtField.text = medicalHistory.any_addictions_or_habits
                    self.medicalTxtField.text = medicalHistory.any_medical_surgerie_issues
             self.habbitsTxtField.text = medicalHistory.any_addictions_or_habits
+            if self.habbitsTxtField.text == "no" {
+                habbitsTxtField.text = "List any other addictions or habbits"
+                habbitsTxtField.textColor = UIColor.lightGray
+            }
         }
        
         
@@ -732,7 +736,7 @@ class ProfileViewController: UIViewController {
             }
         }
         let unique = Array(Set(bestWoDay!.days!))
-        TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime," bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":eselectedTime]
+        TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime,"bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":eselectedTime]
         let primaryGoal = TraineeDetails.traineeDetails?.primary_goal
         switch primaryGoal?.lowercased() {
         case "maintain weight":
@@ -1371,7 +1375,7 @@ class ProfileViewController: UIViewController {
             self.heightMetric = "cm"
              let text = self.heightBtn.titleLabel?.text!
              let cms =  Double(text!)!
-            self.height = Double(1000 * (cms * 30.04084) / 1000)
+            self.height = Double(1000 * (cms * 30.48) / 1000)
             self.heightBtn.setTitle( String(format: "%.2f", self.height), for: .normal)
         }else {
             self.ftBtn.isSelected = true
@@ -1382,11 +1386,11 @@ class ProfileViewController: UIViewController {
             self.height = Double(text!)!
             self.heightMetric = "feet"
             let cms = Double(self.height)
-            let feet = Double(cms * 0.03004084)
+            let feet = Double(cms * 0.03048)
                  let feetShow = Int(floor(feet))
                  let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
                  let inches = Int(floor(feetRest * 12))
-            self.height = Double(1000 * (cms / 30.04084) / 1000)
+            self.height = Double(1000 * (cms / 30.48) / 1000)
              self.heightBtn.setTitle( "\(feetShow).\(inches)", for: .normal)
         }
     }
@@ -1402,11 +1406,11 @@ class ProfileViewController: UIViewController {
             self.heightMetric = "feet"
             let text = self.heightBtn.titleLabel?.text!
              self.height = Double(text!)!
-            let feet = Double(self.height * 0.03004084)
+            let feet = Double(self.height * 0.03048)
                  let feetShow = Int(floor(feet))
                  let feetRest: Double = ((feet * 100).truncatingRemainder(dividingBy: 100) / 100)
                  let inches = Int(floor(feetRest * 12))
-            let fts =    Double(1000 * (height / 30.04084) / 1000)
+            let fts =    Double(1000 * (height / 30.48) / 1000)
             self.height = fts
             // self.heightTxtField.text = String(format: "%.2f", fts)
             self.heightBtn.setTitle( "\(feetShow).\(inches)", for: .normal)
@@ -1418,7 +1422,7 @@ class ProfileViewController: UIViewController {
             let text = self.heightBtn.titleLabel?.text!
             self.height = Double(text!)!
             self.heightMetric = "cm"  //0.0304084
-            let fts =    Double(1000 * (height * 30.04084) / 1000)
+            let fts =    Double(1000 * (height * 30.48) / 1000)
                        self.height = fts
             self.heightBtn.setTitle( String(format: "%.2f", fts), for: .normal)
         }

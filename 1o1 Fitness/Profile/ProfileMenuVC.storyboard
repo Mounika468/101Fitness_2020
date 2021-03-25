@@ -503,7 +503,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrg-Lj-gWt">
-                                                <rect key="frame" x="183" y="955" width="106" height="30"/>
+                                                <rect key="frame" x="228" y="955" width="106" height="30"/>
                                                 <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
                                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="4hrs to 8hrs" image="cradio"/>
@@ -512,7 +512,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJy-56-thb">
-                                                <rect key="frame" x="183" y="1000" width="86" height="30"/>
+                                                <rect key="frame" x="228" y="1000" width="86" height="30"/>
                                                 <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
                                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="10+ hrs" image="cradio"/>
@@ -688,21 +688,21 @@
                                                     <action selector="uploadImageTapped:" destination="tMe-hd-ULR" eventType="touchUpInside" id="Rgh-eB-xCw"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX3-Fd-So9">
-                                                <rect key="frame" x="47" y="1170" width="106" height="30"/>
+                                            <button opaque="NO" contentMode="scaleAspectFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX3-Fd-So9">
+                                                <rect key="frame" x="47" y="1170" width="100" height="30"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="106" id="CuP-eN-9rB"/>
+                                                    <constraint firstAttribute="width" constant="100" id="CuP-eN-9rB"/>
                                                     <constraint firstAttribute="height" constant="30" id="NLi-p5-09O"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
                                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" title="Everyday" image="cradio"/>
+                                                <state key="normal" title=" Everyday" image="cradio"/>
                                                 <connections>
                                                     <action selector="everyDayBtnTapped:" destination="tMe-hd-ULR" eventType="touchUpInside" id="QWi-4I-k07"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8e-NL-fZZ">
-                                                <rect key="frame" x="183" y="1170" width="106" height="30"/>
+                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8e-NL-fZZ">
+                                                <rect key="frame" x="228" y="1170" width="106" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="106" id="J32-ci-CRz"/>
                                                     <constraint firstAttribute="height" constant="30" id="UcT-Ty-2Cz"/>
@@ -714,7 +714,7 @@
                                                     <action selector="weekdaysBtnTapped:" destination="tMe-hd-ULR" eventType="touchUpInside" id="sgd-Iz-F8Y"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3F-vz-5ie">
+                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3F-vz-5ie">
                                                 <rect key="frame" x="47" y="1220" width="115" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="115" id="sR0-E2-pXs"/>
@@ -727,8 +727,8 @@
                                                     <action selector="weekendsBtnTapped:" destination="tMe-hd-ULR" eventType="touchUpInside" id="oHy-r8-Xam"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uyv-oE-rS8">
-                                                <rect key="frame" x="183" y="1220" width="106" height="30"/>
+                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uyv-oE-rS8">
+                                                <rect key="frame" x="228" y="1220" width="106" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="106" id="6DZ-HJ-wmb"/>
                                                     <constraint firstAttribute="height" constant="30" id="f0W-6Y-eOF"/>
@@ -776,12 +776,14 @@
                                             <constraint firstItem="Q7d-XE-hgk" firstAttribute="top" secondItem="YWN-ob-GY9" secondAttribute="top" constant="40" id="Bpx-cf-PTH"/>
                                             <constraint firstItem="tpc-G0-Kza" firstAttribute="leading" secondItem="Z1g-rf-G5g" secondAttribute="leading" id="ByO-9T-4Ud"/>
                                             <constraint firstItem="uez-7a-SMX" firstAttribute="height" secondItem="fa0-BW-7EK" secondAttribute="height" id="CER-Gw-QzC"/>
+                                            <constraint firstAttribute="trailing" secondItem="T8e-NL-fZZ" secondAttribute="trailing" constant="80" id="CHh-7x-0qd"/>
                                             <constraint firstItem="cd3-SC-Wda" firstAttribute="leading" secondItem="pwJ-dk-p1g" secondAttribute="trailing" constant="20" id="Chh-gU-CUh"/>
                                             <constraint firstItem="Uyv-oE-rS8" firstAttribute="leading" secondItem="T8e-NL-fZZ" secondAttribute="leading" id="Cor-t2-2IF"/>
                                             <constraint firstItem="6wk-PG-Sak" firstAttribute="leading" secondItem="8eX-3N-uBK" secondAttribute="leading" id="DFS-FK-xBV"/>
                                             <constraint firstItem="3ww-de-6Gq" firstAttribute="top" secondItem="UfP-rE-5L5" secondAttribute="top" id="DcF-5a-y6p"/>
                                             <constraint firstItem="8eX-3N-uBK" firstAttribute="leading" secondItem="7g9-GD-Ooa" secondAttribute="leading" constant="-10" id="Dgr-ue-KU2"/>
                                             <constraint firstItem="lrF-dl-hzc" firstAttribute="width" secondItem="6V9-rV-8kc" secondAttribute="width" id="Edi-Z3-Vu5"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vrg-Lj-gWt" secondAttribute="trailing" constant="80" id="EqO-4C-r9f"/>
                                             <constraint firstItem="sKe-yH-1wG" firstAttribute="centerX" secondItem="Zdc-si-Ds7" secondAttribute="centerX" constant="-40" id="G01-G4-yZh"/>
                                             <constraint firstItem="GGh-Wn-1IY" firstAttribute="width" secondItem="6V9-rV-8kc" secondAttribute="width" id="Gsh-3k-UQg"/>
                                             <constraint firstItem="ILB-Wq-OaO" firstAttribute="height" secondItem="tpc-G0-Kza" secondAttribute="height" constant="10" id="H71-QV-ddP"/>
@@ -905,7 +907,9 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="wnh-LP-T1H"/>
+                                                <exclude reference="oax-43-ddM"/>
                                                 <exclude reference="HXa-gc-NUN"/>
+                                                <exclude reference="Q3e-bk-LC4"/>
                                                 <exclude reference="Z9N-bx-RHr"/>
                                             </mask>
                                         </variation>

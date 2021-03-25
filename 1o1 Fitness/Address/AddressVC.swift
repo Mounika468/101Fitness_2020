@@ -295,7 +295,7 @@ class AddressVC: UIViewController, UITextFieldDelegate {
         }
     }
     if textField == nametxtField {
-            let allowedCharacters = CharacterSet(charactersIn:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz ").inverted
+            let allowedCharacters = CharacterSet(charactersIn:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ").inverted
                 let components = string.components(separatedBy: allowedCharacters)
                 let filtered = components.joined(separator: "")
                 
