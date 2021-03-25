@@ -266,6 +266,16 @@ final class LandingViewController : BaseViewController {
                }
     }
     @IBAction func exploreBtnTapped(_ sender: Any) {
+        switch self.centreImgView.image {
+        case UIImage(named: "b_exercise"):
+            FitnessProgramSelection.fitnessType.programType = .fitness
+        case UIImage(named: "b_yoga"):
+            FitnessProgramSelection.fitnessType.programType = .yoga
+        case UIImage(named: "b_zumba"):
+            FitnessProgramSelection.fitnessType.programType = .zumba
+        default:
+            FitnessProgramSelection.fitnessType.programType = .fitness
+        }
           self.loginFunction()
 //        let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
 //        let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController

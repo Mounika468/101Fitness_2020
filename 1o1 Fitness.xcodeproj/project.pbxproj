@@ -17,6 +17,8 @@
 		638E468225D6773A0091456C /* RatingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638E468125D6773A0091456C /* RatingsListViewController.swift */; };
 		638E468725D677450091456C /* RatingsListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638E468625D677450091456C /* RatingsListViewController.storyboard */; };
 		638E468C25D67E5C0091456C /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638E468B25D67E5C0091456C /* RatingTableViewCell.swift */; };
+		6391C489260C779800EEE0D0 /* YogaHeaderCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6391C487260C779800EEE0D0 /* YogaHeaderCVCell.swift */; };
+		6391C48A260C779800EEE0D0 /* YogaHeaderCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6391C488260C779800EEE0D0 /* YogaHeaderCVCell.xib */; };
 		639629A925D4FF58002CF23A /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639629A825D4FF58002CF23A /* FeedbackViewController.swift */; };
 		639629AE25D4FF72002CF23A /* FeedbackVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639629AD25D4FF72002CF23A /* FeedbackVC.storyboard */; };
 		639ED94625C1517C00526347 /* RefundVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639ED94525C1517C00526347 /* RefundVC.storyboard */; };
@@ -376,6 +378,8 @@
 		638E468125D6773A0091456C /* RatingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsListViewController.swift; sourceTree = "<group>"; };
 		638E468625D677450091456C /* RatingsListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RatingsListViewController.storyboard; sourceTree = "<group>"; };
 		638E468B25D67E5C0091456C /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
+		6391C487260C779800EEE0D0 /* YogaHeaderCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YogaHeaderCVCell.swift; sourceTree = "<group>"; };
+		6391C488260C779800EEE0D0 /* YogaHeaderCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YogaHeaderCVCell.xib; sourceTree = "<group>"; };
 		639629A825D4FF58002CF23A /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		639629AD25D4FF72002CF23A /* FeedbackVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedbackVC.storyboard; sourceTree = "<group>"; };
 		639ED94525C1517C00526347 /* RefundVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefundVC.storyboard; sourceTree = "<group>"; };
@@ -1212,6 +1216,8 @@
 				638E468125D6773A0091456C /* RatingsListViewController.swift */,
 				638E468625D677450091456C /* RatingsListViewController.storyboard */,
 				638E468B25D67E5C0091456C /* RatingTableViewCell.swift */,
+				6391C487260C779800EEE0D0 /* YogaHeaderCVCell.swift */,
+				6391C488260C779800EEE0D0 /* YogaHeaderCVCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1512,6 +1518,7 @@
 				6F7EBC632450A1D100453649 /* lato_light.ttf in Resources */,
 				6F2C08EC24F8F442005CC0D7 /* CallScheduleTableViewCell.xib in Resources */,
 				639629AE25D4FF72002CF23A /* FeedbackVC.storyboard in Resources */,
+				6391C48A260C779800EEE0D0 /* YogaHeaderCVCell.xib in Resources */,
 				6F224DA324875620005B9F1C /* CommentsVC.storyboard in Resources */,
 				6F20D8C824F3B53A008ED3B7 /* ProgressCollectionViewCell.xib in Resources */,
 				6F93683C24631747007656D2 /* HabitChoiceVC.storyboard in Resources */,
@@ -1804,6 +1811,7 @@
 				6FB1166624B87122006C77CD /* AddressPopVC.swift in Sources */,
 				6F434EEB2456D2220054642B /* GetCalenderAPI.swift in Sources */,
 				6F3D7FA3246022EE0065170D /* DatePickerViewController.swift in Sources */,
+				6391C489260C779800EEE0D0 /* YogaHeaderCVCell.swift in Sources */,
 				6F5EF8D725777CF400B3C3EA /* NotificationsAPI.swift in Sources */,
 				6F7AD602254AB218000EE822 /* ProgramDetailsViewController.swift in Sources */,
 				6F434F39245A9B080054642B /* CardStyleTableViewCell.swift in Sources */,
