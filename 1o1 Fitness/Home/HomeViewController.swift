@@ -388,11 +388,16 @@ class HomeViewController: UIViewController {
                     }
                     self?.getTraineeDetails(authenticatedHeaders: authenticatedHeaders)
                 }else  {
-                   // if ProgramDetails.programDetails.programId.count == 0 {
-                        let indexPath = IndexPath(item: 1, section: 0)
-                        self?.headerCollectionView.reloadItems(at: [indexPath])
-                        //CollectionView.reloadItems(at: IndexPath])
-                   // }
+                    switch FitnessProgramSelection.fitnessType.programType {
+                    case .fitness:
+                    let indexPath = IndexPath(item: 1, section: 0)
+                    self?.headerCollectionView.reloadItems(at: [indexPath])
+                    case .yoga,.zumba :
+                    let indexPath = IndexPath(item: 2, section: 0)
+                    self?.headerCollectionView.reloadItems(at: [indexPath])
+                    }
+                    //let indexPath = IndexPath(item: 1, section: 0)
+                    
                 }
             }
         } errorHandler: { [weak self] error in
@@ -411,8 +416,16 @@ class HomeViewController: UIViewController {
                 }else {
                   //  if ProgramDetails.programDetails.programId.count == 0 {
                     DispatchQueue.main.async {
+                        switch FitnessProgramSelection.fitnessType.programType {
+                        case .fitness:
                         let indexPath = IndexPath(item: 1, section: 0)
                         self?.headerCollectionView.reloadItems(at: [indexPath])
+                        case .yoga,.zumba :
+                        let indexPath = IndexPath(item: 2, section: 0)
+                        self?.headerCollectionView.reloadItems(at: [indexPath])
+                        }
+                        //let indexPath = IndexPath(item: 1, section: 0)
+                        
                     }
                         //CollectionView.reloadItems(at: IndexPath])
                   //  }
@@ -528,9 +541,18 @@ class HomeViewController: UIViewController {
                 self?.profileBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 self?.profileBtn.imageView?.layer.cornerRadius = 0
             }
-                let indexPath = IndexPath(item: 1, section: 0)
+                //let indexPath = IndexPath(item: 1, section: 0)
             DispatchQueue.main.async {
+                switch FitnessProgramSelection.fitnessType.programType {
+                case .fitness:
+                let indexPath = IndexPath(item: 1, section: 0)
                 self?.headerCollectionView.reloadItems(at: [indexPath])
+                case .yoga,.zumba :
+                let indexPath = IndexPath(item: 2, section: 0)
+                self?.headerCollectionView.reloadItems(at: [indexPath])
+                }
+                //let indexPath = IndexPath(item: 1, section: 0)
+                
             }
             self?.weightLbl.attributedText = myMutableString
             if  TraineeInfo.details.notificationCount > 0 {
