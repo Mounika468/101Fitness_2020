@@ -86,7 +86,11 @@
                     <state key="normal" image="canGo"/>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiY-tv-wcD">
-                    <rect key="frame" x="396" y="12" width="32" height="30"/>
+                    <rect key="frame" x="396" y="12" width="16" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Vez-Jg-pyj"/>
+                        <constraint firstAttribute="width" constant="16" id="t4D-TT-sTL"/>
+                    </constraints>
                     <state key="normal" backgroundImage="share"/>
                 </button>
             </subviews>
@@ -116,9 +120,11 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="poA-VD-ed9"/>
+                    <exclude reference="2x4-ZQ-JdV"/>
+                    <exclude reference="r2e-Ij-aML"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="224.80000000000001" y="-55.772113943028494"/>
+            <point key="canvasLocation" x="473" y="-79"/>
         </view>
     </objects>
     <resources>
@@ -126,6 +132,6 @@
         <image name="canBack" width="32" height="32"/>
         <image name="canGo" width="32" height="32"/>
         <image name="newAdd" width="24" height="24"/>
-        <image name="share" width="31" height="29"/>
+        <image name="share" width="18" height="22"/>
     </resources>
 </document>
