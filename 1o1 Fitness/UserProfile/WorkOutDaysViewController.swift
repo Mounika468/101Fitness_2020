@@ -41,8 +41,8 @@ class WorkOutDaysViewController: UIViewController {
     var eselectedTime: String = ""
     var selectedDayNames : Array = [String] ()
     var navigationType: NavigationType = .profileNormal
-    let morningTimingsArray = ["5am - 7am","7am  - 9am","9am - 11am"]
-    let evenTimingsArray = ["5pm - 7pm","7pm  - 9pm","9pm - 11pm"]
+    let morningTimingsArray = ["Morning","5am - 7am","7am  - 9am","9am - 11am"]
+    let evenTimingsArray = ["Evening","5pm - 7pm","7pm  - 9pm","9pm - 11pm"]
     let durationsArray = ["less than 30 mins","30 mins","45 mins","60 mins","75 min", "90 mins","more than 90 mins"]
      var selectedTimeIndex: Int = 0
     override func viewDidLoad() {
@@ -109,8 +109,18 @@ class WorkOutDaysViewController: UIViewController {
             for i in 0 ..< self.selectedDays.count {
                 self.selectedDayNames.append(days[self.selectedDays[i]])
             }
-            self.morningBtn.setTitle(self.mselectedTime.capitalizingFirstLetter(), for: .normal)
-            self.eveningBtn.setTitle(self.eselectedTime.capitalizingFirstLetter(), for: .normal)
+            if self.mselectedTime.count == 0 {
+                self.morningBtn.setTitle("Morning", for: .normal)
+            } else {
+                self.morningBtn.setTitle(self.mselectedTime.capitalizingFirstLetter(), for: .normal)
+            }
+            if self.eselectedTime.count == 0 {
+                self.eveningBtn.setTitle("Evening", for: .normal)
+            } else {
+                self.eveningBtn.setTitle(self.eselectedTime.capitalizingFirstLetter(), for: .normal)
+            }
+           
+           
             self.durationBtn.setTitle(self.selectedTime.capitalizingFirstLetter(), for: .normal)
         default:
             print(")")
@@ -163,6 +173,12 @@ class WorkOutDaysViewController: UIViewController {
         }
     }
     @IBAction func backBtnTapped(_ sender: Any) {
+        if mselectedTime == "Morning" {
+            mselectedTime = ""
+        }
+        if eselectedTime == "Evening" {
+            eselectedTime = ""
+        }
         if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0) {
         let unique = Array(Set(self.selectedDayNames))
             TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.durationBtn.titleLabel?.text ?? "","bestMorningWorkoutTime":self.morningBtn.titleLabel?.text ?? "","bestEveningWorkoutTime":self.eveningBtn.titleLabel?.text ?? ""]
@@ -424,7 +440,13 @@ extension WorkOutDaysViewController : BottomViewDelegate {
         
     }
     func rightBtnTapped() {
-        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0) {
+        if mselectedTime == "Morning" {
+            mselectedTime = ""
+        }
+        if eselectedTime == "Evening" {
+            eselectedTime = ""
+        }
+        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0)  {
 //            for dayName in self.selectedDayNames {
 //                let dict = ["day":dayName,"spentTime":self.selectedTime]
 //                TraineeInfo.details.days.append(dict)

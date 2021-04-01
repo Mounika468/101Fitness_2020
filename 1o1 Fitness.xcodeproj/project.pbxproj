@@ -2160,11 +2160,10 @@
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "1o1 Fitness/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2189,10 +2188,9 @@
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "1o1 Fitness/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

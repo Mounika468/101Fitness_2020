@@ -51,7 +51,7 @@
                                             <constraint firstAttribute="height" constant="30" id="WWa-mX-qze"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Lato-Heavy" family="Lato" pointSize="15"/>
-                                        <color key="textColor" red="0.59215686270000001" green="1" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -90,7 +90,7 @@
                                             <constraint firstAttribute="height" constant="30" id="bix-4d-bOA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Lato-Heavy" family="Lato" pointSize="15"/>
-                                        <color key="textColor" red="0.59215686270000001" green="1" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

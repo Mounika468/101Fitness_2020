@@ -46,6 +46,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var lsView: UIView!
     @IBOutlet weak var fnView: UIView!
     @IBOutlet weak var fNameTxtField: UITextField!
+    var isTermsAgreed : Bool = false
     
     var isLoading : Bool = false
     override func viewDidLoad() {
@@ -386,6 +387,11 @@ class SignUpViewController: UIViewController {
              self.pwImg.isHidden = false
             return
         }
+        if !self.isTermsAgreed {
+            self.presentAlertWithTitle(title: "", message: "Please accept terms and conditions", options: "OK"){_ in
+            }
+            return
+        }
         TraineeInfo.details.first_name = fsTxtField.text!
         TraineeInfo.details.username = userNameTxtField.text!
         TraineeInfo.details.email = emailTxtField.text!
@@ -429,10 +435,12 @@ class SignUpViewController: UIViewController {
     
     @IBAction func checkBtnTapped(_ sender: Any) {
         if self.checkBtn.isSelected {
+            self.isTermsAgreed = false
             self.checkBtn.isSelected = false
             self.checkBtn.setImage(UIImage(named: "ucheck"), for: .normal)
             // self.alcoholChoice = ""
         }else {
+            self.isTermsAgreed = true
             self.checkBtn.isSelected = true
             self.checkBtn.setImage(UIImage(named: "scheck"), for: .normal)
         }

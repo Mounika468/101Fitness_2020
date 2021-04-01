@@ -31,6 +31,7 @@ class NotificationsViewController: UIViewController {
         if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
             if  savedValue == UserDefaultsKeys.guestLogin {
                 self.nodataLbl.isHidden = false
+                self.nodataLbl.text = "No data available"
                 let storyboard = UIStoryboard(name: "CustomAlertVC", bundle: nil)
                 let alertVC = storyboard.instantiateViewController(withIdentifier: "CAVC") as! CustomAlertViewController
                // alertVC.customAlertDelegate = self
@@ -70,6 +71,7 @@ class NotificationsViewController: UIViewController {
                     self?.notificationsArr = notifications
                     self?.reloadPrograms()
                 }else {
+                    self?.nodataLbl.text = messageString
                     self?.notificationsArr = nil
                     self?.reloadPrograms()
                     self?.nodataLbl.isHidden = false
@@ -83,7 +85,7 @@ class NotificationsViewController: UIViewController {
                 self.presentAlertWithTitle(title: "Error", message:"\(error.localizedDescription)", options: "OK") {[weak self] (_) in
                     self?.notificationsArr = nil
                     self?.reloadPrograms()
-                    self?.nodataLbl.isHidden = true
+                    self?.nodataLbl.isHidden = false
             }
             }
         }

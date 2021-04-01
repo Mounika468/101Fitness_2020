@@ -32,8 +32,8 @@
                     <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TA8-dR-78G">
                         <rect key="frame" x="0.0" y="189" width="262" height="30"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quh-0t-NOp">
-                                <rect key="frame" x="0.0" y="6" width="238" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quh-0t-NOp">
+                                <rect key="frame" x="5" y="6" width="233" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="8Ry-AZ-dsf"/>
@@ -57,7 +57,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Quh-0t-NOp" firstAttribute="leading" secondItem="TA8-dR-78G" secondAttribute="leading" id="1sq-Q7-Qp9"/>
+                            <constraint firstItem="Quh-0t-NOp" firstAttribute="leading" secondItem="TA8-dR-78G" secondAttribute="leading" constant="5" id="1sq-Q7-Qp9"/>
                             <constraint firstAttribute="height" constant="30" id="4sR-d7-1nG"/>
                             <constraint firstAttribute="bottom" secondItem="Quh-0t-NOp" secondAttribute="bottom" constant="4" id="BZt-N9-9de"/>
                             <constraint firstItem="hz6-nr-3T4" firstAttribute="leading" secondItem="Quh-0t-NOp" secondAttribute="trailing" id="JHz-0m-Uwa"/>

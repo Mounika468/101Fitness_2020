@@ -25,8 +25,14 @@ final class NotificationsAPI: API
                                     let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any,
                                                                               options: .prettyPrinted)
                                     let notifications = try JSONDecoder().decode([Notifications].self, from: jsonData)
+                                    if let jsonMessage = json[ResponseKeys.message.rawValue] {
+                                        messageString = (jsonMessage as? String)!
+                                    }
                                     successHandler(notifications)
                                 }else {
+                                    if let jsonMessage = json[ResponseKeys.message.rawValue] {
+                                        messageString = (jsonMessage as? String)!
+                                    }
                                    successHandler(nil)
                                 }
                                 

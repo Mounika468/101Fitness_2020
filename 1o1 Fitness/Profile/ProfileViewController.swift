@@ -653,7 +653,7 @@ class ProfileViewController: UIViewController {
                    self.habbitsTxtField.text = medicalHistory.any_addictions_or_habits
                    self.medicalTxtField.text = medicalHistory.any_medical_surgerie_issues
             self.habbitsTxtField.text = medicalHistory.any_addictions_or_habits
-            if self.habbitsTxtField.text == "no" {
+            if self.habbitsTxtField.text == "no" || self.habbitsTxtField.text == "" {
                 habbitsTxtField.text = "List any other addictions or habbits"
                 habbitsTxtField.textColor = UIColor.lightGray
             }

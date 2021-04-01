@@ -106,8 +106,13 @@ class HomeViewController: UIViewController {
             if  savedValue == UserDefaultsKeys.guestLogin  {
                 // return
                 self.weightLbl.isHidden = true
+                
             }else {
-                self.weightLbl.isHidden = false
+                if TraineeInfo.details.profile_submission == false {
+                    self.weightLbl.isHidden = true
+                }else {
+                    self.weightLbl.isHidden = false
+                }
             }
         }
         if self.searchBar.isFirstResponder {
@@ -203,7 +208,10 @@ class HomeViewController: UIViewController {
             "latitude" :lat,
             "longitude" : long
         ]
-        
+//        let location: [String: String] = [
+//            "latitude" :"17.3850",
+//            "longitude" : "78.4867"
+//        ]
         let window = UIApplication.shared.windows.first!
         DispatchQueue.main.async {
             LoadingOverlay.shared.showOverlay(view: window)
