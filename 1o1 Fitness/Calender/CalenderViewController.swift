@@ -67,6 +67,7 @@ class CalenderViewController: UIViewController {
     var isTimeUpdateCall : Bool = false
     var callScheduleData : SlotsData?
     var programDaysColour : CalendarDayColours?
+    var subscription_id : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bgView.backgroundColor = AppColours.popBgColour
@@ -857,7 +858,7 @@ class CalenderViewController: UIViewController {
             self?.workOutView.workOutsArr = dayWorks
             self?.workOutView.slectedDate = self?.slectedDate ?? Date()
             DispatchQueue.main.async {
-                
+                self?.subscription_id = dayWorks.subscription_id ?? ""
                  self?.workOutView.loadWorkOuts()
                 LoadingOverlay.shared.hideOverlayView()
                 
@@ -998,6 +999,7 @@ class CalenderViewController: UIViewController {
                 self?.dietView.diet = diet
                 DispatchQueue.main.async {
                     self?.dietView.reloadDietView()
+                    self?.subscription_id = diet?.subscription_id ?? ""
                     LoadingOverlay.shared.hideOverlayView()
                     if diet == nil && diet?.mealplan == nil {
                         var message = "No data available for the selected date"
@@ -1174,6 +1176,7 @@ extension CalenderViewController : workOutViewDelegate {
         let controller = storyboard.instantiateViewController(withIdentifier: "WOVC") as! WorkOutViewController
         controller.slectedDate = self.slectedDate ?? Date()
         controller.woExercisesArr = exercises
+        controller.subscription_id = self.subscription_id
         controller.selectedIndex = indexPath.row
        // controller.totalWOArr = self.totalWOArr
         self.navigationController?.pushViewController(controller, animated: true)
@@ -1182,6 +1185,7 @@ extension CalenderViewController : workOutViewDelegate {
         let storyboard = UIStoryboard(name: "CardioUpdateVC", bundle: nil)
         if let presentedViewController = storyboard.instantiateViewController(withIdentifier: "cardioUpdateVC") as? CardioUpdateVC {
             presentedViewController.xBarHeight = 100
+            presentedViewController.subscription_id = self.subscription_id
             presentedViewController.cardio = cardio
             presentedViewController.modalPresentationStyle = .custom
             self.present(presentedViewController, animated: true, completion: nil)
@@ -1191,6 +1195,7 @@ extension CalenderViewController : workOutViewDelegate {
         let storyboard = UIStoryboard(name: "CommentsVC", bundle: nil)
                if let presentedViewController = storyboard.instantiateViewController(withIdentifier: "commentsVC") as? CommentsViewController {
                 presentedViewController.commentType = commentType
+                presentedViewController.subscription_id = subscription_id
                    presentedViewController.commentsArr = cardio.cardioComments
                  presentedViewController.cardioStatus = cardio.cardioStatus!
                    presentedViewController.xBarHeight = 100
@@ -1203,6 +1208,7 @@ extension CalenderViewController : workOutViewDelegate {
         ProgramDetails.programDetails.workoutId = workOut.workoutId
         if let presentedViewController = storyboard.instantiateViewController(withIdentifier: "commentsVC") as? CommentsViewController {
             presentedViewController.commentType = commentType
+            presentedViewController.subscription_id = subscription_id
             ProgramDetails.programDetails.workoutId = workOut.workoutId
             presentedViewController.commentsArr = workOut.workoutComments
             presentedViewController.xBarHeight = 100
@@ -1214,7 +1220,7 @@ extension CalenderViewController : workOutViewDelegate {
     }
     func completeWOAPI() {
        
-        let woStatus = WOStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, workoutStatus: WOStatus.complete)
+        let woStatus = WOStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, workoutStatus: WOStatus.complete, subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(woStatus)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
@@ -1232,7 +1238,7 @@ extension CalenderViewController : workOutViewDelegate {
     }
     func completeCardioAPI() {
         
-        let cardioStatus = CardioStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioStatus: WOStatus.complete)
+        let cardioStatus = CardioStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioStatus: WOStatus.complete, subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(cardioStatus)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
@@ -1285,6 +1291,7 @@ extension CalenderViewController:DietSelectionDelegate {
     func addFoodSelected(dietSelected: DietSelection) {
         let storyboard = UIStoryboard(name: "FoodDetailsVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FoodSearchVC") as! FoodSearchVC
+        controller.subscription_id = self.subscription_id
         controller.xBarHeight = self.xBarHeight
         switch dietSelected {
         case .breakFast:
@@ -1325,7 +1332,7 @@ extension CalenderViewController:DietSelectionDelegate {
         default:
             mealType = "breakfast"
         }
-        let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood])
+            let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood],subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(postbody)
         
@@ -1367,7 +1374,7 @@ extension CalenderViewController:DietSelectionDelegate {
         default:
             mealType = "breakfast"
         }
-        let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood])
+            let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood], subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(postbody)
         
@@ -1447,6 +1454,7 @@ extension CalenderViewController:DietSelectionDelegate {
         let storyboard = UIStoryboard(name: "FoodDetailsVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FoodDetailsVC") as! FoodDetailsVC
         controller.xBarHeight = self.xBarHeight
+        controller.subscription_id = self.subscription_id
         controller.foodItems = foodItems
         controller.isFromSearch = false
         var mealType = "breakfast"

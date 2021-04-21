@@ -173,8 +173,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2C3-II-pjf">
-                                                <rect key="frame" x="20" y="555.5" width="374" height="334.5"/>
+                                                <rect key="frame" x="20" y="555.5" width="374" height="300"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="55U-rH-3v6"/>
+                                                </constraints>
                                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <connections>
@@ -301,6 +304,7 @@
                                             <mask key="constraints">
                                                 <exclude reference="2RI-xc-hN5"/>
                                                 <exclude reference="8ed-Ip-Smn"/>
+                                                <exclude reference="EUk-KV-dB7"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -343,6 +347,7 @@
                     <connections>
                         <outlet property="addressTblView" destination="2C3-II-pjf" id="tCo-PA-ONx"/>
                         <outlet property="contentView" destination="Nov-oy-ncE" id="Obe-he-sSr"/>
+                        <outlet property="contentViewHeightConstrain" destination="miU-iV-W18" id="Xe9-D7-pTh"/>
                         <outlet property="couponAmtLbl" destination="rhN-6W-Hg3" id="e3H-lK-d2p"/>
                         <outlet property="couponBg" destination="wDV-Wn-EPi" id="UAm-Kg-8dI"/>
                         <outlet property="couponTxtField" destination="2ii-Rc-zVK" id="3HB-X6-Hbe"/>
@@ -355,12 +360,13 @@
                         <outlet property="profileImg" destination="8Gf-vn-dP4" id="mBh-h7-m8j"/>
                         <outlet property="scrollView" destination="d05-f5-BPc" id="8vi-mC-ZEN"/>
                         <outlet property="taxAmtLbl" destination="GGV-lx-xVy" id="O32-Op-bGR"/>
+                        <outlet property="tblViewHeightConstrain" destination="55U-rH-3v6" id="F2e-XE-Wu6"/>
                         <outlet property="totalAmtLbl" destination="nhU-hE-7A6" id="tzT-XN-vud"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="563-u6-Nfs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14.492753623188406" y="10.714285714285714"/>
+            <point key="canvasLocation" x="-30.434782608695656" y="-110.49107142857143"/>
         </scene>
     </scenes>
     <resources>

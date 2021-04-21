@@ -22,6 +22,7 @@ class WorkOutViewController: UIViewController {
     var commentType: CommentsType?
      var selectedIndex: Int = 0
     var slectedDate: Date = Date()
+    var subscription_id = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -316,7 +317,7 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
         }
       //Date.getCurrentDateInFormat(format: "dd/MM/yyyy")
          let exercises = self.woExercisesArr?.workoutExercises![indexPath.row]
-        let exStatus = ExerciseStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseStatus: WOStatus.complete,exercise_referenceId: (exercises?.referenceId)!)
+        let exStatus = ExerciseStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseStatus: WOStatus.complete,exercise_referenceId: (exercises?.referenceId)!, subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(exStatus)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
@@ -347,6 +348,7 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
             presentedViewController.selectedExPath = indexPath.row
             presentedViewController.xBarHeight = self.xBarHeight
             presentedViewController.setsArr = exercises?.sets
+            presentedViewController.subscription_id = self.subscription_id
            // presentedViewController.transitioningDelegate = self
             presentedViewController.modalPresentationStyle = .fullScreen
             self.present(presentedViewController, animated: true, completion: nil)
@@ -362,6 +364,7 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
                 ProgramDetails.programDetails.exerciseRefId = exercises!.referenceId!
                 presentedViewController.commentsArr = exercises?.exerciseComments
                 presentedViewController.xBarHeight = self.xBarHeight
+                presentedViewController.subscription_id = self.subscription_id
                 presentedViewController.modalPresentationStyle = .fullScreen
                 self.present(presentedViewController, animated: true, completion: nil)
             }

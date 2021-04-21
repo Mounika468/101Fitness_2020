@@ -13,10 +13,13 @@ struct DayWorkOuts: Decodable {
     var workouts: [Workouts]?
     var cardio : Cardio?
     let rest: Bool?
+    let subscription_id: String?
     init(day: Int,
-         rest: Bool?)  {
+         rest: Bool?,
+         subscription_id: String?)  {
                 self.day = day
         self.rest = rest
+        self.subscription_id = subscription_id
     }
     
     init(from decoder: Decoder) throws {
@@ -25,6 +28,7 @@ struct DayWorkOuts: Decodable {
         self.workouts = try container.decodeIfPresent([Workouts].self, forKey: .workouts)
         self.cardio = try container.decodeIfPresent(Cardio.self, forKey: .cardio)
         self.rest = try container.decodeIfPresent(Bool.self, forKey: .rest)
+        self.subscription_id = try container.decodeIfPresent(String.self, forKey: .subscription_id)
     }
 }
 extension DayWorkOuts {
@@ -34,6 +38,7 @@ extension DayWorkOuts {
         case workouts
         case cardio
         case rest
+        case subscription_id
     }
 }
 //MARK: To parse Workouts
@@ -275,13 +280,14 @@ struct WOUpdatePostBody: Codable {
    var sets: [Sets]?
    let trainee_id: String
    let exerciseStatus: String
+    let  subscription_id : String
     init(program_id: String,
          workoutId: String,
          date:String,
          exercise_referenceId: Int,
          trainee_id: String,
          exerciseStatus: String,
-         sets: [Sets]?)  {
+         sets: [Sets]?,subscription_id : String)  {
         
         self.program_id = program_id
         self.workoutId = workoutId
@@ -290,6 +296,7 @@ struct WOUpdatePostBody: Codable {
         self.trainee_id = trainee_id
         self.exerciseStatus = exerciseStatus
         self.sets = sets
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -300,6 +307,7 @@ struct WOUpdatePostBody: Codable {
         self.sets = try container.decode([Sets].self, forKey: .sets)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
          self.exerciseStatus = try container.decode(String.self, forKey: .exerciseStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
     }
 }
 struct CardioCommentsUpdatePostBody: Codable {
@@ -308,16 +316,18 @@ struct CardioCommentsUpdatePostBody: Codable {
    var cardioComment: PostComments?
    let trainee_id: String
     let cardioStatus: String
+    let  subscription_id : String
     init(program_id: String,
          date:String,
          trainee_id: String,
          cardioComment: PostComments?,
-         cardioStatus: String)  {
+         cardioStatus: String,subscription_id : String)  {
         self.program_id = program_id
         self.date = date
         self.trainee_id = trainee_id
         self.cardioComment = cardioComment
          self.cardioStatus = cardioStatus
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -326,6 +336,7 @@ struct CardioCommentsUpdatePostBody: Codable {
         self.cardioComment = try container.decode(PostComments.self, forKey: .cardioComment)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
          self.cardioStatus = try container.decode(String.self, forKey: .cardioStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
     }
 }
 struct ExercisesCommentsUpdatePostBody: Codable {
@@ -336,13 +347,14 @@ struct ExercisesCommentsUpdatePostBody: Codable {
    var exerciseComment: PostComments?
    let trainee_id: String
     let exerciseStatus: String
+    let  subscription_id : String
     init(program_id: String,
          workoutId: String,
          date:String,
          trainee_id: String,
          exerciseComment: PostComments?,
          exercise_referenceId: Int,
-           exerciseStatus: String)  {
+           exerciseStatus: String,subscription_id : String)  {
         self.program_id = program_id
         self.workoutId = workoutId
         self.date = date
@@ -350,6 +362,7 @@ struct ExercisesCommentsUpdatePostBody: Codable {
         self.exerciseComment = exerciseComment
         self.exercise_referenceId = exercise_referenceId
         self.exerciseStatus = exerciseStatus
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -360,6 +373,7 @@ struct ExercisesCommentsUpdatePostBody: Codable {
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
         self.exercise_referenceId = try container.decode(Int.self, forKey: .exercise_referenceId)
         self.exerciseStatus = try container.decode(String.self, forKey: .exerciseStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
     }
 }
 struct WOCommentsUpdatePostBody: Codable {
@@ -369,18 +383,20 @@ struct WOCommentsUpdatePostBody: Codable {
    var workoutComment: PostComments?
    let trainee_id: String
      let workoutStatus: String
+    let  subscription_id : String
     init(program_id: String,
          workoutId: String,
          date:String,
          trainee_id: String,
          workoutComment: PostComments?,
-          workoutStatus: String)  {
+          workoutStatus: String,subscription_id : String)  {
         self.program_id = program_id
         self.workoutId = workoutId
         self.date = date
         self.trainee_id = trainee_id
         self.workoutComment = workoutComment
          self.workoutStatus = workoutStatus
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -390,6 +406,7 @@ struct WOCommentsUpdatePostBody: Codable {
         self.workoutComment = try container.decode(PostComments.self, forKey: .workoutComment)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
          self.workoutStatus = try container.decode(String.self, forKey: .workoutStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
     }
 }
 struct WOStatusUpdatePostBody: Codable {
@@ -398,16 +415,19 @@ struct WOStatusUpdatePostBody: Codable {
     let date: String
    let workoutStatus: String
    let trainee_id: String
+    let  subscription_id : String
     init(program_id: String,
          workoutId: String,
          date:String,
          trainee_id: String,
-         workoutStatus: String)  {
+         workoutStatus: String,
+         subscription_id : String)  {
         self.program_id = program_id
         self.workoutId = workoutId
         self.date = date
         self.trainee_id = trainee_id
         self.workoutStatus = workoutStatus
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -415,6 +435,7 @@ struct WOStatusUpdatePostBody: Codable {
          self.workoutId = try container.decode(String.self, forKey: .workoutId)
         self.date = try container.decode(String.self, forKey: .date)
         self.workoutStatus = try container.decode(String.self, forKey: .workoutStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
     }
 }
@@ -423,20 +444,24 @@ struct CardioStatusUpdatePostBody: Codable {
     let date: String
    let cardioStatus: String
    let trainee_id: String
+    let  subscription_id : String
     init(program_id: String,
          date:String,
          trainee_id: String,
-         cardioStatus: String)  {
+         cardioStatus: String,
+         subscription_id : String)  {
         self.program_id = program_id
         self.date = date
         self.trainee_id = trainee_id
         self.cardioStatus = cardioStatus
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.program_id = try container.decode(String.self, forKey: .program_id)
         self.date = try container.decode(String.self, forKey: .date)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
         self.cardioStatus = try container.decode(String.self, forKey: .cardioStatus)
     }
 }
@@ -447,18 +472,20 @@ struct ExerciseStatusUpdatePostBody: Codable {
    let exerciseStatus: String
    let trainee_id: String
      let exercise_referenceId: Int
+    let  subscription_id : String
     init(program_id: String,
          workoutId: String,
          date:String,
          trainee_id: String,
          exerciseStatus: String,
-         exercise_referenceId: Int)  {
+         exercise_referenceId: Int,subscription_id : String)  {
         self.program_id = program_id
         self.workoutId = workoutId
         self.date = date
         self.trainee_id = trainee_id
         self.exerciseStatus = exerciseStatus
         self.exercise_referenceId = exercise_referenceId
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -467,6 +494,7 @@ struct ExerciseStatusUpdatePostBody: Codable {
         self.date = try container.decode(String.self, forKey: .date)
         self.exerciseStatus = try container.decode(String.self, forKey: .exerciseStatus)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
          self.exercise_referenceId = try container.decode(Int.self, forKey: .exercise_referenceId)
     }
 }
@@ -477,16 +505,18 @@ struct CardioUpdatePostBoday: Codable {
    let trainee_id: String
     var cardioDistanceSet: DisplayVal?
     let cardioStatus: String
+    let  subscription_id : String
     init(program_id: String,
          date:String,
          trainee_id: String,
          cardioDistanceSet: DisplayVal?,
-         cardioStatus:String)  {
+         cardioStatus:String,subscription_id : String)  {
         self.program_id = program_id
         self.date = date
         self.trainee_id = trainee_id
         self.cardioDistanceSet = cardioDistanceSet
          self.cardioStatus = cardioStatus
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -495,5 +525,6 @@ struct CardioUpdatePostBoday: Codable {
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
         self.cardioDistanceSet = try container.decode(DisplayVal.self, forKey: .cardioDistanceSet)
          self.cardioStatus = try container.decode(String.self, forKey: .cardioStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
     }
 }

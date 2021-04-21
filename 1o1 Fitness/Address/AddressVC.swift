@@ -290,9 +290,23 @@ class AddressVC: UIViewController, UITextFieldDelegate {
     }
     if textField.keyboardType == .numberPad {
         // Check for invalid input characters
-        if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
-            return false
-        }
+        let allowedCharacters = CharacterSet(charactersIn:"0123456789").inverted
+            let components = string.components(separatedBy: allowedCharacters)
+            let filtered = components.joined(separator: "")
+            
+            if string == filtered {
+                
+               let maxLength = 10
+                let currentString: NSString = textField.text! as NSString
+                let newString: NSString =
+                    currentString.replacingCharacters(in: range, with: string) as NSString
+               
+                return newString.length <= maxLength
+
+            } else {
+                
+                return false
+            }
     }
     if textField == nametxtField {
             let allowedCharacters = CharacterSet(charactersIn:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ").inverted

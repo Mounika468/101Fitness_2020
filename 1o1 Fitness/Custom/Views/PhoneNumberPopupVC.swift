@@ -251,6 +251,42 @@ class PhoneNumberPopupVC: UIViewController {
         }
     }
     @IBAction func resendBtnTapped(_ sender: Any) {
+        if self.phoneTxtField.text?.count != 0 {
+            
+            Auth.auth().languageCode = "en"
+            let window = UIApplication.shared.windows.first!
+            DispatchQueue.main.async {
+                LoadingOverlay.shared.showOverlay(view: window)
+            }
+            //  let phoneNumber = self.phoneTxtField.text ?? ""
+            let phoneNumber = String(format: "%@%@", self.countryCode1Btn.titleLabel?.text ?? "", self.phoneTxtField.text ?? "")
+            
+            // Step 4: Request SMS
+            PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                        self.presentAlertWithTitle(title: "", message: error.localizedDescription, options: "OK") {_ in
+                        }
+                    }
+                    print(error.localizedDescription)
+                    return
+                }
+                
+                // Either received APNs or user has passed the reCAPTCHA
+                // Step 5: Verification ID is saved for later use for verifying OTP with phone number
+                self.currentVerificationId = verificationID!
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                    self.presentAlertWithTitle(title: "", message: "Please enter verification code sent to phone number", options: "OK") {_ in
+                    }
+                }
+            }
+        }else {
+            self.presentAlertWithTitle(title: "", message: "Please enter phone number", options: "OK") { (_) in
+                
+            }
+        }
     }
     
     @IBAction func verifyBtnTapped(_ sender: Any) {

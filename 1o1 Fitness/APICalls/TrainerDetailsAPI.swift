@@ -15,7 +15,7 @@ final class TrainerDetailsAPI: API
                      errorHandler: @escaping (APIError) -> Void) {
         
         
-        let urlString =  getTrainerProfile + trainerId + "?details=partial"
+        let urlString =  String(format: "%@%@/%@?details=full", getTrainerProfile,"Fitness",trainerId)
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 
         sendAPIRequest(request,

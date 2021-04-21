@@ -34,6 +34,7 @@ class FoodScanViewController: UIViewController {
     @IBOutlet weak var servingSizeTxt: UITextField!
     @IBOutlet weak var brandNameTxt: UITextField!
     var selectedFoodDetails : NutritionixFoodData?
+    var subscription_id = ""
     var mealType : String = ""
     var selectedUPC = ""
     var navigationView = NavigationView()
@@ -175,7 +176,7 @@ class FoodScanViewController: UIViewController {
                         ]
                     }
                     
-                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem)
+                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem, subscription_id: subscription_id)
 
                     let jsonEncoder = JSONEncoder()
                     let jsonData = try! jsonEncoder.encode(postbody)

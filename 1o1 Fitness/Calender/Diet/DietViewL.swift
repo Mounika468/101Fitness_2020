@@ -120,6 +120,7 @@ class DietViewL: UIView {
          self.tbleHeightConstraint.constant = CGFloat((self.foodItemsArr?.count ?? 0) * 110 + 40)
         let height = self.foodTblView.frame.minY + self.tbleHeightConstraint.constant
         if self.dietSelection == .water {
+            self.foodTblView.isHidden = true
             self.dietviewDelegate?.setParentViewHeight(height: 650)
             let water = self.diet?.mealplan?.waterConsumed
             if water != nil {
@@ -147,10 +148,11 @@ class DietViewL: UIView {
                 self.mlLbl.isHidden = true
             }
         }else {
+            self.foodTblView.isHidden = false
              self.dietviewDelegate?.setParentViewHeight(height: height)
         }
       //  self.addFoodBtn.isHidden = false
-        self.foodTblView.isHidden = false
+       
         if self.foodItemsArr == nil || self.foodItemsArr?.count == 0 {
            //  self.addFoodBtn.isHidden = true
             self.foodTblView.isHidden = true
@@ -562,7 +564,7 @@ class DietViewL: UIView {
     func updateWater(qty:Int) {
         let waterConsumedM = WaterConsumedPost(consumed: qty, metric: "ml")
        // let postBody = WaterUpdatePostBoday(date: <#T##String#>, trainee_id: <#T##String#>)
-        var postbody = WaterUpdatePostBoday( date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!)
+        var postbody = WaterUpdatePostBoday( date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, subscription_id: self.diet?.subscription_id ?? "")
         postbody.waterConsumed = waterConsumedM
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(postbody)

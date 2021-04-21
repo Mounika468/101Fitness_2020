@@ -30,6 +30,7 @@ class CommentsViewController: UIViewController {
     var exerciseStatus: String = ""
     var cardioStatus: String = ""
      var workOutStatus: String = ""
+    var subscription_id = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -116,7 +117,7 @@ class CommentsViewController: UIViewController {
               if self.commentType! == .workoutMsg {
                   status = exerciseStatus
               }
-        let woComments = WOCommentsUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, workoutComment: postComment,workoutStatus: status)
+        let woComments = WOCommentsUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, workoutComment: postComment,workoutStatus: status, subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(woComments)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
@@ -151,7 +152,7 @@ class CommentsViewController: UIViewController {
             status = exerciseStatus
         }
        
-        let exComments = ExercisesCommentsUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseComment: postComment, exercise_referenceId: ProgramDetails.programDetails.exerciseRefId,exerciseStatus: status)
+        let exComments = ExercisesCommentsUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseComment: postComment, exercise_referenceId: ProgramDetails.programDetails.exerciseRefId,exerciseStatus: status, subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(exComments)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
@@ -184,7 +185,7 @@ class CommentsViewController: UIViewController {
                     if self.commentType! == .cardioMsg {
                         status = cardioStatus
                     }
-        let woComments = CardioCommentsUpdatePostBody(program_id:  ProgramDetails.programDetails.programId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioComment: postComment,cardioStatus: status)
+        let woComments = CardioCommentsUpdatePostBody(program_id:  ProgramDetails.programDetails.programId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioComment: postComment,cardioStatus: status, subscription_id: self.subscription_id)
           let jsonEncoder = JSONEncoder()
           let jsonData = try! jsonEncoder.encode(woComments)
           WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:

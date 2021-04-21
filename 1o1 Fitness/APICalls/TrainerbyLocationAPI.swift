@@ -68,7 +68,7 @@ final class TrainerbyLocationAPI: API
         let traineeId = UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) ?? ""
         let longitude = parameters["longitude"] as! String
         let latitude = parameters["latitude"] as! String
-        let postBody : [String: Any] = ["longitude": longitude,"latitude":latitude,"details": details,"trainee_id": traineeId,"pagesize": 12,"pagenumber": pageNumber, "registration_token":fcmtoken,"trainee_timezone":timeZone]
+        let postBody : [String: Any] = ["longitude": longitude,"latitude":latitude,"details": details,"trainee_id": traineeId,"pagesize": 12,"pagenumber": pageNumber, "registration_token":fcmtoken,"trainee_timezone":timeZone,"category":"Fitness"]
 
         let urlString = getTrainerByLocation
         guard let url = URL(string: urlString) else {return}
@@ -129,7 +129,7 @@ final class GetTrainersAPI: API
     static func post(parameters: Dictionary<String, Any>,pageNumber:Int,header:[String: String],
                      successHandler: @escaping ([TrainerInfo]) -> Void,
                      errorHandler: @escaping (APIError) -> Void) {
-        let urlString =  String(format:"%@?pagenumber=%d&pagesize=16",getAllTrainers,pageNumber)
+        let urlString =  String(format:"%@?pagenumber=%d&pagesize=16&category=",getAllTrainers,pageNumber,"Fitness")
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
         sendAPIRequest(request,
                        successHandler: { (json: JSON) in

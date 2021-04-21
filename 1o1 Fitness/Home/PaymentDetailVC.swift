@@ -31,6 +31,8 @@ class PaymentDetailVC: UIViewController {
             self.makePaymentBtn.backgroundColor = AppColours.topBarGreen
         }
     }
+    @IBOutlet weak var tblViewHeightConstrain: NSLayoutConstraint!
+    @IBOutlet weak var contentViewHeightConstrain: NSLayoutConstraint!
     @IBOutlet weak var couponBg: UIView!
     @IBOutlet weak var couponTxtField: UITextField!
     var navigationView : NavigationView?
@@ -109,6 +111,7 @@ class PaymentDetailVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
            self.addressArra = self.paymentInfo?.address
            self.addressTblView.reloadData()
+        self.setParentViewHeight()
        }
     @objc func backBtnTapped(sender : UIButton){
         self.navigationController?.popViewController(animated: true)
@@ -122,7 +125,14 @@ class PaymentDetailVC: UIViewController {
             self.generateOrderDetails()
         }
     }
-   
+    func setParentViewHeight() {
+         DispatchQueue.main.async {
+            let tblHeight =  CGFloat((self.addressArra?.count ?? 0 ) * 140)
+            self.tblViewHeightConstrain.constant = tblHeight
+            self.contentViewHeightConstrain.constant = 600 + tblHeight
+            
+        }
+    }
     func generateOrderDetails() {
         let window = UIApplication.shared.windows.first!
            DispatchQueue.main.async {
@@ -307,8 +317,11 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.cityLbl.text = address.state
     cell.phonrLbl.text = address.country
     cell.streetLbl.text = address.city
-    if address.address_type?.count != 0 {
+    if address.address_type?.count != 0 && address.address_type ?? "" != "" {
+        cell.addressTypeLbl.isHidden = false
         cell.addressTypeLbl.text = address.address_type
+    }else {
+        cell.addressTypeLbl.isHidden = true
     }
      
     if (self.selectedIndex != nil && indexPath.row == self.selectedIndex!)  {
@@ -340,6 +353,7 @@ func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) 
          let address = self.addressArra![index]
         self.selectedAddressId = address.id!
         self.addressTblView.reloadData()
+        self.setParentViewHeight()
 //        let cell = self.addressTblView.cellForRow(at: indexpath as IndexPath) as? AddressTableViewCell
 //        cell?.btnCheck.setImage(UIImage(named: "scheck"), for: .normal)
     }

@@ -15,7 +15,7 @@ final class TrainerVideosAPI: API
                      errorHandler: @escaping (APIError) -> Void) {
         
         
-        let urlString =  getTrainerProfile + trainerId + "/exercises/public"
+        let urlString =  String(format: "%@%@/%@/exercises/public", getTrainerProfile,"Fitness",trainerId)
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 
         sendAPIRequest(request,

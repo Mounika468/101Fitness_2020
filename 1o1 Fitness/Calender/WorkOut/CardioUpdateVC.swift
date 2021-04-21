@@ -14,6 +14,7 @@ var xBarHeight :CGFloat  = 0.0
     var navigationView = NavigationView()
     @IBOutlet weak var recomLbl: UILabel!
     var cardio: Cardio?
+    var subscription_id = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,7 +53,7 @@ var xBarHeight :CGFloat  = 0.0
       let programId = UserDefaults.standard.string(forKey:  ProgramDetails.programDetails.subId)
          // let programId = UserDefaults.standard.string(forKey: UserDefaultsKeys.programId)
         let display = DisplayVal(actual: cardio?.distance?.actual ?? 0, completed: Int(compTxtField.text!))
-        let cardioVal = CardioUpdatePostBoday(program_id: programId!, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioDistanceSet: display,cardioStatus: WOStatus.inProgress)
+        let cardioVal = CardioUpdatePostBoday(program_id: programId!, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioDistanceSet: display,cardioStatus: WOStatus.inProgress, subscription_id: self.subscription_id)
     
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(cardioVal)

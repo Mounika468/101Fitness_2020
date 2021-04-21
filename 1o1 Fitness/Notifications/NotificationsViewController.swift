@@ -65,7 +65,7 @@ class NotificationsViewController: UIViewController {
                                         }
         NotificationsAPI.getNotifications(header:authenticatedHeaders){[weak self] (notifications) in
             DispatchQueue.main.async {
-                LoadingOverlay.shared.hideOverlayView()
+               
                 if notifications?.count ?? 0 > 0 {
                     self?.nodataLbl.isHidden = true
                     self?.notificationsArr = notifications

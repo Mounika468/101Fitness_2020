@@ -63,13 +63,13 @@ final class GetCalenderByDateAPI: API
                                 }else {
                                     if let jsonMessage = json[ResponseKeys.message.rawValue] {
                                         messageString = (jsonMessage as? String)!
-                                        successHandler(DayWorkOuts(day: 0, rest: false))
+                                        successHandler(DayWorkOuts(day: 0, rest: false, subscription_id: nil))
                                     }
                                 }
                                 
                             } else {
                                 
-                                successHandler(DayWorkOuts(day: 0, rest: false))
+                                successHandler(DayWorkOuts(day: 0, rest: false, subscription_id: nil))
                             }
                         } catch let error {
                             errorHandler(APIError.invalidResponse(ErrorMessage("error.parsing")))

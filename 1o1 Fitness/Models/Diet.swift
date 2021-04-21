@@ -22,11 +22,12 @@ struct Diet: Decodable {
     let program_id: String?
     let trainee_id: String
     var mealplan: Mealplan?
-    
-    init(day: Int?,program_id: String?, trainee_id: String)  {
+    let subscription_id: String?
+    init(day: Int?,program_id: String?, trainee_id: String,subscription_id: String?)  {
                 self.day = day
          self.program_id = program_id
          self.trainee_id = trainee_id
+        self.subscription_id = subscription_id
     }
     
     init(from decoder: Decoder) throws {
@@ -35,6 +36,7 @@ struct Diet: Decodable {
         self.mealplan = try container.decodeIfPresent(Mealplan.self, forKey: .mealplan)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
          self.program_id = try container.decodeIfPresent(String.self, forKey: .program_id)
+        self.subscription_id = try container.decodeIfPresent(String.self, forKey: .subscription_id)
     }
 }
 extension Diet {
@@ -44,6 +46,7 @@ extension Diet {
         case program_id
         case trainee_id
          case mealplan
+        case subscription_id
     }
 }
 //MARK: To parse Workouts
@@ -812,18 +815,21 @@ struct WaterUpdatePostBoday: Codable {
     let date: String
    let trainee_id: String
     var waterConsumed: WaterConsumedPost?
+    let subscription_id: String
     init(
          date:String,
-        trainee_id: String)  {
+        trainee_id: String,subscription_id:String)  {
       
         self.date = date
         self.trainee_id = trainee_id
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
       //  self.program_id = try container.decode(String.self, forKey: .program_id)
         self.date = try container.decode(String.self, forKey: .date)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
          self.waterConsumed = try container.decode(WaterConsumedPost.self, forKey: .waterConsumed)
     }
 }
@@ -860,16 +866,19 @@ struct MealUpdatePostBoday: Codable {
    let trainee_id: String
     let mealType: String
     var consumedFoodItems: [ConsumedFoodItems]?
+    let subscription_id: String
     init(program_id: String,
          date:String,
          trainee_id: String,
          mealType: String,
-         consumedFoodItems: [ConsumedFoodItems]?)  {
+         consumedFoodItems: [ConsumedFoodItems]?,
+         subscription_id: String)  {
         self.program_id = program_id
         self.date = date
         self.trainee_id = trainee_id
         self.mealType = mealType
         self.consumedFoodItems = consumedFoodItems
+        self.subscription_id = subscription_id
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -877,6 +886,7 @@ struct MealUpdatePostBoday: Codable {
         self.date = try container.decode(String.self, forKey: .date)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
         self.mealType = try container.decode(String.self, forKey: .mealType)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
          self.consumedFoodItems = try container.decode([ConsumedFoodItems].self, forKey: .consumedFoodItems)
     }
 }
@@ -966,6 +976,7 @@ struct AddNutritionixFoodPostBody: Codable {
     let date: String
    let trainee_id: String
     let mealType: String
+    let subscription_id: String
 //   let foodStatus:String
 //    let createdBy : String
 //    let time:String
@@ -974,11 +985,13 @@ struct AddNutritionixFoodPostBody: Codable {
     init(date:String,
          trainee_id: String,
          mealType: String,
-         foodItem: NutritionixFoodData)  {
+         foodItem: NutritionixFoodData,
+         subscription_id: String)  {
         self.date = date
         self.trainee_id = trainee_id
         self.mealType = mealType
         self.foodItem = foodItem
+        self.subscription_id = subscription_id
        
         
     }
@@ -987,6 +1000,7 @@ struct AddNutritionixFoodPostBody: Codable {
         self.date = try container.decode(String.self, forKey: .date)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
         self.mealType = try container.decode(String.self, forKey: .mealType)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
          self.foodItem = try container.decode(NutritionixFoodData.self, forKey: .foodItem)
     }
 }

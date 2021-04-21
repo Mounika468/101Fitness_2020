@@ -13,7 +13,7 @@ final class TrainerSearch: API
                         successHandler: @escaping ([TrainerInfo]?) -> Void,
                         errorHandler: @escaping (APIError) -> Void) {
            
-           let urlString =  String(format: "%@%@", trainersSearch,searchText)
+           let urlString =  String(format: "%@%@/%@", trainersSearch,"Fitness",searchText)
            let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
         sendAPIRequest(request,
                        successHandler: { (json: JSON) in

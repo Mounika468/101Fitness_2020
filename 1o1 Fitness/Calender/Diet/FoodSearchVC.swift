@@ -24,6 +24,7 @@ class FoodSearchVC: UIViewController {
     var foodItemsArray : PartialNutritionixFoodData?
     var searchActive : Bool = false
      var mealType : String = ""
+    var subscription_id = ""
     var nuritionixFoodType : NutritionixFoodType = .common
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,6 +144,7 @@ class FoodSearchVC: UIViewController {
         let storyboard = UIStoryboard(name: "FoodDetailsVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FoodScanViewController") as! FoodScanViewController
         controller.isFromBarcodeScanner = false
+        controller.subscription_id = self.subscription_id
         controller.mealType = self.mealType
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -151,6 +153,7 @@ class FoodSearchVC: UIViewController {
         let storyboard = UIStoryboard(name: "FoodDetailsVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FoodScanViewController") as! FoodScanViewController
         controller.mealType = self.mealType
+        controller.subscription_id = self.subscription_id
         controller.isFromBarcodeScanner = true
         self.navigationController?.pushViewController(controller, animated: false)
     }
@@ -303,6 +306,7 @@ extension FoodSearchVC: UITableViewDelegate,UITableViewDataSource {
         let storyboard = UIStoryboard(name: "FoodDetailsVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FoodDetailsVC") as! FoodDetailsVC
         controller.xBarHeight = 80
+        controller.subscription_id = self.subscription_id
         switch self.nuritionixFoodType {
         case .common:
             let foodDetails = self.foodItemsArray?.common![indexPath.row]

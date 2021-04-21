@@ -88,7 +88,7 @@ class BillingAddressVC: UIViewController {
                     TraineeDetails.traineeDetails?.trainee_address = address
                     self?.addressArra = TraineeDetails.traineeDetails?.trainee_address
                     self?.addressTblView.reloadData()
-                    let count = self?.addressArra!.count
+                    let count = self?.addressArra?.count ?? 0
                     self?.noAdressLbl.text = "\(String(describing:count )) saved Address"
                 }
             }else {
@@ -136,7 +136,12 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     
     let address = self.addressArra![indexPath.row]
     cell.nameLbl.text = address.name ?? ""
-    cell.addressTypeLbl.text = address.address_type
+    if address.address_type?.count != 0 && address.address_type ?? "" != "" {
+        cell.addressTypeLbl.isHidden = false
+        cell.addressTypeLbl.text = address.address_type
+    }else {
+        cell.addressTypeLbl.isHidden = true
+    }
     cell.btnCheck.isHidden = true
     cell.editBtn.isHidden = false
     cell.editBtn.tag = indexPath.row

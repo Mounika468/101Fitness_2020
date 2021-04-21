@@ -50,7 +50,7 @@ class FoodDetailsVC: UIViewController {
     var commonfoodItem : PartialCommonFoodData?
     var brandedfoodItem : PartialBrandedFoodData?
     var selectedFoodDetails : NutritionixFoodData?
-    
+    var subscription_id = ""
   let  dailyValueOfCarbohydrate = 300
    let dailyValueOfFat = 65
    let dailyValueOfFibre = 25
@@ -118,7 +118,7 @@ class FoodDetailsVC: UIViewController {
                     let consumedFood = ConsumedFoodItems(refId: self.foodItems?.refId ?? 0, consumedQuantity: Double(self.qtyTxtField.text ?? "") ?? 0.0, consumedTime: self.foodItems?.consumedTime ?? self.foodItems?.time ?? "", foodStatus: WOStatus.complete)
                     let mealType = self.mealType
              
-                let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood])
+                    let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood], subscription_id: subscription_id)
                 let jsonEncoder = JSONEncoder()
                 let jsonData = try! jsonEncoder.encode(postbody)
                 
@@ -159,7 +159,7 @@ class FoodDetailsVC: UIViewController {
                    
                   
                     
-                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem)
+                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem, subscription_id: subscription_id)
 
                     let jsonEncoder = JSONEncoder()
                     let jsonData = try! jsonEncoder.encode(postbody)

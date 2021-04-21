@@ -25,6 +25,7 @@ class WOUpdateViewController: UIViewController {
     var programId : String?
      var workOutId : String?
      var exerciseId : String?
+    var subscription_id = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,7 +75,7 @@ class WOUpdateViewController: UIViewController {
         if let id = UserDefaults.standard.string(forKey:ProgramDetails.programDetails.subId) {
             ProgramDetails.programDetails.programId = id
         }
-        let woPostBody = WOUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), exercise_referenceId: ProgramDetails.programDetails.exerciseRefId, trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseStatus: WOStatus.inProgress,sets: self.modifiedSets!)
+        let woPostBody = WOUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), exercise_referenceId: ProgramDetails.programDetails.exerciseRefId, trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseStatus: WOStatus.inProgress,sets: self.modifiedSets!, subscription_id: self.subscription_id)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(woPostBody)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
