@@ -261,18 +261,18 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Yss-HM-LmA">
-                                                <rect key="frame" x="107" y="607" width="200" height="21"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Yss-HM-LmA">
+                                                <rect key="frame" x="92" y="607" width="220" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="BMR =" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAn-Oh-BEg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="81" height="21"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="86" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="S9q-Bd-SPD"/>
                                                             <constraint firstAttribute="height" constant="21" id="Z1a-SX-K3v"/>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="pJV-PP-HF4"/>
                                                             <constraint firstAttribute="width" constant="50" id="xhA-mT-eBh"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="default">
@@ -283,7 +283,7 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1202" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Okr-Te-bWS">
-                                                        <rect key="frame" x="93" y="0.0" width="28" height="21"/>
+                                                        <rect key="frame" x="92" y="0.0" width="28" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="4Ni-Dn-DIH"/>
                                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="EeZ-me-2Hy"/>
@@ -303,15 +303,15 @@
                                                             </mask>
                                                         </variation>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Calories/day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eo2-9A-KDO">
-                                                        <rect key="frame" x="133" y="0.0" width="67" height="21"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(approx) Calories/day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eo2-9A-KDO">
+                                                        <rect key="frame" x="126" y="0.0" width="94" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="2C2-gu-ciu"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="2dl-QT-2Pl"/>
                                                             <constraint firstAttribute="height" constant="21" id="8FL-CJ-jwi"/>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Od6-Vd-279"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="12"/>
+                                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="10"/>
                                                         <color key="textColor" red="0.5450980392" green="0.7725490196" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="default">
@@ -326,7 +326,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="eo2-9A-KDO" firstAttribute="height" secondItem="Okr-Te-bWS" secondAttribute="height" id="EfH-na-BFD"/>
-                                                    <constraint firstAttribute="width" constant="200" id="FLn-ed-ep2"/>
+                                                    <constraint firstAttribute="width" constant="220" id="FLn-ed-ep2"/>
                                                     <constraint firstAttribute="height" constant="21" id="dWX-bY-h3c"/>
                                                     <constraint firstItem="Okr-Te-bWS" firstAttribute="height" secondItem="jAn-Oh-BEg" secondAttribute="height" id="z5L-BA-G5E"/>
                                                 </constraints>
@@ -574,7 +574,7 @@
                                             <constraint firstItem="Sko-KU-chQ" firstAttribute="leading" secondItem="hpI-De-hwM" secondAttribute="leading" constant="30" id="9OV-Jx-wGy"/>
                                             <constraint firstItem="fv6-Md-eKo" firstAttribute="bottom" secondItem="dk5-Ny-tD8" secondAttribute="bottom" id="9ti-3T-bmv"/>
                                             <constraint firstItem="vv1-gc-pq8" firstAttribute="leading" secondItem="thG-QA-INf" secondAttribute="trailing" id="Aa0-sX-6PB"/>
-                                            <constraint firstItem="Yss-HM-LmA" firstAttribute="centerX" secondItem="hpI-De-hwM" secondAttribute="centerX" id="B3t-hH-fZX"/>
+                                            <constraint firstItem="Yss-HM-LmA" firstAttribute="centerX" secondItem="hpI-De-hwM" secondAttribute="centerX" constant="-5" id="B3t-hH-fZX"/>
                                             <constraint firstItem="tFN-84-toX" firstAttribute="top" secondItem="uRW-Aa-yOx" secondAttribute="top" id="BLp-VL-nvg"/>
                                             <constraint firstItem="m4e-3i-j8X" firstAttribute="trailing" secondItem="hpI-De-hwM" secondAttribute="trailing" constant="30" id="BZG-Xf-obl"/>
                                             <constraint firstItem="O7X-fz-cN5" firstAttribute="height" secondItem="Xaw-yD-Gxe" secondAttribute="height" id="Bs9-6t-qOI"/>

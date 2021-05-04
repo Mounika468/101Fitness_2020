@@ -227,32 +227,32 @@ struct OrderDetails: Decodable {
     let order_id: Int
            let payment_id: Int
           let trainee_id: String
-         let  program_id: String
+         let  program_id: String?
          let  order_status: String
-       let    order_purchase_date: String
+       let    order_purchase_date: String?
         let   total_amount: Double
          let  amount_without_tax: Double
         let   payment_type_id: Int
           let tax_break_up_id: Int
          let  paymentgateway_order_id: String
-         let  created_date_time: String
-          let updated_date_time: String
+         let  created_date_time: String?
+          let updated_date_time: String?
     let stripe_client_secret: String?
 
      
     init( order_id: Int,
          payment_id: Int,
         trainee_id: String,
-        program_id: String,
+        program_id: String?,
         order_status: String,
-        order_purchase_date: String,
+        order_purchase_date: String?,
         total_amount: Double,
         amount_without_tax: Double,
         payment_type_id: Int,
         tax_break_up_id: Int,
         paymentgateway_order_id: String,
-        created_date_time: String,
-        updated_date_time: String,
+        created_date_time: String?,
+        updated_date_time: String?,
         stripe_client_secret:String?)  {
         
         self.order_id = order_id
@@ -279,9 +279,9 @@ struct OrderDetails: Decodable {
         self.order_id = try container.decode(Int.self, forKey: .order_id)
         self.payment_id = try container.decode(Int.self, forKey: .payment_id)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
-        self.program_id = try container.decode(String.self, forKey: .program_id)
+        self.program_id = try container.decodeIfPresent(String.self, forKey: .program_id)
         self.order_status = try container.decode(String.self, forKey: .order_status)
-        self.order_purchase_date = try container.decode(String.self, forKey: .order_purchase_date)
+        self.order_purchase_date = try container.decodeIfPresent(String.self, forKey: .order_purchase_date)
         self.total_amount = try container.decode(Double.self, forKey: .total_amount)
         
         
@@ -289,8 +289,8 @@ struct OrderDetails: Decodable {
         self.payment_type_id = try container.decode(Int.self, forKey: .payment_type_id)
         self.tax_break_up_id = try container.decode(Int.self, forKey: .tax_break_up_id)
         self.paymentgateway_order_id = try container.decode(String.self, forKey: .paymentgateway_order_id)
-        self.created_date_time = try container.decode(String.self, forKey: .created_date_time)
-        self.updated_date_time = try container.decode(String.self, forKey: .updated_date_time)
+        self.created_date_time = try container.decodeIfPresent(String.self, forKey: .created_date_time)
+        self.updated_date_time = try container.decodeIfPresent(String.self, forKey: .updated_date_time)
          self.stripe_client_secret = try container.decodeIfPresent(String.self, forKey: .stripe_client_secret)
     }
 }

@@ -374,6 +374,7 @@ class AddressVC: UIViewController, UITextFieldDelegate {
             controller.primaryTextHighlightColor = UIColor.white
                   controller.tableCellSeparatorColor = UIColor.lightGray
                   controller.tableCellBackgroundColor = UIColor.black
+            
                 controller.delegate = self
                 present(controller, animated: true, completion: nil)
             UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

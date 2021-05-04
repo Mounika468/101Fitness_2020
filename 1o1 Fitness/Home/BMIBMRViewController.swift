@@ -216,8 +216,13 @@ class BMIBMRViewController: UIViewController {
         let weightVal = weight?.weight ?? 0.0
         self.weight = weightVal
         self.weightBtn.setTitle(String(format: "%.2f", weightVal), for: .normal)
-        self.kgBtn.setTitle(self.weightMetric.capitalizingFirstLetter(), for: .normal)
-        self.tKgBtn.setTitle(self.tweightMetric.capitalizingFirstLetter(), for: .normal)
+        var metric = self.weightMetric
+        if metric == "lbs" {
+            metric = "lb"
+        }
+         metric  = metric.capitalizingFirstLetter()
+        self.kgBtn.setTitle(metric, for: .normal)
+        self.tKgBtn.setTitle(metric, for: .normal)
         if  let activityLevel = TraineeDetails.traineeDetails?.activity_level?.trimmingCharacters(in: .whitespaces) {
             self.activityLevelIndex = self.textActivityArr.firstIndex(of: activityLevel) ?? 0
              TraineeInfo.details.activityLevel = activityLevel

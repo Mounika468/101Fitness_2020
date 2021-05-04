@@ -103,14 +103,17 @@ struct Best_workout_day: Codable {
      let time_spent: String?
     var bestMorningWorkoutTime:String?
     var bestEveningWorkoutTime:String?
+    var bestAfternoonWorkoutTime:String?
     init(days: [String]?,
          time_spent: String?,
          bestMorningWorkoutTime:String?,
-         bestEveningWorkoutTime: String?) {
+         bestEveningWorkoutTime: String?,
+         bestAfternoonWorkoutTime: String?) {
         self.days = days
          self.time_spent = time_spent
         self.bestMorningWorkoutTime = bestMorningWorkoutTime
         self.bestMorningWorkoutTime = bestMorningWorkoutTime
+        self.bestAfternoonWorkoutTime = bestAfternoonWorkoutTime
     }
     
     init(from decoder: Decoder) throws {
@@ -119,6 +122,7 @@ struct Best_workout_day: Codable {
         self.time_spent = try container.decodeIfPresent(String.self, forKey: .time_spent)
         self.bestEveningWorkoutTime = try container.decodeIfPresent(String.self, forKey: .bestEveningWorkoutTime)
         self.bestMorningWorkoutTime = try container.decodeIfPresent(String.self, forKey: .bestMorningWorkoutTime)
+        self.bestAfternoonWorkoutTime = try container.decodeIfPresent(String.self, forKey: .bestAfternoonWorkoutTime)
        }
 }
 struct Food_preference: Codable {

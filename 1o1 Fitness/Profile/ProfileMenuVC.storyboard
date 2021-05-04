@@ -1708,7 +1708,7 @@
     <resources>
         <image name="ChangePwd" width="34" height="34"/>
         <image name="activeinfo" width="9" height="9"/>
-        <image name="arrow" width="13" height="23"/>
+        <image name="arrow" width="9" height="16"/>
         <image name="back" width="48" height="48"/>
         <image name="billingAddress" width="34" height="34"/>
         <image name="cfemale" width="75.5" height="76.5"/>

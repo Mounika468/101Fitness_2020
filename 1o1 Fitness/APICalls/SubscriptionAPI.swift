@@ -58,9 +58,10 @@ final class SubscriptionAPI: API
             do {
                 if  let jsonDict = json[ResponseKeys.data.rawValue] {
                     if jsonDict != nil {
+                        messageString = json[ResponseKeys.message.rawValue] as! String
                         let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any, options: .prettyPrinted)
-                                           let orderDetails = try JSONDecoder().decode(OrderDetails.self, from: jsonData)
-                                           successHandler(orderDetails)
+                        let orderDetails = try JSONDecoder().decode(OrderDetails.self, from: jsonData)
+                        successHandler(orderDetails)
                     }else {
                         successHandler(OrderDetails(order_id: 0, payment_id: 0, trainee_id: "", program_id: "", order_status: "", order_purchase_date: "", total_amount: 0, amount_without_tax: 0, payment_type_id: 0, tax_break_up_id: 0, paymentgateway_order_id: "", created_date_time: "", updated_date_time: "",stripe_client_secret:""))
                     }

@@ -2158,7 +2158,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Naiva Solutions, Inc (AK2PYDSVY7)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 17;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2175,7 +2175,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.1o1Fitness.1o1Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "1o1Fitness App";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2187,7 +2187,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Mounika Reddy (2QDVWWA587)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Naiva Solutions, Inc (AK2PYDSVY7)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
@@ -2203,7 +2203,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.1o1Fitness.1o1Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "1o1Fitness App";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

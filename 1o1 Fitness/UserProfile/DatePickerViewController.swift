@@ -185,8 +185,14 @@ extension DatePickerViewController : BottomViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     func rightBtnTapped() {
-        if self.ageField.text != "" &&  self.ageField.text != "0"{
+        if self.ageField.text != "" &&  (self.ageField.text != "0"){
             let age = self.ageField.text!
+            if Int(age) ?? 0 < 14 {
+                presentAlertWithTitle(title: "", message: "Minimum age should be atleast 14 yrs", options: "OK") { (option) in
+
+                    return
+                          }
+                }
             TraineeInfo.details.age = Int(age) ?? 0
             TraineeInfo.details.date_of_birth = self.dateOfBirth
             let storyboard = UIStoryboard(name: "WeightVC", bundle: nil)

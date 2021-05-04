@@ -174,7 +174,7 @@ class PaymentDetailVC: UIViewController {
                 }
                 
             }else {
-                self?.presentAlertWithTitle(title: "Failure", message: "Fetching order details failed", options: "OK") { (option) in
+                self?.presentAlertWithTitle(title: "Failure", message: messageString, options: "OK") { (option) in
                 }
             }
             

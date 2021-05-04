@@ -121,7 +121,7 @@ class DietViewL: UIView {
         let height = self.foodTblView.frame.minY + self.tbleHeightConstraint.constant
         if self.dietSelection == .water {
             self.foodTblView.isHidden = true
-            self.dietviewDelegate?.setParentViewHeight(height: 650)
+            self.dietviewDelegate?.setParentViewHeight(height: 800)
             let water = self.diet?.mealplan?.waterConsumed
             if water != nil {
                 self.waterQtyLbl.text = "\(water!.consumed)"

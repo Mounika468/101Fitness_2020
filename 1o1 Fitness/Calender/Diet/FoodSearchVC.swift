@@ -53,6 +53,9 @@ class FoodSearchVC: UIViewController {
         self.searchBar.layer.cornerRadius = 15.0
         self.searchBar.layer.borderColor = AppColours.textGreen.cgColor
         self.searchBar.layer.borderWidth = 0.5
+        let searchTextAppearance = UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+       // searchTextAppearance.font = UIFont(name: "Baskerville", size: 14)
+        searchTextAppearance.textColor = .white
         if #available(iOS 13.0, *) {
             self.searchBar.searchTextField.clearButtonMode = .whileEditing
             

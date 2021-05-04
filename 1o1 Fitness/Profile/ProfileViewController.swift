@@ -244,6 +244,7 @@ class ProfileViewController: UIViewController {
     var selectedTime: String = ""
     var mselectedTime: String = ""
     var eselectedTime: String = ""
+    var afselectedTime: String = ""
       var selectedDays = [Int] ()
        var alcoholChoice = ""
     var primaryGoal = ""
@@ -724,6 +725,7 @@ class ProfileViewController: UIViewController {
         let timeSpent = bestWoDay?.time_spent!
         self.mselectedTime = bestWoDay?.bestMorningWorkoutTime ?? ""
         self.eselectedTime = bestWoDay?.bestEveningWorkoutTime ?? ""
+        self.afselectedTime = bestWoDay?.bestAfternoonWorkoutTime ?? ""
         self.selectedTime = bestWoDay?.time_spent ?? ""
 //        self.selectedTimeIndex = workOutLevel.firstIndex(of: timeSpent ?? "") ?? 0
         if bestWoDay?.days?.count ?? 0 > 0 {
@@ -736,7 +738,7 @@ class ProfileViewController: UIViewController {
             }
         }
         let unique = Array(Set(bestWoDay!.days!))
-        TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime,"bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":eselectedTime]
+        TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime,"bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":eselectedTime,"bestAfternoonWorkoutTime":self.afselectedTime]
         let primaryGoal = TraineeDetails.traineeDetails?.primary_goal
         switch primaryGoal?.lowercased() {
         case "maintain weight":
@@ -1530,6 +1532,7 @@ class ProfileViewController: UIViewController {
         let timeSpent = bestWoDay["time_spent"]
         self.mselectedTime = bestWoDay["bestMorningWorkoutTime"] as? String ?? ""
         self.eselectedTime = bestWoDay["bestEveningWorkoutTime"] as? String ?? ""
+        self.afselectedTime = bestWoDay["bestAfternoonWorkoutTime"] as? String ?? ""
         self.selectedTime = bestWoDay["time_spent"] as! String
 
         self.selectedDays = []
@@ -1554,6 +1557,7 @@ class ProfileViewController: UIViewController {
         controller.selectedTime = self.selectedTime
         controller.mselectedTime = self.mselectedTime
         controller.eselectedTime = self.eselectedTime
+        controller.afselectedTime = self.afselectedTime
        // self.definesPresentationContext = true
 //               self.providesPresentationContextTransitionStyle = true
 //               self.overlayBlurredBackgroundView()

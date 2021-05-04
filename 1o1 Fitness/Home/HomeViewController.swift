@@ -364,9 +364,9 @@ class HomeViewController: UIViewController {
                 var weightMetric = ""
                 var weightVal = 0.0
                 if weight?.metric! == "kg" {
-                   weightMetric = "kg"
+                   weightMetric = "Kg"
                 }else {
-                    weightMetric = "lbs"
+                    weightMetric = "Lb"
                 }
                 weightVal = (weight?.weight) ?? 0
                 let weightStr = String(format: "Weight: %.2f %@", weightVal,weightMetric)

@@ -15,6 +15,7 @@ enum NavigationType {
 }
 class WorkOutDaysViewController: UIViewController {
 
+    @IBOutlet weak var afternoonBtn: UIButton!
     @IBOutlet weak var durationBtn: UIButton!
     @IBOutlet weak var eveningBtn: UIButton!
     @IBOutlet weak var morningBtn: UIButton!
@@ -38,11 +39,13 @@ class WorkOutDaysViewController: UIViewController {
     var lastSelectedTime  = -1
     var selectedTime: String = ""
     var mselectedTime: String = ""
+    var afselectedTime: String = ""
     var eselectedTime: String = ""
     var selectedDayNames : Array = [String] ()
     var navigationType: NavigationType = .profileNormal
-    let morningTimingsArray = ["Morning","5am - 7am","7am  - 9am","9am - 11am"]
-    let evenTimingsArray = ["Evening","5pm - 7pm","7pm  - 9pm","9pm - 11pm"]
+    let morningTimingsArray = ["Morning","4am - 6am","6am  - 8am","8am - 10am","10am - 12pm"]
+    let afternoonTimingsArray = ["Afternoon","12pm - 2pm","2pm  - 4pm","4pm - 6pm"]
+    let evenTimingsArray = ["Evening","6pm - 8pm","8pm  - 10pm","10pm - 12pm"]
     let durationsArray = ["less than 30 mins","30 mins","45 mins","60 mins","75 min", "90 mins","more than 90 mins"]
      var selectedTimeIndex: Int = 0
     override func viewDidLoad() {
@@ -79,6 +82,10 @@ class WorkOutDaysViewController: UIViewController {
         eveningBtn.layer.cornerRadius = 8
         eveningBtn.layer.borderWidth = 1
         eveningBtn.layer.borderColor = AppColours.topBarGreen.cgColor
+        
+        afternoonBtn.layer.cornerRadius = 8
+        afternoonBtn.layer.borderWidth = 1
+        afternoonBtn.layer.borderColor = AppColours.topBarGreen.cgColor
         
         durationBtn.layer.cornerRadius = 8
         durationBtn.layer.borderWidth = 1
@@ -119,11 +126,39 @@ class WorkOutDaysViewController: UIViewController {
             } else {
                 self.eveningBtn.setTitle(self.eselectedTime.capitalizingFirstLetter(), for: .normal)
             }
+            if self.afselectedTime.count == 0 {
+                self.afternoonBtn.setTitle("Afternoon", for: .normal)
+            } else {
+                self.afternoonBtn.setTitle(self.afselectedTime.capitalizingFirstLetter(), for: .normal)
+            }
            
            
             self.durationBtn.setTitle(self.selectedTime.capitalizingFirstLetter(), for: .normal)
         default:
             print(")")
+        }
+    }
+    @IBAction func afternoonBtnTapped(_ sender: Any) {
+        let configuration = FTConfiguration.shared
+        let cellConfi = FTCellConfiguration()
+        configuration.menuRowHeight = 25
+        configuration.menuWidth =  120
+        configuration.backgoundTintColor = UIColor.black
+        cellConfi.textColor = AppColours.textGreen
+        cellConfi.textFont = .systemFont(ofSize: 8)
+        configuration.borderColor = UIColor.lightText
+        configuration.menuSeparatorColor = UIColor.white
+        configuration.borderWidth = 0.25
+        cellConfi.textAlignment = NSTextAlignment.center
+        FTPopOverMenu.showForSender(sender: sender as! UIView,
+                                    with: self.afternoonTimingsArray ,
+                                    done: { (selectedIndex) -> () in
+                                        print(selectedIndex)
+                                        let btn = sender as! UIButton
+                                        btn.setTitle(self.afternoonTimingsArray[selectedIndex].capitalizingFirstLetter(), for: .normal)
+                                        self.afselectedTime = self.afternoonTimingsArray[selectedIndex]
+        }) {
+            
         }
     }
     @IBAction func eveningBtnTapped(_ sender: Any) {
@@ -179,9 +214,12 @@ class WorkOutDaysViewController: UIViewController {
         if eselectedTime == "Evening" {
             eselectedTime = ""
         }
-        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0) {
+        if afselectedTime == "Afternoon" {
+            afselectedTime = ""
+        }
+        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0 || self.afselectedTime.count != 0) {
         let unique = Array(Set(self.selectedDayNames))
-            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.durationBtn.titleLabel?.text ?? "","bestMorningWorkoutTime":self.morningBtn.titleLabel?.text ?? "","bestEveningWorkoutTime":self.eveningBtn.titleLabel?.text ?? ""]
+            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.durationBtn.titleLabel?.text ?? "","bestMorningWorkoutTime":self.morningBtn.titleLabel?.text ?? "","bestEveningWorkoutTime":self.eveningBtn.titleLabel?.text ?? "","bestAfternoonWorkoutTime":self.afternoonBtn.titleLabel?.text ?? ""]
         self.dismiss(animated: true, completion: nil)
          }else {
             presentAlertWithTitle(title: "", message: "Please select workout days, time and duration", options: "OK") { (option) in
@@ -446,13 +484,16 @@ extension WorkOutDaysViewController : BottomViewDelegate {
         if eselectedTime == "Evening" {
             eselectedTime = ""
         }
-        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0)  {
+        if afselectedTime == "Afternoon" {
+            afselectedTime = ""
+        }
+        if (self.selectedTime.count != 0) && (self.selectedDayNames.count > 0) && (self.eselectedTime.count != 0 || self.mselectedTime.count != 0 || self.afselectedTime.count != 0 )  {
 //            for dayName in self.selectedDayNames {
 //                let dict = ["day":dayName,"spentTime":self.selectedTime]
 //                TraineeInfo.details.days.append(dict)
 //            }
             let unique = Array(Set(self.selectedDayNames))
-            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime,"bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":self.eselectedTime]
+            TraineeInfo.details.best_workout_day = ["days" : unique, "time_spent": self.selectedTime,"bestMorningWorkoutTime":self.mselectedTime,"bestEveningWorkoutTime":self.eselectedTime,"bestAfternoonWorkoutTime":self.afternoonBtn.titleLabel?.text ?? ""]
             let storyboard = UIStoryboard(name: "FoodPreferenceVC", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "foodPreferVC")
             self.navigationController?.pushViewController(controller, animated: true)

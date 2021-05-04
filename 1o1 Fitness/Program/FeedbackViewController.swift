@@ -146,7 +146,7 @@ class FeedbackViewController: UIViewController {
     
     @IBAction func submitBtnTapped(_ sender: Any) {
         if Double(self.pcosmoView.rating) == 0.0 || Double(self.pcosmoView.rating) == 0.0 {
-            self.presentAlertWithTitle(title: "", message: "Please enter comments", options: "OK") { (_) in
+            self.presentAlertWithTitle(title: "", message: "Please enter rating", options: "OK") { (_) in
                 
             }
         }else {
