@@ -33,6 +33,8 @@ target '1o1 Fitness' do
   pod 'PieCharts'
   pod "youtube-ios-player-helper"
   pod 'FTPopOverMenu_Swift','~> 0.1.3'
+  pod 'Floaty'
+  pod 'FanMenu'
 
   target '1o1 FitnessTests' do
     inherit! :search_paths

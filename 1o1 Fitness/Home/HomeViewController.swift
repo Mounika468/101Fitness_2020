@@ -11,8 +11,13 @@ import CoreLocation
 import AWSMobileClient
 import PopupDialog
 import PieCharts
-let kRotationAnimationKey = "com.myapplication.rotationanimationkey"
+import Floaty
+import FanMenu
 
+let kRotationAnimationKey = "com.myapplication.rotationanimationkey"
+let kFitnessTag = "fitnessTag"
+let kYogaTag = "yogaTag"
+let kZumba = "zumbaTag"
 class HomeViewController: UIViewController {
 //    func onLocationUpdate(location: CLLocation) {
 //        print("locatiojn is \(location.coordinate.latitude) , \(location.coordinate.longitude)")
@@ -21,6 +26,10 @@ class HomeViewController: UIViewController {
 //    func onLocationDidFailWithError(error: Error) {
 //         print("locatiojn is \(error)")
 //    }
+    @IBOutlet weak var mainHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchPriConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchSecConstraint: NSLayoutConstraint!
+    @IBOutlet weak var yogaCV: UICollectionView!
     @IBOutlet weak var welcomeLbl: UILabel!
     var searchActive : Bool = false
     @IBOutlet weak var weightLbl: UILabel!
@@ -31,6 +40,11 @@ class HomeViewController: UIViewController {
     var loadingView: LoadingReusableView?
     var pageNumber : Int = 0
     var isLoading = false
+    var floatyQuad = Floaty()
+    var floatyCircular = Floaty()
+    
+    @IBOutlet weak var floatView: FanMenu!
+    
     @IBOutlet weak var trainersCollectionView: UICollectionView! {
         didSet {
             trainersCollectionView.showsVerticalScrollIndicator = false
@@ -46,6 +60,8 @@ class HomeViewController: UIViewController {
     var trainersInfo : [TrainerInfo]?
     var filteredTrainers : [TrainerInfo]?
      var headersImages : Array = ["htrainer","hpgrs","hdiet","hcall","hcamera","hbmi"]
+    var yogaImages : Array = ["morning","theraupic","immunity","fatburn","stress"]
+    var yogaHeaderImages : Array = ["hYoga","hpgrs","hdiet","hFree","hcall","hcamera","hbmi"]
     override func viewDidLoad() {
         print("HOme Loaded")
         super.viewDidLoad()
@@ -53,10 +69,15 @@ class HomeViewController: UIViewController {
         self.searchBar.isHidden = true
          LocationSingleton.sharedInstance.startUpdatingLocation()
       //  self.tabBarController?.delegate = self
+        let ynib = UINib(nibName: "YogaHeaderCVCell", bundle: nil)
+        self.yogaCV.register(ynib, forCellWithReuseIdentifier:"yogaHCVCell")
+        
         let nib = UINib(nibName: "HeaderCollectionViewCell", bundle: nil)
         self.headerCollectionView.register(nib, forCellWithReuseIdentifier:"headerCV")
+        
          let trainerNib = UINib(nibName: "HomeTrainerCollectionViewCell", bundle: nil)
         self.trainersCollectionView.register(trainerNib, forCellWithReuseIdentifier:"HomeProfileCV")
+       
         //Register Loading Reuseable View
         let loadingReusableNib = UINib(nibName: "LoadingReusableView", bundle: nil)
         self.trainersCollectionView.register(loadingReusableNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "loadingresuableviewid")
@@ -64,6 +85,11 @@ class HomeViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         self.headerCollectionView.collectionViewLayout = flowLayout
+        
+        let yflowLayout = UICollectionViewFlowLayout()
+        yflowLayout.scrollDirection = .horizontal
+        self.yogaCV.collectionViewLayout = yflowLayout
+        
         let flowLayoutVertical = UICollectionViewFlowLayout()
         flowLayoutVertical.scrollDirection = .vertical
         self.trainersCollectionView.collectionViewLayout = flowLayoutVertical
@@ -174,10 +200,137 @@ class HomeViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.isNavigationBarHidden = true
         self.searchBar.text = ""
-//       // self.navigateToProfile()
-//        let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
-//        let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
-//        self.navigationController?.pushViewController(controller, animated: true)
+        
+        floatView.button = FanMenuButton(
+            id: "main",
+            image: "float",
+            color: .clear
+        )
+        floatView.items = [
+            FanMenuButton(
+                id: kFitnessTag,
+                image: "fitnessF",
+                color: .clear
+            ),
+            FanMenuButton(
+                id: kYogaTag,
+                image: "yogaF",
+                    color: .clear
+            ),
+            FanMenuButton(
+                id: kZumba,
+                image: "zumbaF",
+                    color: .red
+            )
+        ]
+        // distance between button and items
+        floatView.menuRadius = 90.0
+
+        // animation duration
+        floatView.duration = 0.35
+
+        // menu opening delay
+        floatView.delay = 0.05
+
+        // interval for buttons in radians
+        floatView.interval = (Double.pi, 2 * Double.pi)
+        //floatView.radius = 25.0
+
+        // menu background color
+        floatView.backgroundColor = .clear
+        
+        floatView.onItemDidClick = { button in
+            print("ItemDidClick: \(button.id)")
+            switch button.id {
+            case kFitnessTag:
+                self.fitnessFloatTapped()
+                self.displayFitnessLayout()
+                print("ItemDidClick: \(button.id)")
+            case kYogaTag:
+                print("ItemDidClick: \(button.id)")
+                self.yogaFloatTapped()
+                self.displayYogaLayout()
+            case kZumba:
+                print("ItemDidClick: \(button.id)")
+                self.zumbaFloatTapped()
+            default:
+                print("ItemDidClick: \(button.id)")
+            }
+        }
+        if FitnessProgramSelection.fitnessType.programType == .yoga {
+            displayYogaLayout()
+        }else {
+            displayFitnessLayout()
+        }
+
+    }
+    func displayYogaLayout() {
+        yogaCV.isHidden = false
+            if #available(iOS 13.0, *) {
+                searchPriConstraint.isActive = false
+                searchSecConstraint.isActive = true
+//                searchPriConstraint.priority = UILayoutPriority(rawValue: 999)
+//                searchSecConstraint.priority = UILayoutPriority(rawValue: 1000)
+            } else {
+                // Fallback on earlier versions
+                searchPriConstraint.isActive = false
+                searchSecConstraint.isActive = true
+                
+            }
+        headerCollectionView.reloadData()
+    }
+    func displayFitnessLayout() {
+        yogaCV.isHidden = true
+            if #available(iOS 13.0, *) {
+//                searchPriConstraint.isActive = true
+//                searchSecConstraint.isActive = false
+                searchPriConstraint.priority = UILayoutPriority(rawValue: 1000)
+                searchSecConstraint.priority = UILayoutPriority(rawValue: 999)
+            } else {
+                // Fallback on earlier versions
+                searchPriConstraint.isActive = true
+                searchSecConstraint.isActive = false
+                
+            }
+        headerCollectionView.reloadData()
+    }
+    func fitnessFloatTapped() {
+        FitnessProgramSelection.fitnessType.programType = .fitness
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin  {
+                // return
+                self.presentAlert(message: "Please Sign up to access the fitness information")
+            }else {
+            }
+        }
+    }
+    func yogaFloatTapped() {
+        FitnessProgramSelection.fitnessType.programType = .yoga
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin  {
+                // return
+                self.presentAlert(message: "Please Sign up to access the yoga information")
+            }else {
+            }
+        }
+    }
+    func zumbaFloatTapped() {
+        FitnessProgramSelection.fitnessType.programType = .zumba
+        let userdefaults = UserDefaults.standard
+        if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+            if  savedValue == UserDefaultsKeys.guestLogin  {
+                // return
+                self.presentAlert(message: "Please Sign up to access the zumba information")
+            }else {
+            }
+        }
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        floatView.updateNode()
     }
     override func viewWillDisappear(_ animated: Bool) {
       //  self.navigationController?.isNavigationBarHidden = false
@@ -243,11 +396,16 @@ class HomeViewController: UIViewController {
                     }
                     self?.getTraineeDetails(authenticatedHeaders: authenticatedHeaders)
                 }else  {
-                   // if ProgramDetails.programDetails.programId.count == 0 {
-                        let indexPath = IndexPath(item: 1, section: 0)
-                        self?.headerCollectionView.reloadItems(at: [indexPath])
-                        //CollectionView.reloadItems(at: IndexPath])
-                   // }
+                    switch FitnessProgramSelection.fitnessType.programType {
+                    case .fitness:
+                    let indexPath = IndexPath(item: 1, section: 0)
+                    self?.headerCollectionView.reloadItems(at: [indexPath])
+                    case .yoga,.zumba :
+                    let indexPath = IndexPath(item: 2, section: 0)
+                    self?.headerCollectionView.reloadItems(at: [indexPath])
+                    }
+                    //let indexPath = IndexPath(item: 1, section: 0)
+                    
                 }
             }
         } errorHandler: { [weak self] error in
@@ -266,8 +424,16 @@ class HomeViewController: UIViewController {
                 }else {
                   //  if ProgramDetails.programDetails.programId.count == 0 {
                     DispatchQueue.main.async {
+                        switch FitnessProgramSelection.fitnessType.programType {
+                        case .fitness:
                         let indexPath = IndexPath(item: 1, section: 0)
                         self?.headerCollectionView.reloadItems(at: [indexPath])
+                        case .yoga,.zumba :
+                        let indexPath = IndexPath(item: 2, section: 0)
+                        self?.headerCollectionView.reloadItems(at: [indexPath])
+                        }
+                        //let indexPath = IndexPath(item: 1, section: 0)
+                        
                     }
                         //CollectionView.reloadItems(at: IndexPath])
                   //  }
@@ -331,6 +497,8 @@ class HomeViewController: UIViewController {
         
         
     }
+    
+    
     func getTraineeDetails(authenticatedHeaders:[String: String]) {
          let traineeId = UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!
         TraineeRegister.getTraineeDetails(traineeId: traineeId, header: authenticatedHeaders, successHandler:{ [weak self] traineeDetails  in
@@ -390,9 +558,18 @@ class HomeViewController: UIViewController {
                 self?.profileBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 self?.profileBtn.imageView?.layer.cornerRadius = 0
             }
-                let indexPath = IndexPath(item: 1, section: 0)
+                //let indexPath = IndexPath(item: 1, section: 0)
             DispatchQueue.main.async {
+                switch FitnessProgramSelection.fitnessType.programType {
+                case .fitness:
+                let indexPath = IndexPath(item: 1, section: 0)
                 self?.headerCollectionView.reloadItems(at: [indexPath])
+                case .yoga,.zumba :
+                let indexPath = IndexPath(item: 2, section: 0)
+                self?.headerCollectionView.reloadItems(at: [indexPath])
+                }
+                //let indexPath = IndexPath(item: 1, section: 0)
+                
             }
             
             if  TraineeInfo.details.notificationCount > 0 {
@@ -508,8 +685,16 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.headerCollectionView:
-            return headersImages.count
-            case self.trainersCollectionView:
+            if FitnessProgramSelection.fitnessType.programType == .fitness {
+                return headersImages.count
+            } else if FitnessProgramSelection.fitnessType.programType == .yoga {
+                return yogaHeaderImages.count
+            }else {
+                return headersImages.count
+            }
+        case yogaCV:
+            return yogaImages.count
+        case self.trainersCollectionView:
                 return self.trainersInfo?.count ?? 0
         default:
             return 1
@@ -524,24 +709,65 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         switch collectionView {
         case self.headerCollectionView:
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCV", for: indexPath) as! HeaderCollectionViewCell
-             cell.imgView.image = UIImage(named: headersImages[indexPath.row])
-            cell.pieChart.isHidden = true
-            let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-            cell.pieChart.addGestureRecognizer(tap)
-            if (indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
-                DispatchQueue.main.async {
-                self.rotateView(view: cell.contentView, duration: 5.0)
-                }
-            }else if indexPath.row == 1 && ProgramDetails.programDetails.programId.count > 0  {
-                DispatchQueue.main.async {
-                    cell.pieChart.isHidden = false
-                    cell.imgView.image = UIImage(named: "outerProgress")
-                    cell.pieChart.models = []
-                    cell.pieChart.models =  self.createModels()
-                }
+            if FitnessProgramSelection.fitnessType.programType == .fitness {
+                cell.imgView.image = UIImage(named: headersImages[indexPath.row])
+               cell.pieChart.isHidden = true
+               let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+               cell.pieChart.addGestureRecognizer(tap)
+               if (indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
+                   DispatchQueue.main.async {
+                   self.rotateView(view: cell.contentView, duration: 5.0)
+                   }
+               }else if indexPath.row == 1 && ProgramDetails.programDetails.programId.count > 0  {
+                   DispatchQueue.main.async {
+                       cell.pieChart.isHidden = false
+                       cell.imgView.image = UIImage(named: "outerProgress")
+                       cell.pieChart.models = []
+                       cell.pieChart.models =  self.createModels()
+                   }
+               }
+            } else if FitnessProgramSelection.fitnessType.programType == .yoga {
+                cell.imgView.image = UIImage(named: yogaHeaderImages[indexPath.row])
+               cell.pieChart.isHidden = true
+               let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+               cell.pieChart.addGestureRecognizer(tap)
+               if (indexPath.row == 2 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
+                   DispatchQueue.main.async {
+                   self.rotateView(view: cell.contentView, duration: 5.0)
+                   }
+               }else if indexPath.row == 2 && ProgramDetails.programDetails.programId.count > 0  {
+                   DispatchQueue.main.async {
+                       cell.pieChart.isHidden = false
+                       cell.imgView.image = UIImage(named: "outerProgress")
+                       cell.pieChart.models = []
+                       cell.pieChart.models =  self.createModels()
+                   }
+               }
+            }else {
+                cell.imgView.image = UIImage(named: headersImages[indexPath.row])
+               cell.pieChart.isHidden = true
+               let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+               cell.pieChart.addGestureRecognizer(tap)
+               if (indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
+                   DispatchQueue.main.async {
+                   self.rotateView(view: cell.contentView, duration: 5.0)
+                   }
+               }else if indexPath.row == 1 && ProgramDetails.programDetails.programId.count > 0  {
+                   DispatchQueue.main.async {
+                       cell.pieChart.isHidden = false
+                       cell.imgView.image = UIImage(named: "outerProgress")
+                       cell.pieChart.models = []
+                       cell.pieChart.models =  self.createModels()
+                   }
+               }
             }
+            
             return cell
-            case self.trainersCollectionView:
+        case yogaCV:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "yogaHCVCell", for: indexPath) as! YogaHeaderCVCell
+            cell.imgView.image = UIImage(named: yogaImages[indexPath.row])
+            return cell
+        case self.trainersCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeProfileCV", for: indexPath) as! HomeTrainerCollectionViewCell
             cell.contentView.layer.cornerRadius = 10.0
             cell.contentView.layer.backgroundColor = UIColor.init(red: 41/255, green: 37/255, blue: 37/255, alpha: 1.0).cgColor
@@ -731,7 +957,19 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
 
                        return CGSize(width: size, height: 70)
-            case self.trainersCollectionView:
+        case self.yogaCV:
+        
+        let noOfCellsInRow = 2
+
+                   let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+                   let totalSpace = flowLayout.sectionInset.left
+                       + flowLayout.sectionInset.right
+                       + (flowLayout.minimumInteritemSpacing * CGFloat(noOfCellsInRow - 1))
+
+                   let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
+
+                   return CGSize(width: size, height: 120)
+        case self.trainersCollectionView:
             
             let noOfCellsInRow = 2
 
@@ -895,6 +1133,10 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         alertVC.message = message
         present(alertVC, animated: false, completion: nil)
     }
+    
+    
+    
+    
     func popupBox() {
        
         

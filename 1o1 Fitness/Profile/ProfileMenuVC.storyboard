@@ -1386,21 +1386,6 @@
             </objects>
             <point key="canvasLocation" x="1240.5797101449277" y="-1046.6517857142858"/>
         </scene>
-        <!--Support-->
-        <scene sceneID="cBs-1o-fWk">
-            <objects>
-                <viewController storyboardIdentifier="SettingsVC" title="Support" id="fpq-3M-kMq" customClass="SettingsVC" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Eoh-8h-NGK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="48y-MH-OLq"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PPp-cH-kH0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2117" y="-1040"/>
-        </scene>
         <!--Account-->
         <scene sceneID="pq8-4C-263">
             <objects>
