@@ -47,8 +47,13 @@ final class GetCalenderByDateAPI: API
                      errorHandler: @escaping (APIError) -> Void) {
         messageString = ""
         
+        var fitness = "Fitness"
+       
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
        // ?trainee_id=37aa26f0-14a4-40e5-ba78-a6825c36d3e5&program_id=5ec8cbcb71038065bb3dc8a2
-        let urlString = getCalenderforDay + "trainee_id=" + traineeId  + "&date=" + date
+        let urlString = getCalenderforDay + "trainee_id=" + traineeId  + "&date=" + date + "&category=" + fitness
         //let request = APIRequest((method: .post, url: urlString, parameters: parameters, headers: header, data))
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 

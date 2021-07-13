@@ -128,6 +128,7 @@ struct WOStatus {
     static let notCompleted : String = "not completed"
 }
 let WorkOutsUpdatedNotification : String = "WorkOutsUpdatedNotification"
+let YogaUpdatedNotification : String = "YogaUpdatedNotification"
 let CreatedByTrainee : String = "trainee"
 
 public class IOSVersion {

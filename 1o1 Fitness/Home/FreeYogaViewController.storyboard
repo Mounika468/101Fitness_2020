@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_semibold.ttf">
+            <string>Lato-Semibold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Free Yoga View Controller-->
+        <scene sceneID="n9c-8q-3Lm">
+            <objects>
+                <viewController storyboardIdentifier="FreeYogaViewController" id="eC1-xW-1tS" customClass="FreeYogaViewController" customModule="_o1_Fitness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xWl-hz-NTu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ghX-je-Tjp">
+                                <rect key="frame" x="50" y="110" width="314" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXq-j8-a3O">
+                                        <rect key="frame" x="0.0" y="0.0" width="137" height="35"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="16"/>
+                                        <state key="normal" title="Free Session"/>
+                                        <connections>
+                                            <action selector="freeSessionBtnTapped:" destination="eC1-xW-1tS" eventType="touchUpInside" id="u7k-cT-I1z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6B3-u3-9Ac">
+                                        <rect key="frame" x="177" y="0.0" width="137" height="35"/>
+                                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="16"/>
+                                        <state key="normal" title="My Session"/>
+                                        <connections>
+                                            <action selector="mySessionBtnTapped:" destination="eC1-xW-1tS" eventType="touchUpInside" id="Ptt-C3-DgK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="eN4-9y-66n"/>
+                                </constraints>
+                            </stackView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUB-Ik-kXG">
+                                <rect key="frame" x="50" y="147" width="137" height="2"/>
+                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="lXg-55-clV"/>
+                                </constraints>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gv-gJ-g67">
+                                <rect key="frame" x="227" y="147" width="137" height="2"/>
+                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59D-zW-ZFX" customClass="ScheduleCallView" customModule="_o1_Fitness" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="151" width="414" height="711"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="GaZ-Yl-njU"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="GaZ-Yl-njU"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vhS-Cq-EJe"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="59D-zW-ZFX" firstAttribute="top" secondItem="VUB-Ik-kXG" secondAttribute="bottom" constant="2" id="03o-kf-cs6"/>
+                            <constraint firstItem="59D-zW-ZFX" firstAttribute="leading" secondItem="vhS-Cq-EJe" secondAttribute="leading" id="8W5-hf-bo9"/>
+                            <constraint firstItem="VUB-Ik-kXG" firstAttribute="width" secondItem="NXq-j8-a3O" secondAttribute="width" id="Adv-fc-Cze"/>
+                            <constraint firstItem="1Gv-gJ-g67" firstAttribute="width" secondItem="6B3-u3-9Ac" secondAttribute="width" id="Atu-Tf-ID4"/>
+                            <constraint firstItem="1Gv-gJ-g67" firstAttribute="leading" secondItem="6B3-u3-9Ac" secondAttribute="leading" id="Mcy-vU-jMC"/>
+                            <constraint firstItem="vhS-Cq-EJe" firstAttribute="trailing" secondItem="ghX-je-Tjp" secondAttribute="trailing" constant="50" id="QGW-SD-Frs"/>
+                            <constraint firstItem="ghX-je-Tjp" firstAttribute="top" secondItem="vhS-Cq-EJe" secondAttribute="top" constant="66" id="Qzu-Pa-XFQ"/>
+                            <constraint firstItem="vhS-Cq-EJe" firstAttribute="trailing" secondItem="59D-zW-ZFX" secondAttribute="trailing" id="TcH-3O-fp6"/>
+                            <constraint firstItem="1Gv-gJ-g67" firstAttribute="top" secondItem="VUB-Ik-kXG" secondAttribute="top" id="UFo-ZC-17f"/>
+                            <constraint firstItem="1Gv-gJ-g67" firstAttribute="height" secondItem="VUB-Ik-kXG" secondAttribute="height" id="XnO-A3-M2T"/>
+                            <constraint firstItem="VUB-Ik-kXG" firstAttribute="top" secondItem="ghX-je-Tjp" secondAttribute="bottom" constant="2" id="bPu-uI-L6C"/>
+                            <constraint firstItem="VUB-Ik-kXG" firstAttribute="leading" secondItem="NXq-j8-a3O" secondAttribute="leading" id="cXB-Kf-Dm0"/>
+                            <constraint firstItem="vhS-Cq-EJe" firstAttribute="bottom" secondItem="59D-zW-ZFX" secondAttribute="bottom" id="vBm-M7-pLk"/>
+                            <constraint firstItem="ghX-je-Tjp" firstAttribute="leading" secondItem="vhS-Cq-EJe" secondAttribute="leading" constant="50" id="xiR-i3-BOi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="freeSessionBtn" destination="NXq-j8-a3O" id="xP6-Uk-6cR"/>
+                        <outlet property="freeSessionLbl" destination="VUB-Ik-kXG" id="8Uv-od-4ru"/>
+                        <outlet property="mySessionBtn" destination="6B3-u3-9Ac" id="6ak-TX-dSz"/>
+                        <outlet property="mySessionLbl" destination="1Gv-gJ-g67" id="Njw-Zr-5yU"/>
+                        <outlet property="scheduleCallView" destination="59D-zW-ZFX" id="RRP-qU-D4o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vsi-hx-wNM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-68.115942028985515" y="32.8125"/>
+        </scene>
+    </scenes>
+</document>

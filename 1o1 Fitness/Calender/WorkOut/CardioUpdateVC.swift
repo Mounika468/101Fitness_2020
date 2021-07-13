@@ -15,6 +15,7 @@ var xBarHeight :CGFloat  = 0.0
     @IBOutlet weak var recomLbl: UILabel!
     var cardio: Cardio?
     var subscription_id = ""
+    var isFromYoga = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,17 +58,46 @@ var xBarHeight :CGFloat  = 0.0
     
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(cardioVal)
-        WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
-            { [weak self] dayWorks in
+        
+        if isFromYoga {
+            WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
+                { [weak self] dayWorks in
+                   DispatchQueue.main.async {
+                    if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
+                        var message = "No data available for the selected date"
+                        if messageString.count > 0 {
+                            message = messageString
+                        }
+                        self?.presentAlertWithTitle(title: "", message: message, options: "OK") { (option) in
+                                   }
+                    }else {
+                        NotificationCenter.default.post(name:NSNotification.Name(rawValue: YogaUpdatedNotification), object: dayWorks)
+                    }
+                    }
+                }, errorHandler: {  error in
+                    DispatchQueue.main.async {
+                        LoadingOverlay.shared.hideOverlayView()
+                    }
+            })
+            
+        } else {
+            WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
+                { [weak self] dayWorks in
+                    DispatchQueue.main.async {
+                        
+                        NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
+                    }
+            }, errorHandler: {  error in
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
+                    LoadingOverlay.shared.hideOverlayView()
                 }
-        }, errorHandler: {  error in
-            DispatchQueue.main.async {
-                LoadingOverlay.shared.hideOverlayView()
-            }
-        })
+            })
+        }
+        
+        
     }
+    
+    
   
 }
 extension CardioUpdateVC: UITextFieldDelegate {

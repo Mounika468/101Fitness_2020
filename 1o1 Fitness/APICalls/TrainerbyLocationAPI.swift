@@ -46,7 +46,7 @@ final class TrainerbyLocationAPI: API
         })
 
     }
-    static func postCalltoToken(parameters: Dictionary<String, Any>,details:String,pageNumber: Int,
+    static func postCalltoToken(parameters: Dictionary<String, Any>,fitnessType:String,details:String,pageNumber: Int,
                                 successHandler: @escaping ([TrainerInfo]) -> Void,
                                 errorHandler: @escaping (String) -> Void) {
         
@@ -68,7 +68,7 @@ final class TrainerbyLocationAPI: API
         let traineeId = UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) ?? ""
         let longitude = parameters["longitude"] as! String
         let latitude = parameters["latitude"] as! String
-        let postBody : [String: Any] = ["longitude": longitude,"latitude":latitude,"details": details,"trainee_id": traineeId,"pagesize": 12,"pagenumber": pageNumber, "registration_token":fcmtoken,"trainee_timezone":timeZone,"category":"Fitness"]
+        let postBody : [String: Any] = ["longitude": longitude,"latitude":latitude,"details": details,"trainee_id": traineeId,"pagesize": 12,"pagenumber": pageNumber, "registration_token":fcmtoken,"trainee_timezone":timeZone,"category":fitnessType]
 
         let urlString = getTrainerByLocation
         guard let url = URL(string: urlString) else {return}
@@ -80,6 +80,7 @@ final class TrainerbyLocationAPI: API
             request.httpBody   = try JSONSerialization.data(withJSONObject: postBody)
         } catch let error {
         }
+        print("API call get trainers")
         Alamofire.request(request).responseJSON{ (response) in
             
             DispatchQueue.main.async {

@@ -475,29 +475,64 @@ class TrainerDetailsViewController: UIViewController {
                 HeadersKeys.contentType: HeaderValues.json
             ]
         }
-        
-        TrainerVideosAPI.post(trainerId:(self.trainersInfo?.trainerId)!, header: authenticatedHeaders, successHandler: { [weak self] trainerVideos  in
-           // self?.trainersVideos = trainerVideos
-             DispatchQueue.main.async {
-            if trainerVideos.count > 0 {
-                self?.videosView.isHidden = false
-                self?.videosView.videosArr = trainerVideos
-                if self?.videosView.videoDelegate == nil {
-                    self?.videosView.videoDelegate = self
-                }
-                self?.videosView.loadVideosList()
-            }
-           
-                LoadingOverlay.shared.hideOverlayView()
-
-            }
-            
-        }) { [weak self] error in
-            print(" error \(error)")
-            DispatchQueue.main.async {
-                LoadingOverlay.shared.hideOverlayView()
+        var fitness = "Fitness"
+        var category = "exercises"
+       
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+            if fitness == "Yoga" {
+                category = "asanas"
             }
         }
+        
+        if fitness == "Yoga" {
+            TrainerVideosAPI.getAsans(trainerId:(self.trainersInfo?.trainerId)!, header: authenticatedHeaders, category: category, successHandler: { [weak self] trainerVideos  in
+               // self?.trainersVideos = trainerVideos
+                 DispatchQueue.main.async {
+                if trainerVideos.count > 0 {
+                    self?.videosView.isHidden = false
+                    self?.videosView.videosArr = trainerVideos
+                    if self?.videosView.videoDelegate == nil {
+                        self?.videosView.videoDelegate = self
+                    }
+                    self?.videosView.loadVideosList()
+                }
+               
+                    LoadingOverlay.shared.hideOverlayView()
+
+                }
+                
+            }) { [weak self] error in
+                print(" error \(error)")
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                }
+            }
+        } else {
+            TrainerVideosAPI.post(trainerId:(self.trainersInfo?.trainerId)!, header: authenticatedHeaders, category: category, successHandler: { [weak self] trainerVideos  in
+               // self?.trainersVideos = trainerVideos
+                 DispatchQueue.main.async {
+                if trainerVideos.count > 0 {
+                    self?.videosView.isHidden = false
+                    self?.videosView.videosArr = trainerVideos
+                    if self?.videosView.videoDelegate == nil {
+                        self?.videosView.videoDelegate = self
+                    }
+                    self?.videosView.loadVideosList()
+                }
+               
+                    LoadingOverlay.shared.hideOverlayView()
+
+                }
+                
+            }) { [weak self] error in
+                print(" error \(error)")
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                }
+            }
+        }
+       
     }
     //MARK -- Get Trainer Video List
     private func getTrainerPackages()

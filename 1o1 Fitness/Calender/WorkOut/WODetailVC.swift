@@ -27,6 +27,7 @@ class WODetailVC: UIViewController {
     var setsArray : [Sets]?
     var sectionItems: Array<Any> = []
     var sectionNames: Array<Any> = []
+    var yogaSections: Array<Any> = []
     let kHeaderSectionTag: Int = 6900;
     var selectedIndexPath : Int?
     var updatedRest : String?
@@ -37,6 +38,7 @@ class WODetailVC: UIViewController {
      var navigationView = NavigationView()
      var xBarHeight :CGFloat  = 0.0
     var woExercise : WorkoutExercises?
+    var asanas : Asanas?
     var prevSelectedSection : Int = -1
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +51,7 @@ class WODetailVC: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
       
         sectionNames = [ "Exercise Info", "Instructions", "Workout metrics" ]
-        
+        yogaSections = [ "Benefits of Asana", "Precautions", "Instructions" ]
         
         let nib = UINib(nibName: "CardStyleTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "cardCell")
@@ -65,19 +67,27 @@ class WODetailVC: UIViewController {
         self.tableView.tableFooterView = UIView()
     }
     override func viewDidAppear(_ animated: Bool) {
-        navigationView.titleLbl.text = self.woExercise?.exerciseName
-        if  let videoThumNail = self.woExercise?.exerciseVideo?.videoThumbnailPath {
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        navigationView.titleLbl.text = self.asanas?.asanaTitle
+        if  let videoThumNail = self.asanas?.asanaVideo?.videoThumbnailPath {
             self.imgView.loadImage(url: URL(string: videoThumNail)!)
-        }else {
-            
+        }
+        default:
+            navigationView.titleLbl.text = self.woExercise?.exerciseName
+            if  let videoThumNail = self.woExercise?.exerciseVideo?.videoThumbnailPath {
+                self.imgView.loadImage(url: URL(string: videoThumNail)!)
+            }
         }
         
     }
     @IBAction func playBtnTapped(_ sender: Any) {
-        let videos = self.woExercise?.exerciseVideo?.videoMp4Destination
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        let videos = self.asanas?.asanaVideo?.videoMp4Destination
   
         if videos?.count == 0 {
-            self.youTubeVideoSelected(urlString:(self.woExercise?.exerciseVideo?.exerciseVideoSource ?? "")!)
+            self.youTubeVideoSelected(urlString:(self.asanas?.asanaVideo?.asanaVideoSource ?? "")!)
         }else {
             let url = NSURL(string: videos ?? "")
             let player = AVPlayer(url: url! as URL)
@@ -85,6 +95,21 @@ class WODetailVC: UIViewController {
             playerViewController.player = player
             self.present(playerViewController, animated: true) {
                 playerViewController.player!.play()
+            }
+        }
+        default:
+            let videos = self.woExercise?.exerciseVideo?.videoMp4Destination
+      
+            if videos?.count == 0 {
+                self.youTubeVideoSelected(urlString:(self.woExercise?.exerciseVideo?.exerciseVideoSource ?? "")!)
+            }else {
+                let url = NSURL(string: videos ?? "")
+                let player = AVPlayer(url: url! as URL)
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                self.present(playerViewController, animated: true) {
+                    playerViewController.player!.play()
+                }
             }
         }
         
@@ -135,11 +160,21 @@ extension UIView {
 
 extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if sectionNames.count > 0 {
+        
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        if yogaSections.count > 0 {
            // tableView.backgroundView = nil
+            return yogaSections.count
+        }
+        return yogaSections.count
+        default:
+            if sectionNames.count > 0 {
+               // tableView.backgroundView = nil
+                return sectionNames.count
+            }
             return sectionNames.count
         }
-        return sectionNames.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -150,7 +185,13 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
             case 1:
                 return 1
             case 2:
-                return (self.woExercise?.sets?.count ?? 0) + 1
+                switch FitnessProgramSelection.fitnessType.programType {
+                case .yoga:
+//                return  1
+                    return (self.asanas?.instructions?.count ?? 0)
+                default:
+                    return (self.woExercise?.sets?.count ?? 0) + 1
+                }
             default:
                 return 1
             }
@@ -164,7 +205,7 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
        // return UITableView.automaticDimension
         switch indexPath.section {
         case 0:
-            return 200.0
+            return UITableView.automaticDimension
         case 1:
             return  UITableView.automaticDimension
         case 2:
@@ -177,10 +218,18 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (self.sectionNames.count != 0) {
-            return self.sectionNames[section] as? String
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        if (self.yogaSections.count != 0) {
+            return self.yogaSections[section] as? String
         }
         return ""
+        default:
+            if (self.sectionNames.count != 0) {
+                return self.sectionNames[section] as? String
+            }
+            return ""
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -193,7 +242,12 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
        
         let detailSection : DetailSectionHeader = DetailSectionHeader(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
-         detailSection.sectionHeaderLbl.text = sectionNames[section] as! String
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+         detailSection.sectionHeaderLbl.text = yogaSections[section] as! String
+        default:
+            detailSection.sectionHeaderLbl.text = sectionNames[section] as! String
+        }
             detailSection.tag = section
             let headerTapGesture = UITapGestureRecognizer()
             headerTapGesture.addTarget(self, action: #selector(self.sectionHeaderWasTouched(_:)))
@@ -203,83 +257,138 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-             as! UITableViewCell
-            let exerInfoView = ExerciseInfoView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.maxX, height: 200))
-            exerInfoView.forceLbl.text = self.woExercise?.force?.name
-            exerInfoView.prLevelLbl.text = self.woExercise?.force?.name
-            exerInfoView.prLevelLbl.text = self.woExercise?.level?.name
-             exerInfoView.mtTypeLbl.text = self.woExercise?.mechanicalType?.name
-             exerInfoView.eqLbl.text = self.woExercise?.equipment?.name
-            if let other = self.woExercise?.otherMuscleWorkout {
-                if other.count > 0 {
-                    exerInfoView.woTypeLbl.text = self.woExercise?.otherMuscleWorkout?[0].name
-                                    exerInfoView.otherMuImgView1.loadImage(url: URL(string: (self.woExercise?.otherMuscleWorkout?[0].imgUrl)!)!)
-                }
-                if other.count > 1 {
-                    exerInfoView.otherMuImgView2.loadImage(url: URL(string: (self.woExercise?.otherMuscleWorkout?[1].imgUrl)!)!)
-                }
-               
-            }
-             
-            exerInfoView.mainMsImgView.loadImage(url: URL(string: (self.woExercise?.mainMuscleWorkout?.imgUrl)!)!)
-           
-            cell.contentView.addSubview(exerInfoView)
-            return cell
-        case 1:
-           let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionCell")
-           as! UITableViewCell
-           cell.contentView.backgroundColor = UIColor.black
-            cell.textLabel?.numberOfLines = 0
-           if let instructions = self.woExercise?.instructions {
-             cell.textLabel?.text = self.woExercise?.instructions
-           }else {
-             cell.textLabel?.text = ""
-           }
-          
-           cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 12)
-           cell.textLabel?.textColor = UIColor.white
-             return cell
-        case 2:
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SetsHeadercell")
-                as! UITableViewCell
-                let headerView : SetsHeaderView = SetsHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 80))
-                headerView.backgroundColor = UIColor.black
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            switch indexPath.section {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionCell")
+                    as! UITableViewCell
                 cell.contentView.backgroundColor = UIColor.black
-                cell.contentView.addSubview(headerView)
+                cell.textLabel?.numberOfLines = 0
+                if let instructions = self.asanas?.benifitsOfAsana {
+                    cell.textLabel?.text = instructions
+                }else {
+                    cell.textLabel?.text = ""
+                }
+                
+                cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+                cell.textLabel?.textColor = UIColor.white
                 return cell
-            }else {
-              guard let cell = tableView.dequeueReusableCell(withIdentifier: "setsCell")
-                  as? SetsTableViewCell
-                  else {
-                      return UITableViewCell()
-              }
-              let set = self.woExercise?.sets![indexPath.row - 1]
-              cell.recomSet.text = (indexPath.row).stringValue
-              cell.recReps.text = set?.reputationValue!.actual.stringValue
-              cell.recWeight.text =  set?.maxWeights!.actual.stringValue
-              cell.recRest.text = set?.restPeriod!.actual.stringValue
-              cell.repTxtField.text = set?.reputationValue!.completed!.stringValue
-              cell.compSet.text = (indexPath.row).stringValue
-              cell.weightTxtField.text = set?.maxWeights!.completed!.stringValue
-              cell.restTxtField.text = set?.restPeriod!.completed!.stringValue
-              cell.repTxtField.tag = indexPath.row + repTag
-              cell.weightTxtField.tag = indexPath.row + weightTag
-              cell.restTxtField.tag = indexPath.row + restTag
-              cell.repTxtField.isEnabled = false
-              cell.weightTxtField.isEnabled = false
-              cell.restTxtField.isEnabled = false
-               cell.layoutIfNeeded()
-              return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionCell")
+                    as! UITableViewCell
+                cell.contentView.backgroundColor = UIColor.black
+                cell.textLabel?.numberOfLines = 0
+                if let instructions = self.asanas?.precautions {
+                    cell.textLabel?.text = instructions
+                }else {
+                    cell.textLabel?.text = ""
+                }
+                
+                cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+                cell.textLabel?.textColor = UIColor.white
+                return cell
+            case 2:
+               
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionCell")
+                        as! UITableViewCell
+                    cell.contentView.backgroundColor = UIColor.black
+                    cell.textLabel?.numberOfLines = 0
+                if let instructions = self.asanas?.instructions?[indexPath.row] {
+                        cell.textLabel?.text = instructions.name
+                    }else {
+                        cell.textLabel?.text = ""
+                    }
+                    
+                    cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+                    cell.textLabel?.textColor = UIColor.white
+                    return cell
+               
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath) as! CardStyleTableViewCell
+                return cell
             }
+            
         default:
-             let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath) as! CardStyleTableViewCell
-             return cell
+            switch indexPath.section {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+                    as! UITableViewCell
+                let exerInfoView = ExerciseInfoView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.maxX, height: 200))
+                exerInfoView.forceLbl.text = self.woExercise?.force?.name
+                exerInfoView.prLevelLbl.text = self.woExercise?.force?.name
+                exerInfoView.prLevelLbl.text = self.woExercise?.level?.name
+                exerInfoView.mtTypeLbl.text = self.woExercise?.mechanicalType?.name
+                exerInfoView.eqLbl.text = self.woExercise?.equipment?.name
+                if let other = self.woExercise?.otherMuscleWorkout {
+                    if other.count > 0 {
+                        exerInfoView.woTypeLbl.text = self.woExercise?.otherMuscleWorkout?[0].name
+                        exerInfoView.otherMuImgView1.loadImage(url: URL(string: (self.woExercise?.otherMuscleWorkout?[0].imgUrl)!)!)
+                    }
+                    if other.count > 1 {
+                        exerInfoView.otherMuImgView2.loadImage(url: URL(string: (self.woExercise?.otherMuscleWorkout?[1].imgUrl)!)!)
+                    }
+                    
+                }
+                
+                exerInfoView.mainMsImgView.loadImage(url: URL(string: (self.woExercise?.mainMuscleWorkout?.imgUrl)!)!)
+                
+                cell.contentView.addSubview(exerInfoView)
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionCell")
+                    as! UITableViewCell
+                cell.contentView.backgroundColor = UIColor.black
+                cell.textLabel?.numberOfLines = 0
+                if let instructions = self.woExercise?.instructions {
+                    cell.textLabel?.text = self.woExercise?.instructions
+                }else {
+                    cell.textLabel?.text = ""
+                }
+                
+                cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+                cell.textLabel?.textColor = UIColor.white
+                return cell
+            case 2:
+                if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SetsHeadercell")
+                        as! UITableViewCell
+                    let headerView : SetsHeaderView = SetsHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 80))
+                    headerView.backgroundColor = UIColor.black
+                    cell.contentView.backgroundColor = UIColor.black
+                    cell.contentView.addSubview(headerView)
+                    return cell
+                }else {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "setsCell")
+                            as? SetsTableViewCell
+                    else {
+                        return UITableViewCell()
+                    }
+                    let set = self.woExercise?.sets![indexPath.row - 1]
+                    cell.recomSet.text = (indexPath.row).stringValue
+                    cell.recReps.text = set?.reputationValue!.actual.stringValue
+                    cell.recWeight.text =  set?.maxWeights!.actual.stringValue
+                    cell.recRest.text = set?.restPeriod!.actual.stringValue
+                    cell.repTxtField.text = set?.reputationValue!.completed!.stringValue
+                    cell.compSet.text = (indexPath.row).stringValue
+                    cell.weightTxtField.text = set?.maxWeights!.completed!.stringValue
+                    cell.restTxtField.text = set?.restPeriod!.completed!.stringValue
+                    cell.repTxtField.tag = indexPath.row + repTag
+                    cell.weightTxtField.tag = indexPath.row + weightTag
+                    cell.restTxtField.tag = indexPath.row + restTag
+                    cell.repTxtField.isEnabled = false
+                    cell.weightTxtField.isEnabled = false
+                    cell.restTxtField.isEnabled = false
+                    cell.layoutIfNeeded()
+                    return cell
+                }
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath) as! CardStyleTableViewCell
+                return cell
+            }
         }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath) as! CardStyleTableViewCell
+        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var sectionData : Any?
@@ -319,18 +428,34 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
     func tableViewCollapeSection(_ section: Int) {
         var sectionData :NSMutableArray?
         switch section {
-        case 0:
-            sectionData = [self.woExercise as Any]
-        case 1:
-            sectionData = [self.woExercise as Any]
+        case 0,1:
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+            sectionData = [self.asanas as Any]
+            default:
+                sectionData = [self.woExercise as Any]
+            }
         case 2:
-             for i in 0 ..< ((self.woExercise?.sets?.count ?? 0) + 1) {
-                           if i == 0{
-                               sectionData = ["Test"]
-                           }else {
-                            sectionData?.add([self.woExercise?.sets?[i - 1] as Any])
-                           }
-                       }
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+           // sectionData = [self.asanas as Any]
+                for i in 0 ..< ((self.asanas?.instructions?.count ?? 0)) {
+                              if i == 0{
+                                  sectionData = ["Test"]
+                              }else {
+                               sectionData?.add([self.asanas?.instructions?[i - 1] as Any])
+                              }
+                          }
+            default:
+                for i in 0 ..< ((self.woExercise?.sets?.count ?? 0) + 1) {
+                              if i == 0{
+                                  sectionData = ["Test"]
+                              }else {
+                               sectionData?.add([self.woExercise?.sets?[i - 1] as Any])
+                              }
+                          }
+            }
+           
         default:
             sectionData =  [["Test"],self.woExercise?.sets as Any]
         }
@@ -354,18 +479,33 @@ extension WODetailVC: UITableViewDelegate,UITableViewDataSource {
     func tableViewExpandSection(_ section: Int) {
         var sectionData :NSMutableArray?
         switch section {
-        case 0:
-            sectionData = [self.woExercise as Any]
-        case 1:
-            sectionData = [self.woExercise as Any]
+        case 0,1:
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+            sectionData = [self.asanas as Any]
+            default:
+                sectionData = [self.woExercise as Any]
+            }
+        
         case 2:
-            
-            for i in 0 ..< ((self.woExercise?.sets?.count ?? 0) + 1) {
-                if i == 0{
-                    sectionData = ["Test"]
-                }else {
-                    sectionData?.add([self.woExercise?.sets?[i - 1] as Any])
-                }
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+            //sectionData = [self.asanas as Any]
+                for i in 0 ..< ((self.asanas?.instructions?.count ?? 0)) {
+                              if i == 0{
+                                  sectionData = ["Test"]
+                              }else {
+                               sectionData?.add([self.asanas?.instructions?[i - 1] as Any])
+                              }
+                          }
+            default:
+                for i in 0 ..< ((self.woExercise?.sets?.count ?? 0) + 1) {
+                              if i == 0{
+                                  sectionData = ["Test"]
+                              }else {
+                               sectionData?.add([self.woExercise?.sets?[i - 1] as Any])
+                              }
+                          }
             }
            
         default:

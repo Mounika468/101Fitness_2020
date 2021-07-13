@@ -63,3 +63,19 @@ struct ExerciseVideo: Codable {
                self.videoSourceUrl = try container.decodeIfPresent(String.self, forKey: .videoSourceUrl)
        }
 }
+
+struct TrainerYogaVideos : Codable {
+    
+    let trainerId: String
+    let asanaId: String?
+    var asanaVideo: AsanaVideo?
+    let asanaTitle: String?
+}
+
+struct AsanaVideo : Codable {
+    
+    let asanaVideoSource: String
+    let videoThumbnailPath: String?
+    let videoMp4Destination: String?
+    let videoSourceUrl: String?
+}

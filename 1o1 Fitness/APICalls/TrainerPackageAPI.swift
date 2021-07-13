@@ -16,9 +16,12 @@ final class TrainerPackageAPI: API
                      errorHandler: @escaping (APIError) -> Void) {
         
         
-
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
         
-        let urlString = getTrainerPackage + trainerId + "/programs?packageType=All"
+        let urlString = getTrainerPackage + trainerId + "/programs?packageType=All&category=\(fitness)"
        // let parameters = parameters as [String: Any]
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header,dataParams: nil)
 
@@ -51,8 +54,12 @@ final class TrainerPackageAPI: API
                      successHandler: @escaping ([PackageDetails]) -> Void,
                      errorHandler: @escaping (APIError) -> Void) {
         
-       
-       let urlString = String(format: "%@%@/programs/%@?trainee_id=%@", getTrainerPackage,trainerId,programId,UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!)
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+        
+       let urlString = String(format: "%@%@/programs/%@?trainee_id=%@&category=%@", getTrainerPackage,trainerId,programId,UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,fitness)
         
       //  let urlString = getTrainerPackage + trainerId + "/programs/" + programId
        // let parameters = parameters as [String: Any]

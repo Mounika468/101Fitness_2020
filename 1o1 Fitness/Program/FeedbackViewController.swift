@@ -28,7 +28,7 @@ class FeedbackViewController: UIViewController {
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var lb2: UILabel!
     @IBOutlet weak var lbl1: UILabel!
-    var prDetails : MyPrograms?
+    var prDetails : ProgramData?
     var navigationView = NavigationView()
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct MyPrograms:Codable {
+struct MyPrograms: Codable {
+    
+    var fitness: [ProgramData]?
+    var yoga: [ProgramData]?
+}
+struct ProgramData:Codable {
     let programId: String?
     let programName: String?
      let order_id: Int?

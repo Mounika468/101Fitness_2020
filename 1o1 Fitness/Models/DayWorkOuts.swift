@@ -528,3 +528,70 @@ struct CardioUpdatePostBoday: Codable {
         self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
     }
 }
+struct YogaCommentsUpdatePostBody: Codable {
+    let program_id: String
+    let asanaId: String
+    let date: String
+   var asanaComment: PostComments?
+   let trainee_id: String
+     let asanaStatus: String
+    let  subscription_id : String
+    let category: String
+    init(program_id: String,
+         asanaId: String,
+         date:String,
+         trainee_id: String,
+         asanaComment: PostComments?,
+         asanaStatus: String,subscription_id : String,
+          category:String)  {
+        self.program_id = program_id
+        self.asanaId = asanaId
+        self.date = date
+        self.trainee_id = trainee_id
+        self.asanaComment = asanaComment
+         self.asanaStatus = asanaStatus
+        self.subscription_id = subscription_id
+        self.category = category
+    }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.program_id = try container.decode(String.self, forKey: .program_id)
+         self.asanaId = try container.decode(String.self, forKey: .asanaId)
+        self.date = try container.decode(String.self, forKey: .date)
+        self.asanaComment = try container.decode(PostComments.self, forKey: .asanaComment)
+        self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+         self.asanaStatus = try container.decode(String.self, forKey: .asanaStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
+        self.category = try container.decode(String.self, forKey: .category)
+    }
+}
+struct YogaStatusUpdatePostBody: Codable {
+    let program_id: String
+    let asanaId: String
+    let date: String
+   let asanaStatus: String
+   let trainee_id: String
+    let  subscription_id : String
+    init(program_id: String,
+         asanaId: String,
+         date:String,
+         trainee_id: String,
+         asanaStatus: String,
+         subscription_id : String)  {
+        self.program_id = program_id
+        self.asanaId = asanaId
+        self.date = date
+        self.trainee_id = trainee_id
+        self.asanaStatus = asanaStatus
+        self.subscription_id = subscription_id
+    }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.program_id = try container.decode(String.self, forKey: .program_id)
+         self.asanaId = try container.decode(String.self, forKey: .asanaId)
+        self.date = try container.decode(String.self, forKey: .date)
+        self.asanaStatus = try container.decode(String.self, forKey: .asanaStatus)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
+        self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+    }
+}

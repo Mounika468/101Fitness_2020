@@ -14,8 +14,11 @@ final class TrainerDetailsAPI: API
                      successHandler: @escaping ([TrainerProfile]) -> Void,
                      errorHandler: @escaping (APIError) -> Void) {
         
-        
-        let urlString =  String(format: "%@%@/%@?details=full", getTrainerProfile,"Fitness",trainerId)
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+        let urlString =  String(format: "%@%@/%@?details=full", getTrainerProfile,fitness,trainerId)
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 
         sendAPIRequest(request,

@@ -7,9 +7,16 @@
 //
 
 import UIKit
-
+enum ProgramSelected {
+    case fitness
+    case yoga
+}
 class ProgramViewController: UIViewController {
 
+    @IBOutlet weak var yogaLbl: UILabel!
+    @IBOutlet weak var fitnessLbl: UILabel!
+    @IBOutlet weak var yogaBtn: UIButton!
+    @IBOutlet weak var fitnessBtn: UIButton!
     @IBOutlet weak var headerLbl: UILabel! {
         didSet {
             headerLbl.textColor = AppColours.textGreen
@@ -18,7 +25,9 @@ class ProgramViewController: UIViewController {
     @IBOutlet weak var nodataLbl: UILabel!
  //   @IBOutlet weak var tblHeightConstrain: NSLayoutConstraint!
     @IBOutlet weak var prTblView: UITableView!
-    var programsArr : [MyPrograms]?
+    var programsArr : [ProgramData]?
+    var programsRes : MyPrograms?
+    var programsSelected: ProgramSelected = .fitness
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +57,49 @@ class ProgramViewController: UIViewController {
         
         
     }
+    @IBAction func yogaBtnTapped(_ sender: Any) {
+        if yogaBtn.isSelected {
+            yogaBtn.isSelected = false
+            yogaLbl.isHidden = true
+            fitnessBtn.isSelected = true
+            fitnessLbl.isHidden = false
+            self.programsSelected = .fitness
+            self.programsArr = self.programsRes?.fitness
+        } else {
+            yogaBtn.isSelected = true
+            yogaLbl.isHidden = false
+            fitnessBtn.isSelected = false
+            fitnessLbl.isHidden = true
+            self.programsSelected = .yoga
+            self.programsArr = self.programsRes?.yoga
+        }
+        self.prTblView.reloadData()
+    }
+    @IBAction func fitnessBtnTapped(_ sender: Any) {
+        if fitnessBtn.isSelected {
+            fitnessBtn.isSelected = false
+            yogaBtn.isSelected = true
+            yogaLbl.isHidden = false
+            fitnessLbl.isHidden = true
+            self.programsSelected = .yoga
+            self.programsArr = self.programsRes?.yoga
+        } else {
+            fitnessBtn.isSelected = true
+            yogaLbl.isHidden = true
+            yogaBtn.isSelected = false
+            fitnessLbl.isHidden = false
+            self.programsSelected = .fitness
+            self.programsArr = self.programsRes?.fitness
+        }
+        self.prTblView.reloadData()
+    }
     func reloadPrograms() {
+        switch self.programsSelected {
+        case .fitness:
+            self.programsArr = self.programsRes?.fitness
+        default:
+            self.programsArr = self.programsRes?.yoga
+        }
         self.prTblView.reloadData()
 //        self.tblHeightConstrain.constant = CGFloat((self.programsArr?.count ?? 0) * 150 + 100)
     }
@@ -68,10 +119,10 @@ class ProgramViewController: UIViewController {
         ProgramAPI.getProgramsAPI(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,  header: authenticatedHeaders) {[weak self] (programs) in
             DispatchQueue.main.async {
                 LoadingOverlay.shared.hideOverlayView()
-                if programs?.count ?? 0 > 0 {
+                if programs?.fitness?.count ?? 0 > 0 || programs?.yoga?.count ?? 0 > 0{
                     self?.prTblView.isHidden = false
                     self?.nodataLbl.isHidden = true
-                    self?.programsArr = programs
+                    self?.programsRes = programs
                     self?.reloadPrograms()
                 }else {
                     self?.programsArr = nil
@@ -85,7 +136,7 @@ class ProgramViewController: UIViewController {
             DispatchQueue.main.async {
             LoadingOverlay.shared.hideOverlayView()
                 self.presentAlertWithTitle(title: "Error", message:"\(error.errorDescription)", options: "OK") {[weak self] (_) in
-                    self?.programsArr = nil
+                    self?.programsRes = nil
                     self?.reloadPrograms()
                     self?.prTblView.isHidden = true
                     self?.nodataLbl.isHidden = false

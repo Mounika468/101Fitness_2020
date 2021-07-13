@@ -9,11 +9,15 @@
 import UIKit
 enum CommentsType{
     case workoutDelete
+    case yogaDelete
     case exercisesDelete
     case cardioDelete
     case workoutMsg
     case exercisesMsg
     case cardioMsg
+    case yogaMsg
+    case cardioYogaMsg
+    case cardioYogaDelete
 }
 class CommentsViewController: UIViewController {
 
@@ -31,6 +35,7 @@ class CommentsViewController: UIViewController {
     var cardioStatus: String = ""
      var workOutStatus: String = ""
     var subscription_id = ""
+    var asanaId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -107,6 +112,10 @@ class CommentsViewController: UIViewController {
             self.postCardioComment(comment:newComment1,postComment: newComment)
         case .exercisesDelete:
             self.postExerComment(comment:newComment1,postComment: newComment)
+        case .yogaMsg,.yogaDelete:
+            self.postYogaComment(comment:newComment1,postComment: newComment)
+        case .cardioYogaMsg,.cardioYogaDelete:
+            self.postCardioYogaComment(comment:newComment1,postComment: newComment)
         default:
             self.postWOComment(comment: newComment1,postComment: newComment)
         }
@@ -132,6 +141,73 @@ class CommentsViewController: UIViewController {
                                }
                 }else {
                     NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
+                                   self?.commentsArr?.append(comment)
+                    self?.txtPost.text = ""
+                                   self?.tableView.reloadData()
+                    self?.dismiss(animated: true, completion: {
+                    })
+                }
+                }
+            }, errorHandler: {  error in
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                }
+        })
+    }
+    func postCardioYogaComment(comment: Comments, postComment: PostComments) {
+        var status = WOStatus.notCompleted
+                     if self.commentType! == .cardioYogaMsg {
+                         status = cardioStatus
+                     }
+         let yogaComments = CardioCommentsUpdatePostBody(program_id:  ProgramDetails.programDetails.programId, date:  Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, cardioComment: postComment,cardioStatus: status, subscription_id: self.subscription_id)
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(yogaComments)
+        WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
+            { [weak self] dayWorks in
+               DispatchQueue.main.async {
+                if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
+                    var message = "No data available for the selected date"
+                    if messageString.count > 0 {
+                        message = messageString
+                    }
+                    self?.presentAlertWithTitle(title: "", message: message, options: "OK") { (option) in
+                               }
+                }else {
+                    NotificationCenter.default.post(name:NSNotification.Name(rawValue: YogaUpdatedNotification), object: dayWorks)
+                                   self?.commentsArr?.append(comment)
+                    self?.txtPost.text = ""
+                                   self?.tableView.reloadData()
+                    self?.dismiss(animated: true, completion: {
+                    })
+                }
+                }
+            }, errorHandler: {  error in
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                }
+        })
+    }
+    func postYogaComment(comment: Comments, postComment: PostComments) {
+       var status = WOStatus.notCompleted
+              if self.commentType! == .yogaMsg {
+                  status = exerciseStatus
+              }
+
+        let yogaComments = YogaCommentsUpdatePostBody(program_id: ProgramDetails.programDetails.programId, asanaId: self.asanaId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, asanaComment: postComment, asanaStatus: status, subscription_id: self.subscription_id, category:"Yoga")
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(yogaComments)
+        WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
+            { [weak self] dayWorks in
+               DispatchQueue.main.async {
+                if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
+                    var message = "No data available for the selected date"
+                    if messageString.count > 0 {
+                        message = messageString
+                    }
+                    self?.presentAlertWithTitle(title: "", message: message, options: "OK") { (option) in
+                               }
+                }else {
+                    NotificationCenter.default.post(name:NSNotification.Name(rawValue: YogaUpdatedNotification), object: dayWorks)
                                    self?.commentsArr?.append(comment)
                     self?.txtPost.text = ""
                                    self?.tableView.reloadData()

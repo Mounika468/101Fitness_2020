@@ -215,7 +215,11 @@ class PackageDetailsViewController: UIViewController {
                     country = "US"
                 }
             }
-            let postBody : [String: Any] = ["program_id": self.programId!,"trainee_id": UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"trainer_id":self.trainerId!,"trainee_location":country]
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+        let postBody : [String: Any] = ["program_id": self.programId!,"trainee_id": UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"trainer_id":self.trainerId!,"trainee_location":country,"category":fitness]
             let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
             let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
             var authenticatedHeaders: [String: String] {

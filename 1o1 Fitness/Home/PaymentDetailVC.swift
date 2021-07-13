@@ -157,8 +157,11 @@ class PaymentDetailVC: UIViewController {
                 addressId = address.id!
             }
         }
-        
-        let postBody : [String: Any] = ["amount_without_tax":self.paymentInfo!.price,"order_purchase_date": Date.getCurrentDateInFormat(format: "yyyy-MM-dd") ,"order_status":"1o1_new","payment_type_id":self.paymentInfo!.payment_type_id,"program_id":ProgramDetails.programDetails.programId,"tax_brack_up_id":self.paymentInfo!.tax_break_up_id,"total_amount":self.paymentInfo!.total_amount,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"payment_mode":"card","address_id":addressId,"currency_id":self.paymentInfo!.currency_id!]
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+        let postBody : [String: Any] = ["amount_without_tax":self.paymentInfo!.price,"order_purchase_date": Date.getCurrentDateInFormat(format: "yyyy-MM-dd") ,"order_status":"1o1_new","payment_type_id":self.paymentInfo!.payment_type_id,"program_id":ProgramDetails.programDetails.programId,"tax_brack_up_id":self.paymentInfo!.tax_break_up_id,"total_amount":self.paymentInfo!.total_amount,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"payment_mode":"card","address_id":addressId,"currency_id":self.paymentInfo!.currency_id!,"category":fitness]
                    let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
         SubscriptionAPI.postToOrderId(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, successHandler:  { [weak self] orderDetails  in
             self?.orderDetails = orderDetails
@@ -238,7 +241,11 @@ class PaymentDetailVC: UIViewController {
                 country = "US"
             }
          }
-         let postBody : [String: Any] = ["program_id":  ProgramDetails.programDetails.programId,"trainee_id": UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"trainer_id":self.trainerId,"address_id":self.selectedAddressId,"trainee_location":country]
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+         let postBody : [String: Any] = ["program_id":  ProgramDetails.programDetails.programId,"trainee_id": UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"trainer_id":self.trainerId,"address_id":self.selectedAddressId,"trainee_location":country,"category":fitness]
             let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
             let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
             var authenticatedHeaders: [String: String] {

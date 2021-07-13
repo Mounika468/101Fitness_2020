@@ -21,7 +21,7 @@ class TrainerVideos: UIView {
     }
     @IBOutlet var contentView: UIView!
     var videoDelegate : TrainerVideosViewDelegate?
-    var videosArr : [TrainerVideoList]?
+    var videosArr : [Any]?
     
        override init(frame: CGRect) {
          super.init(frame: frame)
@@ -61,12 +61,33 @@ extension TrainerVideos: UICollectionViewDelegate,UICollectionViewDataSource,UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeProfileCV", for: indexPath) as! HomeTrainerCollectionViewCell
         cell.backgroundColor = UIColor.clear
-        let videoInfo = self.videosArr![indexPath.row].exerciseVideo!
-        cell.profileImgView.sd_setImage(with: URL(string: videoInfo.videoThumbnailPath!)!, completed: nil)
-        cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
-        cell.ratingBtn.isHidden = true
-        cell.nameLbl.text = self.videosArr![indexPath.row].exerciseName!
-                   return cell
+        // Get stored fitness type
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            if fitnessType == "Yoga" {
+                let fitnessVideo = self.videosArr as! [TrainerYogaVideos]
+                let videoInfo = fitnessVideo[indexPath.row].asanaVideo!
+                cell.profileImgView.sd_setImage(with: URL(string: videoInfo.videoThumbnailPath!)!, completed: nil)
+                cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
+                cell.ratingBtn.isHidden = true
+                cell.nameLbl.text = fitnessVideo[indexPath.row].asanaTitle!
+            } else {
+                let fitnessVideo = self.videosArr as! [TrainerVideoList]
+                let videoInfo = fitnessVideo[indexPath.row].exerciseVideo!
+                cell.profileImgView.sd_setImage(with: URL(string: videoInfo.videoThumbnailPath!)!, completed: nil)
+                cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
+                cell.ratingBtn.isHidden = true
+                cell.nameLbl.text = fitnessVideo[indexPath.row].exerciseName!
+            }
+        } else {
+            let fitnessVideo = self.videosArr as! [TrainerVideoList]
+            let videoInfo = fitnessVideo[indexPath.row].exerciseVideo!
+            cell.profileImgView.sd_setImage(with: URL(string: videoInfo.videoThumbnailPath!)!, completed: nil)
+            cell.ratingBtn.setImage(UIImage(named: ""), for: .normal)
+            cell.ratingBtn.isHidden = true
+            cell.nameLbl.text = fitnessVideo[indexPath.row].exerciseName!
+        }
+        
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -91,13 +112,36 @@ extension TrainerVideos: UICollectionViewDelegate,UICollectionViewDataSource,UIC
             return CGSize(width: size, height: 118)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let videoInfo = self.videosArr![indexPath.row].exerciseVideo!
-        if videoInfo.videoMp4Destination?.count == 0 {
-            videoDelegate?.youTubeVideoSelected(urlString:videoInfo.exerciseVideoSource!)
-        }else {
-            videoDelegate?.videoSelected(urlString:videoInfo.videoMp4Destination!)
+        
+        // Get stored fitness type
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            if fitnessType == "Yoga" {
+                let fitnessVideo = self.videosArr as! [TrainerYogaVideos]
+                let videoInfo = fitnessVideo[indexPath.row].asanaVideo!
+                if videoInfo.videoMp4Destination?.count == 0 {
+                    videoDelegate?.youTubeVideoSelected(urlString:videoInfo.asanaVideoSource)
+                }else {
+                    videoDelegate?.videoSelected(urlString:videoInfo.videoMp4Destination!)
+                }
+            } else {
+                let fitnessVideo = self.videosArr as! [TrainerVideoList]
+                let videoInfo = fitnessVideo[indexPath.row].exerciseVideo!
+                if videoInfo.videoMp4Destination?.count == 0 {
+                    videoDelegate?.youTubeVideoSelected(urlString:videoInfo.exerciseVideoSource!)
+                }else {
+                    videoDelegate?.videoSelected(urlString:videoInfo.videoMp4Destination!)
+                }
+            }
+            
+        } else {
+            let fitnessVideo = self.videosArr as! [TrainerVideoList]
+            let videoInfo = fitnessVideo[indexPath.row].exerciseVideo!
+            if videoInfo.videoMp4Destination?.count == 0 {
+                videoDelegate?.youTubeVideoSelected(urlString:videoInfo.exerciseVideoSource!)
+            }else {
+                videoDelegate?.videoSelected(urlString:videoInfo.videoMp4Destination!)
+            }
         }
-       
     }
 
 }

@@ -133,6 +133,10 @@ extension PackagesView: UITableViewDelegate,UITableViewDataSource {
         return 0;
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
             let sectionView : SectionView = SectionView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 160))
         //  sectionView.lblName.text = sectionNames[section] as! String
             sectionView.tag = section
@@ -145,14 +149,31 @@ extension PackagesView: UITableViewDelegate,UITableViewDataSource {
             sectionView.txtImgView.isHidden = true
             sectionView.imgView.isHidden = true
             sectionView.middleTxtImgView.image = UIImage(named: sectionNames[section] as! String)
+            if fitness == "Fitness" {
+                sectionView.middleImgView.image = UIImage(named: "inter_pack")
+            } else {
+                sectionView.middleImgView.image = UIImage(named: "yintermediate")
+            }
             // sectionView.middleLbl.text = sectionNames[section] as! String
         }
         else
         {
             if section == 2 {
                 //sectionView
-                sectionView.imgView.image = UIImage(named: "advanced_pack")
+                if fitness == "Fitness" {
+                    sectionView.imgView.image = UIImage(named: "advanced_pack")
+                } else {
+                    sectionView.imgView.image = UIImage(named: "yadvance")
+                }
+                
+            } else {
+                if fitness == "Fitness" {
+                    sectionView.imgView.image = UIImage(named: "beginer_pack")
+                } else {
+                    sectionView.imgView.image = UIImage(named: "yBegin")
+                }
             }
+            
              sectionView.txtImgView.image = UIImage(named: sectionNames[section] as! String)
             sectionView.middleTxtImgView.isHidden = true
             sectionView.middleImgView.isHidden = true

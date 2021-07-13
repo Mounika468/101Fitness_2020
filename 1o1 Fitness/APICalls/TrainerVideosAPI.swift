@@ -10,12 +10,12 @@ import Foundation
 
 final class TrainerVideosAPI: API
 {
-    static func post(trainerId: String,header:[String: String],
+    static func post(trainerId: String,header:[String: String],category:String,
                      successHandler: @escaping ([TrainerVideoList]) -> Void,
                      errorHandler: @escaping (APIError) -> Void) {
         
         
-        let urlString =  String(format: "%@%@/%@/exercises/public", getTrainerProfile,"Fitness",trainerId)
+        let urlString =  String(format: "%@%@/%@/public", getTrainerProfile,trainerId,category)
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 
         sendAPIRequest(request,
@@ -24,8 +24,8 @@ final class TrainerVideosAPI: API
                             if  let jsonDict = json[ResponseKeys.data.rawValue] {
                                 if jsonDict != nil {
                                     let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any, options: .prettyPrinted)
-                                                                   let videoList = try JSONDecoder().decode([TrainerVideoList].self, from: jsonData)
-                                                                   successHandler(videoList)
+                                    let videoList = try JSONDecoder().decode([TrainerVideoList].self, from: jsonData)
+                                    successHandler(videoList)
                                 }else {
                                     successHandler([])
                                 }
@@ -42,6 +42,40 @@ final class TrainerVideosAPI: API
         })
 
     }
+    
+    static func getAsans(trainerId: String,header:[String: String],category:String,
+                     successHandler: @escaping ([TrainerYogaVideos]) -> Void,
+                     errorHandler: @escaping (APIError) -> Void) {
+        
+        
+        let urlString =  String(format: "%@%@/%@/public", getTrainerProfile,trainerId,category)
+        let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
+
+        sendAPIRequest(request,
+                       successHandler: { (json: JSON) in
+                        do {
+                            if  let jsonDict = json[ResponseKeys.data.rawValue] {
+                                if jsonDict != nil {
+                                    let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any, options: .prettyPrinted)
+                                    let videoList = try JSONDecoder().decode([TrainerYogaVideos].self, from: jsonData)
+                                    successHandler(videoList)
+                                }else {
+                                    successHandler([])
+                                }
+                               
+                            } else {
+                                successHandler([])
+                            }
+                        } catch let error {
+                            errorHandler(APIError.invalidResponse(ErrorMessage("error.parsing")))
+                        }
+                        
+        }, errorHandler: { error in
+            errorHandler(error)
+        })
+
+    }
+    
 }
 
 

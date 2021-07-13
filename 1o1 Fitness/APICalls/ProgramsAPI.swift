@@ -12,8 +12,13 @@ final class ProgramAPI: API
     static func getOrdersAPI(traineeId: String,header:[String: String],
                         successHandler: @escaping ([MyOrders]?) -> Void,
                         errorHandler: @escaping (APIError) -> Void) {
-           
-           let urlString =  String(format: "%@%@/orders", getPrograms,traineeId)
+        var fitness = "Fitness"
+       
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+          // let urlString =  String(format: "%@%@/orders?category=%@", getPrograms,traineeId,fitness)
+        let urlString =  String(format: "%@%@/orders", getPrograms,traineeId)
            let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
            let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
            if token == nil {
@@ -42,10 +47,17 @@ final class ProgramAPI: API
        }
   
     static func getProgramsAPI(traineeId: String,header:[String: String],
-                        successHandler: @escaping ([MyPrograms]?) -> Void,
+                        successHandler: @escaping (MyPrograms?) -> Void,
                         errorHandler: @escaping (APIError) -> Void) {
+        
+        var fitness = "Fitness"
+       
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
            
-           let urlString =  String(format: "%@%@/myprograms", getPrograms,traineeId)
+         //  let urlString =  String(format: "%@%@/myprograms?category=%@", getPrograms,traineeId,fitness)
+        let urlString =  String(format: "%@%@/myprograms", getPrograms,traineeId)
            let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
            let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
            if token == nil {
@@ -56,7 +68,7 @@ final class ProgramAPI: API
                    if  let jsonDict = json[ResponseKeys.data.rawValue] {
                        if jsonDict != nil {
                            let jsonData = try JSONSerialization.data(withJSONObject: jsonDict as Any, options: .prettyPrinted)
-                           let programs = try JSONDecoder().decode([MyPrograms].self, from: jsonData)
+                           let programs = try JSONDecoder().decode(MyPrograms.self, from: jsonData)
                            successHandler(programs)
                        }else {
                            successHandler(nil)
@@ -75,8 +87,13 @@ final class ProgramAPI: API
     static func getDetailsForProgram(header:[String: String],traineeId:String,orderId:String,
                          successHandler: @escaping (MyProgramsDetails?) -> Void,
                          errorHandler: @escaping (APIError) -> Void) {
+        var fitness = "Fitness"
+       
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
                              
-        let urlString =  String(format: "%@%@/orders/%@", getDetailsForProgramId,traineeId,orderId)
+        let urlString =  String(format: "%@%@/orders/%@?category=%@", getDetailsForProgramId,traineeId,orderId,fitness)
                              let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 
                              sendAPIRequest(request,

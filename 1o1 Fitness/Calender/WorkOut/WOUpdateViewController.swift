@@ -15,6 +15,7 @@ class WOUpdateViewController: UIViewController {
    // @IBOutlet weak var woUpdateView: WOUpdateView!
     var xBarHeight :CGFloat  = 0.0
     var setsArr : [Sets]?
+    var yogaSetsArr : [YogaSets]?
     @IBOutlet weak var tblView: UITableView!
     var selectedIndexPath : Int?
      var selectedExPath : Int?
@@ -22,6 +23,7 @@ class WOUpdateViewController: UIViewController {
     var updatedWeight : String?
     var updatedReps : String?
     var modifiedSets : [Sets]?
+    var yogaModiSetsArr : [YogaSets]?
     var programId : String?
      var workOutId : String?
      var exerciseId : String?
@@ -32,7 +34,12 @@ class WOUpdateViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.navigationController?.isNavigationBarHidden = false
         let navigationView = NavigationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: xBarHeight))
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            navigationView.titleLbl.text = "Asana Update"
+        default:
         navigationView.titleLbl.text = "WorkOut Update"
+        }
         navigationView.backgroundColor = AppColours.topBarGreen
         navigationView.backBtn .addTarget(self, action: #selector(backBtnTapped(sender:)), for: .touchUpInside)
         navigationView.saveBtn.isHidden = false
@@ -116,7 +123,12 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
         return 80
        }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            return yogaSetsArr?.count ?? 0
+        default:
         return setsArr?.count ?? 0
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
    
@@ -125,6 +137,30 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
             else {
                 return UITableViewCell()
         }
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            let set = self.yogaSetsArr![indexPath.row]
+            cell.recomSet.text = String(describing: indexPath.row + 1)
+            cell.recReps.text = String(describing: set.reputationValue!.actual)
+            cell.recWeight.text = String(describing: set.breathValue!.actual)
+            cell.recRest.text = String(describing: set.minutesPeriod!.actual)
+            cell.repTxtField.text = "\(set.reputationValue!.completed ?? 0)"
+            cell.compSet.text = String(describing: indexPath.row + 1)
+             cell.weightTxtField.text = "\(set.breathValue!.completed ?? 0)"
+             cell.restTxtField.text = "\(set.minutesPeriod!.completed ?? 0)"
+            cell.repTxtField.tag = indexPath.row + repTag
+            cell.weightTxtField.tag = indexPath.row + weightTag
+            cell.restTxtField.tag = indexPath.row + restTag
+            cell.restTxtField.addTarget(self, action: #selector(self.restTxtFieldDidChange(_:)), for: .editingDidEnd)
+            cell.weightTxtField.addTarget(self, action: #selector(self.weightTxtFieldDidChange(_:)), for: .editingDidEnd)
+            cell.repTxtField.addTarget(self, action: #selector(self.repTxtFieldDidChange(_:)), for: .editingDidEnd)
+    //        cell.restTxtField.delegate = self
+    //        cell.repTxtField.delegate = self
+    //         cell.weightTxtField.delegate = self
+            self.selectedIndexPath = indexPath.row
+             cell.layoutIfNeeded()
+            return cell
+        default:
         let set = self.setsArr![indexPath.row]
         cell.recomSet.text = String(describing: indexPath.row + 1)
         cell.recReps.text = String(describing: set.reputationValue!.actual)
@@ -146,6 +182,7 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
         self.selectedIndexPath = indexPath.row
          cell.layoutIfNeeded()
         return cell
+        }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 80

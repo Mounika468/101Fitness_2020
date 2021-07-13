@@ -45,7 +45,7 @@ class WorkOutDaysViewController: UIViewController {
     var navigationType: NavigationType = .profileNormal
     let morningTimingsArray = ["Morning","4am - 6am","6am  - 8am","8am - 10am","10am - 12pm"]
     let afternoonTimingsArray = ["Afternoon","12pm - 2pm","2pm  - 4pm","4pm - 6pm"]
-    let evenTimingsArray = ["Evening","6pm - 8pm","8pm  - 10pm","10pm - 12pm"]
+    let evenTimingsArray = ["Evening","6pm - 8pm","8pm  - 10pm","10pm - 12am"]
     let durationsArray = ["less than 30 mins","30 mins","45 mins","60 mins","75 min", "90 mins","more than 90 mins"]
      var selectedTimeIndex: Int = 0
     override func viewDidLoad() {

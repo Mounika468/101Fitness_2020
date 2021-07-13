@@ -18,6 +18,7 @@ let kRotationAnimationKey = "com.myapplication.rotationanimationkey"
 let kFitnessTag = "fitnessTag"
 let kYogaTag = "yogaTag"
 let kZumba = "zumbaTag"
+
 class HomeViewController: UIViewController {
 //    func onLocationUpdate(location: CLLocation) {
 //        print("locatiojn is \(location.coordinate.latitude) , \(location.coordinate.longitude)")
@@ -27,8 +28,8 @@ class HomeViewController: UIViewController {
 //         print("locatiojn is \(error)")
 //    }
     @IBOutlet weak var mainHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchPriConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchSecConstraint: NSLayoutConstraint!
+    @IBOutlet  var searchPriConstraint: NSLayoutConstraint!
+    @IBOutlet  var searchSecConstraint: NSLayoutConstraint!
     @IBOutlet weak var yogaCV: UICollectionView!
     @IBOutlet weak var welcomeLbl: UILabel!
     var searchActive : Bool = false
@@ -62,6 +63,7 @@ class HomeViewController: UIViewController {
      var headersImages : Array = ["htrainer","hpgrs","hdiet","hcall","hcamera","hbmi"]
     var yogaImages : Array = ["morning","theraupic","immunity","fatburn","stress"]
     var yogaHeaderImages : Array = ["hYoga","hpgrs","hdiet","hFree","hcall","hcamera","hbmi"]
+    var fitness = "Fitness"
     override func viewDidLoad() {
         print("HOme Loaded")
         super.viewDidLoad()
@@ -109,6 +111,23 @@ class HomeViewController: UIViewController {
 //        }
        // self.searchBar.searchTextField.textColor = UIColor.white
         self.tabBarController?.delegate = self
+       
+        
+       // To check user last selection
+        if let fitness = UserDefaults.standard.string(forKey: "FitnessType") {
+            self.fitness = fitness
+            
+        } else {
+            self.fitness = "Fitness"
+        }
+        switch self.fitness {
+        case "Fitness":
+            FitnessProgramSelection.fitnessType.programType = .fitness
+        case "Yoga":
+            FitnessProgramSelection.fitnessType.programType = .yoga
+        default:
+            FitnessProgramSelection.fitnessType.programType = .fitness
+        }
         
     }
     
@@ -196,7 +215,6 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.isLoading = false
         self.pageNumber = 0
-         self.getTrainerInfo()
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.isNavigationBarHidden = true
         self.searchBar.text = ""
@@ -257,9 +275,13 @@ class HomeViewController: UIViewController {
                 print("ItemDidClick: \(button.id)")
             }
         }
-        if FitnessProgramSelection.fitnessType.programType == .yoga {
+        if self.fitness == "Yoga" {
+          //  self.getTrainerInfo(fitnessType: "Yoga")
+            FitnessProgramSelection.fitnessType.programType = .yoga
             displayYogaLayout()
         }else {
+          //  self.getTrainerInfo(fitnessType: "Fitness")
+            FitnessProgramSelection.fitnessType.programType = .fitness
             displayFitnessLayout()
         }
 
@@ -277,21 +299,23 @@ class HomeViewController: UIViewController {
                 searchSecConstraint.isActive = true
                 
             }
+        self.getTrainerInfo(fitnessType: self.fitness)
         headerCollectionView.reloadData()
     }
     func displayFitnessLayout() {
         yogaCV.isHidden = true
             if #available(iOS 13.0, *) {
-//                searchPriConstraint.isActive = true
-//                searchSecConstraint.isActive = false
-                searchPriConstraint.priority = UILayoutPriority(rawValue: 1000)
-                searchSecConstraint.priority = UILayoutPriority(rawValue: 999)
+                searchPriConstraint.isActive = true
+                searchSecConstraint.isActive = false
+//                searchPriConstraint.priority = UILayoutPriority(rawValue: 1000)
+//                searchSecConstraint.priority = UILayoutPriority(rawValue: 999)
             } else {
                 // Fallback on earlier versions
                 searchPriConstraint.isActive = true
                 searchSecConstraint.isActive = false
                 
             }
+        self.getTrainerInfo(fitnessType: self.fitness)
         headerCollectionView.reloadData()
     }
     func fitnessFloatTapped() {
@@ -300,10 +324,24 @@ class HomeViewController: UIViewController {
         if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
             if  savedValue == UserDefaultsKeys.guestLogin  {
                 // return
-                self.presentAlert(message: "Please Sign up to access the fitness information")
+               // self.presentAlert(message: "Please Sign up to access the fitness information")
             }else {
+                
             }
-        }
+        }  // Re consider this logic
+            if let fitnessType = userdefaults.string(forKey: "FitnessType") {
+                if fitnessType == "Fitness" {
+                   
+                } else {
+                    userdefaults.removeObject(forKey: "FitnessType")
+                    userdefaults.setValue("Fitness", forKey: "FitnessType")
+                }
+            }else {
+               // userdefaults.removeObject(forKey: "FitnessType")
+                userdefaults.setValue("Fitness", forKey: "FitnessType")
+            }
+            userdefaults.synchronize()
+        self.fitness = "Fitness"
     }
     func yogaFloatTapped() {
         FitnessProgramSelection.fitnessType.programType = .yoga
@@ -311,10 +349,24 @@ class HomeViewController: UIViewController {
         if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
             if  savedValue == UserDefaultsKeys.guestLogin  {
                 // return
-                self.presentAlert(message: "Please Sign up to access the yoga information")
+               // self.presentAlert(message: "Please Sign up to access the yoga information")
             }else {
             }
-        }
+        }   // Re consider this logic
+            if let fitnessType = userdefaults.string(forKey: "FitnessType") {
+                if fitnessType == "Yoga" {
+                   
+                } else {
+                    userdefaults.removeObject(forKey: "FitnessType")
+                    userdefaults.setValue("Yoga", forKey: "FitnessType")
+                }
+            }else {
+               // userdefaults.removeObject(forKey: "FitnessType")
+                userdefaults.setValue("Yoga", forKey: "FitnessType")
+            }
+        self.fitness = "Yoga"
+            userdefaults.synchronize()
+        
     }
     func zumbaFloatTapped() {
         FitnessProgramSelection.fitnessType.programType = .zumba
@@ -322,7 +374,7 @@ class HomeViewController: UIViewController {
         if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
             if  savedValue == UserDefaultsKeys.guestLogin  {
                 // return
-                self.presentAlert(message: "Please Sign up to access the zumba information")
+               // self.presentAlert(message: "Please Sign up to access the zumba information")
             }else {
             }
         }
@@ -340,7 +392,7 @@ class HomeViewController: UIViewController {
         self.stopRotatingView(view: cell.contentView)
         }
     }
-    private func getTrainerInfo()
+    private func getTrainerInfo(fitnessType:String)
     {
         
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
@@ -370,7 +422,7 @@ class HomeViewController: UIViewController {
             LoadingOverlay.shared.showOverlay(view: window)
         }
        
-        TrainerbyLocationAPI.postCalltoToken(parameters: location, details: "partial", pageNumber: 0) { [weak self] trainerInfo  in
+        TrainerbyLocationAPI.postCalltoToken(parameters: location, fitnessType: fitnessType, details: "partial", pageNumber: 0) { [weak self] trainerInfo  in
             if trainerInfo.count > 0 {
                 self?.trainersInfo = trainerInfo
                 self?.pageNumber = self!.pageNumber + 1
@@ -731,11 +783,14 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                cell.pieChart.isHidden = true
                let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
                cell.pieChart.addGestureRecognizer(tap)
-               if (indexPath.row == 2 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
+               if (indexPath.row == 1 && ProgramDetails.programDetails.programId.count == 0) || (indexPath.row == 1 && (TraineeDetails.traineeDetails?.dayProgress?.workoutNewPercentage ?? 0 == 0)) {
                    DispatchQueue.main.async {
+                    let indexPath = IndexPath(item: 1, section: 0)
+                    let cell = self.headerCollectionView.cellForItem(at: indexPath) as! HeaderCollectionViewCell
+                    self.stopRotatingView(view: cell.contentView)
                    self.rotateView(view: cell.contentView, duration: 5.0)
                    }
-               }else if indexPath.row == 2 && ProgramDetails.programDetails.programId.count > 0  {
+               }else if indexPath.row == 1 && ProgramDetails.programDetails.programId.count > 0  {
                    DispatchQueue.main.async {
                        cell.pieChart.isHidden = false
                        cell.imgView.image = UIImage(named: "outerProgress")
@@ -800,7 +855,16 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         if collectionView == self.trainersCollectionView && self.trainersInfo?.count ?? 0 > 2{
             if indexPath.row == self.trainersInfo!.count  - 1 && !self.isLoading {
                // self.isLoading = true
-                loadMoreData()
+                var fitnessType = "Fitness"
+                switch FitnessProgramSelection.fitnessType.programType {
+                case .fitness:
+                    fitnessType = "Fitness"
+                case .yoga:
+                    fitnessType = "Yoga"
+                default:
+                    fitnessType = "Fitness"
+                }
+                loadMoreData(fitness:fitnessType)
             }
         }
        
@@ -861,7 +925,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             self.tabBarController?.selectedIndex = 1
         }
     }
-    func loadMoreData() {
+    func loadMoreData(fitness:String) {
         if !self.isLoading {
             self.isLoading = true
 //            let start = self.trainersInfo!.count + 1
@@ -898,7 +962,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 DispatchQueue.main.async {
                     LoadingOverlay.shared.showOverlay(view: window)
                 }
-                TrainerbyLocationAPI.postCalltoToken(parameters: location, details: "partial", pageNumber: self.pageNumber) { [weak self] trainerInfo  in
+            TrainerbyLocationAPI.postCalltoToken(parameters: location, fitnessType: fitness, details: "partial", pageNumber: self.pageNumber) { [weak self] trainerInfo  in
                     if trainerInfo.count > 0 {
                         self?.trainersInfo?.append(contentsOf: trainerInfo)
                        // self?.trainersInfo = trainerInfo
@@ -996,68 +1060,85 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         
         switch collectionView {
         case self.headerCollectionView:
-            switch indexPath.row {
-            case 0:
-                
-//                       let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
-//                       let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
-//                       self.navigationController?.pushViewController(controller, animated: true)
-                
-                let storyboard = UIStoryboard(name: "TrainerList", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "trainerListVC") as! TrainersListViewController
-                //controller.trainersInfo = self.trainersInfo
-                self.navigationController?.pushViewController(controller, animated: true)
-            case 1:
-                let userdefaults = UserDefaults.standard
-                if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
-                    if  savedValue == UserDefaultsKeys.guestLogin {
-                        self.presentAlert(message: "Please Sign up to get a free access")
-                        // self.popupBox()
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .fitness:
+                switch indexPath.row {
+                case 0:
+                    
+    //                       let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
+    //                       let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
+    //                       self.navigationController?.pushViewController(controller, animated: true)
+                    
+                    let storyboard = UIStoryboard(name: "TrainerList", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "trainerListVC") as! TrainersListViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+                case 1:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to get a free access")
+                            // self.popupBox()
+                        }else {
+                            self.tabBarController?.selectedIndex = 1
+                        }
                     }else {
                         self.tabBarController?.selectedIndex = 1
                     }
-                }else {
-                    self.tabBarController?.selectedIndex = 1
-                }
-            
                 
-                
-            case 2:
-                isFromHomediet = true
-                self.tabBarController?.selectedIndex = 2
-            case 3:
-                let userdefaults = UserDefaults.standard
-                if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
-                    if  savedValue == UserDefaultsKeys.guestLogin {
-                        self.presentAlert(message: "Please Sign up to access the 1o1 call features")
-                        return
+                    
+                    
+                case 2:
+                    isFromHomediet = true
+                    self.tabBarController?.selectedIndex = 2
+                case 3:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to access the 1o1 call features")
+                            return
+                        }
                     }
-                }
-                let storyboard = UIStoryboard(name: "CallViewController", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
-                //controller.trainersInfo = self.trainersInfo
-                self.navigationController?.pushViewController(controller, animated: true)
-         
-            case 4:
-                let userdefaults = UserDefaults.standard
-                if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
-                    if  savedValue == UserDefaultsKeys.guestLogin {
-                        self.presentAlert(message: "Please Sign up to access the 1o1 progress photos")
-                        return
+                    let storyboard = UIStoryboard(name: "CallViewController", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+             
+                case 4:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to access the 1o1 progress photos")
+                            return
+                        }
                     }
-                }
-                let storyboard = UIStoryboard(name: "PhotoViewController", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "PhotoViewController") as! PhotoViewController
-                //controller.trainersInfo = self.trainersInfo
-                self.navigationController?.pushViewController(controller, animated: true)
-               
-                
-                case 5:
-                let userdefaults = UserDefaults.standard
-                if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
-                    if  savedValue == UserDefaultsKeys.guestLogin {
-                        self.presentAlert(message: "Please Sign up to access the BMI/BMR")
-                        return
+                    let storyboard = UIStoryboard(name: "PhotoViewController", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "PhotoViewController") as! PhotoViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+                   
+                    
+                    case 5:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to access the BMI/BMR")
+                            return
+                        }else {
+                            if TraineeDetails.traineeDetails?.profile_submission == false {
+                                self.presentAlertWithTitle(title: "Profile Not Submitted", message: "Please submit your profile to view BMI/BMR", options: "OK") { (_) in
+                                    self.tabBarController?.tabBar.isHidden = true
+                                    let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
+                                    let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
+                                    self.navigationController?.pushViewController(controller, animated: true)
+                                }
+                            }else {
+                                let storyboard = UIStoryboard(name: "BMIBMRVC", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "BMIBMRVC") as! BMIBMRViewController
+                                //controller.trainersInfo = self.trainersInfo
+                                self.navigationController?.pushViewController(controller, animated: true)
+                            }
+                        }
                     }else {
                         if TraineeDetails.traineeDetails?.profile_submission == false {
                             self.presentAlertWithTitle(title: "Profile Not Submitted", message: "Please submit your profile to view BMI/BMR", options: "OK") { (_) in
@@ -1073,26 +1154,115 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                             self.navigationController?.pushViewController(controller, animated: true)
                         }
                     }
-                }else {
-                    if TraineeDetails.traineeDetails?.profile_submission == false {
-                        self.presentAlertWithTitle(title: "Profile Not Submitted", message: "Please submit your profile to view BMI/BMR", options: "OK") { (_) in
-                            self.tabBarController?.tabBar.isHidden = true
-                            let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
-                            let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
-                            self.navigationController?.pushViewController(controller, animated: true)
+                    
+                    
+                default:
+                    print("default statement")
+                }
+            case .yoga: //Yoga selection
+                switch indexPath.row {
+                case 0:
+                
+                    let storyboard = UIStoryboard(name: "TrainerList", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "trainerListVC") as! TrainersListViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+                case 1:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to get a free access")
+                            // self.popupBox()
+                        }else {
+                            self.tabBarController?.selectedIndex = 1
                         }
                     }else {
-                        let storyboard = UIStoryboard(name: "BMIBMRVC", bundle: nil)
-                        let controller = storyboard.instantiateViewController(withIdentifier: "BMIBMRVC") as! BMIBMRViewController
-                        //controller.trainersInfo = self.trainersInfo
-                        self.navigationController?.pushViewController(controller, animated: true)
+                        self.tabBarController?.selectedIndex = 1
                     }
+                
+                    
+                    
+                case 2:
+                    isFromHomediet = true
+                    self.tabBarController?.selectedIndex = 2
+                case 3:
+                    let storyboard = UIStoryboard(name: "FreeYogaViewController", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "FreeYogaViewController") as! FreeYogaViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+                case 4:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to access the 1o1 call features")
+                            return
+                        }
+                    }
+                    let storyboard = UIStoryboard(name: "CallViewController", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+             
+                case 5:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to access the 1o1 progress photos")
+                            return
+                        }
+                    }
+                    let storyboard = UIStoryboard(name: "PhotoViewController", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "PhotoViewController") as! PhotoViewController
+                    //controller.trainersInfo = self.trainersInfo
+                    self.navigationController?.pushViewController(controller, animated: true)
+                   
+                    
+                    case 6:
+                    let userdefaults = UserDefaults.standard
+                    if let savedValue = userdefaults.string(forKey: UserDefaultsKeys.guestLogin) {
+                        if  savedValue == UserDefaultsKeys.guestLogin {
+                            self.presentAlert(message: "Please Sign up to access the BMI/BMR")
+                            return
+                        }else {
+                            if TraineeDetails.traineeDetails?.profile_submission == false {
+                                self.presentAlertWithTitle(title: "Profile Not Submitted", message: "Please submit your profile to view BMI/BMR", options: "OK") { (_) in
+                                    self.tabBarController?.tabBar.isHidden = true
+                                    let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
+                                    let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
+                                    self.navigationController?.pushViewController(controller, animated: true)
+                                }
+                            }else {
+                                let storyboard = UIStoryboard(name: "BMIBMRVC", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "BMIBMRVC") as! BMIBMRViewController
+                                //controller.trainersInfo = self.trainersInfo
+                                self.navigationController?.pushViewController(controller, animated: true)
+                            }
+                        }
+                    }else {
+                        if TraineeDetails.traineeDetails?.profile_submission == false {
+                            self.presentAlertWithTitle(title: "Profile Not Submitted", message: "Please submit your profile to view BMI/BMR", options: "OK") { (_) in
+                                self.tabBarController?.tabBar.isHidden = true
+                                let storyboard = UIStoryboard(name: "StartVC", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "startVC") as! StartViewController
+                                self.navigationController?.pushViewController(controller, animated: true)
+                            }
+                        }else {
+                            let storyboard = UIStoryboard(name: "BMIBMRVC", bundle: nil)
+                            let controller = storyboard.instantiateViewController(withIdentifier: "BMIBMRVC") as! BMIBMRViewController
+                            //controller.trainersInfo = self.trainersInfo
+                            self.navigationController?.pushViewController(controller, animated: true)
+                        }
+                    }
+                    
+                    
+                default:
+                    print("default statement")
                 }
-                
-                
+
             default:
                 print("default statement")
             }
+
            
             
         case self.trainersCollectionView:
@@ -1120,6 +1290,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         }
         
     }
+    
     func stopRotatingView(view: UIView) {
         if view.layer.animation(forKey: kRotationAnimationKey) != nil {
             view.layer.removeAnimation(forKey: kRotationAnimationKey)
@@ -1294,7 +1465,7 @@ extension HomeViewController: UISearchBarDelegate {
         if searchText.count == 0 { // If no search text is entered
             self.isLoading = false
             self.pageNumber = 0
-            self.getTrainerInfo()
+            self.getTrainerInfo(fitnessType: "")
         }else {
             let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
             if token == nil {

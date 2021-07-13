@@ -102,6 +102,7 @@ class CalenderViewController: UIViewController {
 //        }else {
 //            self.calenderSelectionEvent = .workout
 //        }
+        
         self.refreshView(calenderEvent: self.calenderSelectionEvent)
         isFromHomediet = false
         if self.tabBarController?.tabBar.isHidden == true {
@@ -181,6 +182,8 @@ class CalenderViewController: UIViewController {
              ProgramDetails.programDetails.programStartDate = id
          }
         NotificationCenter.default.addObserver(self, selector: #selector(refreshWorkouts), name: NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshYogaModel), name: NSNotification.Name(rawValue: YogaUpdatedNotification), object: nil)
         if self.dietView.dietviewDelegate == nil {
                   self.dietView.dietviewDelegate = self
               }
@@ -201,6 +204,18 @@ class CalenderViewController: UIViewController {
       self.workOutView.loadWorkOuts()
        
    }
+    @objc func refreshYogaModel(notification: Notification) {
+        guard let yogaObject = notification.object as? YogaModel else {
+            return
+        }
+        
+       // ProgramDetails.programDetails.dayWorkOut = woObject
+     self.workOutView.slectedDate = self.slectedDate
+       self.workOutView.YogaArr =  yogaObject
+       self.workOutView.loadWorkOuts()
+        
+    }
+    
     @objc func shareBtnTapped(sender : UIButton){
     // self.navigationController?.popViewController(animated: true)
         let storyboard = UIStoryboard(name: "ShareViewController", bundle: nil)
@@ -371,12 +386,26 @@ class CalenderViewController: UIViewController {
     func workoutViewDisplay(isActive: Bool) {
        
         if !isActive {
-            self.workOutBtn.setBackgroundImage(UIImage(named: "gdumbel"), for: .normal)
+            var btnImage = "gdumbel"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                btnImage = "yogaUnselect"
+            default:
+                btnImage = "gdumbel"
+            }
+            self.workOutBtn.setBackgroundImage(UIImage(named: btnImage), for: .normal)
             self.workOutView.isHidden = true
         }
         else
         {
-            self.workOutBtn.setBackgroundImage(UIImage(named: "dumbel"), for: .normal)
+            var btnImage = "dumbel"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                btnImage = "yogaSel"
+            default:
+                btnImage = "dumbel"
+            }
+            self.workOutBtn.setBackgroundImage(UIImage(named: btnImage), for: .normal)
                 self.workOutView.isHidden = false
                 self.getWorkouts(date: self.slectedDate)
                 self.bgView.isHidden = true
@@ -386,14 +415,28 @@ class CalenderViewController: UIViewController {
         self.workOutView.isHidden = true
         
         if !isActive {
-            self.workOutBtn.setImage(UIImage(named: "gdumbel"), for: .normal)
+            var btnImage = "gdumbel"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                btnImage = "yogaUnselect"
+            default:
+                btnImage = "gdumbel"
+            }
+            self.workOutBtn.setImage(UIImage(named: btnImage), for: .normal)
             self.woSubscribeBtn.isHidden = true
             self.subscribeBtn.isHidden = false
             self.createBtn.isHidden = false
         }
         else
         {
-            self.workOutBtn.setBackgroundImage(UIImage(named: "dumbel"), for: .normal)
+            var btnImage = "dumbel"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                btnImage = "yogaSel"
+            default:
+                btnImage = "dumbel"
+            }
+            self.workOutBtn.setBackgroundImage(UIImage(named: btnImage), for: .normal)
             self.woSubscribeBtn.isHidden = false
             self.subscribeBtn.isHidden = true
             self.createBtn.isHidden = true
@@ -834,10 +877,7 @@ class CalenderViewController: UIViewController {
     }
     //   MARK: Get workouts
     func getWorkouts(date:Date) {
-        let window = UIApplication.shared.windows.first!
-        DispatchQueue.main.async {
-            LoadingOverlay.shared.showOverlay(view: window)
-        }
+        
         let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
         var authenticatedHeaders: [String: String] {
             [
@@ -853,6 +893,22 @@ class CalenderViewController: UIViewController {
               }
          self.programId = ProgramDetails.programDetails.programId
       //  self.programId = (UserDefaults.standard.value(forKey: UserDefaultsKeys.programId) as? String) ?? ""
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            self.getYogaAsans(authenticatedHeaders: authenticatedHeaders, date: date)
+        default:
+            self.getFitnessTypeWorkouts(authenticatedHeaders: authenticatedHeaders, date: date)
+        }
+
+    }
+    
+    //Pragma Mark: Get fitness type workouts
+    
+    func getFitnessTypeWorkouts(authenticatedHeaders:[String: String],date:Date) {
+        let window = UIApplication.shared.windows.first!
+        DispatchQueue.main.async {
+            LoadingOverlay.shared.showOverlay(view: window)
+        }
         GetCalenderByDateAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date), successHandler: { [weak self] dayWorks in
             ProgramDetails.programDetails.dayWorkOut = dayWorks
             self?.workOutView.workOutsArr = dayWorks
@@ -894,6 +950,57 @@ class CalenderViewController: UIViewController {
             }
         }
     }
+    
+    //Pragma Mark: Get yoga type workouts
+    
+    func getYogaAsans(authenticatedHeaders:[String: String],date:Date) {
+        let window = UIApplication.shared.windows.first!
+        DispatchQueue.main.async {
+            LoadingOverlay.shared.showOverlay(view: window)
+        }
+        
+        YogaAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date)) { [weak self] (yogaModel) in
+            self?.workOutView.YogaArr = yogaModel
+            self?.workOutView.slectedDate = self?.slectedDate ?? Date()
+            DispatchQueue.main.async {
+                self?.subscription_id = yogaModel?.subscription_id ?? ""
+                 self?.workOutView.loadWorkOuts()
+                LoadingOverlay.shared.hideOverlayView()
+                
+                if (yogaModel?.asanas == nil && yogaModel?.cardio == nil) || yogaModel?.rest == true {
+                    ProgramDetails.programDetails.dayWorkOut = nil
+                                  self?.workOutView.YogaArr = nil
+                                  self?.workOutView.loadWorkOuts()
+                    if yogaModel?.rest == true {
+                        self?.workOutView.displayRestView(message:messageString)
+                        
+                    }else {
+                        var message = "No data available for the selected date"
+                        if messageString.count > 0 {
+                            message = messageString
+                        }
+                        self?.workOutView.displayNoWorkouts(message:message)
+                    }
+                    
+                }
+            }
+        } errorHandler: { [weak self] error in
+            print(" error \(error)")
+            DispatchQueue.main.async {
+                self?.workOutView.slectedDate = self?.slectedDate ?? Date()
+                LoadingOverlay.shared.hideOverlayView()
+                ProgramDetails.programDetails.dayWorkOut = nil
+                self?.workOutView.workOutsArr = nil
+                self?.workOutView.loadWorkOuts()
+                self?.workOutView.displayNoWorkouts(message: error.localizedDescription)
+//                self?.presentAlertWithTitle(title: "", message: "Please wait for 24 hours, your program calendar generation in-progress", options: "OK") { (option) in
+//
+//                }
+            }
+        }
+
+    }
+    
     func getAllPhotosForTheUserByDate(successHandler: @escaping ([ProgressPhoto]?) -> Void,
     errorHandler: @escaping (String) -> Void)  {
         let window = UIApplication.shared.windows.first!
@@ -1181,6 +1288,54 @@ extension CalenderViewController : workOutViewDelegate {
        // controller.totalWOArr = self.totalWOArr
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    func yogaAsanSelected(indexPath : NSIndexPath, asanas: Asanas) {
+        
+        
+        let storyboard = UIStoryboard(name: "WODetailVC", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "WODetailVC") as! WODetailVC
+        controller.asanas = asanas
+        controller.xBarHeight = 100
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+//        ProgramDetails.programDetails.workoutId = exercises.workoutId
+//        let storyboard = UIStoryboard(name: "WorkOut", bundle: nil)
+//        let controller = storyboard.instantiateViewController(withIdentifier: "WOVC") as! WorkOutViewController
+//        controller.slectedDate = self.slectedDate ?? Date()
+//        controller.woExercisesArr = exercises
+//        controller.subscription_id = self.subscription_id
+//        controller.selectedIndex = indexPath.row
+//       // controller.totalWOArr = self.totalWOArr
+//        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    func yogaMessageSelected(indexPath : NSIndexPath, asanas: Asanas,commentType: CommentsType) {
+        let storyboard = UIStoryboard(name: "CommentsVC", bundle: nil)
+     //  ProgramDetails.programDetails.workoutId = workOut.workoutId
+       if let presentedViewController = storyboard.instantiateViewController(withIdentifier: "commentsVC") as? CommentsViewController {
+           presentedViewController.commentType = commentType
+           presentedViewController.subscription_id = subscription_id
+        presentedViewController.asanaId = asanas.asanaId ?? ""
+           presentedViewController.xBarHeight = 100
+           presentedViewController.workOutStatus = asanas.asanaStatus ?? "new"
+           presentedViewController.modalPresentationStyle = .custom
+           self.present(presentedViewController, animated: true, completion: nil)
+       }
+    }
+    func yogaEditSelected(asanas: Asanas) {
+        let storyboard = UIStoryboard(name: "WOUpdateVC", bundle: nil)
+       if let presentedViewController = storyboard.instantiateViewController(withIdentifier: "WOUpdate") as? WOUpdateViewController {
+          //  let exercises = self.woExercisesArr?.workoutExercises![indexPath.row]
+          // ProgramDetails.programDetails.workoutId = self.woExercisesArr!.workoutId
+        //   ProgramDetails.programDetails.workoutId = self.woExercisesArr!.workoutId
+       //    ProgramDetails.programDetails.exerciseRefId = exercises!.referenceId!
+        //   presentedViewController.selectedExPath = indexPath.row
+           presentedViewController.xBarHeight = 100
+        presentedViewController.yogaSetsArr = asanas.sets
+           presentedViewController.subscription_id = self.subscription_id
+          // presentedViewController.transitioningDelegate = self
+           presentedViewController.modalPresentationStyle = .fullScreen
+           self.present(presentedViewController, animated: true, completion: nil)
+       }
+    }
     func cardioSelected(indexPath: NSIndexPath, cardio: Cardio) {
         let storyboard = UIStoryboard(name: "CardioUpdateVC", bundle: nil)
         if let presentedViewController = storyboard.instantiateViewController(withIdentifier: "cardioUpdateVC") as? CardioUpdateVC {
@@ -1254,6 +1409,51 @@ extension CalenderViewController : workOutViewDelegate {
                 }
         })
     }
+    func completeYogaAPI() {
+       
+        let woStatus = YogaStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, asanaId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, asanaStatus: WOStatus.complete, subscription_id: self.subscription_id)
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(woStatus)
+        WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
+            { [weak self] yogaModel in
+                // ProgramDetails.programDetails.dayWorkOut = dayWorks
+                self?.workOutView.YogaArr = yogaModel
+                DispatchQueue.main.async {
+                    self?.subscription_id = yogaModel?.subscription_id ?? ""
+                     self?.workOutView.loadWorkOuts()
+                    LoadingOverlay.shared.hideOverlayView()
+                    
+                    if (yogaModel?.asanas == nil && yogaModel?.cardio == nil) || yogaModel?.rest == true {
+                        ProgramDetails.programDetails.dayWorkOut = nil
+                                      self?.workOutView.YogaArr = nil
+                                      self?.workOutView.loadWorkOuts()
+                        if yogaModel?.rest == true {
+                            self?.workOutView.displayRestView(message:messageString)
+                            
+                        }else {
+                            var message = "No data available for the selected date"
+                            if messageString.count > 0 {
+                                message = messageString
+                            }
+                            self?.workOutView.displayNoWorkouts(message:message)
+                        }
+                        
+                    }
+                }
+            }, errorHandler: {  error in
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                }
+        })
+    }
+    func completeYogaAsan() {
+        self.presentAlertWithTitle(title: "", message: "Are you sure want to submit the asana", options: "Cancel","Done") { (option) in
+            if option == 1 {
+                self.completeYogaAPI()
+            }
+        }
+    }
+    
     func completeWorkOut() {
         self.presentAlertWithTitle(title: "", message: "Are you sure want to submit the workout", options: "Cancel","Done") { (option) in
             if option == 1 {

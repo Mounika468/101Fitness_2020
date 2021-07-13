@@ -28,6 +28,10 @@
 		639EDA0525C1629900526347 /* RefundsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639EDA0425C1629900526347 /* RefundsAPI.swift */; };
 		63A409D225B82A9E0077ABBB /* LoadingReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A409D025B82A9E0077ABBB /* LoadingReusableView.swift */; };
 		63A409D325B82A9E0077ABBB /* LoadingReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A409D125B82A9E0077ABBB /* LoadingReusableView.xib */; };
+		63AE84E62655062D00E19541 /* FreeYogaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE84E52655062D00E19541 /* FreeYogaViewController.swift */; };
+		63AE84EB2655063700E19541 /* FreeYogaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63AE84EA2655063700E19541 /* FreeYogaViewController.storyboard */; };
+		63BB8528268C3D750079242F /* YogaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BB8527268C3D750079242F /* YogaAPI.swift */; };
+		63BB852D268C3D8A0079242F /* YogaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BB852C268C3D8A0079242F /* YogaModel.swift */; };
 		6F0851A4248A43C4000E1837 /* CardioUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0851A3248A43C4000E1837 /* CardioUpdateVC.swift */; };
 		6F0851A6248A43CD000E1837 /* CardioUpdateVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F0851A5248A43CD000E1837 /* CardioUpdateVC.storyboard */; };
 		6F0ABD8D249B894B006CE43B /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0ABD8C249B894B006CE43B /* AddressVC.swift */; };
@@ -389,6 +393,10 @@
 		639EDA0425C1629900526347 /* RefundsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundsAPI.swift; sourceTree = "<group>"; };
 		63A409D025B82A9E0077ABBB /* LoadingReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingReusableView.swift; sourceTree = "<group>"; };
 		63A409D125B82A9E0077ABBB /* LoadingReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingReusableView.xib; sourceTree = "<group>"; };
+		63AE84E52655062D00E19541 /* FreeYogaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeYogaViewController.swift; sourceTree = "<group>"; };
+		63AE84EA2655063700E19541 /* FreeYogaViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FreeYogaViewController.storyboard; sourceTree = "<group>"; };
+		63BB8527268C3D750079242F /* YogaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YogaAPI.swift; sourceTree = "<group>"; };
+		63BB852C268C3D8A0079242F /* YogaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YogaModel.swift; sourceTree = "<group>"; };
 		6F0851A3248A43C4000E1837 /* CardioUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardioUpdateVC.swift; sourceTree = "<group>"; };
 		6F0851A5248A43CD000E1837 /* CardioUpdateVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CardioUpdateVC.storyboard; sourceTree = "<group>"; };
 		6F0ABD8C249B894B006CE43B /* AddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
@@ -1012,6 +1020,7 @@
 				6F5EF98D257A0DD300B3C3EA /* ContactsAPI.swift */,
 				821B6B8A25907412002BF77E /* RemindersAPI.swift */,
 				639EDA0425C1629900526347 /* RefundsAPI.swift */,
+				63BB8527268C3D750079242F /* YogaAPI.swift */,
 			);
 			path = APICalls;
 			sourceTree = "<group>";
@@ -1046,6 +1055,7 @@
 				6F5EF8DB25777D9700B3C3EA /* NotificationsModel.swift */,
 				6F5EF992257A0EC500B3C3EA /* ContactUsModel.swift */,
 				821B6B8F25907468002BF77E /* RemindersModel.swift */,
+				63BB852C268C3D8A0079242F /* YogaModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1067,8 +1077,8 @@
 		6F7EBC14244EC6D200453649 = {
 			isa = PBXGroup;
 			children = (
-				6FF5A6E5259B7B0000B2E37F /* meal.caf */,
 				6FF5A6E6259B7B0000B2E37F /* water.caf */,
+				6FF5A6E5259B7B0000B2E37F /* meal.caf */,
 				6F23F8AC256BAF1B0094A6F0 /* Firebase */,
 				6F7EBC1F244EC6D200453649 /* 1o1 Fitness */,
 				6F7EBC36244EC6D500453649 /* 1o1 FitnessTests */,
@@ -1180,8 +1190,8 @@
 				6F7EBC742451B49F00453649 /* TrainerList.storyboard */,
 				6F7EBC752451B49F00453649 /* TrainersListViewController.swift */,
 				6F7EBC6B24516A7E00453649 /* HeaderCollectionViewCell.swift */,
-				6F7EBC6C24516A7E00453649 /* HeaderCollectionViewCell.xib */,
 				6F7EBC692451698000453649 /* HomeViewController.swift */,
+				6F7EBC6C24516A7E00453649 /* HeaderCollectionViewCell.xib */,
 				6F434F0D2456DFD80054642B /* HomeTrainerCollectionViewCell.swift */,
 				6F434F0E2456DFD80054642B /* HomeTrainerCollectionViewCell.xib */,
 				6F434F112456F4070054642B /* TrainerDetailsViewController.swift */,
@@ -1189,9 +1199,9 @@
 				6F434F1F2456FAD50054642B /* CertCollectionViewCell.swift */,
 				6F434F202456FAD50054642B /* CertCollectionViewCell.xib */,
 				6F434F252457483F0054642B /* CertificateViewController.swift */,
-				6F434F272457484D0054642B /* CertificateVC.storyboard */,
 				6F434F332459B9940054642B /* PackagesView.swift */,
 				6F434F352459B9A30054642B /* PackagesView.xib */,
+				6F434F272457484D0054642B /* CertificateVC.storyboard */,
 				6F434F41245ACFF80054642B /* PackageDetailsViewController.swift */,
 				6F434F43245AD00A0054642B /* PackageDetailsVC.storyboard */,
 				6F67A7D92491F5C800A26115 /* PaymentDetailVC.swift */,
@@ -1218,6 +1228,8 @@
 				638E468B25D67E5C0091456C /* RatingTableViewCell.swift */,
 				6391C487260C779800EEE0D0 /* YogaHeaderCVCell.swift */,
 				6391C488260C779800EEE0D0 /* YogaHeaderCVCell.xib */,
+				63AE84E52655062D00E19541 /* FreeYogaViewController.swift */,
+				63AE84EA2655063700E19541 /* FreeYogaViewController.storyboard */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1480,6 +1492,7 @@
 				6F20D8CA24F3C5A6008ED3B7 /* ProgressPhotoView.xib in Resources */,
 				6F7BD65E25556E37009B0895 /* PhoneNumberPopVC.storyboard in Resources */,
 				6F0ABD8F249B8958006CE43B /* AddressVC.storyboard in Resources */,
+				63AE84EB2655063700E19541 /* FreeYogaViewController.storyboard in Resources */,
 				6F7EBC562450857100453649 /* test_000001x.gif in Resources */,
 				6F9368442463245F007656D2 /* WorkOutHistoryVC.storyboard in Resources */,
 				6F7EBC622450A1D100453649 /* lato_semibold.ttf in Resources */,
@@ -1786,11 +1799,13 @@
 				6F5EF98E257A0DD300B3C3EA /* ContactsAPI.swift in Sources */,
 				6F311935247252F200E4CE17 /* WorkOutViewController.swift in Sources */,
 				6F3D7FB2246029B50065170D /* DataGeneration.swift in Sources */,
+				63BB8528268C3D750079242F /* YogaAPI.swift in Sources */,
 				6F434EE32456D2220054642B /* GetExerciseInfoAPI.swift in Sources */,
 				6F7EBC5A245088BC00453649 /* SceneDelegate.swift in Sources */,
 				6F31ACA024CF35DF00C850E9 /* FoodDetailsVC.swift in Sources */,
 				6F434F032456D2520054642B /* TraineeCalender.swift in Sources */,
 				6F67A7E22492AF9700A26115 /* PaymentDetails.swift in Sources */,
+				63AE84E62655062D00E19541 /* FreeYogaViewController.swift in Sources */,
 				6F67A7DF24928E4000A26115 /* AddressTableViewCell.swift in Sources */,
 				6F434EC62456B1E00054642B /* CustomAlertViewController.swift in Sources */,
 				6F1E82BA247E69CA009B47F0 /* RestTableViewCell.swift in Sources */,
@@ -1824,6 +1839,7 @@
 				821B6B8B25907412002BF77E /* RemindersAPI.swift in Sources */,
 				6F3D7FA2246022EE0065170D /* HeightViewController.swift in Sources */,
 				6F434EFF2456D2520054642B /* TrainerVideoList.swift in Sources */,
+				63BB852D268C3D8A0079242F /* YogaModel.swift in Sources */,
 				6F0851A4248A43C4000E1837 /* CardioUpdateVC.swift in Sources */,
 				6F434F022456D2520054642B /* Cardio.swift in Sources */,
 				6F434F0F2456DFD80054642B /* HomeTrainerCollectionViewCell.swift in Sources */,
@@ -2166,9 +2182,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Naiva Solutions, Inc (AK2PYDSVY7)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 18;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
@@ -2183,7 +2199,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.1o1Fitness.1o1Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "1o1Fitness App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2195,9 +2211,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "1o1 Fitness/1o1 Fitness.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Naiva Solutions, Inc (AK2PYDSVY7)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = AK2PYDSVY7;
 				ENABLE_BITCODE = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -2211,7 +2227,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.1o1Fitness.1o1Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "1o1Fitness App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
