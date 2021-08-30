@@ -132,6 +132,7 @@ class CommentsViewController: UIViewController {
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
             { [weak self] dayWorks in
                DispatchQueue.main.async {
+                LoadingOverlay.shared.hideOverlayView()
                 if dayWorks.workouts == nil && dayWorks.cardio == nil {
                     var message = "No data available for the selected date"
                     if messageString.count > 0 {
@@ -165,6 +166,7 @@ class CommentsViewController: UIViewController {
         WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
             { [weak self] dayWorks in
                DispatchQueue.main.async {
+                LoadingOverlay.shared.hideOverlayView()
                 if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
                     var message = "No data available for the selected date"
                     if messageString.count > 0 {
@@ -192,13 +194,16 @@ class CommentsViewController: UIViewController {
               if self.commentType! == .yogaMsg {
                   status = exerciseStatus
               }
-
+        if status.count == 0 {
+            status = WOStatus.new
+        }
         let yogaComments = YogaCommentsUpdatePostBody(program_id: ProgramDetails.programDetails.programId, asanaId: self.asanaId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, asanaComment: postComment, asanaStatus: status, subscription_id: self.subscription_id, category:"Yoga")
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(yogaComments)
         WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
             { [weak self] dayWorks in
                DispatchQueue.main.async {
+                LoadingOverlay.shared.hideOverlayView()
                 if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
                     var message = "No data available for the selected date"
                     if messageString.count > 0 {
@@ -234,6 +239,7 @@ class CommentsViewController: UIViewController {
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
             { [weak self] dayWorks in
                 DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
                 if dayWorks.workouts == nil && dayWorks.cardio == nil {
                     var message = "No data available for the selected date"
                     if messageString.count > 0 {
@@ -267,6 +273,7 @@ class CommentsViewController: UIViewController {
           WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
               { [weak self] dayWorks in
                   DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
                   if dayWorks.workouts == nil && dayWorks.cardio == nil {
                       var message = "No data available for the selected date"
                       if messageString.count > 0 {

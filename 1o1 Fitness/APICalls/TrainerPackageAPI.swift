@@ -58,8 +58,8 @@ final class TrainerPackageAPI: API
         if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
             fitness = fitnessType
         }
-        
-       let urlString = String(format: "%@%@/programs/%@?trainee_id=%@&category=%@", getTrainerPackage,trainerId,programId,UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,fitness)
+        let timeZone = TimeZone.current.identifier
+       let urlString = String(format: "%@%@/programs/%@?trainee_id=%@&category=%@&timezone=%@", getTrainerPackage,trainerId,programId,UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,fitness,timeZone)
         
       //  let urlString = getTrainerPackage + trainerId + "/programs/" + programId
        // let parameters = parameters as [String: Any]

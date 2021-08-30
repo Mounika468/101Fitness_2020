@@ -41,6 +41,7 @@ class PaymentDetailVC: UIViewController {
      var trainerId : String = ""
     var selectedAddressId : String = ""
     var selectedIndex : Int?
+    var slotTime: String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -161,7 +162,8 @@ class PaymentDetailVC: UIViewController {
         if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
             fitness = fitnessType
         }
-        let postBody : [String: Any] = ["amount_without_tax":self.paymentInfo!.price,"order_purchase_date": Date.getCurrentDateInFormat(format: "yyyy-MM-dd") ,"order_status":"1o1_new","payment_type_id":self.paymentInfo!.payment_type_id,"program_id":ProgramDetails.programDetails.programId,"tax_brack_up_id":self.paymentInfo!.tax_break_up_id,"total_amount":self.paymentInfo!.total_amount,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"payment_mode":"card","address_id":addressId,"currency_id":self.paymentInfo!.currency_id!,"category":fitness]
+        let slotTime = ((self.slotTime?.count ?? 0) != 0) ? self.slotTime : ""
+        let postBody : [String: Any] = ["amount_without_tax":self.paymentInfo!.price,"order_purchase_date": Date.getCurrentDateInFormat(format: "yyyy-MM-dd") ,"order_status":"1o1_new","payment_type_id":self.paymentInfo!.payment_type_id,"program_id":ProgramDetails.programDetails.programId,"tax_brack_up_id":self.paymentInfo!.tax_break_up_id,"total_amount":self.paymentInfo!.total_amount,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"payment_mode":"card","address_id":addressId,"currency_id":self.paymentInfo!.currency_id!,"category":fitness,"slot_time":slotTime]
                    let jsonData = try! JSONSerialization.data(withJSONObject: postBody)
         SubscriptionAPI.postToOrderId(parameters: [:], header: authenticatedHeaders, dataParams: jsonData, successHandler:  { [weak self] orderDetails  in
             self?.orderDetails = orderDetails

@@ -63,6 +63,7 @@ var xBarHeight :CGFloat  = 0.0
             WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
                 { [weak self] dayWorks in
                    DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
                     if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
                         var message = "No data available for the selected date"
                         if messageString.count > 0 {
@@ -84,7 +85,7 @@ var xBarHeight :CGFloat  = 0.0
             WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
                 { [weak self] dayWorks in
                     DispatchQueue.main.async {
-                        
+                        LoadingOverlay.shared.hideOverlayView()
                         NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
                     }
             }, errorHandler: {  error in

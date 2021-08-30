@@ -38,6 +38,9 @@ class TrainerDetailsViewController: UIViewController {
      var introVideo: String?
     var userSelection: UserSelection?
      var navigationView = NavigationView()
+    var programId = ""
+    var trainerId = ""
+    var packageDetails : PackageDetails?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -230,8 +233,15 @@ class TrainerDetailsViewController: UIViewController {
               if let id = UserDefaults.standard.string(forKey:  ProgramDetails.programDetails.subId) {
                   ProgramDetails.programDetails.programId = id
               }
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         let timeZone = TimeZone.current.identifier
-        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"trainerId":(self.trainersInfo?.trainerId)!,"timezone":timeZone]
+        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"trainerId":(self.trainersInfo?.trainerId)!,"timezone":timeZone,"category":category]
                 let urlString = getCallsByDateForGuest
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)
@@ -336,8 +346,15 @@ class TrainerDetailsViewController: UIViewController {
               if let id = UserDefaults.standard.string(forKey:  ProgramDetails.programDetails.subId) {
                   ProgramDetails.programDetails.programId = id
               }
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         let timeZone = TimeZone.current.identifier
-        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"trainerId":(self.trainersInfo?.trainerId)!,"timezone":timeZone]
+        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"trainerId":(self.trainersInfo?.trainerId)!,"timezone":timeZone,"category":category]
                 let urlString = getAllCallForTrainee
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)
@@ -652,11 +669,100 @@ extension TrainerDetailsViewController:TrainerVideosViewDelegate,AVPlayerViewCon
 extension TrainerDetailsViewController:PackagesViewDelegate
 {
     func packageSelected(packageInfo: Any?) {
-        let storyboard = UIStoryboard(name: "PackageDetailsVC", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "packageDetailVC") as! PackageDetailsViewController
-        controller.programDetails = packageInfo
-        self.navigationController?.pushViewController(controller, animated: true)
+        
+        self.getPackageDetails(packageInfo: packageInfo)
+        
+//        switch FitnessProgramSelection.fitnessType.programType {
+//        // Load different storyboard
+//        case .yoga:
+//        let storyboard = UIStoryboard(name: "YogaPackageDetailsVC", bundle: nil)
+//        let controller = storyboard.instantiateViewController(withIdentifier: "YogaPackageDetailsVC") as! PackageDetailsViewController
+//        controller.programDetails = packageInfo
+//        self.navigationController?.pushViewController(controller, animated: true)
+//        default :
+//            let storyboard = UIStoryboard(name: "PackageDetailsVC", bundle: nil)
+//            let controller = storyboard.instantiateViewController(withIdentifier: "packageDetailVC") as! PackageDetailsViewController
+//            controller.programDetails = packageInfo
+//            self.navigationController?.pushViewController(controller, animated: true)
+//        }
     }
+    
+    
+    
+    
+    
+    func getPackageDetails(packageInfo: Any?)
+    {
+      let window = UIApplication.shared.windows.first!
+      DispatchQueue.main.async {
+          LoadingOverlay.shared.showOverlay(view: window)
+      }
+      let token = UserDefaults.standard.string(forKey: UserDefaultsKeys.accessToken)
+      var authenticatedHeaders: [String: String] {
+          [
+              HeadersKeys.authorization: "\(HeaderValues.token) \(token!) ",
+              HeadersKeys.contentType: HeaderValues.json
+          ]
+      }
+        
+      if let beginner = packageInfo as? Beginner {
+        programId = beginner.programId ?? ""
+        trainerId = beginner.trainerId ?? ""
+      }else if let intermediate = packageInfo as? Intermediate {
+          programId = intermediate.programId ?? ""
+         trainerId = intermediate.trainerId ?? ""
+      }
+      else if let advanced = packageInfo as? Advanced {
+        programId = advanced.programId ?? ""
+          trainerId = advanced.trainerId ?? ""
+      }
+      else
+      {
+          programId = ""
+          trainerId = ""
+      }
+      TrainerPackageAPI.postToDetails(trainerId: trainerId, programId: programId, header: authenticatedHeaders, successHandler: { [weak self] packageDetails  in
+                 // self?.trainersVideos = trainerVideos
+                  
+                   DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                      if packageDetails.count > 0 {
+                        self?.packageDetails =  packageDetails[0]
+                        if self?.packageDetails?.isOnlineProgram ?? false {
+                            let storyboard = UIStoryboard(name: "YogaPackageDetailsVC", bundle: nil)
+                            let controller = storyboard.instantiateViewController(withIdentifier: "YogaPackageDetailsVC") as! PackageDetailsViewController
+                            controller.programDetails = packageInfo
+                            controller.programId = self?.programId
+                            controller.trainerId = self?.trainerId
+                            controller.packageDetails = self?.packageDetails
+                            self?.navigationController?.pushViewController(controller, animated: true)
+                        } else {
+                            let storyboard = UIStoryboard(name: "PackageDetailsVC", bundle: nil)
+                            let controller = storyboard.instantiateViewController(withIdentifier: "packageDetailVC") as! PackageDetailsViewController
+                            controller.programDetails = packageInfo
+                            controller.programId = self?.programId
+                            controller.trainerId = self?.trainerId
+                            controller.packageDetails = self?.packageDetails
+                            self?.navigationController?.pushViewController(controller, animated: true)
+                        }
+                      }
+                      
+
+                  }
+                  
+              }) { [weak self] error in
+                  print(" error \(error)")
+                  DispatchQueue.main.async {
+                      LoadingOverlay.shared.hideOverlayView()
+                      self?.presentAlertWithTitle(title: "Error", message: "Error occured. Please try later", options: "OK", completion: { (_) in
+                          
+                      })
+                  }
+              }
+          
+      }
+    
+    
     func displayPhoneNumberAlert() {
         let storyboard = UIStoryboard(name: "PhoneNumberPopVC", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PhoneNumberPopupVC") as! PhoneNumberPopupVC
@@ -707,7 +813,14 @@ extension TrainerDetailsViewController: CallScheduleDelegate {
         }
             let timeZone = TimeZone.current.identifier
 //        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"schedulerId":schedulerId]
-            let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"timezone":timeZone]
+            var category = "exercises"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                category = "Yoga"
+            default:
+                category = "Fitness"
+            }
+            let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"timezone":timeZone,"category":category]
         let urlString = bookSlotForCall
         guard let url = URL(string: urlString) else {return}
         var request        = URLRequest(url: url)
@@ -819,7 +932,14 @@ extension TrainerDetailsViewController: CallScheduleDelegate {
               }
         let timeZone = TimeZone.current.identifier
 //        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"schedulerId":schedulerId]
-        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"timezone":timeZone]
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
+        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"timezone":timeZone,"category":category]
                 let urlString = cancelCall
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)

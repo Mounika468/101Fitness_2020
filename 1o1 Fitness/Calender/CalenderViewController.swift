@@ -767,8 +767,17 @@ class CalenderViewController: UIViewController {
               if let id = UserDefaults.standard.string(forKey:  ProgramDetails.programDetails.subId) {
                   ProgramDetails.programDetails.programId = id
               }
+        
+        
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         let timeZone = TimeZone.current.identifier
-        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"timezone":timeZone]
+        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"timezone":timeZone,"category":category]
                 let urlString = getCallsByDate + "\(UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!)"
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)
@@ -1101,6 +1110,7 @@ class CalenderViewController: UIViewController {
                       ProgramDetails.programDetails.programId = id
                   }
              self.programId = ProgramDetails.programDetails.programId
+            
           //  self.programId = (UserDefaults.standard.value(forKey: UserDefaultsKeys.programId) as? String) ?? ""
             GetDietByDateAPI.post(traineeId: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) as! String, programId: self.programId, header: authenticatedHeaders, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: date), successHandler: { [weak self] diet in
                 self?.dietView.diet = diet
@@ -1331,7 +1341,7 @@ extension CalenderViewController : workOutViewDelegate {
            presentedViewController.xBarHeight = 100
         presentedViewController.yogaSetsArr = asanas.sets
            presentedViewController.subscription_id = self.subscription_id
-          // presentedViewController.transitioningDelegate = self
+        presentedViewController.asanaId = asanas.asanaId ?? ""
            presentedViewController.modalPresentationStyle = .fullScreen
            self.present(presentedViewController, animated: true, completion: nil)
        }
@@ -1382,6 +1392,7 @@ extension CalenderViewController : workOutViewDelegate {
             { [weak self] dayWorks in
                  ProgramDetails.programDetails.dayWorkOut = dayWorks
                  DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
                     self?.workOutView.workOutsArr = dayWorks
                     self?.workOutView.loadWorkOuts()
                 }
@@ -1400,6 +1411,7 @@ extension CalenderViewController : workOutViewDelegate {
             { [weak self] dayWorks in
                  ProgramDetails.programDetails.dayWorkOut = dayWorks
                  DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
                     self?.workOutView.workOutsArr = dayWorks
                     self?.workOutView.loadWorkOuts()
                 }
@@ -1409,9 +1421,9 @@ extension CalenderViewController : workOutViewDelegate {
                 }
         })
     }
-    func completeYogaAPI() {
+    func completeYogaAPI(asanaId:String) {
        
-        let woStatus = YogaStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, asanaId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, asanaStatus: WOStatus.complete, subscription_id: self.subscription_id)
+        let woStatus = YogaStatusUpdatePostBody(program_id: ProgramDetails.programDetails.programId, asanaId: asanaId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, asanaStatus: WOStatus.complete, subscription_id: self.subscription_id,category: "Yoga")
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(woStatus)
         WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
@@ -1446,10 +1458,10 @@ extension CalenderViewController : workOutViewDelegate {
                 }
         })
     }
-    func completeYogaAsan() {
+    func completeYogaAsan(asanaId : String) {
         self.presentAlertWithTitle(title: "", message: "Are you sure want to submit the asana", options: "Cancel","Done") { (option) in
             if option == 1 {
-                self.completeYogaAPI()
+                self.completeYogaAPI(asanaId: asanaId)
             }
         }
     }
@@ -1532,7 +1544,14 @@ extension CalenderViewController:DietSelectionDelegate {
         default:
             mealType = "breakfast"
         }
-            let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood],subscription_id: self.subscription_id)
+            var category = "Fitness"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                category = "Yoga"
+            default:
+                category = "Fitness"
+            }
+            let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood],subscription_id: self.subscription_id, category: category)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(postbody)
         
@@ -1574,7 +1593,14 @@ extension CalenderViewController:DietSelectionDelegate {
         default:
             mealType = "breakfast"
         }
-            let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood], subscription_id: self.subscription_id)
+            var category = "Fitness"
+            switch FitnessProgramSelection.fitnessType.programType {
+            case .yoga:
+                category = "Yoga"
+            default:
+                category = "Fitness"
+            }
+            let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood], subscription_id: self.subscription_id, category: category)
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(postbody)
         

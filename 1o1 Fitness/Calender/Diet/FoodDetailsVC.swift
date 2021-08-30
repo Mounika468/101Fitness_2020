@@ -103,7 +103,13 @@ class FoodDetailsVC: UIViewController {
             ]
         }
        
-        
+        var category = "Fitness"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         let qtySel : Double = Double(self.qtyTxtField.text ?? "") ?? 0.0
           
             if qtySel == 0.0 {
@@ -113,12 +119,11 @@ class FoodDetailsVC: UIViewController {
                 
             }else {
                 if self.isFromSearch == false {
-                    
-                    
+                   
                     let consumedFood = ConsumedFoodItems(refId: self.foodItems?.refId ?? 0, consumedQuantity: Double(self.qtyTxtField.text ?? "") ?? 0.0, consumedTime: self.foodItems?.consumedTime ?? self.foodItems?.time ?? "", foodStatus: WOStatus.complete)
                     let mealType = self.mealType
              
-                    let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood], subscription_id: subscription_id)
+                    let postbody = MealUpdatePostBoday(program_id: ProgramDetails.programDetails.programId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: mealType, consumedFoodItems: [consumedFood], subscription_id: subscription_id,category:category)
                 let jsonEncoder = JSONEncoder()
                 let jsonData = try! jsonEncoder.encode(postbody)
                 
@@ -159,7 +164,7 @@ class FoodDetailsVC: UIViewController {
                    
                   
                     
-                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem, subscription_id: subscription_id)
+                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem, subscription_id: subscription_id, category: category)
 
                     let jsonEncoder = JSONEncoder()
                     let jsonData = try! jsonEncoder.encode(postbody)

@@ -28,6 +28,7 @@ class WOUpdateViewController: UIViewController {
      var workOutId : String?
      var exerciseId : String?
     var subscription_id = ""
+    var asanaId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,8 +38,10 @@ class WOUpdateViewController: UIViewController {
         switch FitnessProgramSelection.fitnessType.programType {
         case .yoga:
             navigationView.titleLbl.text = "Asana Update"
+            self.yogaModiSetsArr = self.yogaSetsArr
         default:
         navigationView.titleLbl.text = "WorkOut Update"
+            self.modifiedSets = self.setsArr
         }
         navigationView.backgroundColor = AppColours.topBarGreen
         navigationView.backBtn .addTarget(self, action: #selector(backBtnTapped(sender:)), for: .touchUpInside)
@@ -48,7 +51,7 @@ class WOUpdateViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         let nib = UINib(nibName: "SetsTableViewCell", bundle: nil)
         self.tblView.register(nib, forCellReuseIdentifier: "setsCell")
-        self.modifiedSets = self.setsArr
+        
         self.hideKeyboardWhenTappedAround()
         self.tblView.tableFooterView = UIView()
     }
@@ -58,7 +61,12 @@ class WOUpdateViewController: UIViewController {
     }
     @objc func saveBtnTapped(sender : UIButton){
           self.hideKeyboardWhenTappedAround()
-        self.updateSetsAPICall()
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        self.updateYogaSetsAPICall()
+        default:
+            self.updateSetsAPICall()
+        }
         if let index = self.selectedIndexPath {
         let indexpath = NSIndexPath(row: index, section: 0)
         let cell = self.tblView.cellForRow(at: indexpath as IndexPath) as? SetsTableViewCell
@@ -71,6 +79,48 @@ class WOUpdateViewController: UIViewController {
         })
     }
 
+    
+    // MARK: - Navigation
+   func updateYogaSetsAPICall() {
+//        if let id = UserDefaults.standard.string(forKey: UserDefaultsKeys.programId) {
+//            ProgramDetails.programDetails.programId = id
+//        }
+      if let id = UserDefaults.standard.string(forKey: UserDefaultsKeys.subId) {
+          ProgramDetails.programDetails.subId = id
+      }
+       if let id = UserDefaults.standard.string(forKey:ProgramDetails.programDetails.subId) {
+           ProgramDetails.programDetails.programId = id
+       }
+    let postBody = AsanaUpdateSetsPostBody(program_id: ProgramDetails.programDetails.programId, asanaId: self.asanaId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, sets: self.yogaModiSetsArr!, subscription_id: self.subscription_id,category:"Yoga")
+//       let woPostBody = WOUpdatePostBody(program_id: ProgramDetails.programDetails.programId, workoutId: ProgramDetails.programDetails.workoutId, date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), exercise_referenceId: ProgramDetails.programDetails.exerciseRefId, trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, exerciseStatus: WOStatus.inProgress,sets: self.modifiedSets!, subscription_id: self.subscription_id)
+       let jsonEncoder = JSONEncoder()
+       let jsonData = try! jsonEncoder.encode(postBody)
+    
+    
+    
+    WOUpdateCalls.yogaUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
+        { [weak self] dayWorks in
+           DispatchQueue.main.async {
+            LoadingOverlay.shared.hideOverlayView()
+            if dayWorks?.asanas == nil && dayWorks?.cardio == nil {
+                var message = "No data available for the selected date"
+                if messageString.count > 0 {
+                    message = messageString
+                }
+                self?.presentAlertWithTitle(title: "", message: message, options: "OK") { (option) in
+                           }
+            }else {
+                NotificationCenter.default.post(name:NSNotification.Name(rawValue: YogaUpdatedNotification), object: dayWorks)
+            }
+            }
+        }, errorHandler: {  error in
+            DispatchQueue.main.async {
+                LoadingOverlay.shared.hideOverlayView()
+            }
+    })
+    
+   }
+    
      // MARK: - Navigation
     func updateSetsAPICall() {
 //        if let id = UserDefaults.standard.string(forKey: UserDefaultsKeys.programId) {
@@ -87,6 +137,9 @@ class WOUpdateViewController: UIViewController {
         let jsonData = try! jsonEncoder.encode(woPostBody)
         WOUpdateCalls.setsUpdatePost(parameters: [:], header: [:], dataParams: jsonData, successHandler:
             { [weak self] dayWorks in
+                DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
+                }
                 ProgramDetails.programDetails.dayWorkOut = dayWorks
                  NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
         }, errorHandler: {  error in
@@ -200,30 +253,54 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
         let indexpath = NSIndexPath(row: index, section: 0)
         let cell = self.tblView.cellForRow(at: indexpath as IndexPath) as? SetsTableViewCell
         self.updatedRest = cell?.restTxtField.text
-        var set = self.modifiedSets![index]
-        set.restPeriod!.completed = Int(cell?.restTxtField.text ?? "0") ?? 0
-        var weight = Int(cell?.weightTxtField.text ?? "0") ?? 0
-        if weight == 0 {
-            weight = set.maxWeights?.actual ?? 0
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            var set = self.yogaModiSetsArr![index]
+            set.breathValue!.completed = Int(cell?.restTxtField.text ?? "0") ?? 0
+            var weight = Int(cell?.weightTxtField.text ?? "0") ?? 0
+            if weight == 0 {
+                weight = set.minutesPeriod?.actual ?? 0
+            }
+            var reputat = Int(cell?.repTxtField.text ?? "0") ?? 0
+            if reputat == 0 {
+                reputat = set.reputationValue?.actual ?? 0
+            }
+            set.reputationValue!.completed = reputat
+            set.minutesPeriod!.completed = weight
+    //        set.reputationValue!.completed = set.reputationValue?.actual
+    //         set.maxWeights!.completed = set.maxWeights?.actual
+            self.yogaModiSetsArr![index] = set
+            textField.resignFirstResponder()
+        default:
+            var set = self.modifiedSets![index]
+            set.restPeriod!.completed = Int(cell?.restTxtField.text ?? "0") ?? 0
+            var weight = Int(cell?.weightTxtField.text ?? "0") ?? 0
+            if weight == 0 {
+                weight = set.maxWeights?.actual ?? 0
+            }
+            var reputat = Int(cell?.repTxtField.text ?? "0") ?? 0
+            if reputat == 0 {
+                reputat = set.reputationValue?.actual ?? 0
+            }
+            set.reputationValue!.completed = reputat
+            set.maxWeights!.completed = weight
+    //        set.reputationValue!.completed = set.reputationValue?.actual
+    //         set.maxWeights!.completed = set.maxWeights?.actual
+            self.modifiedSets![index] = set
+            textField.resignFirstResponder()
         }
-        var reputat = Int(cell?.repTxtField.text ?? "0") ?? 0
-        if reputat == 0 {
-            reputat = set.reputationValue?.actual ?? 0
-        }
-        set.reputationValue!.completed = reputat
-        set.maxWeights!.completed = weight
-//        set.reputationValue!.completed = set.reputationValue?.actual
-//         set.maxWeights!.completed = set.maxWeights?.actual
-        self.modifiedSets![index] = set
-        textField.resignFirstResponder()
+        
+      
     }
     @objc func weightTxtFieldDidChange(_ textField: UITextField) {
            let index = textField.tag - weightTag
            let indexpath = NSIndexPath(row: index, section: 0)
            let cell = self.tblView.cellForRow(at: indexpath as IndexPath) as? SetsTableViewCell
            self.updatedWeight = cell?.weightTxtField.text
-        var set = self.modifiedSets![index]
-        set.maxWeights!.completed = Int(cell?.weightTxtField.text ?? "0") ?? 0
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        var set = self.yogaModiSetsArr![index]
+        set.minutesPeriod!.completed = Int(cell?.weightTxtField.text ?? "0") ?? 0
 //        set.reputationValue!.completed = set.reputationValue?.actual
 //         set.restPeriod!.completed = set.restPeriod?.actual
         var reputat = Int(cell?.repTxtField.text ?? "0") ?? 0
@@ -232,36 +309,75 @@ extension WOUpdateViewController: UITableViewDelegate, UITableViewDataSource {
         }
         var rest = Int(cell?.restTxtField.text ?? "0") ?? 0
         if rest == 0 {
-            rest = set.restPeriod?.actual ?? 0
+            rest = set.breathValue?.actual ?? 0
         }
         set.reputationValue!.completed = reputat
-         set.restPeriod!.completed = rest
-        self.modifiedSets![index] = set
+         set.breathValue!.completed = rest
+        self.yogaModiSetsArr![index] = set
         textField.resignFirstResponder()
+        default:
+            var set = self.modifiedSets![index]
+            set.maxWeights!.completed = Int(cell?.weightTxtField.text ?? "0") ?? 0
+    //        set.reputationValue!.completed = set.reputationValue?.actual
+    //         set.restPeriod!.completed = set.restPeriod?.actual
+            var reputat = Int(cell?.repTxtField.text ?? "0") ?? 0
+            if reputat == 0 {
+                reputat = set.reputationValue?.actual ?? 0
+            }
+            var rest = Int(cell?.restTxtField.text ?? "0") ?? 0
+            if rest == 0 {
+                rest = set.restPeriod?.actual ?? 0
+            }
+            set.reputationValue!.completed = reputat
+             set.restPeriod!.completed = rest
+            self.modifiedSets![index] = set
+            textField.resignFirstResponder()
+        }
        }
     @objc func repTxtFieldDidChange(_ textField: UITextField) {
              let index = textField.tag - repTag
               let indexpath = NSIndexPath(row: index, section: 0)
               let cell = self.tblView.cellForRow(at: indexpath as IndexPath) as? SetsTableViewCell
               self.updatedReps = cell?.repTxtField.text
-        var set = self.modifiedSets![index]
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+        var set = self.yogaModiSetsArr![index]
         set.reputationValue!.completed = Int(cell?.repTxtField.text ?? "0") ?? 0
 //         set.restPeriod!.completed = set.restPeriod?.actual
 //         set.maxWeights!.completed = set.maxWeights?.actual
         
         var weight = Int(cell?.weightTxtField.text ?? "0") ?? 0
         if weight == 0 {
-            weight = set.maxWeights?.actual ?? 0
+            weight = set.minutesPeriod?.actual ?? 0
         }
         var rest = Int(cell?.restTxtField.text ?? "0") ?? 0
         if rest == 0 {
-            rest = set.restPeriod?.actual ?? 0
+            rest = set.breathValue?.actual ?? 0
         }
-        set.maxWeights!.completed = weight
-         set.restPeriod!.completed = rest
-        self.modifiedSets![index] = set
+        set.minutesPeriod!.completed = weight
+         set.breathValue!.completed = rest
+        self.yogaModiSetsArr![index] = set
         textField.resignFirstResponder()
+        default:
+            var set = self.modifiedSets![index]
+            set.reputationValue!.completed = Int(cell?.repTxtField.text ?? "0") ?? 0
+    //         set.restPeriod!.completed = set.restPeriod?.actual
+    //         set.maxWeights!.completed = set.maxWeights?.actual
+            
+            var weight = Int(cell?.weightTxtField.text ?? "0") ?? 0
+            if weight == 0 {
+                weight = set.maxWeights?.actual ?? 0
+            }
+            var rest = Int(cell?.restTxtField.text ?? "0") ?? 0
+            if rest == 0 {
+                rest = set.restPeriod?.actual ?? 0
+            }
+            set.maxWeights!.completed = weight
+             set.restPeriod!.completed = rest
+            self.modifiedSets![index] = set
+            textField.resignFirstResponder()
           }
+    }
     
 }
 extension UIViewController {

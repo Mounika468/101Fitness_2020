@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct PackageDetails: Codable {
+struct PackageDetails: Decodable {
     let programId: String?
     let programName: String?
     let priceInDollars: Double?
@@ -24,53 +24,68 @@ struct PackageDetails: Codable {
     var nutrition : Nutrition?
     let isSubscribed : Bool?
     let isAnyActiveProgram: Bool?
-    init(programId: String?,
-         programName: String?,
-         priceInDollars: Double?,
-         priceInRupees: Double?,
-         trainerId: String?,
-         plans: Int?,
-         weeks: Int?,
-         programDuration: Int?,
-         description:String?,
-         startDate: String?,
-         enrollmentDate:String?,
-         isSubscribed : Bool?,
-         isAnyActiveProgram: Bool?) {
-        self.programId = programId
-         self.programName = programName
-        self.priceInDollars = priceInDollars
-        self.trainerId = trainerId
-        self.plans = plans
-         self.weeks = weeks
-        self.programDuration = programDuration
-        self.description = description
-        self.startDate = startDate
-        self.enrollmentDate = enrollmentDate
-        self.priceInRupees = priceInRupees
-        self.isSubscribed = isSubscribed
-        self.isAnyActiveProgram = isAnyActiveProgram
-    }
-    
-    init(from decoder: Decoder) throws {
-           let container = try decoder.container(keyedBy: CodingKeys.self)
-           self.programId = try container.decodeIfPresent(String.self, forKey: .programId)
-        self.programName = try container.decodeIfPresent(String.self, forKey: .programName)
-        self.priceInDollars = try container.decodeIfPresent(Double.self, forKey: .priceInDollars)
-        self.priceInRupees = try container.decodeIfPresent(Double.self, forKey: .priceInRupees)
-        self.trainerId = try container.decodeIfPresent(String.self, forKey: .trainerId)
-         self.packageType = try container.decodeIfPresent(PackageType.self, forKey: .packageType)
-        self.currency = try container.decodeIfPresent([Currency].self, forKey: .currency)
-        self.nutrition = try container.decodeIfPresent(Nutrition.self, forKey: .nutrition)
-        self.plans = try container.decodeIfPresent(Int.self, forKey: .plans)
-        self.weeks = try container.decodeIfPresent(Int.self, forKey: .weeks)
-        self.programDuration = try container.decodeIfPresent(Int.self, forKey: .programDuration)
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)
-         self.startDate = try container.decodeIfPresent(String.self, forKey: .startDate)
-         self.enrollmentDate = try container.decodeIfPresent(String.self, forKey: .enrollmentDate)
-        self.isSubscribed = try container.decodeIfPresent(Bool.self, forKey: .isSubscribed)
-        self.isAnyActiveProgram = try container.decodeIfPresent(Bool.self, forKey: .isAnyActiveProgram)
-       }
+    var trainingDays: [String]?
+    var slots: [Slots]?
+    var callDuration: Timings?
+    var displaySlots: [DisplaySlots]?
+    let isOnlineProgram: Bool?
+//    init(programId: String?,
+//         programName: String?,
+//         priceInDollars: Double?,
+//         priceInRupees: Double?,
+//         trainerId: String?,
+//         plans: Int?,
+//         weeks: Int?,
+//         programDuration: Int?,
+//         description:String?,
+//         startDate: String?,
+//         enrollmentDate:String?,
+//         isSubscribed : Bool?,
+//         isAnyActiveProgram: Bool?,
+//         trainingDays: [String]?,
+//         slots: [Slots]?,
+//         callDuration: Timings?) {
+//        self.programId = programId
+//         self.programName = programName
+//        self.priceInDollars = priceInDollars
+//        self.trainerId = trainerId
+//        self.plans = plans
+//         self.weeks = weeks
+//        self.programDuration = programDuration
+//        self.description = description
+//        self.startDate = startDate
+//        self.enrollmentDate = enrollmentDate
+//        self.priceInRupees = priceInRupees
+//        self.isSubscribed = isSubscribed
+//        self.isAnyActiveProgram = isAnyActiveProgram
+//        self.trainingDays = trainingDays
+//        self.slots = slots
+//        self.callDuration = callDuration
+//
+//    }
+//
+//    init(from decoder: Decoder) throws {
+//           let container = try decoder.container(keyedBy: CodingKeys.self)
+//           self.programId = try container.decodeIfPresent(String.self, forKey: .programId)
+//        self.programName = try container.decodeIfPresent(String.self, forKey: .programName)
+//        self.priceInDollars = try container.decodeIfPresent(Double.self, forKey: .priceInDollars)
+//        self.priceInRupees = try container.decodeIfPresent(Double.self, forKey: .priceInRupees)
+//        self.trainerId = try container.decodeIfPresent(String.self, forKey: .trainerId)
+//         self.packageType = try container.decodeIfPresent(PackageType.self, forKey: .packageType)
+//        self.currency = try container.decodeIfPresent([Currency].self, forKey: .currency)
+//        self.nutrition = try container.decodeIfPresent(Nutrition.self, forKey: .nutrition)
+//        self.plans = try container.decodeIfPresent(Int.self, forKey: .plans)
+//        self.weeks = try container.decodeIfPresent(Int.self, forKey: .weeks)
+//        self.programDuration = try container.decodeIfPresent(Int.self, forKey: .programDuration)
+//        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+//         self.startDate = try container.decodeIfPresent(String.self, forKey: .startDate)
+//         self.enrollmentDate = try container.decodeIfPresent(String.self, forKey: .enrollmentDate)
+//        self.isSubscribed = try container.decodeIfPresent(Bool.self, forKey: .isSubscribed)
+//        self.isAnyActiveProgram = try container.decodeIfPresent(Bool.self, forKey: .isAnyActiveProgram)
+//        self.trainingDays = try container.decodeIfPresent([String].self, forKey: .trainingDays)
+//        self.slots = try container.decodeIfPresent([Slots].self, forKey: .slots)
+//        self.callDuration = try container.decodeIfPresent(Timings.self, forKey: .slots)
+//       }
 }
 struct Currency: Codable {
     let name: String?
@@ -95,4 +110,17 @@ struct Nutrition: Codable {
            let container = try decoder.container(keyedBy: CodingKeys.self)
            self.name = try container.decodeIfPresent(String.self, forKey: .name)
        }
+}
+
+struct Slots: Decodable {
+    var startTime: [Timings]?
+}
+struct Timings: Decodable {
+    var name: String?
+}
+struct DisplaySlots: Decodable {
+    let startTime: String?
+    let endTime: String?
+    let utcStartTime: String?
+    let utcEndTime: String?
 }

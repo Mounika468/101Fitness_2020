@@ -324,6 +324,7 @@ extension WorkOutViewController: UITableViewDelegate, UITableViewDataSource {
             { [weak self] dayWorks in
                 ProgramDetails.programDetails.dayWorkOut = dayWorks
                  DispatchQueue.main.async {
+                    LoadingOverlay.shared.hideOverlayView()
                 NotificationCenter.default.post(name:NSNotification.Name(rawValue: WorkOutsUpdatedNotification), object: dayWorks)
                 self?.viewWillAppear(true)
                 }

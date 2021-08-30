@@ -17,7 +17,7 @@ protocol workOutViewDelegate {
     func setWoParentViewHeight(height: CGFloat)
     func yogaAsanSelected(indexPath : NSIndexPath, asanas: Asanas)
     func yogaMessageSelected(indexPath : NSIndexPath, asanas: Asanas,commentType: CommentsType)
-    func completeYogaAsan()
+    func completeYogaAsan(asanaId : String)
     func yogaEditSelected(asanas: Asanas)
 }
 class WorkOutView: UIView {
@@ -30,7 +30,7 @@ class WorkOutView: UIView {
     var woViewDelegate: workOutViewDelegate?
     var workOutsArr : DayWorkOuts?
     var YogaArr : YogaModel?
-     var cardioIndex : Int = 0
+     var cardioIndex : Int = -1
     var cardioAvailable : Bool = false
     var slectedDate: Date = Date()
     @IBOutlet weak var nodataLbl: UILabel!
@@ -230,10 +230,11 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
                 let asanas = self.YogaArr?.asanas?[indexPath.row]
                 let name = asanas?.asanaTitle?.uppercased()
                 cell.workOutNameLbl.text = name
-                if asanas?.asanaStatus == "new" {
-                    cell.editBtn.isHidden = true
-                     cell.startBtn.isHidden = false
-                }else if asanas?.asanaStatus == WOStatus.complete {
+//                if asanas?.asanaStatus == "new" {
+//                    cell.editBtn.isHidden = true
+//                     cell.startBtn.isHidden = false
+//                }else
+                if asanas?.asanaStatus == WOStatus.complete {
                     cell.editBtn.isHidden = false
                     cell.editBtn.setImage(UIImage(named: "ccomplete"), for: .normal)
                     cell.startBtn.isHidden = true
@@ -308,9 +309,9 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
             case .yoga:
                 
             let object = self.YogaArr?.asanas?[indexPath.row]
-            if object?.asanaStatus == "new" {
-                return
-            }
+//            if object?.asanaStatus == "new" {
+//                return
+//            }
                 self.woViewDelegate?.yogaAsanSelected(indexPath: indexPath as NSIndexPath, asanas: (self.YogaArr?.asanas?[indexPath.row])!)
 //            self.woViewDelegate?.workOutSelected(indexPath:indexPath as NSIndexPath,exercises:(self.workOutsArr?.workouts?[indexPath.row])!)
             default:
@@ -325,13 +326,13 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        var order = Calendar.current.compare(Date(), to: self.slectedDate, toGranularity: .day)
-        if order == .orderedAscending {
-            return nil
-        }
+//        var order = Calendar.current.compare(Date(), to: self.slectedDate, toGranularity: .day)
+//        if order == .orderedAscending {
+//            return nil
+//        }
         if indexPath.row != self.cardioIndex {
             var object = self.workOutsArr?.workouts?[indexPath.row]
-            if object?.workoutStatus == "new" || (object?.workoutStatus == WOStatus.complete || object?.workoutPercentage == "100") {
+            if (object?.workoutStatus == "new" && FitnessProgramSelection.fitnessType.programType != .yoga) || (object?.workoutStatus == WOStatus.complete || object?.workoutPercentage == "100") {
                 return nil
             }
             object = nil
@@ -429,8 +430,14 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
        // }
       }
     @objc func startBtnTapped(sender : UIButton){
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
         let indexPath = NSIndexPath(row:sender.tag, section: 0)
-        self.woViewDelegate?.workOutSelected(indexPath:indexPath as NSIndexPath,exercises: (self.workOutsArr?.workouts?[sender.tag])!)
+            self.woViewDelegate?.yogaAsanSelected(indexPath: indexPath as NSIndexPath, asanas: (self.YogaArr?.asanas?[indexPath.row])!)
+        default:
+            let indexPath = NSIndexPath(row:sender.tag, section: 0)
+            self.woViewDelegate?.workOutSelected(indexPath:indexPath as NSIndexPath,exercises: (self.workOutsArr?.workouts?[sender.tag])!)
+        }
 
     }
       func completeAction(action: UIContextualAction, sourceView: UIView,indexPath: IndexPath) -> Bool {
@@ -440,7 +447,7 @@ extension WorkOutView: UITableViewDelegate,UITableViewDataSource {
              var object = self.YogaArr?.asanas?[indexPath.row]
           //  ProgramDetails.programDetails.workoutId = object!.workoutId
             if object?.asanaStatus !=  WOStatus.notCompleted  {
-                 self.woViewDelegate?.completeYogaAsan()
+                self.woViewDelegate?.completeYogaAsan(asanaId: object?.asanaId ?? "")
             }
           object = nil
         }else {

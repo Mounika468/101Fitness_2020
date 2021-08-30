@@ -89,6 +89,7 @@ class FoodScanViewController: UIViewController {
         self.setUpView()
     }
     func setUpView() {
+        
         if self.isFromBarcodeScanner {
             
             self.foodNameTxt.isEnabled = false
@@ -135,7 +136,13 @@ class FoodScanViewController: UIViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm"
-        
+        var category = "Fitness"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         if self.servingSizeTxt.text?.count ?? 0 > 0 {
             if  Double(self.servingSizeTxt.text ?? "0") ?? 0.0 == 0.0 || Double(self.servingSizeTxt.text ?? "0") ?? 0 == 0 {
                 self.presentAlertWithTitle(title: "", message: "Please enter valid serving quantity", options: "OK") { (_) in
@@ -176,7 +183,7 @@ class FoodScanViewController: UIViewController {
                         ]
                     }
                     
-                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem, subscription_id: subscription_id)
+                    let postbody = AddNutritionixFoodPostBody(date: Date.getDateInFormat(format: "dd/MM/yyyy", date: ProgramDetails.programDetails.selectedWODate), trainee_id: UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!, mealType: self.mealType, foodItem: foodItem, subscription_id: subscription_id, category: category)
 
                     let jsonEncoder = JSONEncoder()
                     let jsonData = try! jsonEncoder.encode(postbody)

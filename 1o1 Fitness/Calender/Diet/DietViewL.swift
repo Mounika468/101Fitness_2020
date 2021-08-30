@@ -816,7 +816,7 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
            // serving = Double(foodItem.serving_qty?.recommended ?? 0.0)
             serving = Double(String(format: "%.2f", (foodItem.serving_qty?.recommended ?? 0.0))) ?? 0.0
             units = Double(foodItem.serving_weight_grams?.recommended ?? 0.0)
-            editedQuantity = Double(qty ?? "\(serving)")!
+            editedQuantity = Double(qty ?? "\(serving)") ?? 1
             if foodItem.createdBy == CreatedByTrainee.lowercased() {
                 if editedQuantity != 0 && editedQuantity >=  0.5 {
                     editedQuantity = editedQuantity - 0.5
@@ -860,7 +860,7 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
         if foodItem.foodStatus == WOStatus.complete {
             serving = Double(foodItem.serving_qty?.consumed ?? 0.0)
             units = Double(foodItem.serving_weight_grams?.consumed ?? 0.0)
-            editedQuantity = Double(qty ?? "\(serving)")!
+            editedQuantity = Double(qty ?? "\(serving)") ?? 1
            // editedQuantity = editedQuantity + Double(foodItem.serving_qty?.recommended ?? 0.0)
             editedQuantity = editedQuantity + 0.5
            // cell.qtyLbl.text = "\(editedQuantity) Serving (\(units) grms)"
@@ -877,7 +877,7 @@ extension DietViewL: UITableViewDelegate,UITableViewDataSource {
         }else {
             serving = Double(foodItem.serving_qty?.recommended ?? 0.0)
             units = Double(foodItem.serving_weight_grams?.recommended ?? 0.0)
-            editedQuantity = Double(qty ?? "\(serving)")!
+            editedQuantity = Double(qty ?? "\(serving)") ?? 1
           //  editedQuantity = editedQuantity +  serving
             editedQuantity = editedQuantity +  0.5
            // cell.qtyLbl.text = "\(editedQuantity) Serving (\(units) grms)"

@@ -572,18 +572,21 @@ struct YogaStatusUpdatePostBody: Codable {
    let asanaStatus: String
    let trainee_id: String
     let  subscription_id : String
+    let category: String
     init(program_id: String,
          asanaId: String,
          date:String,
          trainee_id: String,
          asanaStatus: String,
-         subscription_id : String)  {
+         subscription_id : String,
+         category: String)  {
         self.program_id = program_id
         self.asanaId = asanaId
         self.date = date
         self.trainee_id = trainee_id
         self.asanaStatus = asanaStatus
         self.subscription_id = subscription_id
+        self.category = category
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -593,5 +596,41 @@ struct YogaStatusUpdatePostBody: Codable {
         self.asanaStatus = try container.decode(String.self, forKey: .asanaStatus)
         self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
         self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+        self.category = try container.decode(String.self, forKey: .category)
+    }
+}
+struct AsanaUpdateSetsPostBody: Codable {
+    let program_id: String
+    let asanaId: String
+    let date: String
+ //  let week: String
+   var sets: [YogaSets]?
+   let trainee_id: String
+    let  subscription_id : String
+    let category: String
+    init(program_id: String,
+         asanaId: String,
+         date:String,
+         trainee_id: String,
+         sets: [YogaSets]?,subscription_id : String,
+        category: String)  {
+        
+        self.program_id = program_id
+        self.asanaId = asanaId
+        self.date = date
+        self.trainee_id = trainee_id
+        self.sets = sets
+        self.subscription_id = subscription_id
+        self.category = category
+    }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.program_id = try container.decode(String.self, forKey: .program_id)
+         self.asanaId = try container.decode(String.self, forKey: .asanaId)
+        self.date = try container.decode(String.self, forKey: .date)
+        self.sets = try container.decode([YogaSets].self, forKey: .sets)
+        self.trainee_id = try container.decode(String.self, forKey: .trainee_id)
+        self.subscription_id = try container.decode(String.self, forKey: .subscription_id)
+        self.category = try container.decode(String.self, forKey: .category)
     }
 }

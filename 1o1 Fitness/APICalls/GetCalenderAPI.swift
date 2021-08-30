@@ -127,7 +127,11 @@ final class GetDietByDateAPI: API
                      successHandler: @escaping (Diet?) -> Void,
                      errorHandler: @escaping (APIError) -> Void) {
         messageString = ""
-        let urlString = getNutriDietByDate + "?trainee_id=" + traineeId + "&date=" + date
+        var fitness = "Fitness"
+        if let fitnessType = UserDefaults.standard.string(forKey: "FitnessType") {
+            fitness = fitnessType
+        }
+        let urlString = getNutriDietByDate + "?trainee_id=" + traineeId + "&date=" + date + "&category=" + fitness
        
         let request = APIRequest(method: .get, url: urlString, parameters: nil, headers: header, dataParams: nil)
 

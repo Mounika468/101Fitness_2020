@@ -104,9 +104,15 @@ class CallViewController: UIViewController {
         if let id = UserDefaults.standard.string(forKey:  ProgramDetails.programDetails.subId) {
             ProgramDetails.programDetails.programId = id
         }
-        
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         let timeZone = TimeZone.current.identifier
-        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: self.slectedDate),"timezone":timeZone]
+        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: self.slectedDate),"timezone":timeZone,"category":category]
         let urlString = bookSlotForCall
         guard let url = URL(string: urlString) else {return}
         var request        = URLRequest(url: url)
@@ -209,8 +215,15 @@ class CallViewController: UIViewController {
               if let id = UserDefaults.standard.string(forKey:  ProgramDetails.programDetails.subId) {
                   ProgramDetails.programDetails.programId = id
               }
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
         let timeZone = TimeZone.current.identifier
-        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: self.slectedDate),"timezone":timeZone]
+        let postBody : [String: Any] = ["slotId": slotId,"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"date": Date.getDateInFormat(format: "yyyy-MM-dd", date: self.slectedDate),"timezone":timeZone,"category":category]
                 let urlString = cancelCall
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)
@@ -303,7 +316,14 @@ class CallViewController: UIViewController {
                   ProgramDetails.programDetails.programId = id
               }
         let timeZone = TimeZone.current.identifier
-        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"timezone":timeZone]
+        var category = "exercises"
+        switch FitnessProgramSelection.fitnessType.programType {
+        case .yoga:
+            category = "Yoga"
+        default:
+            category = "Fitness"
+        }
+        let postBody : [String: Any] = ["date": Date.getDateInFormat(format: "yyyy-MM-dd", date: date),"trainee_id":UserDefaults.standard.string(forKey: UserDefaultsKeys.subId)!,"timezone":timeZone,"category":category]
                 let urlString = getAllCallForTrainee
                 guard let url = URL(string: urlString) else {return}
                 var request        = URLRequest(url: url)

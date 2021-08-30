@@ -23,6 +23,7 @@ class AddressVC: UIViewController, UITextFieldDelegate {
     var selectedCountryId = ""
      var selectedCountry = ""
      var selectedStates = ""
+    var slotTime: String?
     @IBOutlet weak var postBtn: UIButton! {
         didSet {
             self.postBtn.backgroundColor = AppColours.topBarGreen
